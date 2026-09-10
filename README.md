@@ -28,6 +28,7 @@ Planning repository for prewarmed.org, a reference site on prewarmed sending inf
 | [`10-ROADMAP.md`](docs/plan/10-ROADMAP.md) | Fourteen weeks across three workstreams, phase gates, the contingency if data is late, and what in the schedule is unrealistic |
 | [`11-MEASUREMENT.md`](docs/plan/11-MEASUREMENT.md) | Eight measures with definitions, targets, and how each could be gamed |
 | [`12-RISKS.md`](docs/plan/12-RISKS.md) | Twelve risks ordered by expected damage, each with an early signal and an owner |
+| [`13-UI-SPEC.md`](docs/plan/13-UI-SPEC.md) | The interface itself: global chrome, page-by-page layout for every template, responsive and print behaviour, states, accessibility, and the component build order |
 
 ## Where to start reading
 
