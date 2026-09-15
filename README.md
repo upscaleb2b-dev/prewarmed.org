@@ -42,6 +42,7 @@ Planning repository for prewarmed.org, a reference site on prewarmed sending inf
 | [`19-SALES-RESEARCH.md`](docs/plan/19-SALES-RESEARCH.md) | The outbound practice vertical, bound to deliverability: twelve pages in scope and what is explicitly out |
 | [`20-URL-MAP-V2.md`](docs/plan/20-URL-MAP-V2.md) | The merged map, 292 URLs, new cannibalisation boundaries, and the verification cost that comes with the size |
 | [`21-ROADMAP-V2.md`](docs/plan/21-ROADMAP-V2.md) | Two parallel tracks over sixteen weeks, the six gates between them, staffing, and six contingencies |
+| [`22-RESOURCE-REGISTER.md`](docs/plan/22-RESOURCE-REGISTER.md) | Every citable WarmInboxes URL, the three roles one can play, the verification rule, and the quarantine for unverified claims |
 
 ## Where to start reading
 
