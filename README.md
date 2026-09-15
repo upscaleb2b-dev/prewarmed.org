@@ -30,6 +30,19 @@ Planning repository for prewarmed.org, a reference site on prewarmed sending inf
 | [`12-RISKS.md`](docs/plan/12-RISKS.md) | Twelve risks ordered by expected damage, each with an early signal and an owner |
 | [`13-UI-SPEC.md`](docs/plan/13-UI-SPEC.md) | The interface itself: global chrome, page-by-page layout for every template, responsive and print behaviour, states, accessibility, and the component build order |
 
+**The expanded organization** (added after the scope decision of 15 September 2026: five publishing programmes, affiliate revenue under the Wirecutter model, two parallel build tracks):
+
+| Document | What it answers |
+|---|---|
+| [`14-POSITIONING.md`](docs/plan/14-POSITIONING.md) | What the organization is, the five programmes, seven personas, the voice, the eight trust signals, the revised home page, and the consolidated intake list |
+| [`15-MONETISATION-AND-TRUST.md`](docs/plan/15-MONETISATION-AND-TRUST.md) | The seven affiliate rules, disclosure mechanics and markup, the affiliate policy page, revenue transparency, and the eight new build checks that enforce them |
+| [`16-TOOLS-HUB.md`](docs/plan/16-TOOLS-HUB.md) | The 39 check guides: why they are about the check and not the tool, the template, the anti-thin rules, the tool register intake, and dataset D11 |
+| [`17-VENDOR-COVERAGE.md`](docs/plan/17-VENDOR-COVERAGE.md) | Sequencers and the outbound stack: the published scoring rubric, the review template including the header test, page types, and the integration register |
+| [`18-DEVELOPER-DOCS.md`](docs/plan/18-DEVELOPER-DOCS.md) | The API and MCP programme: structure, reference conventions, eight MCP design principles for sending infrastructure, and agent recipes |
+| [`19-SALES-RESEARCH.md`](docs/plan/19-SALES-RESEARCH.md) | The outbound practice vertical, bound to deliverability: twelve pages in scope and what is explicitly out |
+| [`20-URL-MAP-V2.md`](docs/plan/20-URL-MAP-V2.md) | The merged map, 292 URLs, new cannibalisation boundaries, and the verification cost that comes with the size |
+| [`21-ROADMAP-V2.md`](docs/plan/21-ROADMAP-V2.md) | Two parallel tracks over sixteen weeks, the six gates between them, staffing, and six contingencies |
+
 ## Where to start reading
 
 1. `01-DECISIONS.md`, sections D-01, D-02 and D-06. Those three gate everything.
@@ -37,6 +50,10 @@ Planning repository for prewarmed.org, a reference site on prewarmed sending inf
 3. `03-PAGE-BRIEFS.md` for the standard every page is held to.
 
 ## What changed from the original plan
+
+**15 September 2026, scope decision.** prewarmed.org became a research organization with five publishing programmes rather than a single reference site. Affiliate revenue is now permitted under the rules in `15-MONETISATION-AND-TRUST.md`, which replaced the outright ban in section 8 of the editorial standards. The site grows from 169 to roughly 292 URLs and builds on two parallel tracks. Documents 14 to 21 cover the expansion; documents 1 to 13 remain valid for programmes 1 and 2.
+
+### From the first expansion
 
 - Three pages added to the topic map: H17 (are prewarmed inboxes against provider terms), DC9 (when not to buy), B13 (incident runbook for a burned pod). Rationale in `01-DECISIONS.md` D-09 and `02-URL-MAP.md`.
 - R9, the price benchmark, is promoted into phase 2 and made the contingency launch report, because it needs no customer data.

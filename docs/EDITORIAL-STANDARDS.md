@@ -69,10 +69,17 @@ A corrections policy is published. Readers can report errors by email. Confirmed
 
 ## 8. Commercial separation
 
-- WarmInboxes is linked where it is the source of data or the natural next step for the decision at hand. Target one contextual link per page.
-- No page recommends WarmInboxes as the answer to a question the data does not support. If the data shows a case where prewarmed infrastructure is the wrong choice (one-off sends under a threshold, a recipient mix that behaves differently, a compliance regime that forbids the use case), the page says so.
+Amended 15 September 2026. The previous version banned affiliate links outright. The site now has two revenue streams and both are disclosed where they appear: we operate WarmInboxes, and we earn affiliate commission on some of the software we review. The operating detail is in `plan/15-MONETISATION-AND-TRUST.md`; the rules below are the standard.
+
+- Commercial terms never influence a ranking, a score or a recommendation. Vendors are scored against the published rubric before any commercial conversation, and the score carries its date. A rate change never triggers a content change; a product change does.
+- Research reports, dataset pages and trust pages carry no commercial links of any kind.
+- Affiliate links are marked at the point of the link, carry `rel="sponsored"`, and appear only on pages that also carry the disclosure notice above the first such link. Every programme we are in is listed publicly at `/affiliate-policy/` with its rate band.
+- Every comparison includes at least one option we earn nothing from, labelled. If the category has none, the page says so.
+- WarmInboxes is linked where it is the source of data or the natural next step for the decision at hand. Target one contextual link per page. Where it competes with a vendor under review, the ownership conflict is stated in the body next to the first mention, and WarmInboxes is scored on the same rubric as everyone else.
+- No page recommends WarmInboxes, or any reviewed product, as the answer to a question the evidence does not support. If the data shows a case where prewarmed infrastructure is the wrong choice (one-off sends under a threshold, a recipient mix that behaves differently, a compliance regime that forbids the use case), the page says so.
 - Vendor evaluation pages (DC4, B9) apply the same disqualifying questions to WarmInboxes and publish the answers.
-- No affiliate links to other vendors. No sponsored content.
+- No paid placement, no sponsored content, no paid or expedited review, no paid guest posts, no link buying or exchange. Applies to us buying and to others buying from us.
+- Once a year we publish the revenue mix: the share from WarmInboxes, the share from affiliate commission, and the three vendors that generated the most commission.
 
 ## 9. Disclosure text
 
@@ -95,5 +102,6 @@ Variant B (independent site with a data partnership):
 - [ ] Glossary terms linked on first use; forward link to a decision guide or tool; back link from the relevant pillar
 - [ ] Banned-phrase scan passes (automated in the build)
 - [ ] Author, reviewer, dates, changelog, disclosure line present
+- [ ] If the page carries affiliate links: notice above the first one, marker on each, `rel="sponsored"`, every vendor in the programme register, at least one non-affiliate option present
 - [ ] Article and FAQ schema validated; title is the question; slug is four to six words
 - [ ] Read aloud once; any sentence that could appear on a competitor's site unchanged is rewritten or deleted
