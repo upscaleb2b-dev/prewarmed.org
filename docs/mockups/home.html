@@ -261,8 +261,8 @@ footer{border-top:2px solid var(--ink); padding-block:36px 52px}
             </div>
             <div class="field">
               <label for="perday">Sends / inbox / day</label>
-              <input id="perday" type="number" min="1" max="200" step="1" value="40" inputmode="numeric">
-              <span class="hint">your target</span>
+              <input id="perday" type="number" min="1" max="200" step="1" value="15" inputmode="numeric">
+              <span class="hint meas">we recommend 15</span>
             </div>
             <div class="field">
               <label for="cycle">Replacement cycle</label>
@@ -282,7 +282,7 @@ footer{border-top:2px solid var(--ink); padding-block:36px 52px}
               <p id="sentence">Nearly a quarter of your annual sending capacity is spent warming domains rather than sending to prospects.</p>
               <div class="mono">
                 inbox-days lost per year &nbsp;<b id="days">2,520</b><br>
-                emails not sent &nbsp;<b id="emails">100,800</b><br>
+                emails not sent &nbsp;<b id="emails">37,800</b><br>
                 replacements per inbox per year &nbsp;<b id="reps">4.0</b>
               </div>
             </div>
@@ -496,7 +496,7 @@ footer{border-top:2px solid var(--ink); padding-block:36px 52px}
     return 'A small share of your capacity goes on warming. At this replacement cycle the tax is manageable.';
   }
   function calc(){
-    var n=num(el.inboxes,1,5000,30), spd=num(el.perday,1,200,40),
+    var n=num(el.inboxes,1,5000,30), spd=num(el.perday,1,200,15),
         cyc=num(el.cycle,1,36,3), w=num(el.warm,0,90,21);
     var perYear=12/cyc;
     var lost=n*perYear*w;
