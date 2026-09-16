@@ -1,0 +1,513 @@
+<title>prewarmed.org</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* ---- tokens: light / green is the base set ---- */
+:root{
+  --ground:#f7f9f7; --ground-2:#eef2ef; --ground-3:#e4eae6;
+  --rule:#d6ded8; --rule-2:#b4c0b8;
+  --ink:#111815; --ink-2:#454f49; --ink-3:#6e7a73;
+  --accent:#14624a; --accent-2:#0e4a37; --accent-wash:#e7f0ec;
+  --pending:#8a6a12; --pending-wash:#f6efdc;
+  --shadow:0 1px 0 rgba(17,24,21,.04);
+}
+body[data-palette="blue"]{
+  --ground:#f6f8fb; --ground-2:#eceff5; --ground-3:#e1e7f0;
+  --rule:#d5dce6; --rule-2:#b1bcca;
+  --ink:#0f141b; --ink-2:#434c58; --ink-3:#6b7583;
+  --accent:#1a5490; --accent-2:#113a66; --accent-wash:#e6edf6;
+  --pending:#8a6a12; --pending-wash:#f5eedb;
+  --shadow:0 1px 0 rgba(15,20,27,.04);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]) body[data-palette="green"],
+  :root:not([data-theme="light"]) body:not([data-palette="blue"]){
+    --ground:#0d1210; --ground-2:#141b18; --ground-3:#1c241f;
+    --rule:#242f29; --rule-2:#3b4841;
+    --ink:#eef3f0; --ink-2:#b9c4be; --ink-3:#8a968f;
+    --accent:#56c79c; --accent-2:#7ad9b3; --accent-wash:#13241d;
+    --pending:#d9b45a; --pending-wash:#241d10;
+    --shadow:none;
+  }
+  :root:not([data-theme="light"]) body[data-palette="blue"]{
+    --ground:#0b0f15; --ground-2:#121822; --ground-3:#19212d;
+    --rule:#212a37; --rule-2:#36414f;
+    --ink:#eef2f7; --ink-2:#b6c0cc; --ink-3:#87919e;
+    --accent:#66aef0; --accent-2:#8cc4f5; --accent-wash:#0f1e2d;
+    --pending:#d9b45a; --pending-wash:#221c0f;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"] body[data-palette="green"],
+:root[data-theme="dark"] body:not([data-palette="blue"]){
+  --ground:#0d1210; --ground-2:#141b18; --ground-3:#1c241f;
+  --rule:#242f29; --rule-2:#3b4841;
+  --ink:#eef3f0; --ink-2:#b9c4be; --ink-3:#8a968f;
+  --accent:#56c79c; --accent-2:#7ad9b3; --accent-wash:#13241d;
+  --pending:#d9b45a; --pending-wash:#241d10;
+  --shadow:none;
+}
+:root[data-theme="dark"] body[data-palette="blue"]{
+  --ground:#0b0f15; --ground-2:#121822; --ground-3:#19212d;
+  --rule:#212a37; --rule-2:#36414f;
+  --ink:#eef2f7; --ink-2:#b6c0cc; --ink-3:#87919e;
+  --accent:#66aef0; --accent-2:#8cc4f5; --accent-wash:#0f1e2d;
+  --pending:#d9b45a; --pending-wash:#221c0f;
+  --shadow:none;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
+  font-size:17px; line-height:1.62;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.ui{font-family:Archivo,"Helvetica Neue",Arial,sans-serif}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+a{color:var(--accent); text-decoration:none; text-underline-offset:3px}
+a:hover{text-decoration:underline}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:2px}
+h1,h2,h3{text-wrap:balance}
+
+/* ---- mockup-only control ---- */
+.mockbar{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+  display:flex; gap:12px; align-items:center; flex-wrap:wrap;
+  background:var(--ink); color:var(--ground);
+  padding:8px 16px; font-family:Archivo,sans-serif; font-size:11px;
+  letter-spacing:.09em; text-transform:uppercase;
+}
+.mockbar span{opacity:.62}
+.swatches{display:flex; gap:6px; margin-left:auto}
+.swatch{
+  border:1px solid rgba(255,255,255,.28); background:transparent; color:inherit;
+  font:inherit; letter-spacing:.09em; text-transform:uppercase;
+  padding:4px 11px; cursor:pointer; border-radius:2px;
+  display:inline-flex; align-items:center; gap:6px;
+}
+.swatch[aria-pressed="true"]{background:var(--ground); color:var(--ink); border-color:var(--ground)}
+.dot{width:9px; height:9px; border-radius:50%; display:inline-block}
+.dot.g{background:#2e9b78} .dot.b{background:#3f8ad4}
+
+/* ---- shell ---- */
+.wrap{max-width:1180px; margin:0 auto; padding-inline:20px}
+.rail{display:grid; grid-template-columns:150px minmax(0,1fr); gap:44px; align-items:start}
+.rail > .lab{
+  font-family:Archivo,sans-serif; font-size:10.5px; letter-spacing:.13em;
+  text-transform:uppercase; color:var(--ink-3); padding-top:7px;
+  border-top:2px solid var(--ink); line-height:1.5;
+}
+.rail > .lab b{display:block; color:var(--ink); font-weight:600}
+@media (max-width:860px){
+  .rail{grid-template-columns:1fr; gap:14px}
+  .rail > .lab{border-top:none; padding-top:0}
+}
+section{padding-block:52px; border-top:1px solid var(--rule)}
+section:first-of-type{border-top:none}
+
+/* ---- masthead ---- */
+header.top{padding-block:26px 22px}
+.brandrow{display:flex; align-items:flex-end; gap:18px; flex-wrap:wrap}
+.brand{font-family:Archivo,sans-serif; font-weight:700; font-size:23px; letter-spacing:-.022em; color:var(--ink)}
+.brand em{font-style:normal; color:var(--accent)}
+.tagline{font-size:13.5px; color:var(--ink-2); line-height:1.35; max-width:30ch}
+nav.main{margin-top:20px; display:flex; gap:22px; flex-wrap:wrap; border-top:1px solid var(--rule); padding-top:11px}
+nav.main a{
+  font-family:Archivo,sans-serif; font-size:12.5px; font-weight:500;
+  letter-spacing:.02em; color:var(--ink-2); padding-bottom:2px;
+}
+nav.main a:hover{color:var(--accent); text-decoration:none; border-bottom:2px solid var(--accent)}
+nav.main a[aria-current]{color:var(--ink); border-bottom:2px solid var(--accent)}
+
+/* ---- thesis ---- */
+.thesis h1{
+  font-size:clamp(30px,2.1rem + 1.9vw,50px); line-height:1.08;
+  letter-spacing:-.028em; font-weight:700; margin:0 0 20px; max-width:19ch;
+}
+.thesis .lede{font-size:19px; line-height:1.58; color:var(--ink-2); max-width:62ch; margin:0 0 22px}
+.thesis .lede strong{color:var(--ink); font-weight:600}
+.covers{display:flex; flex-wrap:wrap; gap:7px; margin-bottom:26px}
+.covers li{
+  list-style:none; font-family:Archivo,sans-serif; font-size:11px; font-weight:500;
+  letter-spacing:.07em; text-transform:uppercase; color:var(--ink-2);
+  border:1px solid var(--rule-2); border-radius:2px; padding:4px 9px;
+}
+.deskline{
+  border:1px solid var(--rule); background:var(--ground-2); border-radius:3px;
+  padding:11px 14px; font-size:12px; line-height:2.05; color:var(--ink-2);
+  overflow-x:auto; white-space:nowrap;
+}
+.deskline b{color:var(--ink); font-weight:500}
+.deskline .ok{color:var(--accent)}
+.deskline .pend{color:var(--pending)}
+
+/* ---- funding note, front and centre ---- */
+.funding{
+  margin-top:24px; border-left:3px solid var(--accent); background:var(--accent-wash);
+  padding:15px 18px; max-width:66ch; font-size:15.5px; line-height:1.55; color:var(--ink-2);
+}
+.funding b{color:var(--ink); font-weight:600}
+.funding .mono{font-size:12px}
+
+/* ---- situation rows ---- */
+h2{font-size:14px; font-weight:600; letter-spacing:.1em; text-transform:uppercase; color:var(--ink); margin:0 0 6px}
+.sectionintro{font-size:15.5px; color:var(--ink-3); margin:0 0 26px; max-width:60ch}
+.rows{display:flex; flex-direction:column}
+.row{
+  display:grid; grid-template-columns:minmax(0,1fr) auto; gap:18px; align-items:baseline;
+  padding:17px 0; border-bottom:1px solid var(--rule); text-decoration:none;
+}
+.row:hover{text-decoration:none}
+.row:hover .rowq{color:var(--accent)}
+.rowq{font-size:18.5px; line-height:1.4; color:var(--ink); font-weight:600; font-family:Archivo,sans-serif; letter-spacing:-.012em}
+.rowa{font-size:15.5px; color:var(--ink-2); margin-top:5px; max-width:70ch}
+.rowmeta{
+  font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3);
+  white-space:nowrap; letter-spacing:.02em;
+}
+.arrow{color:var(--accent); font-family:Archivo,sans-serif}
+
+/* ---- research ---- */
+.flagship{
+  border:1px solid var(--rule-2); border-radius:3px; background:var(--ground-2);
+  padding:24px 26px; margin-bottom:6px; box-shadow:var(--shadow);
+}
+.bignum{
+  font-family:Archivo,sans-serif; font-weight:700; letter-spacing:-.035em;
+  font-size:clamp(46px,3rem + 3vw,78px); line-height:1; color:var(--accent);
+}
+.bignum.isPending{color:var(--pending); background:var(--pending-wash); padding:0 .12em; border-radius:3px}
+.bigcap{font-size:18px; line-height:1.5; color:var(--ink); max-width:52ch; margin:13px 0 0; font-weight:600}
+.provenance{
+  margin-top:14px; padding-top:12px; border-top:1px solid var(--rule);
+  font-family:"IBM Plex Mono",monospace; font-size:11.5px; color:var(--ink-3);
+  display:flex; flex-wrap:wrap; gap:6px 16px;
+}
+.provenance .tag{color:var(--pending); border:1px solid var(--pending); border-radius:2px; padding:0 5px}
+
+/* ---- checks grid ---- */
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(232px,1fr)); gap:0 34px}
+.check{
+  display:flex; justify-content:space-between; gap:12px; align-items:baseline;
+  padding:12px 0; border-bottom:1px solid var(--rule); font-size:16px;
+}
+.check .k{font-family:Archivo,sans-serif; font-size:15px; font-weight:500; color:var(--ink)}
+.check:hover .k{color:var(--accent)}
+.check .t{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3); white-space:nowrap}
+
+/* ---- question index ---- */
+.qlist{columns:2; column-gap:38px; margin:0; padding:0}
+@media (max-width:720px){.qlist{columns:1}}
+.qlist li{list-style:none; break-inside:avoid; padding:7px 0; border-bottom:1px solid var(--rule); font-size:16.5px}
+
+/* ---- stack ---- */
+.cats{display:grid; grid-template-columns:repeat(auto-fit,minmax(190px,1fr)); gap:1px; background:var(--rule); border:1px solid var(--rule)}
+.cat{background:var(--ground); padding:16px 17px}
+.cat h3{font-size:14.5px; margin:0 0 5px; font-weight:600; letter-spacing:-.005em}
+.cat p{margin:0; font-size:14px; color:var(--ink-3); line-height:1.45}
+.affnote{
+  margin-top:14px; font-size:13.5px; color:var(--ink-2);
+  border:1px dashed var(--rule-2); padding:10px 13px; border-radius:3px; max-width:70ch;
+}
+.aff{
+  font-family:"IBM Plex Mono",monospace; font-size:9.5px; vertical-align:super;
+  color:var(--pending); border:1px solid var(--pending); border-radius:2px;
+  padding:0 3px; margin-left:3px; letter-spacing:.04em;
+}
+
+/* ---- dev ---- */
+.codeline{
+  background:var(--ink); color:var(--ground); border-radius:3px; padding:13px 15px;
+  font-family:"IBM Plex Mono",monospace; font-size:12.5px; overflow-x:auto; white-space:pre;
+  line-height:1.75;
+}
+.codeline .c{opacity:.55}
+
+/* ---- trust ---- */
+.trust{display:grid; grid-template-columns:repeat(auto-fit,minmax(215px,1fr)); gap:26px 34px}
+.trust h3{font-size:13px; letter-spacing:.07em; text-transform:uppercase; margin:0 0 7px; color:var(--ink); font-weight:600}
+.trust p{margin:0; font-size:15px; color:var(--ink-2); line-height:1.5}
+
+/* ---- footer ---- */
+footer{border-top:2px solid var(--ink); margin-top:14px; padding-block:34px 46px}
+.fgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(165px,1fr)); gap:26px 34px; margin-bottom:28px}
+.fgrid h4{font-family:Archivo,sans-serif; font-size:10.5px; letter-spacing:.13em; text-transform:uppercase; color:var(--ink-3); margin:0 0 9px; font-weight:600}
+.fgrid a{display:block; font-size:14.5px; padding:3px 0; color:var(--ink-2)}
+.fgrid a:hover{color:var(--accent)}
+.disclosure{font-size:14px; color:var(--ink-2); max-width:76ch; line-height:1.55; border-top:1px solid var(--rule); padding-top:18px}
+.disclosure b{color:var(--ink); font-weight:600}
+.legend{margin-top:16px; font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); line-height:1.7}
+@media (prefers-reduced-motion:reduce){*{transition:none!important; animation:none!important}}
+</style>
+
+<div class="mockbar">
+  <span>Mockup control, not part of the design</span>
+  <div class="swatches">
+    <button class="swatch" id="pal-green" aria-pressed="true"><i class="dot g"></i>Green</button>
+    <button class="swatch" id="pal-blue" aria-pressed="false"><i class="dot b"></i>Blue</button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <header class="top">
+    <div class="brandrow">
+      <div class="brand">prewarmed<em>.org</em></div>
+      <div class="tagline">Independent deliverability research. Free, ungated, no account.</div>
+    </div>
+    <nav class="main">
+      <a href="#situation" aria-current="page">Start here</a>
+      <a href="#questions">How it works</a>
+      <a href="#situation">Decide</a>
+      <a href="#checks">Checks</a>
+      <a href="#stack">The stack</a>
+      <a href="#research">Research</a>
+      <a href="#dev">Developers</a>
+    </nav>
+  </header>
+
+  <section class="thesis" style="border-top:none; padding-top:34px">
+    <div class="rail">
+      <div class="lab"><b>The desk</b>Est. 2026</div>
+      <div>
+        <h1>We test cold email infrastructure and publish what we find.</h1>
+        <p class="lede">Placement cohorts, decay curves, burn causes and provider comparisons, with sample sizes, dates and method attached to every number. Written for people who send from <strong>bought or self-warmed domains</strong> and cannot afford to learn this by burning them.</p>
+        <ul class="covers">
+          <li>Deliverability</li><li>Domain warming</li><li>Aged domains</li>
+          <li>Prewarmed inboxes</li><li>B2B cold email</li><li>B2C cold email</li>
+        </ul>
+        <div class="deskline mono">
+          <b>DESK STATUS</b> &nbsp;·&nbsp; methodology <span class="ok">published</span> &nbsp;·&nbsp; D1 placement cohort <span class="pend">collecting</span> &nbsp;·&nbsp; D3 burn events <span class="pend">collecting</span> &nbsp;·&nbsp; R1 <span class="pend">pre-registered</span> &nbsp;·&nbsp; corrections <b>0</b> &nbsp;·&nbsp; pages verified <b>0 / 0</b>
+        </div>
+        <div class="funding">
+          <b>How this is funded.</b> Everything here is free and nothing is gated. We pay for it by operating WarmInboxes, which sells prewarmed inboxes, and by affiliate commission on some of the software we review. Both are marked wherever they appear. <a href="#trust">What that means for what you read</a>.
+          <div class="mono" style="margin-top:8px; color:var(--ink-3)">Research pages carry no commercial links of any kind.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="situation">
+    <div class="rail">
+      <div class="lab"><b>Situation</b>Five ways in</div>
+      <div>
+        <h2>Start with what is actually happening</h2>
+        <p class="sectionintro">Each of these ends in a decision, not a definition.</p>
+        <div class="rows">
+          <a class="row" href="#">
+            <div>
+              <div class="rowq">My emails are going to spam and I do not know why</div>
+              <div class="rowa">Work the five layers in order: authentication, domain and link reputation, list quality, volume behaviour, then content. Most teams start at content and lose a week.</div>
+            </div>
+            <div class="rowmeta">B2C · B2B <span class="arrow">→</span></div>
+          </a>
+          <a class="row" href="#">
+            <div>
+              <div class="rowq">I am about to buy domains or inboxes and do not want to be sold to</div>
+              <div class="rowa">What prewarmed has to mean to count, the six things that change the price, and the twenty questions that disqualify a vendor, applied to us as well.</div>
+            </div>
+            <div class="rowmeta">B2C <span class="arrow">→</span></div>
+          </a>
+          <a class="row" href="#">
+            <div>
+              <div class="rowq">I run client campaigns and a burned pod costs me meetings</div>
+              <div class="rowa">Capacity model, isolation per client, rotation and reserve sizing, replacement cadence, and the monitoring thresholds that stop a campaign before a client notices.</div>
+            </div>
+            <div class="rowmeta">B2B · agency <span class="arrow">→</span></div>
+          </a>
+          <a class="row" href="#">
+            <div>
+              <div class="rowq">I have to keep outbound away from our corporate domain</div>
+              <div class="rowa">Separation, DMARC policy for sending domains, and a governance note you can hand to IT without translating it first.</div>
+            </div>
+            <div class="rowmeta">B2B · RevOps <span class="arrow">→</span></div>
+          </a>
+          <a class="row" href="#">
+            <div>
+              <div class="rowq">I think prewarmed domains are a scam and want the evidence</div>
+              <div class="rowa">What reputation is actually bound to, what survives a change of owner, how long the advantage lasts, and the conditions under which prewarming buys you nothing.</div>
+            </div>
+            <div class="rowmeta">sceptic <span class="arrow">→</span></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="research">
+    <div class="rail">
+      <div class="lab"><b>Research</b>Method first</div>
+      <div>
+        <h2>From the desk</h2>
+        <p class="sectionintro">Every report carries its question pre-registered before analysis, the population and exclusions, confidence intervals, a committed analysis script and a named reviewer who re-ran it.</p>
+
+        <div class="flagship">
+          <div class="bignum isPending">▒▒.▒ pts</div>
+          <p class="bigcap">Day-one primary inbox placement, prewarmed domains against domains registered the same week.</p>
+          <div class="provenance mono">
+            <span>R1 v1.0</span><span>dataset D1</span><span>n = ▒,▒▒▒ domains</span><span>seed tests</span>
+            <span class="tag">awaiting first data cut</span>
+          </div>
+        </div>
+
+        <div class="rows">
+          <a class="row" href="#">
+            <div>
+              <div class="rowq">How fast placement falls when a warmed domain goes idle</div>
+              <div class="rowa">The decay curve, split by whether warmup activity continued, restricted to domains that were placing well when they went quiet.</div>
+            </div>
+            <div class="rowmeta">R2 · D2 <span class="arrow">→</span></div>
+          </a>
+          <a class="row" href="#">
+            <div>
+              <div class="rowq">Why domains burn, causes ranked with an inter-rater agreement figure</div>
+              <div class="rowa">Attribution rubric published, confirmed and probable reported separately from speculative, and the unknown share stated in the headline rather than buried.</div>
+            </div>
+            <div class="rowmeta">R3 · D3 <span class="arrow">→</span></div>
+          </a>
+          <a class="row" href="#">
+            <div>
+              <div class="rowq">What a prewarmed inbox costs across the market</div>
+              <div class="rowa">Public pricing pages only, screenshot-archived on the observation date, every vendor on the same terms including ours.</div>
+            </div>
+            <div class="rowmeta">R9 · D9 <span class="arrow">→</span></div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="checks">
+    <div class="rail">
+      <div class="lab"><b>Checks</b>31 diagnostics</div>
+      <div>
+        <h2>Run a check</h2>
+        <p class="sectionintro">What each one tells you, what it cannot tell you, and what to do with every result it can return.</p>
+        <div class="grid">
+          <a class="check" href="#"><span class="k">Is my domain blacklisted?</span><span class="t">20+ lists</span></a>
+          <a class="check" href="#"><span class="k">Is my SPF record valid?</span><span class="t">lookup count</span></a>
+          <a class="check" href="#"><span class="k">Is my DKIM signing?</span><span class="t">26 selectors</span></a>
+          <a class="check" href="#"><span class="k">What does my DMARC say?</span><span class="t">tag by tag</span></a>
+          <a class="check" href="#"><span class="k">Why did Outlook junk this?</span><span class="t">SCL</span></a>
+          <a class="check" href="#"><span class="k">What does this bounce mean?</span><span class="t">4xx / 5xx</span></a>
+          <a class="check" href="#"><span class="k">How do I read these headers?</span><span class="t">hop by hop</span></a>
+          <a class="check" href="#"><span class="k">How many inboxes do I need?</span><span class="t">calculator</span></a>
+          <a class="check" href="#"><span class="k">Has this domain been used before?</span><span class="t">drop history</span></a>
+          <a class="check" href="#"><span class="k">When does my domain expire?</span><span class="t">fleet check</span></a>
+          <a class="check" href="#"><span class="k">Is my tracking domain shared?</span><span class="t">CNAME chain</span></a>
+          <a class="check" href="#"><span class="k">Everything, before you send</span><span class="t">ordered run</span></a>
+        </div>
+        <div class="deskline mono" style="margin-top:20px">
+          <b>WORKED EXAMPLE</b> &nbsp; v=spf1 include:_spf.google.com include:sendgrid.net include:spf.protection.outlook.com ~all &nbsp;→&nbsp; <span class="pend">11 lookups, PermError</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="questions">
+    <div class="rail">
+      <div class="lab"><b>Mechanics</b>Asked before buying</div>
+      <div>
+        <h2>The questions people actually ask</h2>
+        <p class="sectionintro">Answered in the first hundred words, then earned over the rest of the page.</p>
+        <ul class="qlist">
+          <li><a href="#">Does domain reputation survive a change of owner?</a></li>
+          <li><a href="#">How long does a prewarmed domain stay warm?</a></li>
+          <li><a href="#">Can I cold email from my existing Google Workspace?</a></li>
+          <li><a href="#">How many emails per day from a new domain?</a></li>
+          <li><a href="#">How many inboxes per domain?</a></li>
+          <li><a href="#">Aged, fresh or prewarmed: which am I being sold?</a></li>
+          <li><a href="#">Should I keep warmup running after buying?</a></li>
+          <li><a href="#">Google Workspace, Microsoft 365 or Azure?</a></li>
+          <li><a href="#">What should a prewarmed inbox cost?</a></li>
+          <li><a href="#">Which TLD, and does it actually matter?</a></li>
+          <li><a href="#">Is buying inboxes against provider terms?</a></li>
+          <li><a href="#">When is prewarmed infrastructure the wrong purchase?</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="stack">
+    <div class="rail">
+      <div class="lab"><b>The stack</b>Scored, then written</div>
+      <div>
+        <h2>What you send with</h2>
+        <p class="sectionintro">Tested by hand on real inboxes, including reading the raw headers of a message sent through each platform. Scored against a rubric published before any vendor was contacted.</p>
+        <div class="cats">
+          <div class="cat"><h3>Sequencers<span class="aff">aff</span></h3><p>Throttling, rotation, tracking domains, and what breaks at 200 inboxes.</p></div>
+          <div class="cat"><h3>Warmup tools<span class="aff">aff</span></h3><p>What the engagement actually signals, and how well it predicts a real campaign.</p></div>
+          <div class="cat"><h3>Verification<span class="aff">aff</span></h3><p>Catch-all handling, false positive rates, and cost per usable address.</p></div>
+          <div class="cat"><h3>Monitoring</h3><p>Seed testing, Postmaster, SNDS, and what each one cannot see.</p></div>
+          <div class="cat"><h3>Inbox providers</h3><p>We sell here. The conflict is stated in the body and we are scored on the same rubric.</p></div>
+        </div>
+        <p class="affnote">Links marked <span class="aff">aff</span> earn us a commission. It does not affect scores, and a rate change has never changed a ranking. Every comparison includes at least one option we earn nothing from, labelled. <a href="#">Every programme we are in, with rates</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="dev">
+    <div class="rail">
+      <div class="lab"><b>Developers</b>API &amp; MCP</div>
+      <div>
+        <h2>Build on it</h2>
+        <p class="sectionintro">Provision, monitor and rotate infrastructure in code, or give an assistant scoped access to it. Including the part nobody documents: what an agent should not be allowed to do with sending infrastructure.</p>
+        <div class="codeline"><span class="c"># audit authentication across a domain fleet</span>
+$ prewarmed mcp add warminboxes
+<span class="c">→ 11 tools · 8 read-only · 3 write, dry-run supported</span>
+
+<span class="c"># "which of my domains fail DMARC alignment?"</span>
+<span class="c">→ 4 of 37 · spf=pass dkim=fail dmarc=fail · report exported</span></div>
+        <div class="rows" style="margin-top:8px">
+          <a class="row" href="#"><div><div class="rowq">API reference</div><div class="rowa">Generated from the OpenAPI spec, with idempotency and webhook signature verification documented properly.</div></div><div class="rowmeta"><span class="arrow">→</span></div></a>
+          <a class="row" href="#"><div><div class="rowq">MCP server, tools and safety</div><div class="rowa">Every tool, what it touches, its blast radius, and why write operations require confirmation.</div></div><div class="rowmeta"><span class="arrow">→</span></div></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="trust">
+    <div class="rail">
+      <div class="lab"><b>Standards</b>How to check us</div>
+      <div>
+        <h2>How this site works</h2>
+        <div class="trust">
+          <div><h3>Named, and reviewed</h3><p>Every page carries an author and a reviewer who did not write it. For research, the reviewer re-runs the analysis from the committed script before sign-off.</p></div>
+          <div><h3>Dated and re-verified</h3><p>Published date, last-verified date and the verification interval sit at the top of every page. A page past its interval fails our build rather than going quietly stale.</p></div>
+          <div><h3>Corrections in public</h3><p>Confirmed errors are fixed within five working days and logged with what was wrong and what changed. A research site with no corrections is one nobody is checking.</p></div>
+          <div><h3>Where the money comes from</h3><p>We operate WarmInboxes and earn affiliate commission on some software. Published in full, with rates, and reported annually as a revenue mix.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="fgrid">
+      <div><h4>Start</h4><a href="#">Fundamentals</a><a href="#">How prewarming works</a><a href="#">Decision guides</a><a href="#">For teams</a></div>
+      <div><h4>Reference</h4><a href="#">Deliverability</a><a href="#">Outbound practice</a><a href="#">Checks</a><a href="#">Glossary</a></div>
+      <div><h4>Research</h4><a href="#">Reports</a><a href="#">Datasets</a><a href="#">Methodology</a><a href="#">The Prewarmed Index</a></div>
+      <div><h4>Standards</h4><a href="#">Editorial policy</a><a href="#">Corrections</a><a href="#">Affiliate policy</a><a href="#">Disclosure</a><a href="#">About</a></div>
+      <div><h4>Follow</h4><a href="#">Research feed</a><a href="#">Changelog feed</a><a href="#">How to cite us</a><a href="#">Chart licence, CC BY 4.0</a></div>
+    </div>
+    <p class="disclosure"><b>Disclosure.</b> prewarmed.org is published by the team that operates WarmInboxes, a provider of prewarmed domains and inboxes. The research here is built from that infrastructure and described in full on the methodology page. We sell the thing we write about; the editorial standards explain how we keep the analysis honest, and where our data cannot answer a question we say so. Corrections: <span class="mono">corrections@prewarmed.org</span>, answered within five working days.</p>
+    <p class="legend">▒ marks a figure awaiting its first data cut. Nothing on this page is a published number yet.<br>Mockup for design review. Copy is real; statistics are deliberately unset.</p>
+  </footer>
+
+</div>
+
+<script>
+(function(){
+  var body = document.body, g = document.getElementById('pal-green'), b = document.getElementById('pal-blue');
+  function set(p){
+    body.setAttribute('data-palette', p);
+    g.setAttribute('aria-pressed', String(p === 'green'));
+    b.setAttribute('aria-pressed', String(p === 'blue'));
+    try { localStorage.setItem('pw-palette', p); } catch (e) {}
+  }
+  var saved = 'green';
+  try { saved = localStorage.getItem('pw-palette') || 'green'; } catch (e) {}
+  set(saved === 'blue' ? 'blue' : 'green');
+  g.addEventListener('click', function(){ set('green'); });
+  b.addEventListener('click', function(){ set('blue'); });
+})();
+</script>
