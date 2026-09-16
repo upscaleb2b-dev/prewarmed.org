@@ -2,7 +2,9 @@
 
 Commissioning briefs for articles on prewarmed.org that link to WarmInboxes tools, playbooks and product pages. One brief per article. Every brief is writable as it stands: it carries the title, the search intent, the thesis in a paragraph, the outline, the link target with its placement, and the existing WarmInboxes post that covers adjacent ground.
 
-**124 briefs.** 93 across the 31 tools, 9 across the 3 playbooks, 6 across the 2 reading hubs, 16 against product and hub pages.
+**136 briefs, of which 85 are live after the commercial scoring pass.** Read `COMMERCIAL-SCORING.md` first: it says which briefs are cut, which are merged, which supersede an existing WarmInboxes post, and which twelve were added. Then work the tracker, filtered to `verdict` in keep, supersede or keep-authority.
+
+Do not write a brief whose verdict is `cut` or `merge`. They are left in this file so the reasoning is visible, not because they are commissioned.
 
 ---
 
@@ -1156,3 +1158,104 @@ Sixteen briefs against commercial destinations. Every one of these is a decision
 **Outline** What reviews can tell you / what they cannot / the questions to ask a referee / verifying a claim independently / what we would want you to check about us
 **Link** One.
 **Overlap** `/blog/buy-pre-warmed-emails-reddit-2026` and the Reddit pages. Cite.
+
+---
+
+# Cluster 9. New commercial pages
+
+Added in the commercial scoring pass (`COMMERCIAL-SCORING.md`). These are the bottom-of-funnel pages the original 124 was missing: written for a reader who is about to spend money. Every one carries the ownership disclosure in the body and the conversion block after the answer, per `COMMERCIAL-SCORING.md` section 6.
+
+### N1. Best prewarmed inbox providers, compared on what is included
+`/decide/best-prewarmed-inbox-providers/` · 2,400 words · **ownership disclosure required** · ads: primary
+**Intent** "best prewarmed inbox provider", "prewarmed inbox providers"
+**Thesis** Prices in this category vary by an order of magnitude because the products are not the same thing. Compare on six things: whether a domain is included, whether DNS arrives configured, whether you get admin access, what "prewarmed" meant in practice, what the replacement policy is, and what happens when something breaks at 2am. Headline price per inbox is the least useful number on the page.
+**Outline** The six comparison points / the provider table with prices and inclusions / what "prewarmed" must mean to count / the replacement policy question / our own answers, in the same table / who should buy which
+**Link** The conversion block, after the table.
+**Rules** Rule 4 applies: at least one option we earn nothing from, labelled as such. Ownership conflict line next to the first mention of WarmInboxes. If the honest table does not put us first, publish it anyway.
+**Overlap** `/blog/buy-pre-warmed-emails-reddit-2026` and `/prewarmed/reddit`. Cite both.
+
+### N2. Can I use my existing Google Workspace for cold email?
+`/decide/cold-email-from-existing-workspace/` · 1,600 words · **ownership disclosure required** · ads: primary
+**Intent** "cold email from existing google workspace", "can i use my company email for cold email"
+**Thesis** You can, and you should not. Cold email from the Workspace that carries your real business mail puts your invoices, your contracts and your recruiting in the same reputation bucket as a campaign that might generate complaints. The damage is not theoretical and it is not quick to undo. Send from separate domains on separate tenants, and keep the corporate domain out of it entirely.
+**Outline** What actually gets pooled / the specific things that break when the corporate domain is hit / why subdomains do not solve it / what separation looks like / the cost of separation versus the cost of the damage
+**Link** The conversion block, after the separation section.
+**Overlap** `/blog/subdomain-vs-separate-domain-cold-email` covers the subdomain half and is strong. Cite it heavily.
+
+### N3. What cold email infrastructure costs per month, at four scales
+`/decide/cold-email-infrastructure-cost/` · 1,800 words · **ownership disclosure required** · ads: primary
+**Intent** "cold email infrastructure cost", "how much does cold email cost"
+**Thesis** Itemised, at 300, 1,000, 5,000 and 20,000 sends a day: domains, inboxes, sequencer, verification, and the replacement rate nobody budgets for. The last line is what makes most published estimates wrong by a third, because fleets are consumables and a percentage is replaced every quarter.
+**Outline** The line items / worked totals at four scales / the replacement line and how to estimate yours / where people underestimate / where people overspend / the cost per thousand delivered
+**Link** The conversion block, after the four tables.
+**Overlap** `/blog/cold-email-stack-under-200`. Cite it for the low end.
+
+### N4. Google Workspace, Microsoft 365 or Azure: cost and deliverability compared
+`/decide/workspace-vs-m365-vs-azure/` · 2,400 words · **ownership disclosure required** · ads: primary
+**Intent** "google workspace vs microsoft 365 cold email", "azure vs google cold email"
+**Thesis** Three genuinely different products. Workspace costs the most per inbox and is the most forgiving to send from. Microsoft 365 suits a Microsoft-heavy recipient list and gives you better diagnostics. Azure tenants are the cheapest per inbox by a wide margin and concentrate risk, because a hundred inboxes can share a tenant. Pick on your recipient mix and your tolerance for concentrated failure, not on price alone.
+**Outline** The three products / cost per inbox at scale / deliverability differences that are real / blast radius per platform / matching to recipient mix / a recommendation per situation
+**Link** The conversion block.
+**Overlap** `/blog/google-vs-outlook-vs-smtp-cold-email-inboxes`. Direct. This should supersede it or cite it as the canonical.
+
+### N5. Buying cold email domains: where, what to pay, what to avoid
+`/decide/buying-cold-email-domains/` · 1,800 words · **ownership disclosure required** · ads: primary
+**Intent** "buy cold email domains", "cold email domain names"
+**Thesis** Buy boring .com lookalikes of your real domain, fresh rather than aftermarket unless you have checked the history, from a registrar with an API, and expect to pay normal registration prices. The money is wasted on aged domains sold on age alone, and the risk is concentrated in aftermarket domains with a history you did not check.
+**Outline** What to buy / naming patterns that work and the ones that look like phishing / fresh versus aftermarket / registrar choice and why the API matters / what to check before purchase / bundled domain and inbox offers
+**Link** The conversion block, after the bundling section.
+**Overlap** `/blog/free-domains-cold-email-2026`. Cite.
+
+### N6. What to buy for ten clients: an agency infrastructure shopping list
+`/b2b/agency-infrastructure-shopping-list/` · 2,000 words · **ownership disclosure required** · ads: primary
+**Intent** "cold email agency setup", "agency cold email infrastructure"
+**Thesis** A literal list with quantities for ten clients at a typical volume: domains per client, inboxes per domain, the reserve held out of rotation, the verification budget, and the replacement provision. The number that surprises people is the reserve, which is how a client's campaign keeps running the week a domain goes.
+**Outline** The assumptions / the list with quantities / per-client isolation and why it constrains the list / the reserve / monthly cost and the replacement provision / what to buy first if the budget is staged
+**Link** The conversion block.
+**Overlap** `/blog/start-cold-email-agency` and `/blog/run-cold-email-agency-client-data`. Cite both.
+
+### N7. My domain got blocked today: the first two hours
+`/checks/domain-blocked-what-now/` · 1,800 words · ads: primary
+**Intent** "cold email domain blocked", "domain blocked what to do"
+**Thesis** Stop sending from it before anything else, because continuing is what converts a recoverable problem into a permanent one. Then establish what kind of block it is, because a provider suspension, a blocklist listing and a placement collapse look similar from the outside and have completely different prognoses. Two hours of the right sequence decides whether you recover the domain or replace it.
+**Outline** Stop sending, and what else to pause / identifying which of the three it is / the evidence to collect now / the recovery path per type / when to accept it is gone / keeping the campaign running meanwhile
+**Link** Consultation first in the conversion block, replacement second. This reader wants a person.
+**Overlap** `/blog/banned-domain-recovery`, `/blog/domain-recovery-guide`, `/blog/recover-rest-retire-cold-email-domain`. Three close posts. This is the first-two-hours triage; cite all three for the longer path.
+
+### N8. How many Google Workspace accounts can you actually run?
+`/how-it-works/how-many-workspace-accounts/` · 1,500 words · ads: test
+**Intent** "how many google workspace accounts", "multiple workspace accounts cold email"
+**Thesis** There is no published number, and the practical ceiling is set by verification friction, payment instruments and the pattern your provisioning creates, not by a documented limit. Teams hit the wall at different points and misread it as a hard cap. The workable answers are fewer, larger tenants, or a platform where provisioning at volume is expected.
+**Outline** Why there is no published limit / what actually stops you / the provisioning pattern problem / fewer larger tenants / when to stop self-provisioning
+**Link** The conversion block, after the last section.
+**Overlap** None direct. Good territory.
+
+### N9. Connecting prewarmed inboxes to Instantly
+`/stack/integrations/instantly-with-prewarmed-inboxes/` · 1,400 words · ads: primary
+**Intent** "instantly cold email setup", "connect inboxes to instantly"
+**Thesis** Connect by the method the platform prefers, set the per-inbox daily cap to the ramp number rather than the platform default, point tracking at your own domain, and confirm the first send in raw headers before launching the sequence. The default settings are built for an established sender, not for day one on new infrastructure.
+**Outline** The connection method and its gotchas / the three settings to change immediately / the ramp schedule to enter / tracking domain configuration / verifying the first send / what to watch in week one
+**Link** The conversion block.
+**Overlap** None direct. Coordinate numbers with E2 so the ramp figures match exactly.
+
+### N10. Connecting prewarmed inboxes to Smartlead
+`/stack/integrations/smartlead-with-prewarmed-inboxes/` · 1,400 words · ads: primary
+**Intent** "smartlead inbox setup", "connect inboxes smartlead"
+**Thesis** Same structure as N9, with the platform's own connection method, defaults and limits. Written from an actual connection, not from documentation.
+**Outline** As N9, platform-specific throughout.
+**Overlap** `/blog/connect-smartlead-instantly-hubspot` covers CRM sync, not inbox connection. Complementary.
+
+### N11. Connecting prewarmed inboxes to Email Bison
+`/stack/integrations/email-bison-with-prewarmed-inboxes/` · 1,400 words · ads: test
+**Intent** "email bison setup", "email bison inboxes"
+**Thesis** As N9, platform-specific.
+**Outline** As N9.
+**Overlap** None.
+
+### N12. Replacing a burned pod without pausing the campaign
+`/b2b/replacing-a-burned-pod/` · 1,600 words · ads: test
+**Intent** "replace burned cold email domains", "swap out cold email domains"
+**Thesis** Replacement is a planned operation, not an emergency, if you hold a reserve. Move the campaign to rested inboxes, bring replacements in at the bottom of the ramp, retire the burned domain rather than trying to recover it if the cause was a provider action, and keep the client's send volume flat throughout. The teams who do this well bought the reserve before they needed it.
+**Outline** The swap sequence / keeping volume flat / where the replacements enter the ramp / retire or recover, decided fast / what to tell the client / restocking the reserve
+**Link** The conversion block.
+**Overlap** `/blog/recover-rest-retire-cold-email-domain`. Cite for the decision; this is the operational swap.
