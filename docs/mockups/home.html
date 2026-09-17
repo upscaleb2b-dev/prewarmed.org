@@ -6,6 +6,7 @@
   --rule:#d8e0da; --rule-2:#b4c0b8;
   --ink:#111815; --ink-2:#454f49; --ink-3:#6e7a73;
   --accent:#14624a; --accent-wash:#e7f0ec;
+  --age:#8a9a6b; --age-wash:#eaefdf;
   --pending:#8a6a12; --pending-wash:#f6efdc;
 }
 body[data-palette="blue"]{
@@ -13,6 +14,7 @@ body[data-palette="blue"]{
   --rule:#d7dee8; --rule-2:#b1bcca;
   --ink:#0f141b; --ink-2:#434c58; --ink-3:#6b7583;
   --accent:#1a5490; --accent-wash:#e6edf6;
+  --age:#6d86a8; --age-wash:#e4eaf2;
   --pending:#8a6a12; --pending-wash:#f5eedb;
 }
 @media (prefers-color-scheme:dark){
@@ -22,6 +24,7 @@ body[data-palette="blue"]{
     --rule:#26312b; --rule-2:#3b4841;
     --ink:#eef3f0; --ink-2:#b9c4be; --ink-3:#8a968f;
     --accent:#56c79c; --accent-wash:#13241d;
+    --age:#93a677; --age-wash:#1c2116;
     --pending:#d9b45a; --pending-wash:#241d10;
   }
   :root:not([data-theme="light"]) body[data-palette="blue"]{
@@ -29,6 +32,7 @@ body[data-palette="blue"]{
     --rule:#222b39; --rule-2:#36414f;
     --ink:#eef2f7; --ink-2:#b6c0cc; --ink-3:#87919e;
     --accent:#66aef0; --accent-wash:#0f1e2d;
+    --age:#8ba3c4; --age-wash:#151c26;
     --pending:#d9b45a; --pending-wash:#221c0f;
   }
 }
@@ -38,6 +42,7 @@ body[data-palette="blue"]{
   --rule:#26312b; --rule-2:#3b4841;
   --ink:#eef3f0; --ink-2:#b9c4be; --ink-3:#8a968f;
   --accent:#56c79c; --accent-wash:#13241d;
+  --age:#93a677; --age-wash:#1c2116;
   --pending:#d9b45a; --pending-wash:#241d10;
 }
 :root[data-theme="dark"] body[data-palette="blue"]{
@@ -45,6 +50,7 @@ body[data-palette="blue"]{
   --rule:#222b39; --rule-2:#36414f;
   --ink:#eef2f7; --ink-2:#b6c0cc; --ink-3:#87919e;
   --accent:#66aef0; --accent-wash:#0f1e2d;
+  --age:#8ba3c4; --age-wash:#151c26;
   --pending:#d9b45a; --pending-wash:#221c0f;
 }
 
@@ -52,7 +58,7 @@ body[data-palette="blue"]{
 body{
   margin:0; background:var(--ground); color:var(--ink);
   font-family:"Source Serif 4",Georgia,"Times New Roman",serif;
-  font-size:17.5px; line-height:1.64; -webkit-font-smoothing:antialiased;
+  font-size:17.5px; line-height:1.65; -webkit-font-smoothing:antialiased;
 }
 h1,h2,h3{font-family:Archivo,"Helvetica Neue",Arial,sans-serif; text-wrap:balance}
 .mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
@@ -79,41 +85,59 @@ a:focus-visible,button:focus-visible,input:focus-visible{outline:2px solid var(-
 .dot{width:9px;height:9px;border-radius:50%;display:inline-block}
 .dot.g{background:#2e9b78} .dot.b{background:#3f8ad4}
 
-.wrap{max-width:1120px; margin:0 auto; padding-inline:22px}
-.rail{display:grid; grid-template-columns:132px minmax(0,1fr); gap:48px; align-items:start}
+.wrap{max-width:1060px; margin:0 auto; padding-inline:22px}
+.rail{display:grid; grid-template-columns:118px minmax(0,1fr); gap:44px; align-items:start}
 .lab{
   font-family:Archivo,sans-serif; font-size:10.5px; letter-spacing:.14em;
   text-transform:uppercase; color:var(--ink-3); padding-top:6px;
   border-top:2px solid var(--ink); line-height:1.6;
 }
 .lab b{display:block; color:var(--ink); font-weight:600}
-@media (max-width:820px){ .rail{grid-template-columns:1fr; gap:16px} .lab{border-top:none; padding-top:0} }
-section{padding-block:64px; border-top:1px solid var(--rule)}
+@media (max-width:820px){ .rail{grid-template-columns:1fr; gap:14px} .lab{border-top:none; padding-top:0} }
+section{padding-block:70px; border-top:1px solid var(--rule)}
 
-header.top{padding-block:30px 24px}
+header.top{padding-block:30px 22px}
 .brandrow{display:flex; align-items:baseline; gap:16px; flex-wrap:wrap}
 .brand{font-family:Archivo,sans-serif; font-weight:700; font-size:22px; letter-spacing:-.022em; color:var(--ink)}
 .brand em{font-style:normal; color:var(--accent)}
 .kicker{font-family:Archivo,sans-serif; font-size:11px; font-weight:600; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-3)}
-nav.main{margin-top:22px; display:flex; gap:24px; flex-wrap:wrap; border-top:1px solid var(--rule); padding-top:12px}
+nav.main{margin-top:20px; display:flex; gap:24px; flex-wrap:wrap; border-top:1px solid var(--rule); padding-top:12px}
 nav.main a{font-family:Archivo,sans-serif; font-size:12.5px; font-weight:500; color:var(--ink-2); padding-bottom:3px}
 nav.main a:hover{color:var(--accent); text-decoration:none; border-bottom:2px solid var(--accent)}
 
 /* hero */
-.hero{border-top:none; padding-block:40px 56px}
-.hero h1{font-size:clamp(34px,2.2rem + 2.6vw,62px); line-height:1.03; letter-spacing:-.033em; font-weight:700; margin:0 0 22px; max-width:15ch}
+.hero{border-top:none; padding-block:44px 58px}
+.hero h1{font-size:clamp(35px,2.2rem + 2.7vw,64px); line-height:1.02; letter-spacing:-.034em; font-weight:700; margin:0 0 24px; max-width:16ch}
 .hero h1 u{text-decoration:none; color:var(--accent)}
-.lede{font-size:20px; line-height:1.55; color:var(--ink-2); max-width:60ch; margin:0 0 28px}
+.lede{font-size:20px; line-height:1.55; color:var(--ink-2); max-width:60ch; margin:0 0 6px}
 .lede strong{color:var(--ink); font-weight:600}
-.twoNum{display:flex; flex-wrap:wrap; gap:14px 44px; border-block:1px solid var(--rule); padding-block:20px}
-.numItem{min-width:170px}
-.numItem .n{font-family:Archivo,sans-serif; font-weight:700; font-size:44px; line-height:1; letter-spacing:-.035em; color:var(--ink)}
-.numItem .t{font-size:14.5px; color:var(--ink-2); margin-top:7px; line-height:1.4; max-width:26ch}
-.numItem .s{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3); margin-top:6px}
+
+/* timeline */
+.tl{margin-top:34px}
+.tlBar{display:flex; height:46px; border-radius:4px; overflow:hidden; border:1px solid var(--rule-2)}
+.tlSeg{display:flex; align-items:center; padding-inline:16px; font-family:Archivo,sans-serif; font-weight:600; font-size:13px; letter-spacing:.02em; min-width:0}
+.tlSeg span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.tlSeg.age{flex:30; background:var(--age-wash); color:var(--ink)}
+.tlSeg.warm{flex:21; background:var(--accent-wash); color:var(--ink); border-left:1px solid var(--rule-2)}
+.tlMarks{display:flex; margin-top:9px; font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3)}
+.tlMarks .m{flex:30} .tlMarks .m2{flex:21} .tlMarks .m3{flex:0 0 auto}
+.tlCols{display:grid; grid-template-columns:30fr 21fr; gap:0 26px; margin-top:26px}
+@media (max-width:760px){ .tlCols{grid-template-columns:1fr; gap:26px} .tlBar{height:auto; flex-direction:column} .tlSeg{padding-block:12px} .tlSeg.warm{border-left:none; border-top:1px solid var(--rule-2)} .tlMarks{display:none} }
+.tlCol h3{font-size:16px; margin:0 0 4px; font-weight:700; letter-spacing:-.015em; color:var(--ink)}
+.tlCol .sub{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); margin-bottom:12px}
+.tlCol ul{margin:0; padding:0}
+.tlCol li{list-style:none; font-size:15.5px; color:var(--ink-2); line-height:1.45; padding:7px 0 7px 20px; position:relative; border-bottom:1px solid var(--rule)}
+.tlCol li::before{content:""; position:absolute; left:2px; top:15px; width:7px; height:7px; border-radius:50%; background:var(--accent)}
+.tlCol.aged li::before{background:var(--age)}
+.tlNote{margin-top:22px; font-size:16px; color:var(--ink-2); max-width:66ch; border-left:3px solid var(--rule-2); padding-left:16px}
+.tlNote b{color:var(--ink); font-weight:600}
+
+h2{font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin:0 0 10px}
+.intro{font-size:16.5px; color:var(--ink-3); margin:0 0 30px; max-width:58ch}
 
 /* calculator */
 .calc{background:var(--ground-2); border:1px solid var(--rule-2); border-radius:4px; padding:26px 28px}
-.calcGrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:18px 24px; margin-bottom:24px}
+.calcGrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(148px,1fr)); gap:18px 24px; margin-bottom:24px}
 .field label{display:block; font-family:Archivo,sans-serif; font-size:11px; font-weight:600; letter-spacing:.09em; text-transform:uppercase; color:var(--ink-3); margin-bottom:6px}
 .field input{
   width:100%; font-family:"IBM Plex Mono",monospace; font-size:19px; font-weight:500;
@@ -125,65 +149,47 @@ nav.main a:hover{color:var(--accent); text-decoration:none; border-bottom:2px so
 .field .hint.pend{color:var(--pending)}
 .out{border-top:1px solid var(--rule-2); padding-top:22px; display:grid; grid-template-columns:auto minmax(0,1fr); gap:26px; align-items:center}
 @media (max-width:640px){.out{grid-template-columns:1fr; gap:14px}}
-.outBig{font-family:Archivo,sans-serif; font-weight:700; font-size:clamp(54px,3rem + 5vw,92px); line-height:.92; letter-spacing:-.045em; color:var(--accent)}
+.outBig{font-family:Archivo,sans-serif; font-weight:700; font-size:clamp(54px,3rem + 5vw,90px); line-height:.92; letter-spacing:-.045em; color:var(--accent)}
 .outBig small{font-size:.42em; letter-spacing:-.02em}
 .outSide p{margin:0 0 9px; font-size:17px; line-height:1.5; color:var(--ink)}
 .outSide .mono{font-size:12.5px; color:var(--ink-2); line-height:1.9}
 .outSide b{font-weight:500; color:var(--ink)}
 .calcNote{margin-top:18px; padding-top:14px; border-top:1px solid var(--rule); font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); line-height:1.8}
 
-/* levers */
-h2{font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin:0 0 8px}
-.intro{font-size:16px; color:var(--ink-3); margin:0 0 30px; max-width:58ch}
-.lever{display:grid; grid-template-columns:34px minmax(0,1fr) auto; gap:18px; align-items:baseline; padding:15px 0; border-bottom:1px solid var(--rule)}
-.lever .rank{font-family:Archivo,sans-serif; font-weight:700; font-size:15px; color:var(--accent); letter-spacing:-.02em}
-.lever .nm{font-family:Archivo,sans-serif; font-weight:600; font-size:17px; color:var(--ink); letter-spacing:-.012em}
-.lever .ds{font-size:15.5px; color:var(--ink-2); margin-top:4px; max-width:66ch}
-.lever .ef{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3); white-space:nowrap}
-.lever.last .rank{color:var(--pending)}
-
-/* two paths */
-.paths{display:grid; grid-template-columns:repeat(auto-fit,minmax(290px,1fr)); gap:20px}
-.path{border:1px solid var(--rule-2); border-radius:4px; padding:24px 26px; background:var(--ground)}
-.path.b2b{border-color:var(--accent); background:var(--accent-wash)}
-.path .seg{font-family:Archivo,sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--accent)}
-.path.b2c .seg{color:var(--ink-3)}
-.path h3{font-size:21px; letter-spacing:-.02em; margin:9px 0 11px; font-weight:700; color:var(--ink)}
-.path p{margin:0 0 16px; font-size:16px; line-height:1.5; color:var(--ink-2)}
-.path ul{margin:0 0 18px; padding:0}
-.path li{list-style:none; font-size:15px; color:var(--ink-2); padding:5px 0 5px 18px; position:relative}
-.path li::before{content:"·"; position:absolute; left:4px; color:var(--accent); font-weight:700}
-.cta{
-  display:inline-block; font-family:Archivo,sans-serif; font-size:14px; font-weight:600;
-  letter-spacing:-.005em; padding:11px 19px; border-radius:3px; border:1.5px solid var(--accent);
-  color:var(--accent);
-}
+/* offer */
+.offer{border:1px solid var(--accent); border-radius:4px; overflow:hidden}
+.offerTop{background:var(--accent-wash); padding:28px 30px}
+.offerTop h3{margin:0 0 14px; font-size:clamp(23px,1.3rem + 1.1vw,31px); letter-spacing:-.024em; font-weight:700; color:var(--ink)}
+.offerTop p{margin:0 0 12px; font-size:17px; line-height:1.55; color:var(--ink-2); max-width:62ch}
+.offerTop p:last-child{margin-bottom:0}
+.offerTop strong{color:var(--ink); font-weight:600}
+.split{display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--rule-2)}
+@media (max-width:700px){.split{grid-template-columns:1fr}}
+.half{padding:24px 28px}
+.half + .half{border-left:1px solid var(--rule-2)}
+@media (max-width:700px){.half + .half{border-left:none; border-top:1px solid var(--rule-2)}}
+.half .seg{font-family:Archivo,sans-serif; font-size:10.5px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3)}
+.half h4{margin:9px 0 10px; font-size:19px; font-weight:700; letter-spacing:-.018em; color:var(--ink); font-family:Archivo,sans-serif}
+.half p{margin:0 0 16px; font-size:15.5px; line-height:1.5; color:var(--ink-2)}
+.cta{display:inline-block; font-family:Archivo,sans-serif; font-size:14px; font-weight:600; padding:11px 19px; border-radius:3px; border:1.5px solid var(--accent); color:var(--accent)}
 .cta:hover{background:var(--accent); color:var(--ground); text-decoration:none}
 .cta.solid{background:var(--accent); color:var(--ground)}
 .cta.solid:hover{opacity:.88}
 .pathNote{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3); margin-top:11px}
 
-/* rows / research */
-.rows{display:flex; flex-direction:column}
-.row{display:grid; grid-template-columns:minmax(0,1fr) auto; gap:20px; align-items:baseline; padding:18px 0; border-bottom:1px solid var(--rule); text-decoration:none}
-.row:hover{text-decoration:none} .row:hover .rowq{color:var(--accent)}
-.rowq{font-size:18.5px; line-height:1.38; color:var(--ink); font-weight:600; font-family:Archivo,sans-serif; letter-spacing:-.014em}
-.rowa{font-size:15.5px; color:var(--ink-2); margin-top:6px; max-width:68ch}
-.rowmeta{font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3); white-space:nowrap}
-.arrow{color:var(--accent)}
-
-.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(238px,1fr)); gap:0 36px}
-.check{display:flex; justify-content:space-between; gap:12px; align-items:baseline; padding:13px 0; border-bottom:1px solid var(--rule)}
-.check .k{font-family:Archivo,sans-serif; font-size:15px; font-weight:500; color:var(--ink)}
+/* tools */
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(228px,1fr)); gap:0 34px}
+.check{display:flex; justify-content:space-between; gap:12px; align-items:baseline; padding:12px 0; border-bottom:1px solid var(--rule)}
+.check .k{font-family:Archivo,sans-serif; font-size:14.5px; font-weight:500; color:var(--ink)}
 .check:hover .k{color:var(--accent)}
 .check .t{font-family:"IBM Plex Mono",monospace; font-size:10.5px; color:var(--ink-3); white-space:nowrap}
 
-.trust{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:26px 38px}
+.trust{display:grid; grid-template-columns:repeat(auto-fit,minmax(205px,1fr)); gap:26px 36px}
 .trust h3{font-size:12.5px; letter-spacing:.09em; text-transform:uppercase; margin:0 0 8px; color:var(--ink); font-weight:600; font-family:Archivo,sans-serif}
 .trust p{margin:0; font-size:15.5px; color:var(--ink-2); line-height:1.5}
 
-footer{border-top:2px solid var(--ink); padding-block:36px 52px}
-.fgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:28px 36px; margin-bottom:30px}
+footer{border-top:2px solid var(--ink); padding-block:34px 52px}
+.fgrid{display:grid; grid-template-columns:repeat(auto-fit,minmax(155px,1fr)); gap:26px 34px; margin-bottom:28px}
 .fgrid h4{font-family:Archivo,sans-serif; font-size:10.5px; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-3); margin:0 0 10px; font-weight:600}
 .fgrid a{display:block; font-size:14.5px; padding:3px 0; color:var(--ink-2)}
 .fgrid a:hover{color:var(--accent)}
@@ -209,48 +215,79 @@ footer{border-top:2px solid var(--ink); padding-block:36px 52px}
       <div class="kicker">Prewarming · Deliverability · Research</div>
     </div>
     <nav class="main">
-      <a href="#maths">The maths</a>
-      <a href="#levers">What actually moves placement</a>
-      <a href="#paths">Get infrastructure</a>
-      <a href="#research">Research</a>
-      <a href="#checks">Checks</a>
+      <a href="#definition">What prewarmed means</a>
+      <a href="#science">The 51 days</a>
+      <a href="#cost">What it costs you</a>
+      <a href="#get">Get domains and inboxes</a>
       <a href="#method">Method</a>
     </nav>
   </header>
 
-  <section class="hero">
+  <section class="hero" id="definition">
     <div class="rail">
-      <div class="lab"><b>Thesis</b>Read this first</div>
+      <div class="lab"><b>Definition</b>The standard</div>
       <div>
-        <h1>Warming is not a one-time cost. You pay it <u>every time a domain burns</u>.</h1>
-        <p class="lede">Every new sending domain needs roughly <strong>21 days</strong> before it can carry real volume. Cold email domains do not last: at production volume ours cycle on a <strong>three-month</strong> horizon. Multiply those two numbers and the warmup window stops being a setup inconvenience and becomes a standing tax on your sending capacity. Almost nobody prices it in.</p>
-        <div class="twoNum">
-          <div class="numItem">
-            <div class="n">21 days</div>
-            <div class="t">Standard warmup window before a fresh domain carries production volume</div>
-            <div class="s mono">category norm · 14 to 45 days observed</div>
+        <h1>Prewarmed means <u>51 days</u> before your first send.</h1>
+        <p class="lede"><strong>Thirty days aged</strong>, so the domain has a registration history and authentication that has been published long enough to be believed. <strong>Then twenty-one days warmed</strong>, sending and receiving real mail so the receiving providers have formed an opinion of it. Most of what is sold as prewarmed skips one of those, or both.</p>
+
+        <div class="tl">
+          <div class="tlBar" role="img" aria-label="Timeline: 30 days aging, then 21 days warming, then handover at day 51">
+            <div class="tlSeg age"><span>Aging · 30 days</span></div>
+            <div class="tlSeg warm"><span>Warming · 21 days</span></div>
           </div>
-          <div class="numItem">
-            <div class="n">~3 months</div>
-            <div class="t">Replacement horizon we see on our own fleet at production volume</div>
-            <div class="s mono">operator figure · R3 pending publication</div>
-          </div>
-          <div class="numItem">
-            <div class="n">1M+</div>
-            <div class="t">Cold emails a month across Google, Microsoft 365 and Azure</div>
-            <div class="s mono">B2B and B2C · prewarmed and fresh</div>
+          <div class="tlMarks mono" aria-hidden="true">
+            <div class="m">day 0 · registered</div>
+            <div class="m2">day 30 · first send</div>
+            <div class="m3">day 51 · handover</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="maths">
+  <section id="science">
+    <div class="rail">
+      <div class="lab"><b>The 51 days</b>What happens</div>
+      <div>
+        <h2>There is a science to this, and most of it is waiting correctly</h2>
+        <p class="intro">Neither half can be compressed. Age cannot be manufactured on the day you need it, and engagement history cannot be built faster than a receiving provider is willing to observe it.</p>
+
+        <div class="tlCols">
+          <div class="tlCol aged">
+            <h3>Aging</h3>
+            <div class="sub">days 0 to 30 · no sending</div>
+            <ul>
+              <li>Register a clean .com, checked against drop history and prior blocklist exposure</li>
+              <li>Publish SPF, DKIM and DMARC, and leave them published</li>
+              <li>MX and inbound path configured so replies can land from day one</li>
+              <li>Custom tracking domain established on its own hostname</li>
+              <li>Nothing sends. Registration age and record stability are the whole job</li>
+            </ul>
+          </div>
+          <div class="tlCol">
+            <h3>Warming</h3>
+            <div class="sub">days 30 to 51 · real traffic</div>
+            <ul>
+              <li>Mailboxes created on Google Workspace, Microsoft 365 or Azure</li>
+              <li>Low-volume sending and receiving, ramped in steps rather than on a calendar</li>
+              <li>Real engagement: opens, replies, and messages moved out of spam</li>
+              <li>Placement tested before handover, not after</li>
+              <li>Anything failing is fixed and retested, or the domain does not ship</li>
+            </ul>
+          </div>
+        </div>
+
+        <p class="tlNote"><b>Why 30 and not 7.</b> Domain age is one of the few signals a receiving provider can check that a sender cannot fake or accelerate. A domain registered last Tuesday with perfect authentication is still a domain registered last Tuesday. The aging window is cheap to run and impossible to skip, which is exactly why most sellers skip it.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cost">
     <div class="rail">
       <div class="lab"><b>The maths</b>Run your own</div>
       <div>
-        <h2>The warmup tax, on your fleet</h2>
-        <p class="intro">Change any input. The defaults are the norms above, and each one is marked with where it comes from.</p>
+        <h2>What those 51 days cost you, every time</h2>
+        <p class="intro">Warming is not a one-time setup cost. Cold email domains burn, and every replacement starts the clock again. Change any input; each default is marked with where it comes from.</p>
 
         <div class="calc">
           <div class="calcGrid">
@@ -270,140 +307,62 @@ footer{border-top:2px solid var(--ink); padding-block:36px 52px}
               <span class="hint pend">months · R3 pending</span>
             </div>
             <div class="field">
-              <label for="warm">Warmup days</label>
-              <input id="warm" type="number" min="0" max="90" step="1" value="21" inputmode="numeric">
-              <span class="hint">category norm</span>
+              <label for="warm">Days to ready</label>
+              <input id="warm" type="number" min="0" max="120" step="1" value="51" inputmode="numeric">
+              <span class="hint meas">30 aged + 21 warmed</span>
             </div>
           </div>
 
           <div class="out">
-            <div class="outBig" id="pct">23<small>%</small></div>
+            <div class="outBig" id="pct">56<small>%</small></div>
             <div class="outSide">
-              <p id="sentence">Nearly a quarter of your annual sending capacity is spent warming domains rather than sending to prospects.</p>
+              <p id="sentence">More than half your annual sending capacity goes on getting domains ready rather than reaching prospects.</p>
               <div class="mono">
-                inbox-days lost per year &nbsp;<b id="days">2,520</b><br>
-                emails not sent &nbsp;<b id="emails">37,800</b><br>
+                inbox-days lost per year &nbsp;<b id="days">6,120</b><br>
+                emails not sent &nbsp;<b id="emails">91,800</b><br>
                 replacements per inbox per year &nbsp;<b id="reps">4.0</b>
               </div>
             </div>
           </div>
 
           <div class="calcNote mono">
-            inboxes × (12 ÷ cycle) × warmup days = inbox-days lost · ÷ (inboxes × 365) = share of capacity<br>
-            Assumes an inbox in warmup carries no cold volume. Partial ramping makes the real figure lower and the shape identical.
+            inboxes × (12 ÷ cycle) × days to ready = inbox-days lost · ÷ (inboxes × 365) = share of capacity<br>
+            Assumes an inbox not yet ready carries no cold volume. Partial ramping makes the real figure lower and the shape identical.
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section id="levers">
-    <div class="rail">
-      <div class="lab"><b>Hidden maths</b>Inverted effort</div>
-      <div>
-        <h2>Why domain age and warming beat everything else</h2>
-        <p class="intro">Ranked by how much each moves inbox placement. The ordering is close to the inverse of where most teams spend their time.</p>
-
-        <div class="lever">
-          <div class="rank">01</div>
-          <div><div class="nm">Sending history on the domain</div><div class="ds">What the receiver has already seen this identity do. No amount of copy work substitutes for it, and it is the only input that cannot be created on the day you need it.</div></div>
-          <div class="ef">D1 · R1</div>
-        </div>
-        <div class="lever">
-          <div class="rank">02</div>
-          <div><div class="nm">Volume shape in the first 30 days</div><div class="ds">Step increases tied to observed bounce and placement, not to the calendar. The most common first-month burn is a volume step taken while a bounce signal was already elevated.</div></div>
-          <div class="ef">D7 · R7</div>
-        </div>
-        <div class="lever">
-          <div class="rank">03</div>
-          <div><div class="nm">List quality</div><div class="ds">Bounces and complaints are the two signals that move a reputation downward fastest. A clean domain sending to a dirty list fails the same way the last one did, faster.</div></div>
-          <div class="ef">D3 · R3</div>
-        </div>
-        <div class="lever">
-          <div class="rank">04</div>
-          <div><div class="nm">Authentication and link reputation</div><div class="ds">SPF, DKIM, DMARC and your tracking domain. These are a gate rather than a lever: failing costs you delivery, passing earns you nothing beyond eligibility.</div></div>
-          <div class="ef">gate</div>
-        </div>
-        <div class="lever last">
-          <div class="rank">05</div>
-          <div><div class="nm">Copy, subject lines, spintax</div><div class="ds">The lever teams pull first and the one that moves placement least once the four above are right. Content matters for replies. It is not what decided the inbox.</div></div>
-          <div class="ef">last</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section id="paths">
+  <section id="get">
     <div class="rail">
       <div class="lab"><b>Skip it</b>Two routes</div>
       <div>
-        <h2>Or do not pay the tax at all</h2>
-        <p class="intro">A domain someone else already warmed starts at day 21, not day zero. What you need depends on who you are sending to.</p>
-        <div class="paths">
-          <div class="path b2b">
-            <div class="seg">B2B cold email</div>
-            <h3>Prewarmed inboxes and infrastructure</h3>
-            <p>Prewarmed and fresh Google Workspace, Microsoft 365 and Azure inboxes, with domains and DNS configured before you log in. Sending the same day.</p>
-            <ul>
-              <li>Three inbox platforms, matched to your recipient mix</li>
-              <li>Domains, DNS and authentication handled</li>
-              <li>Replacement cadence built into the plan</li>
-            </ul>
-            <a class="cta solid" href="https://warminboxes.com">Get inboxes at WarmInboxes →</a>
-            <div class="pathNote mono">our infrastructure arm · see the colophon</div>
-          </div>
-          <div class="path b2c">
-            <div class="seg">B2C cold email</div>
-            <h3>Aged domains</h3>
-            <p>B2C sending has a different risk profile and a different domain requirement. Aged domains are sourced individually and checked for history before anything is handed over.</p>
-            <ul>
-              <li>Registration and drop history checked first</li>
-              <li>Prior blocklist exposure reviewed</li>
-              <li>Sourced to your volume, not sold from a shelf</li>
-            </ul>
-            <a class="cta" href="#">Talk to us on WhatsApp →</a>
-            <div class="pathNote mono">wa.me link to be added</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+        <h2>Or start at day 51</h2>
+        <p class="intro">Somebody has to run those 51 days. It does not have to be you, and it does not have to be on your calendar.</p>
 
-  <section id="research">
-    <div class="rail">
-      <div class="lab"><b>Research</b>Method first</div>
-      <div>
-        <h2>The numbers behind the thesis</h2>
-        <p class="intro">Every report states its question before the analysis runs, publishes population, exclusions and confidence intervals, ships the analysis script, and carries a named reviewer who re-ran it.</p>
-        <div class="rows">
-          <a class="row" href="#">
-            <div>
-              <div class="rowq">How long a cold email domain actually lasts</div>
-              <div class="rowa">Burns per 100 domain-months, the survival curve, and what separates a domain that dies in three months from one that runs eighteen. The number the whole warmup tax rests on.</div>
+        <div class="offer">
+          <div class="offerTop">
+            <h3>The domains are free. You pay for the mailboxes.</h3>
+            <p>A .com costs about ten dollars a year. The fifty-one days of aging, authentication, engagement and placement testing is where the cost actually sits, and that work lives in the mailboxes rather than in the registration. So we do not charge for domains. They arrive with the inboxes: <strong>aged, warmed, authenticated, DNS configured, and placement tested before handover.</strong></p>
+            <p>It also means you can spread across more domains than you would if you were paying per domain, which is how a fleet should be built anyway. Concentration is what turns one bad week into a dead campaign.</p>
+          </div>
+          <div class="split">
+            <div class="half">
+              <div class="seg">B2B cold email</div>
+              <h4>Prewarmed inboxes, domains included</h4>
+              <p>Google Workspace, Microsoft 365 or Azure, matched to your recipient mix. Sending the day you get them.</p>
+              <a class="cta solid" href="https://warminboxes.com">See inboxes at WarmInboxes →</a>
+              <div class="pathNote mono">our infrastructure arm · see the colophon</div>
             </div>
-            <div class="rowmeta">R3 · D3 <span class="arrow">→</span></div>
-          </a>
-          <a class="row" href="#">
-            <div>
-              <div class="rowq">How fast placement falls when a warmed domain goes idle</div>
-              <div class="rowa">The decay curve, split by whether warmup activity continued, restricted to domains that were placing well when they went quiet.</div>
+            <div class="half">
+              <div class="seg">B2C cold email</div>
+              <h4>Aged domains</h4>
+              <p>B2C has a different risk profile and a different domain requirement. Sourced individually, history checked before anything is handed over.</p>
+              <a class="cta" href="#">Talk to us on WhatsApp →</a>
+              <div class="pathNote mono">wa.me link to be added</div>
             </div>
-            <div class="rowmeta">R2 · D2 <span class="arrow">→</span></div>
-          </a>
-          <a class="row" href="#">
-            <div>
-              <div class="rowq">Prewarmed against fresh, over the first 30 days</div>
-              <div class="rowa">Does the head start survive contact with a real campaign, and for how long. Including the volume bands where it disappears entirely.</div>
-            </div>
-            <div class="rowmeta">R1 · D1 <span class="arrow">→</span></div>
-          </a>
-          <a class="row" href="#">
-            <div>
-              <div class="rowq">What a prewarmed inbox costs across the market</div>
-              <div class="rowa">Public pricing pages only, screenshot-archived on the observation date, every vendor on identical terms. Ours is in the table like everyone else's.</div>
-            </div>
-            <div class="rowmeta">R9 · D9 <span class="arrow">→</span></div>
-          </a>
+          </div>
         </div>
       </div>
     </div>
@@ -411,23 +370,19 @@ footer{border-top:2px solid var(--ink); padding-block:36px 52px}
 
   <section id="checks">
     <div class="rail">
-      <div class="lab"><b>Checks</b>31 free tools</div>
+      <div class="lab"><b>Free tools</b>31 checks</div>
       <div>
-        <h2>Run a check</h2>
-        <p class="intro">What each one tells you, what it cannot tell you, and what to do with every result it can return. No signup.</p>
+        <h2>Check any of this yourself</h2>
+        <p class="intro">Every claim above is verifiable on a domain you already own. No signup.</p>
         <div class="grid">
-          <a class="check" href="#"><span class="k">Is my domain blacklisted?</span><span class="t">20+ lists</span></a>
+          <a class="check" href="#"><span class="k">How old is this domain?</span><span class="t">registration + drops</span></a>
           <a class="check" href="#"><span class="k">Is my SPF record valid?</span><span class="t">lookup count</span></a>
           <a class="check" href="#"><span class="k">Is my DKIM signing?</span><span class="t">26 selectors</span></a>
           <a class="check" href="#"><span class="k">What does my DMARC say?</span><span class="t">tag by tag</span></a>
-          <a class="check" href="#"><span class="k">Why did Outlook junk this?</span><span class="t">SCL</span></a>
-          <a class="check" href="#"><span class="k">What does this bounce mean?</span><span class="t">4xx / 5xx</span></a>
-          <a class="check" href="#"><span class="k">How do I read these headers?</span><span class="t">hop by hop</span></a>
-          <a class="check" href="#"><span class="k">How many inboxes do I need?</span><span class="t">calculator</span></a>
-          <a class="check" href="#"><span class="k">Has this domain been used before?</span><span class="t">drop history</span></a>
-          <a class="check" href="#"><span class="k">When does my domain expire?</span><span class="t">fleet check</span></a>
+          <a class="check" href="#"><span class="k">Is my domain blacklisted?</span><span class="t">20+ lists</span></a>
           <a class="check" href="#"><span class="k">Is my tracking domain shared?</span><span class="t">CNAME chain</span></a>
-          <a class="check" href="#"><span class="k">Everything, before you send</span><span class="t">ordered run</span></a>
+          <a class="check" href="#"><span class="k">Why did Outlook junk this?</span><span class="t">SCL</span></a>
+          <a class="check" href="#"><span class="k">How many inboxes do I need?</span><span class="t">calculator</span></a>
         </div>
       </div>
     </div>
@@ -450,14 +405,14 @@ footer{border-top:2px solid var(--ink); padding-block:36px 52px}
 
   <footer>
     <div class="fgrid">
-      <div><h4>Start</h4><a href="#">Fundamentals</a><a href="#">How prewarming works</a><a href="#">Decision guides</a><a href="#">For teams</a></div>
-      <div><h4>Reference</h4><a href="#">Deliverability</a><a href="#">Outbound practice</a><a href="#">Checks</a><a href="#">Glossary</a></div>
+      <div><h4>Prewarming</h4><a href="#">What prewarmed means</a><a href="#">Aged vs fresh vs prewarmed</a><a href="#">How to verify a domain</a><a href="#">Day 1 to day 30</a></div>
+      <div><h4>Deliverability</h4><a href="#">Authentication</a><a href="#">Reputation</a><a href="#">Monitoring</a><a href="#">Recovery</a></div>
       <div><h4>Research</h4><a href="#">Reports</a><a href="#">Datasets</a><a href="#">Methodology</a><a href="#">The Prewarmed Index</a></div>
       <div><h4>Method</h4><a href="#">Editorial policy</a><a href="#">Corrections</a><a href="#">Disclosure</a><a href="#">About</a></div>
-      <div><h4>Infrastructure</h4><a href="https://warminboxes.com">WarmInboxes</a><a href="#">Aged domains</a><a href="#">Developer API</a><a href="#">MCP server</a></div>
+      <div><h4>Infrastructure</h4><a href="https://warminboxes.com">WarmInboxes</a><a href="#">Aged domains</a><a href="#">Developer API</a><a href="#">Research feed</a></div>
     </div>
-    <p class="colophon"><b>prewarmed.org is published by the team behind WarmInboxes</b>, which sells prewarmed and fresh Google Workspace, Microsoft 365 and Azure inboxes. The research here is built from that infrastructure and described in full on the <a href="#">methodology</a> page. Some pages carry affiliate links to other tools, always marked at the link; scores are set before any vendor is contacted. Corrections: <span class="mono">corrections@prewarmed.org</span>, answered within five working days.</p>
-    <p class="legend">Mockup for design review. The 21-day window is the category norm; the three-month replacement horizon is our operator figure and is marked pending until R3 publishes. Every calculator input is editable and labelled with its source.<br>To add before launch: WhatsApp link, author and reviewer names, R3 data cut.</p>
+    <p class="colophon"><b>prewarmed.org is published by the team behind WarmInboxes</b>, which sells prewarmed and fresh Google Workspace, Microsoft 365 and Azure inboxes. The research here is built from that infrastructure and described in full on the <a href="#">methodology</a> page. Corrections: <span class="mono">corrections@prewarmed.org</span>, answered within five working days.</p>
+    <p class="legend">Mockup for design review. The 30 and 21 day windows are the standard we operate to; the three-month replacement cycle is our operator figure and is marked pending until R3 publishes.<br>To add before launch: WhatsApp link, author and reviewer names, price from-figure, R3 data cut.</p>
   </footer>
 
 </div>
@@ -482,27 +437,24 @@ footer{border-top:2px solid var(--ink); padding-block:36px 52px}
       emails=document.getElementById('emails'),reps=document.getElementById('reps'),
       sentence=document.getElementById('sentence');
   var fmt=function(n){return Math.round(n).toLocaleString('en-US');};
-
   function num(input,min,max,fallback){
     var v=parseFloat(input.value);
     if(!isFinite(v)) return fallback;
     return Math.min(max,Math.max(min,v));
   }
   function phrase(p){
-    if(p>=45) return 'Close to half your annual sending capacity goes on warming domains rather than reaching prospects.';
-    if(p>=28) return 'Well over a quarter of your annual sending capacity is spent warming domains rather than sending to prospects.';
-    if(p>=18) return 'Nearly a quarter of your annual sending capacity is spent warming domains rather than sending to prospects.';
-    if(p>=9)  return 'Around a tenth of your annual sending capacity goes on warming rather than sending.';
-    return 'A small share of your capacity goes on warming. At this replacement cycle the tax is manageable.';
+    if(p>=70) return 'Most of your sending year is spent getting domains ready rather than reaching prospects.';
+    if(p>=45) return 'More than half your annual sending capacity goes on getting domains ready rather than reaching prospects.';
+    if(p>=28) return 'Well over a quarter of your annual sending capacity goes on getting domains ready.';
+    if(p>=15) return 'Around a fifth of your annual sending capacity goes on getting domains ready.';
+    if(p>=8)  return 'Roughly a tenth of your capacity goes on getting domains ready.';
+    return 'At this replacement cycle the readiness cost is manageable.';
   }
   function calc(){
     var n=num(el.inboxes,1,5000,30), spd=num(el.perday,1,200,15),
-        cyc=num(el.cycle,1,36,3), w=num(el.warm,0,90,21);
-    var perYear=12/cyc;
-    var lost=n*perYear*w;
-    var capacity=n*365;
-    var share=capacity>0?(lost/capacity)*100:0;
-    share=Math.min(100,share);
+        cyc=num(el.cycle,1,36,3), w=num(el.warm,0,120,51);
+    var perYear=12/cyc, lost=n*perYear*w, cap=n*365;
+    var share=cap>0?Math.min(100,(lost/cap)*100):0;
     pct.innerHTML=fmt(share)+'<small>%</small>';
     days.textContent=fmt(lost);
     emails.textContent=fmt(lost*spd);
