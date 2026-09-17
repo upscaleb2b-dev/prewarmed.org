@@ -1,0 +1,4 @@
+# Review deployment. Nothing here should be indexed until prewarmed.org
+# is attached and the site is built with: node scripts/build-site.mjs --live
+User-agent: *
+Disallow: /
