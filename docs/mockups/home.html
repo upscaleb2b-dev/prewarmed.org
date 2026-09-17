@@ -106,21 +106,27 @@ nav.main a{font-family:Archivo,sans-serif; font-size:12.5px; font-weight:500; co
 nav.main a:hover{color:var(--accent); text-decoration:none; border-bottom:2px solid var(--accent)}
 
 /* hero */
-.hero{border-top:none; padding-block:44px 58px}
-.hero h1{font-size:clamp(35px,2.2rem + 2.7vw,64px); line-height:1.02; letter-spacing:-.034em; font-weight:700; margin:0 0 24px; max-width:16ch}
+.hero{border-top:none; padding-block:54px 64px}
+.heroInner{max-width:880px; margin-inline:auto; text-align:center}
+.eyebrow{font-family:Archivo,sans-serif; font-size:11.5px; font-weight:600; letter-spacing:.2em; text-transform:uppercase; color:var(--accent)}
+.eyebrow::after{content:""; display:block; width:44px; height:2px; background:var(--accent); opacity:.5; margin:14px auto 0}
+.hero h1{font-size:clamp(35px,2.2rem + 2.7vw,64px); line-height:1.02; letter-spacing:-.034em; font-weight:700; margin:26px auto 24px; max-width:17ch}
 .hero h1 u{text-decoration:none; color:var(--accent)}
-.lede{font-size:20px; line-height:1.55; color:var(--ink-2); max-width:60ch; margin:0 0 6px}
+.lede{font-size:20px; line-height:1.55; color:var(--ink-2); max-width:62ch; margin:0 auto}
 .lede strong{color:var(--ink); font-weight:600}
 
 /* timeline */
-.tl{margin-top:34px}
-.tlBar{display:flex; height:46px; border-radius:4px; overflow:hidden; border:1px solid var(--rule-2)}
-.tlSeg{display:flex; align-items:center; padding-inline:16px; font-family:Archivo,sans-serif; font-weight:600; font-size:13px; letter-spacing:.02em; min-width:0}
+.tl{margin-top:40px}
+.tlBar{display:flex; height:50px; border-radius:4px; overflow:hidden; border:1px solid var(--rule-2)}
+.tlSeg{display:flex; align-items:center; justify-content:center; padding-inline:14px; font-family:Archivo,sans-serif; font-weight:600; font-size:13.5px; letter-spacing:.01em; min-width:0}
 .tlSeg span{overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
 .tlSeg.age{flex:30; background:var(--age-wash); color:var(--ink)}
 .tlSeg.warm{flex:21; background:var(--accent-wash); color:var(--ink); border-left:1px solid var(--rule-2)}
-.tlMarks{display:flex; margin-top:9px; font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3)}
-.tlMarks .m{flex:30} .tlMarks .m2{flex:21} .tlMarks .m3{flex:0 0 auto}
+.tlMarks{position:relative; height:15px; margin-top:11px; font-family:"IBM Plex Mono",monospace; font-size:11px; color:var(--ink-3)}
+.tlMarks i{position:absolute; top:0; white-space:nowrap; font-style:normal}
+.tlMarks .s{left:0}
+.tlMarks .m{left:58.8%; transform:translateX(-50%)}
+.tlMarks .e{right:0}
 .tlCols{display:grid; grid-template-columns:30fr 21fr; gap:0 26px; margin-top:26px}
 @media (max-width:760px){ .tlCols{grid-template-columns:1fr; gap:26px} .tlBar{height:auto; flex-direction:column} .tlSeg{padding-block:12px} .tlSeg.warm{border-left:none; border-top:1px solid var(--rule-2)} .tlMarks{display:none} }
 .tlCol h3{font-size:16px; margin:0 0 4px; font-weight:700; letter-spacing:-.015em; color:var(--ink)}
@@ -129,7 +135,8 @@ nav.main a:hover{color:var(--accent); text-decoration:none; border-bottom:2px so
 .tlCol li{list-style:none; font-size:15.5px; color:var(--ink-2); line-height:1.45; padding:7px 0 7px 20px; position:relative; border-bottom:1px solid var(--rule)}
 .tlCol li::before{content:""; position:absolute; left:2px; top:15px; width:7px; height:7px; border-radius:50%; background:var(--accent)}
 .tlCol.aged li::before{background:var(--age)}
-.tlNote{margin-top:22px; font-size:16px; color:var(--ink-2); max-width:66ch; border-left:3px solid var(--rule-2); padding-left:16px}
+.colNote{margin:14px 0 0; font-size:15px; line-height:1.5; color:var(--ink-3)}
+.tlNote{margin-top:26px; font-size:16px; color:var(--ink-2); max-width:66ch; border-left:3px solid var(--rule-2); padding-left:16px}
 .tlNote b{color:var(--ink); font-weight:600}
 
 h2{font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin:0 0 10px}
@@ -224,22 +231,20 @@ footer{border-top:2px solid var(--ink); padding-block:34px 52px}
   </header>
 
   <section class="hero" id="definition">
-    <div class="rail">
-      <div class="lab"><b>Definition</b>The standard</div>
-      <div>
-        <h1>Prewarmed means <u>51 days</u> before your first send.</h1>
-        <p class="lede"><strong>Thirty days aged</strong>, so the domain has a registration history and authentication that has been published long enough to be believed. <strong>Then twenty-one days warmed</strong>, sending and receiving real mail so the receiving providers have formed an opinion of it. Most of what is sold as prewarmed skips one of those, or both.</p>
+    <div class="heroInner">
+      <div class="eyebrow">The new standard for deliverability</div>
+      <h1>Prewarmed means <u>51 days</u> before your first send.</h1>
+      <p class="lede"><strong>Thirty days aged</strong>, so the domain has a registration history and authentication that has been published long enough to be believed. <strong>Then twenty-one days warmed</strong>, sending and receiving real mail so the receiving providers have formed an opinion of it. Most of what is sold as prewarmed skips one of those, or both.</p>
 
-        <div class="tl">
-          <div class="tlBar" role="img" aria-label="Timeline: 30 days aging, then 21 days warming, then handover at day 51">
-            <div class="tlSeg age"><span>Aging · 30 days</span></div>
-            <div class="tlSeg warm"><span>Warming · 21 days</span></div>
-          </div>
-          <div class="tlMarks mono" aria-hidden="true">
-            <div class="m">day 0 · registered</div>
-            <div class="m2">day 30 · first send</div>
-            <div class="m3">day 51 · handover</div>
-          </div>
+      <div class="tl">
+        <div class="tlBar" role="img" aria-label="Timeline: 30 days aging from registration, then 21 days warming, handover at day 51">
+          <div class="tlSeg age"><span>Aging · 30 days</span></div>
+          <div class="tlSeg warm"><span>Warming · 21 days</span></div>
+        </div>
+        <div class="tlMarks" aria-hidden="true">
+          <i class="s">day 0 · registered</i>
+          <i class="m">day 30 · first send</i>
+          <i class="e">day 51 · handover</i>
         </div>
       </div>
     </div>
@@ -259,10 +264,8 @@ footer{border-top:2px solid var(--ink); padding-block:34px 52px}
             <ul>
               <li>Register a clean .com, checked against drop history and prior blocklist exposure</li>
               <li>Publish SPF, DKIM and DMARC, and leave them published</li>
-              <li>MX and inbound path configured so replies can land from day one</li>
-              <li>Custom tracking domain established on its own hostname</li>
-              <li>Nothing sends. Registration age and record stability are the whole job</li>
             </ul>
+            <p class="colNote">That is the whole job. Nothing sends for thirty days. The domain is accruing the one thing that cannot be bought on the day you need it.</p>
           </div>
           <div class="tlCol">
             <h3>Warming</h3>
@@ -277,7 +280,7 @@ footer{border-top:2px solid var(--ink); padding-block:34px 52px}
           </div>
         </div>
 
-        <p class="tlNote"><b>Why 30 and not 7.</b> Domain age is one of the few signals a receiving provider can check that a sender cannot fake or accelerate. A domain registered last Tuesday with perfect authentication is still a domain registered last Tuesday. The aging window is cheap to run and impossible to skip, which is exactly why most sellers skip it.</p>
+        <p class="tlNote"><b>Why thirty days and not seven.</b> A domain that starts sending in its first days gets listed on the major blacklists almost immediately, and an early listing is the hardest kind to undo. Registration age is one of the very few signals a receiving provider can check that a sender cannot fake or accelerate, and it is the cheapest protection available against exactly that. It is also the step most sellers skip, because waiting costs them inventory turnover.</p>
       </div>
     </div>
   </section>
