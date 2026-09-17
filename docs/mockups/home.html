@@ -170,7 +170,8 @@ h2{font-size:13px; font-weight:600; letter-spacing:.12em; text-transform:upperca
 .offerTop h3{margin:0; font-size:clamp(23px,1.3rem + 1.1vw,31px); letter-spacing:-.024em; font-weight:700; color:var(--ink); line-height:1.16}
 .brandLock{display:inline-flex; flex-direction:column; gap:6px; align-items:flex-end; text-decoration:none; flex-shrink:0}
 .brandLock .by{font-family:Archivo,sans-serif; font-size:9.5px; font-weight:600; letter-spacing:.17em; text-transform:uppercase; color:var(--ink-3)}
-.brandLock .wm{font-family:Archivo,sans-serif; font-weight:700; font-size:21px; letter-spacing:-.028em; color:var(--ink); line-height:1}
+.brandLock .wm{display:flex; align-items:center; gap:9px; font-family:Archivo,sans-serif; font-weight:700; font-size:21px; letter-spacing:-.028em; color:var(--ink); line-height:1}
+.brandLock .wm svg{width:26px; height:26px; flex:0 0 26px; display:block}
 .brandLock:hover{text-decoration:none}
 .brandLock:hover .wm{color:var(--accent)}
 @media (max-width:620px){ .brandLock{align-items:flex-start} }
@@ -357,7 +358,13 @@ footer{border-top:2px solid var(--ink); padding-block:34px 52px}
               <h3>The domains are free.<br>You pay for the mailboxes.</h3>
               <a class="brandLock" href="https://warminboxes.com">
                 <span class="by">Infrastructure by</span>
-                <span class="wm">WarmInboxes</span>
+                <span class="wm">
+                  <svg viewBox="0 0 100 100" role="img" aria-label="WarmInboxes">
+                    <rect x="0" y="0" width="100" height="100" rx="23" fill="#F97316"></rect>
+                    <path d="M20 31 L50 58 L80 31 L80 71 L20 71 Z" fill="#fff" stroke="#fff" stroke-width="4" stroke-linejoin="round"></path>
+                  </svg>
+                  WarmInboxes
+                </span>
               </a>
             </div>
             <p>A .com costs about ten dollars a year. The fifty-one days of aging, authentication, engagement and placement testing is where the cost actually sits, and that work lives in the mailboxes rather than in the registration. So we do not charge for domains. They arrive with the inboxes: <strong>aged, warmed, authenticated, DNS configured, and placement tested before handover.</strong></p>
@@ -428,7 +435,7 @@ footer{border-top:2px solid var(--ink); padding-block:34px 52px}
       <div><h4>Infrastructure</h4><a href="https://warminboxes.com">WarmInboxes</a><a href="#">Aged domains</a><a href="#">Developer API</a><a href="#">Research feed</a></div>
     </div>
     <p class="colophon"><b>prewarmed.org is published by the team behind WarmInboxes</b>, which sells prewarmed and fresh Google Workspace, Microsoft 365 and Azure inboxes. The research here is built from that infrastructure and described in full on the <a href="#">methodology</a> page. Corrections: <span class="mono">corrections@prewarmed.org</span>, answered within five working days.</p>
-    <p class="legend">Mockup for design review. The 30 and 21 day windows are the standard we operate to; the three-month replacement cycle is our operator figure and is marked pending until R3 publishes.<br>To add before launch: WarmInboxes logo SVG (replaces the wordmark in the offer block, target 22px cap height), WhatsApp link, author and reviewer names, price from-figure, R3 data cut.</p>
+    <p class="legend">Mockup for design review. The 30 and 21 day windows are the standard we operate to; the three-month replacement cycle is our operator figure and is marked pending until R3 publishes.<br>To add before launch: confirm the WarmInboxes mark against the real asset (the one in the offer block is redrawn from a supplied raster, orange set to #F97316), WhatsApp link, author and reviewer names, price from-figure, R3 data cut.</p>
   </footer>
 
 </div>
