@@ -43,6 +43,8 @@ Planning repository for prewarmed.org, a reference site on prewarmed sending inf
 | [`20-URL-MAP-V2.md`](docs/plan/20-URL-MAP-V2.md) | The merged map, 292 URLs, new cannibalisation boundaries, and the verification cost that comes with the size |
 | [`21-ROADMAP-V2.md`](docs/plan/21-ROADMAP-V2.md) | Two parallel tracks over sixteen weeks, the six gates between them, staffing, and six contingencies |
 | [`22-RESOURCE-REGISTER.md`](docs/plan/22-RESOURCE-REGISTER.md) | Every citable WarmInboxes URL, the three roles one can play, the verification rule, and the quarantine for unverified claims |
+| [`23-AUTHORITY-AND-LANDER.md`](docs/plan/23-AUTHORITY-AND-LANDER.md) | The four kinds of authority, what the lander needs to rank for the term it is named after, and subtle monetisation |
+| [`24-AGED-DOMAIN-SOURCING.md`](docs/plan/24-AGED-DOMAIN-SOURCING.md) | Whether a registrable domain can carry a Spamhaus reputation score, how a dropped-domain pipeline really works, the test that settles it, and the D5 extension |
 
 ## Where to start reading
 
