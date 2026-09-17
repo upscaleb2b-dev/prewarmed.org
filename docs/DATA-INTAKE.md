@@ -90,6 +90,8 @@ Derived: D1 and D3 joined on domain_id and inbox_id with provider, region (`us`,
 
 ### D5 Domain history
 
+Ten further columns covering reputation-record history are proposed in `plan/24-AGED-DOMAIN-SOURCING.md` section 7, to be folded in here when the reputation test in that document is pre-registered.
+
 | Column | Type | Notes |
 |---|---|---|
 | domain_id | string | |
