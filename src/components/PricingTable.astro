@@ -1,0 +1,43 @@
+---
+import pricing from '../data/pricing.json';
+const { productKey } = Astro.props;
+const p = pricing.products[productKey];
+const terms = pricing.terms;
+const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
+---
+<div class="pt">
+  {!pricing._verified && (
+    <p class="unver mono">Prices unverified — confirm against warminboxes.com before launch</p>
+  )}
+  <div class="scroll-x">
+    <table>
+      <caption>{p.label}{p.packSize ? ` · sold in packs of ${p.packSize}` : ''}{p.domainIncluded ? ' · prewarmed domain included' : ''}</caption>
+      <thead>
+        <tr><th>Billing</th><th>{p.unit === 'tenant' ? 'Per tenant' : `Per ${p.unit}`}</th>{p.unit === 'tenant' ? <th>Per inbox</th> : p.packSize ? <th>Pack of {p.packSize}</th> : null}</tr>
+      </thead>
+      <tbody>
+        {terms.map((t) => {
+          const per = p.perUnit?.[t.id] ?? p.perTenant?.[t.id] ?? null;
+          const range = p.perUnitRange?.[t.id];
+          const second = p.perInbox?.[t.id] ?? (p.packSize && per ? per * p.packSize : null);
+          return (
+            <tr class={t.best ? 'best' : ''}>
+              <td>{t.label}{t.best && <span class="tag">best value</span>}</td>
+              <td class="mono price">{range ? `${fmt(range[0])}–${fmt(range[1])}` : per !== null ? fmt(per) : '—'}</td>
+              {(p.unit === 'tenant' || p.packSize) && <td class="mono">{second !== null ? `${fmt(second)}${p.unit === 'tenant' ? ' /inbox' : ''}` : '—'}</td>}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+  </div>
+  <p class="note">{pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>
+</div>
+<style>
+  .pt { margin-block: 26px; }
+  .unver { font-size: 12px; color: var(--warning); background: var(--warning-soft); border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent); border-radius: 6px; padding: 8px 12px; margin: 0 0 14px; }
+  .price { font-size: 19px; font-weight: 500; color: var(--text); }
+  .best td { background: var(--accent-soft); }
+  .tag { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin-left: 8px; }
+  .note { font-size: 13.5px; color: var(--text-muted); margin: 12px 0 0; }
+</style>

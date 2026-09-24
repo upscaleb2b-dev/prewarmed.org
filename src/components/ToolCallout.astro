@@ -1,0 +1,33 @@
+---
+/** Inline diagnose→fix module. One per page, never a wall of them. */
+import tools from '../data/tools.json';
+import { toolUrl } from '../data/site.js';
+const { id, headline, body, page = 'site' } = Astro.props;
+const tool = tools.tools.find((t) => t.id === id);
+if (!tool) throw new Error(`ToolCallout: unknown tool "${id}"`);
+const href = toolUrl(tool, { page, placement: 'inline' });
+const external = tool.host !== 'prewarmed.org';
+---
+<aside class="tc">
+  <p class="eyebrow">Free tool{external && ' · runs on warminboxes.com'}</p>
+  <h3>{headline ?? tool.name}</h3>
+  <p class="body">{body ?? tool.short}</p>
+  <p class="act">
+    <a class="btn btn-primary" href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
+      {external ? `Open ${tool.name} ↗` : `Open ${tool.name}`}
+    </a>
+  </p>
+  {tool.ifFails && tool.fixPage && (
+    <p class="fix"><strong>If it fails:</strong> {tool.ifFails} <a href={tool.fixPage}>See the fix →</a></p>
+  )}
+</aside>
+
+<style>
+  .tc { border: 1px solid var(--border); border-left: 3px solid var(--accent); background: var(--bg-elev); border-radius: var(--r-card); padding: 24px 26px; margin-block: 32px; }
+  .tc .eyebrow { margin: 0 0 8px; }
+  .tc h3 { margin: 0 0 8px; font-size: 21px; }
+  .tc .body { color: var(--text-2); max-width: 60ch; margin: 0 0 18px; font-size: 16px; }
+  .tc .act { margin: 0; }
+  .tc .fix { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--border); font-size: 14.5px; color: var(--text-muted); }
+  .tc .fix strong { color: var(--text-2); }
+</style>

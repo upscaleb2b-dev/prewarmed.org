@@ -1,0 +1,37 @@
+---
+import Simple from '../layouts/Simple.astro';
+import { wi } from '../data/site.js';
+---
+<Simple
+  title="How Prewarming Works — 30 Days Aged, 21 Days Warmed"
+  description="What happens in the 51 days before a prewarmed domain reaches you: aging, authentication, mailbox creation, warming, placement testing and handover."
+  eyebrow="How it works"
+  h1="The 51 days that happen before you get the domain"
+  lede="Neither half can be compressed. Age cannot be manufactured on the day you need it, and engagement history cannot be built faster than a receiving provider is willing to observe it.">
+
+  <h2>Days 0 to 30 — aging</h2>
+  <p>We register a clean .com, checked against drop history and prior blocklist exposure, and publish SPF, DKIM and DMARC. Then nothing sends for thirty days.</p>
+  <p>That sounds like doing nothing and it is the most important part. A domain that starts sending in its first days gets listed on the major blacklists almost immediately, and an early listing is the hardest kind to undo. Registration age is one of the very few signals a receiving provider can check that a sender cannot fake or accelerate.</p>
+  <p class="note">It is also the step most sellers skip, because waiting costs them inventory turnover. When a vendor advertises a prewarmed domain delivered in 48 hours, this is the part that did not happen.</p>
+
+  <h2>Days 30 to 51 — warming</h2>
+  <p>Mailboxes are created on Google Workspace, Microsoft 365 or an Azure tenant. The domain begins sending and receiving real mail at low volume, ramped in steps tied to observed outcomes rather than to a calendar.</p>
+  <p>What accumulates is engagement history: messages opened, replied to, and moved out of spam. That is the signal receiving providers actually weigh, and it is why age alone is not enough.</p>
+
+  <h2>Before handover — placement testing</h2>
+  <p>Inbox placement is tested before the domain reaches you, not after. Anything failing is fixed and retested, or the domain does not ship. Testing after handover means the customer discovers the problem.</p>
+
+  <h2>Handover</h2>
+  <ul>
+    <li>Admin access, transferred to you</li>
+    <li>Domain, DNS and authentication records, already published</li>
+    <li>Mailbox credentials as a CSV ready for your sequencer</li>
+    <li>The placement test result</li>
+  </ul>
+
+  <h2>Then it is yours, and the ramp still matters</h2>
+  <p>Prewarmed does not mean invincible. We recommend 15 cold sends per inbox per day, three inboxes per domain, increasing in steps only while bounce rate stays low and placement holds. The most common first-month failure is a volume step taken while a bounce signal was already elevated.</p>
+  <p>Prewarming buys you the 51 days. It does not fix a bad list, and a clean domain pointed at a dirty list fails the same way the last one did, faster.</p>
+
+  <p style="margin-top:34px"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'how-it-works', placement: 'body' })}>Get inboxes</a></p>
+</Simple>

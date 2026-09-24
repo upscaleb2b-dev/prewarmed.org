@@ -1,0 +1,44 @@
+---
+import Base from '../layouts/Base.astro';
+import PricingTable from '../components/PricingTable.astro';
+import { wi } from '../data/site.js';
+import pricing from '../data/pricing.json';
+---
+<Base title="Prewarmed Inbox & Domain Pricing — Google, Microsoft 365, Azure"
+      description="Pricing for prewarmed Google Workspace, Microsoft 365 and Azure tenant inboxes, plus fresh inboxes and standalone prewarmed domains.">
+  <section class="section">
+    <div class="wrap" style="max-width:900px">
+      <p class="eyebrow">Pricing</p>
+      <h1>What it costs</h1>
+      <p class="lede">Every price below renders from a single data file so nothing drifts out of step with warminboxes.com. Longer billing periods cost less per inbox.</p>
+      {!pricing._verified && (
+        <p class="unver mono">These figures are marked unverified in the source data and the live build is blocked until someone confirms them against warminboxes.com.</p>
+      )}
+      <h2 style="margin-top:44px">Prewarmed inboxes</h2>
+      <PricingTable productKey="google-prewarmed" />
+      <PricingTable productKey="microsoft-prewarmed" />
+      <h2 style="margin-top:44px">Azure tenants</h2>
+      <p class="muted">A hundred mailboxes behind one admin. Far cheaper per inbox, and one shared reputation pool — see the <a href="/prewarmed-azure-inboxes/">Azure page</a> for the risk model before buying.</p>
+      <PricingTable productKey="azure-tenant" />
+      <h2 style="margin-top:44px">Fresh inboxes</h2>
+      <p class="muted">No aging, no warming, no domain. You do the 51 days. Priced accordingly.</p>
+      <PricingTable productKey="google-fresh" />
+      <PricingTable productKey="microsoft-fresh" />
+      <h2 style="margin-top:44px">Notes</h2>
+      <ul class="notes">
+        <li>Prewarmed packs include a prewarmed .com or .co domain at no cost.</li>
+        <li>Non-.com prewarmed domains from ${pricing.policy.nonComFrom} via support.</li>
+        <li>Standalone prewarmed .com: ${pricing.products['domain-standalone'].price}.</li>
+        <li>{pricing.policy.delivery}.</li>
+        <li><strong>Refunds:</strong> see <a href="/refund-policy/">the refund policy</a>. Read it before ordering.</li>
+      </ul>
+      <p style="margin-top:32px"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'pricing', placement: 'body' })}>Order at Warm Inboxes</a></p>
+    </div>
+  </section>
+</Base>
+<style>
+  h1 { margin: 12px 0 18px; }
+  .unver { font-size: 13px; color: var(--warning); background: var(--warning-soft); border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent); border-radius: 8px; padding: 12px 16px; margin-top: 22px; }
+  .notes { padding-left: 20px; color: var(--text-2); }
+  .notes li { margin-bottom: 8px; }
+</style>

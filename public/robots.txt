@@ -1,4 +1,6 @@
-# Review deployment. Nothing here should be indexed until prewarmed.org
-# is attached and the site is built with: node scripts/build-site.mjs --live
+# Review deployment. Nothing here should be indexed until prewarmed.org is
+# attached. At that point delete the Disallow line below.
 User-agent: *
 Disallow: /
+
+Sitemap: https://prewarmed.org/sitemap-index.xml

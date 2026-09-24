@@ -1,0 +1,37 @@
+---
+import Simple from '../layouts/Simple.astro';
+import { site } from '../data/site.js';
+---
+<Simple title="Contact — prewarmed.org" description="Talk to an operator about domains, inboxes and sending setup."
+  eyebrow="Contact" h1="Talk to an operator"
+  lede="Tell us the volume you need and what broke last time. Replies within one business day.">
+  <form class="f" method="POST" action="/api/lead" name="lead">
+    <input type="text" name="company_website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <div class="row">
+      <label>Name<input name="name" required autocomplete="name" /></label>
+      <label>Work email<input name="email" type="email" required autocomplete="email" /></label>
+    </div>
+    <div class="row">
+      <label>Provider needed
+        <select name="provider"><option>Not sure</option><option>Google Workspace</option><option>Microsoft 365</option><option>Azure / Entra tenant</option><option>Domains only</option></select>
+      </label>
+      <label>Inboxes<input name="inboxes" type="number" min="1" placeholder="30" /></label>
+    </div>
+    <label>Sequencer<input name="sequencer" placeholder="Smartlead, Instantly, Email Bison…" /></label>
+    <label>What are you trying to do?<textarea name="message" rows="4" placeholder="Volume target, timeline, and what went wrong last time."></textarea></label>
+    <button class="btn btn-primary btn-lg" type="submit">Send</button>
+    <p class="micro muted">No newsletter, no sequence. One reply from a person.</p>
+  </form>
+  <p class="note"><strong>To wire before launch:</strong> point the form at your CRM or a Slack webhook, add Turnstile, and fire the <code>lead_submit</code> conversion on <code>/thanks/</code>. A WhatsApp link belongs here too once you supply the number.</p>
+</Simple>
+<style>
+  .f { display: grid; gap: 18px; max-width: 620px; }
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
+  label { display: block; font-size: 13px; letter-spacing: .04em; text-transform: uppercase; color: var(--text-muted); font-weight: 500; }
+  input, select, textarea { width: 100%; margin-top: 7px; font: inherit; font-size: 16px; text-transform: none; letter-spacing: normal; background: var(--bg-elev); color: var(--text); border: 1px solid var(--border-strong); border-radius: 6px; padding: 11px 13px; }
+  textarea { resize: vertical; }
+  .hp { position: absolute; left: -9999px; }
+  .micro { font-size: 13px; margin: 0; }
+  button { justify-self: start; }
+</style>

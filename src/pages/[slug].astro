@@ -1,0 +1,146 @@
+---
+import Base from '../layouts/Base.astro';
+import SpecStrip from '../components/SpecStrip.astro';
+import PricingTable from '../components/PricingTable.astro';
+import ToolCallout from '../components/ToolCallout.astro';
+import Faq from '../components/Faq.astro';
+import { products, bySlug } from '../data/products.js';
+import { site, wi } from '../data/site.js';
+import pricing from '../data/pricing.json';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
+}
+const { p } = Astro.props;
+const price = pricing.products[p.pricingKey];
+const from = price?.perUnit?.quarterly ?? price?.perInbox?.quarterly ?? price?.price ?? null;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://prewarmed.org/' },
+      { '@type': 'ListItem', position: 2, name: p.eyebrow, item: `https://prewarmed.org/${p.slug}/` },
+    ]},
+    { '@type': 'FAQPage', mainEntity: p.faqs.map(([q, a]) => ({
+      '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a },
+    }))},
+  ],
+};
+---
+<Base title={`${p.title} | prewarmed.org`} description={p.description} schema={schema}>
+  <section class="hero section">
+    <div class="wrap">
+      <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <a href="/prewarmed-inboxes/">Inboxes</a> <span class="muted">›</span> <span class="muted">{p.eyebrow}</span></p>
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">{p.eyebrow}</p>
+          <h1>{p.h1}</h1>
+          <p class="lede">{p.subhead}</p>
+          <div class="cta">
+            <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'hero' })}>Get inboxes at Warm Inboxes</a>
+            <a class="btn btn-ghost btn-lg" href="/pricing/">See pricing</a>
+          </div>
+          <p class="disclosure micro">{site.disclosure}</p>
+        </div>
+        <aside class="order card">
+          <p class="eyebrow">What ships</p>
+          <ul class="ships">
+            <li>Domain aged <strong>30 days</strong> before first send</li>
+            <li>Then warmed <strong>21 days</strong> on real traffic</li>
+            <li>SPF, DKIM, DMARC and MX configured</li>
+            <li>Admin access transferred to you</li>
+            <li>Delivered same day</li>
+          </ul>
+          {from !== null && (
+            <p class="from">from <span class="mono big">${from}</span> <span class="muted">/{price.unit === 'tenant' ? 'inbox' : price.unit}/mo</span></p>
+          )}
+          <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })}>Order at Warm Inboxes →</a>
+          <p class="micro muted">{pricing.policy.delivery}.</p>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <SpecStrip specs={p.specs} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Who this is for</h2>
+      <div class="grid g3" style="margin-top:24px">
+        {p.whoFor.map(([h, b]) => (
+          <div class="card"><h3>{h}</h3><p class="muted" style="margin-top:10px;font-size:15.5px">{b}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap prose">
+      {p.body.map((s) => (
+        <div class="blk">
+          <h2>{s.h}</h2>
+          {s.warn && <p class="warn">{s.warn}</p>}
+          {s.p.map((t) => <p>{t}</p>)}
+        </div>
+      ))}
+      <ToolCallout id={p.inlineTool} page={p.slug} />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Pricing</h2>
+      <PricingTable productKey={p.pricingKey} />
+      <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: 'pricing' })}>Order at Warm Inboxes →</a>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap"><Faq faqs={p.faqs} /></div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Related</h2>
+      <div class="grid g3" style="margin-top:22px">
+        {p.related.map((slug) => {
+          const r = bySlug[slug];
+          return r
+            ? <a class="card rel" href={`/${r.slug}/`}><h3>{r.eyebrow}</h3><p class="muted">{r.description}</p></a>
+            : <a class="card rel" href={`/${slug}/`}><h3>{slug.replace(/-/g, ' ')}</h3></a>;
+        })}
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .crumb { font-size: 13.5px; color: var(--text-2); margin: 0 0 26px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr minmax(300px, 360px); gap: 48px; align-items: start; }
+  @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 32px; } }
+  h1 { margin: 12px 0 18px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 28px 0 18px; }
+  .micro { font-size: 12.5px; }
+  .order .eyebrow { margin: 0 0 14px; }
+  .ships { margin: 0 0 20px; padding: 0; list-style: none; }
+  .ships li { font-size: 15px; color: var(--text-2); padding: 7px 0 7px 20px; position: relative; border-bottom: 1px solid var(--border); }
+  .ships li::before { content: '✓'; position: absolute; left: 0; color: var(--success); }
+  .ships strong { color: var(--text); }
+  .from { margin: 0 0 16px; color: var(--text-muted); font-size: 14px; }
+  .big { font-size: 30px; color: var(--text); font-weight: 500; }
+  .full { width: 100%; }
+  .prose { max-width: 760px; }
+  .blk { margin-bottom: 40px; }
+  .blk h2 { margin-bottom: 16px; }
+  .blk p { color: var(--text-2); }
+  .warn { border-left: 3px solid var(--warning); background: var(--warning-soft); padding: 14px 18px; border-radius: 0 6px 6px 0; color: var(--text) !important; font-size: 16px; }
+  .rel h3 { font-size: 18px; margin-bottom: 8px; }
+  .rel { display: block; }
+  .rel:hover { text-decoration: none; border-color: var(--accent); }
+  .rel p { font-size: 14.5px; margin: 0; }
+</style>

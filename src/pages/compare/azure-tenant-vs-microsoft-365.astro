@@ -1,0 +1,25 @@
+---
+import Simple from '../../layouts/Simple.astro';
+---
+<Simple title="Azure Tenant vs Microsoft 365 Packs for Cold Email"
+  description="Both are Microsoft. One isolates risk across domains, the other concentrates it in a single tenant at a tenth of the cost."
+  eyebrow="Compare" h1="Azure tenant vs Microsoft 365 packs"
+  lede="Both are Microsoft mailboxes. The difference is not quality, it is how much of your fleet one bad week can take with it.">
+  <div class="scroll-x" style="margin:28px 0">
+    <table>
+      <thead><tr><th></th><th>Azure tenant</th><th>M365 packs</th></tr></thead>
+      <tbody>
+        <tr><td>Mailboxes</td><td>100 per tenant</td><td>3 per domain</td></tr>
+        <tr><td>Per inbox cost</td><td class="yes">Far lower</td><td>Higher</td></tr>
+        <tr><td>Reputation pool</td><td class="no">One, shared by 100</td><td class="yes">Isolated per domain</td></tr>
+        <tr><td>Loss when something burns</td><td class="no">Potentially the tenant</td><td class="yes">Three inboxes</td></tr>
+        <tr><td>Suits</td><td>1,000+ sends a day, disciplined lists</td><td>Under 1,000 a day, mixed clients</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h2>The honest rule of thumb</h2>
+  <p>Below about 1,000 sends a day, buy packs. The isolation is worth more than the saving, and a burned domain costs you three inboxes rather than a hundred.</p>
+  <p>Above it, tenants become compelling, but only with verified lists, cohort ramping and daily bounce monitoring for the first fortnight. Teams who run tenants like cheap packs lose them.</p>
+  <h2>Agencies often want both</h2>
+  <p>Packs per client for isolation, a tenant for bulk top-of-funnel where the list quality is controlled. Mixing is normal and usually correct.</p>
+</Simple>
