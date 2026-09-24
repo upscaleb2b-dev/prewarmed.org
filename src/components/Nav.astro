@@ -23,8 +23,11 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
     <nav class="links" aria-label="Main">
       {nav.map((item) => (
         <div class={item.children || item.mega ? 'has-menu' : ''}>
-          <a href={item.href} aria-current={path.startsWith(item.href) && item.href !== '/' ? 'page' : undefined}>
-            {item.label}{(item.children || item.mega) && <span class="caret" aria-hidden="true">▾</span>}
+          <a href={item.href}
+             target={item.external ? '_blank' : undefined}
+             rel={item.external ? 'noopener' : undefined}
+             aria-current={!item.external && path.startsWith(item.href) && item.href !== '/' ? 'page' : undefined}>
+            {item.label}{item.external && <span class="ext" aria-hidden="true">↗</span>}{(item.children || item.mega) && <span class="caret" aria-hidden="true">▾</span>}
           </a>
 
           {item.children && (

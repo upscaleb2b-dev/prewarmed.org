@@ -1,5 +1,5 @@
 ---
-import { site, wi, toolUrl } from '../data/site.js';
+import { site, wi, ub, toolUrl } from '../data/site.js';
 import tools from '../data/tools.json';
 import { products } from '../data/products.js';
 import Flame from './Flame.astro';
@@ -36,7 +36,8 @@ const featured = tools.tools.filter((t) => t.live && t.host === 'warminboxes.com
           <a href="/how-it-works/">How it works</a>
           <a href="/about/">About</a>
           <a href="/contact/">Contact</a>
-          <a href={wi('/', { page: 'footer', placement: 'company' })} rel="noopener">Warm Inboxes</a>
+          <a href={wi('/', { page: 'footer', placement: 'company' })} target="_blank" rel="noopener">Warm Inboxes <span class="ext" aria-hidden="true">↗</span></a>
+          <a href={ub('/', { page: 'footer', placement: 'company' })} target="_blank" rel="noopener">DFY Cold Email <span class="ext" aria-hidden="true">↗</span></a>
         </div>
         <div>
           <p class="eyebrow">Legal</p>
@@ -62,5 +63,6 @@ const featured = tools.tools.filter((t) => t.live && t.host === 'warminboxes.com
   .ft-cols .eyebrow { margin: 0 0 12px; }
   .ft-cols a { display: block; font-size: 14.5px; color: var(--text-2); padding: 4px 0; }
   .ft-cols a:hover { color: var(--accent); text-decoration: none; }
+  .ft-cols .ext { font-size: 11px; color: var(--text-muted); }
   .ft-legal { margin: 36px 0 0; padding-top: 22px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 </style>

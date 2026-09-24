@@ -3,11 +3,14 @@ export const site = {
   tagline: 'Prewarmed inboxes and domains for cold email',
   operator: 'Warm Inboxes',
   operatorUrl: 'https://warminboxes.com',
+  // Sister property: done-for-you cold email campaigns, same team.
+  agency: 'Upscale B2B',
+  agencyUrl: 'https://upscaleb2b.com',
   whatsapp: '', // TODO: wa.me link
   correctionsEmail: 'hello@prewarmed.org',
   // One line, every page footer. Ads policy and buyer trust both need it.
   disclosure:
-    'prewarmed.org is operated by the team behind Warm Inboxes (warminboxes.com). Orders are fulfilled by Warm Inboxes.',
+    'prewarmed.org is operated by the team behind Warm Inboxes (warminboxes.com) and Upscale B2B (upscaleb2b.com). Orders are fulfilled by Warm Inboxes.',
   trademark:
     'Google Workspace, Microsoft 365, Azure and Entra are trademarks of their respective owners. prewarmed.org is not affiliated with or endorsed by Google or Microsoft.',
 };
@@ -15,6 +18,16 @@ export const site = {
 /** Outbound link builder. Brand anchors only — never keyword-rich anchor text. */
 export function wi(path = '/', { page = 'site', placement = 'body' } = {}) {
   const u = new URL(path, 'https://warminboxes.com');
+  u.searchParams.set('utm_source', 'prewarmed.org');
+  u.searchParams.set('utm_medium', 'referral');
+  u.searchParams.set('utm_campaign', page);
+  u.searchParams.set('utm_content', placement);
+  return u.toString();
+}
+
+/** Same contract as wi(), for the agency side. */
+export function ub(path = '/', { page = 'site', placement = 'body' } = {}) {
+  const u = new URL(path, site.agencyUrl);
   u.searchParams.set('utm_source', 'prewarmed.org');
   u.searchParams.set('utm_medium', 'referral');
   u.searchParams.set('utm_campaign', page);
@@ -63,4 +76,5 @@ export const nav = [
   { label: 'Free leads', href: '/leads/', leads: true },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'How it works', href: '/how-it-works/' },
+  { label: 'DFY Cold Email', href: ub('/', { page: 'nav', placement: 'header' }), external: true },
 ];

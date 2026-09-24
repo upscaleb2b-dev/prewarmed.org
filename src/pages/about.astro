@@ -1,6 +1,6 @@
 ---
 import Simple from '../layouts/Simple.astro';
-import { site } from '../data/site.js';
+import { site, ub } from '../data/site.js';
 ---
 <Simple
   title="About prewarmed.org"
@@ -14,6 +14,7 @@ import { site } from '../data/site.js';
   <p>We sell the thing we write about. That is stated on every page rather than buried, because a reader who discovers it later is entitled to feel handled, and one told up front is not.</p>
   <h2>What we operate</h2>
   <p>Warm Inboxes runs prewarmed and fresh Google Workspace, Microsoft 365 and Azure infrastructure, and sends at volume across its own campaigns. The figures and recommendations on this site come from operating that infrastructure.</p>
+  <p>The same team runs <a href={ub('/', { page: 'about', placement: 'body' })} target="_blank" rel="noopener">Upscale B2B</a>, which runs cold email campaigns for clients end to end. That is where a lot of the sending behind these numbers actually happens, and it is why the advice here is written from the position of someone who has to live with the consequences of it.</p>
   <p class="note"><strong>To add before launch:</strong> named author and reviewer with real roles, quantified operator credentials (years operating, inboxes under management, monthly volume), and the exact replacement policy terms.</p>
   <h2>Corrections</h2>
   <p>If a number here is wrong, tell us at <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a> and we will fix it and say what changed.</p>
