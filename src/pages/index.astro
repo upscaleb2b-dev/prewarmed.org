@@ -74,6 +74,15 @@ const schema = {
           </a>
         ))}
       </div>
+      <div class="fresh-strip">
+        <p><strong>Not starting for a couple of months?</strong> Every one of these has a fresh version: the same mailboxes with no aging and no warming done, for less. You run the 51 days.</p>
+        <p class="fresh-links">
+          <a href="/fresh-google-inboxes/">Fresh Google</a>
+          <a href="/fresh-microsoft-365-inboxes/">Fresh Microsoft 365</a>
+          <a href="/fresh-azure-inboxes/">Fresh Azure tenants</a>
+          <a href="/fresh-domains/">Fresh domains</a>
+        </p>
+      </div>
     </div>
   </section>
 
@@ -84,8 +93,9 @@ const schema = {
         <table>
           <thead><tr><th></th><th>Prewarmed</th><th>Fresh inbox</th><th>Do it yourself</th></tr></thead>
           <tbody>
-            <tr><td>How soon you can send</td><td class="yes">Same day</td><td>14–21 days</td><td>51 days</td></tr>
-            <tr><td>Domain age on day one</td><td class="yes">30 days +</td><td>0 days</td><td>30 days, if you wait</td></tr>
+            <tr><td>How soon you can send</td><td class="yes">Same day</td><td>21 days on a domain you already use, 51 on a new one</td><td>51 days</td></tr>
+            <tr><td>Domain age on day one</td><td class="yes">30 days +</td><td>Whatever yours already is</td><td>0 days</td></tr>
+            <tr><td>What you pay for the mailbox</td><td class="yes">Reseller rate</td><td class="yes">Reseller rate</td><td class="no">Retail list price</td></tr>
             <tr><td>Cost of a warmup tool</td><td class="yes">None</td><td>Extra</td><td>Extra</td></tr>
             <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No</td><td class="no">No</td></tr>
             <tr><td>SPF, DKIM and DMARC set up</td><td class="yes">Before handover</td><td class="no">You</td><td class="no">You</td></tr>
@@ -94,6 +104,8 @@ const schema = {
           </tbody>
         </table>
       </div>
+      <p class="tnote"><strong>Doing it yourself is not the cheap option.</strong> Buying Google Workspace or Microsoft 365 licences direct means paying the public list price. We buy at reseller rates, so the same mailbox costs us less than it costs you. That is why a prewarmed inbox — with 51 days of work already done and the domain thrown in — lands near what you would pay a provider for the licence on its own. Put the warming tool and the domain back on top and doing it yourself stops being cheaper at all.</p>
+      <p class="tnote">The one thing it does buy you is control, and if you are going to run your own warming anyway, the <a href="/fresh-google-inboxes/">fresh inboxes</a> get you the reseller rate without the 51 days of someone else's work in the price.</p>
     </div>
   </section>
 
@@ -137,6 +149,13 @@ const schema = {
   .pick { display: block; }
   .pick:hover { text-decoration: none; border-color: var(--accent); }
   .more { display: inline-block; margin-top: 14px; color: var(--accent); font-size: 14.5px; font-weight: 500; }
+  .fresh-strip { margin-top: 26px; border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; }
+  .fresh-strip p { color: var(--text-2); font-size: 16px; margin: 0; max-width: 760px; }
+  .fresh-strip strong { color: var(--text); }
+  .fresh-links { margin-top: 12px !important; display: flex; flex-wrap: wrap; gap: 8px 22px; }
+  .fresh-links a { font-size: 15px; font-weight: 500; }
+  .tnote { max-width: 800px; font-size: 15.5px; color: var(--text-2); margin: 20px 0 0; }
+  .tnote strong { color: var(--text); }
   .final { text-align: center; }
   .final .lede { margin-inline: auto; }
 </style>
