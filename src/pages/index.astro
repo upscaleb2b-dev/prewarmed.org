@@ -1,0 +1,142 @@
+---
+import Base from '../layouts/Base.astro';
+import ToolCallout from '../components/ToolCallout.astro';
+import Faq from '../components/Faq.astro';
+import { products } from '../data/products.js';
+import { site, wi } from '../data/site.js';
+import pricing from '../data/pricing.json';
+import tools from '../data/tools.json';
+
+const liveTools = tools.tools.filter((t) => t.live).length;
+const faqs = [
+  ['What does prewarmed actually mean?', 'Thirty days of letting the domain get older with its records in place, then twenty-one days of sending and receiving real email. Fifty-one days before the first cold email goes out. A lot of what gets sold as prewarmed skips one half, or both.'],
+  ['Are these real Google and Microsoft accounts?', 'Yes. Proper paid accounts, and you get the admin login. Not a relay service, and not a seat on somebody else\'s account.'],
+  ['How fast do I get them?', 'The same day, on business days. The 51 days of waiting already happened before you ordered.'],
+  ['How many emails a day can I send?', 'We suggest 15 per inbox per day, with three inboxes on each domain. That is deliberately cautious, and it is the setup that keeps working month after month.'],
+  ['Do I get the admin login?', 'Yes. This is the question that separates a real account from a rented seat. Ask it of everyone you buy from, including us.'],
+  ['What if a domain stops landing in the inbox?', 'Ask for the replacement terms in writing before you order, from anyone. Getting a damaged domain back is slow and often does not work, so how fast they replace it is what matters.'],
+  ['Which sending tools do these work with?', 'Any of them. Smartlead, Instantly, Email Bison, ManyReach and the rest all connect the same way.'],
+  ['Who runs prewarmed.org?', site.disclosure],
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'Organization', name: 'prewarmed.org', url: 'https://prewarmed.org/',
+      parentOrganization: { '@type': 'Organization', name: 'Warm Inboxes', url: 'https://warminboxes.com/' } },
+    { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+  ],
+};
+---
+<Base
+  title="Prewarmed Inboxes & Domains for Cold Email | Google, Microsoft 365, Azure"
+  description="Prewarmed inboxes on Google Workspace, Microsoft 365 or Azure, on a domain aged 30 days and warmed 21 more. DNS configured, delivered same day."
+  schema={schema}>
+
+  <section class="hero section">
+    <div class="wrap">
+      <p class="eyebrow">Prewarmed inboxes and domains for cold email</p>
+      <h1>51 days of reputation.<br />Yours today.</h1>
+      <p class="lede">A brand new domain has no history, so Gmail and Outlook do not trust it yet. It needs about 30 days of age, then 21 days of real emails going out and coming back, before it can send cold email properly. We run those 51 days for you. Official Google Workspace, Microsoft 365 and Azure inboxes on a domain that is already warmed up, delivered the same day.</p>
+      <div class="cta">
+        <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'hero' })}>Get inboxes</a>
+        <a class="btn btn-ghost btn-lg" href="/tools/">{liveTools} free tools</a>
+      </div>
+
+      <div class="tl" role="img" aria-label="Timeline: 30 days aging, then 21 days warming, handover at day 51">
+        <div class="tl-bar"><div class="seg age"><span>Aging · 30 days</span></div><div class="seg warm"><span>Warming · 21 days</span></div></div>
+        <div class="tl-marks mono"><i class="s">day 0 · registered</i><i class="m">day 30 · first send</i><i class="e">day 51 · yours</i></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>What prewarmed means here</h2>
+      <div class="grid g4" style="margin-top:26px">
+        <div class="card"><h3>Proper accounts</h3><p class="muted">Real Google and Microsoft accounts, not a relay service. You get the admin login.</p></div>
+        <div class="card"><h3>30 days of age</h3><p class="muted">How old a domain is cannot be faked or rushed, and Gmail and Outlook can both check it.</p></div>
+        <div class="card"><h3>21 days of warming</h3><p class="muted">Three weeks of real emails sent and replied to, so the domain has a track record.</p></div>
+        <div class="card"><h3>Ready the same day</h3><p class="muted">You get the logins within hours. The 51 days of waiting already happened.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Pick your provider</h2>
+      <p class="lede" style="margin-top:12px">Pick based on where the people you are emailing actually read their mail, not on which brand you prefer. Check your list first.</p>
+      <div class="grid g3" style="margin-top:28px">
+        {products.filter((p) => ['prewarmed-google-inboxes','prewarmed-microsoft-365-inboxes','prewarmed-azure-inboxes'].includes(p.slug)).map((p) => (
+          <a class="card pick" href={`/${p.slug}/`}>
+            <h3>{p.eyebrow}</h3>
+            <p class="muted">{p.description}</p>
+            <span class="more">View →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Prewarmed, fresh or do it yourself</h2>
+      <div class="scroll-x" style="margin-top:24px">
+        <table>
+          <thead><tr><th></th><th>Prewarmed</th><th>Fresh inbox</th><th>Do it yourself</th></tr></thead>
+          <tbody>
+            <tr><td>How soon you can send</td><td class="yes">Same day</td><td>14–21 days</td><td>51 days</td></tr>
+            <tr><td>Domain age on day one</td><td class="yes">30 days +</td><td>0 days</td><td>30 days, if you wait</td></tr>
+            <tr><td>Cost of a warmup tool</td><td class="yes">None</td><td>Extra</td><td>Extra</td></tr>
+            <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No</td><td class="no">No</td></tr>
+            <tr><td>SPF, DKIM and DMARC set up</td><td class="yes">Before handover</td><td class="no">You</td><td class="no">You</td></tr>
+            <tr><td>Admin login</td><td class="yes">Full</td><td class="yes">Full</td><td class="yes">Full</td></tr>
+            <tr><td>Replacement if it stops working</td><td class="yes">Same-day swap</td><td class="no">—</td><td class="no">—</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <ToolCallout id="blacklist-checker" page="home"
+        headline="Not sure your current domain is the problem?"
+        body="If replies stopped overnight, a blacklist is the usual cause, and it is the first thing to rule out before you buy more inboxes. Checks 20+ blacklists, free, no signup." />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap"><Faq faqs={faqs} heading="Questions" /></div>
+  </section>
+
+  <section class="section final">
+    <div class="wrap">
+      <h2>Your next campaign can start today.</h2>
+      <p class="lede" style="margin:14px auto 26px">Inboxes on a domain that has already done its 51 days, so you can start sending cold email today.</p>
+      <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'footer-cta' })}>Get inboxes</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .hero { padding-block: clamp(48px, 7vw, 84px) clamp(40px, 5vw, 64px); }
+  .hero h1 { margin: 14px 0 22px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 30px 0 0; }
+  .tl { margin-top: 46px; max-width: 860px; }
+  .tl-bar { display: flex; height: 52px; border: 1px solid var(--border-strong); border-radius: var(--r-btn); overflow: hidden; }
+  .seg { display: flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 600; font-size: 14px; min-width: 0; }
+  .seg span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-inline: 12px; }
+  .seg.age { flex: 30; background: var(--bg-elev-2); color: var(--text-2); }
+  .seg.warm { flex: 21; background: var(--accent-soft); color: var(--text); border-left: 1px solid var(--border-strong); }
+  .tl-marks { position: relative; height: 16px; margin-top: 10px; font-size: 11.5px; color: var(--text-muted); }
+  .tl-marks i { position: absolute; top: 0; white-space: nowrap; font-style: normal; }
+  .tl-marks .s { left: 0; } .tl-marks .m { left: 58.8%; transform: translateX(-50%); } .tl-marks .e { right: 0; }
+  @media (max-width: 720px) { .tl-marks { display: none; } .tl-bar { height: auto; flex-direction: column; } .seg { padding-block: 12px; } .seg.warm { border-left: none; border-top: 1px solid var(--border-strong); } }
+  .card h3 { font-size: 17px; margin-bottom: 8px; }
+  .card p { font-size: 15px; margin: 0; }
+  .pick { display: block; }
+  .pick:hover { text-decoration: none; border-color: var(--accent); }
+  .more { display: inline-block; margin-top: 14px; color: var(--accent); font-size: 14.5px; font-weight: 500; }
+  .final { text-align: center; }
+  .final .lede { margin-inline: auto; }
+</style>

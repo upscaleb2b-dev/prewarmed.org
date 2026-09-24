@@ -1,0 +1,66 @@
+---
+import { site, wi, toolUrl } from '../data/site.js';
+import tools from '../data/tools.json';
+import { products } from '../data/products.js';
+import Flame from './Flame.astro';
+const featured = tools.tools.filter((t) => t.live && t.host === 'warminboxes.com').slice(0, 9);
+---
+<footer class="ft">
+  <div class="wrap">
+    <div class="ft-top">
+      <div class="ft-brand">
+        <p class="brand"><Flame size={20} />prewarmed<span class="muted">.org</span></p>
+        <p class="disclosure">{site.disclosure}</p>
+      </div>
+
+      <div class="ft-cols">
+        <div>
+          <p class="eyebrow">Products</p>
+          <a href="/prewarmed-inboxes/">Prewarmed inboxes</a>
+          {products.map((p) => <a href={`/${p.slug}/`}>{p.eyebrow}</a>)}
+        </div>
+        <div>
+          <p class="eyebrow">Free tools ↗</p>
+          {featured.map((t) => <a href={toolUrl(t, { page: 'footer', placement: 'footer-tools' })} target="_blank" rel="noopener">{t.name}</a>)}
+          <a href="/tools/"><strong>All {tools.tools.filter((t) => t.live).length} tools →</strong></a>
+        </div>
+        <div>
+          <p class="eyebrow">Compare</p>
+          <a href="/compare/prewarmed-vs-fresh-inboxes/">Prewarmed vs fresh</a>
+          <a href="/compare/google-vs-microsoft-vs-azure/">Google vs Microsoft vs Azure</a>
+          <a href="/compare/azure-tenant-vs-microsoft-365/">Azure tenant vs M365 packs</a>
+          <a href="/pricing/">Pricing</a>
+        </div>
+        <div>
+          <p class="eyebrow">Company</p>
+          <a href="/how-it-works/">How it works</a>
+          <a href="/about/">About</a>
+          <a href="/contact/">Contact</a>
+          <a href={wi('/', { page: 'footer', placement: 'company' })} rel="noopener">Warm Inboxes</a>
+        </div>
+        <div>
+          <p class="eyebrow">Legal</p>
+          <a href="/privacy/">Privacy</a>
+          <a href="/terms/">Terms</a>
+          <a href="/refund-policy/">Refund policy</a>
+        </div>
+      </div>
+    </div>
+
+    <p class="ft-legal">
+      © {new Date().getFullYear()} prewarmed.org · {site.trademark}
+    </p>
+  </div>
+</footer>
+
+<style>
+  .ft { border-top: 1px solid var(--border); background: var(--bg-elev); padding-block: 48px 40px; margin-top: 40px; }
+  .ft-top { display: grid; grid-template-columns: minmax(230px, 300px) 1fr; gap: 40px; }
+  @media (max-width: 900px) { .ft-top { grid-template-columns: 1fr; gap: 32px; } }
+  .brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; margin: 0 0 12px; }
+  .ft-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 28px; }
+  .ft-cols .eyebrow { margin: 0 0 12px; }
+  .ft-cols a { display: block; font-size: 14.5px; color: var(--text-2); padding: 4px 0; }
+  .ft-cols a:hover { color: var(--accent); text-decoration: none; }
+  .ft-legal { margin: 36px 0 0; padding-top: 22px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); line-height: 1.6; }
+</style>

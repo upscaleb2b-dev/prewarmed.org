@@ -1,0 +1,37 @@
+---
+import Simple from '../layouts/Simple.astro';
+import { wi } from '../data/site.js';
+---
+<Simple
+  title="How Prewarming Works — 30 Days Aged, 21 Days Warmed"
+  description="What happens in the 51 days before a prewarmed domain reaches you: aging, authentication, mailbox creation, warming, placement testing and handover."
+  eyebrow="How it works"
+  h1="The 51 days that happen before you get the domain"
+  lede="Neither half can be rushed. You cannot make a domain older on the day you need it, and you cannot build a track record faster than Gmail and Outlook are willing to watch you build it.">
+
+  <h2>Days 0 to 30 — aging</h2>
+  <p>We register a clean .com, check it has not been abandoned and re-registered before or listed on a blacklist, and set up its SPF, DKIM and DMARC records. Then nothing sends from it for thirty days.</p>
+  <p>That sounds like doing nothing, and it is the most important part. A domain that starts sending in its first few days gets added to the major blacklists almost straight away, and a listing that early is the hardest kind to remove. Age is one of the very few things Gmail and Outlook can check that a sender cannot fake or speed up.</p>
+  <p class="note">It is also the step most sellers skip, because waiting means slower stock turnover for them. When someone advertises a prewarmed domain delivered in 48 hours, this is the part that did not happen.</p>
+
+  <h2>Days 30 to 51 — warming</h2>
+  <p>We create the mailboxes on Google Workspace, Microsoft 365 or an Azure account. The domain starts sending and receiving real email at low volume, increasing in steps based on how it is actually performing rather than on a fixed schedule.</p>
+  <p>What builds up is a track record: emails opened, replied to, and dragged out of the spam folder. That is what Gmail and Outlook actually pay attention to, and it is why age on its own is not enough.</p>
+
+  <h2>Before handover — placement testing</h2>
+  <p>We test where the email actually lands before the domain reaches you, not after. Anything failing gets fixed and tested again, or the domain does not go out. Testing afterwards just means you find the problem instead of us.</p>
+
+  <h2>Handover</h2>
+  <ul>
+    <li>The admin login, transferred to you</li>
+    <li>The domain, with its SPF, DKIM and DMARC records already set up</li>
+    <li>A spreadsheet of mailbox logins, ready to load into your sending tool</li>
+    <li>The results of the inbox test we ran</li>
+  </ul>
+
+  <h2>Then it is yours, and the ramp still matters</h2>
+  <p>Prewarmed does not mean indestructible. We suggest 15 cold emails per inbox per day, three inboxes on each domain, and only increasing that while your bounce rate stays low and your email keeps landing. The most common first-month mistake is sending more while bounces were already climbing.</p>
+  <p>Prewarming buys you the 51 days. It does not fix a bad list. Point a clean domain at data you have not checked and it fails exactly the way the last one did, only faster.</p>
+
+  <p style="margin-top:34px"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'how-it-works', placement: 'body' })}>Get inboxes</a></p>
+</Simple>

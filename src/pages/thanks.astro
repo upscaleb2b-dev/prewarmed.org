@@ -1,0 +1,14 @@
+---
+import Simple from '../layouts/Simple.astro';
+import tools from '../data/tools.json';
+import { toolUrl } from '../data/site.js';
+const picks = tools.tools.filter((t) => t.live && ['blacklist-checker','dmarc-checker','spf-checker','deliverability-checker','header-analyzer','dns-checker'].includes(t.id));
+---
+<Simple title="Thanks — prewarmed.org" description="We have your message." eyebrow="Thanks" h1="Got it." noindex={true}
+  lede="One of us will reply within a business day. While you wait, these are worth running on your current setup.">
+  <div class="grid g3" style="margin-top:10px">
+    {picks.map((t) => (
+      <a class="card" href={toolUrl(t, { page: 'thanks', placement: 'grid' })} target="_blank" rel="noopener"><h3 style="font-size:16px">{t.name} ↗</h3><p class="muted" style="font-size:14px;margin:8px 0 0">{t.short}</p></a>
+    ))}
+  </div>
+</Simple>

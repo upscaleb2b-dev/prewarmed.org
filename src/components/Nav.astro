@@ -1,0 +1,128 @@
+---
+import { nav, site, wi, toolUrl } from '../data/site.js';
+import tools from '../data/tools.json';
+import leads from '../data/leads.json';
+import Flame from './Flame.astro';
+
+const groups = [
+  { id: 'diagnose', label: 'Diagnose' },
+  { id: 'authenticate', label: 'Authenticate' },
+  { id: 'hygiene', label: 'List hygiene' },
+  { id: 'qa', label: 'Pre-send QA' },
+  { id: 'plan', label: 'Plan' },
+];
+const live = tools.tools.filter((t) => t.live);
+const path = Astro.url.pathname;
+const leadCats = leads.categories.slice(0, 12);
+const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
+---
+<header class="nav">
+  <div class="wrap nav-inner">
+    <a class="brand" href="/"><Flame size={20} />prewarmed<span class="muted">.org</span></a>
+
+    <nav class="links" aria-label="Main">
+      {nav.map((item) => (
+        <div class={item.children || item.mega ? 'has-menu' : ''}>
+          <a href={item.href} aria-current={path.startsWith(item.href) && item.href !== '/' ? 'page' : undefined}>
+            {item.label}{(item.children || item.mega) && <span class="caret" aria-hidden="true">▾</span>}
+          </a>
+
+          {item.children && (
+            <div class="menu">
+              {item.children.map((c) => <a href={c.href}>{c.label}</a>)}
+            </div>
+          )}
+
+          {item.leads && (
+            <div class="mega leads-mega">
+              <div class="leads-head">
+                <div>
+                  <p class="eyebrow">Free B2B lead lists</p>
+                  <p class="leads-stat"><b class="mono">{leads.totalLists}</b> lists · <b class="mono">{leadsM}M+</b> contacts · free, no signup</p>
+                </div>
+                <a class="btn btn-primary" href="/leads/">Browse all →</a>
+              </div>
+              <div class="leads-grid">
+                {leadCats.map((c) => (
+                  <a class="lead-cat" href="/leads/">
+                    <span class="cn">{c.name}</span>
+                    <span class="cm mono">{c.lists} lists</span>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {item.mega && (
+            <div class="mega">
+              <div class="mega-grid">
+                {groups.map((g) => (
+                  <div>
+                    <p class="eyebrow">{g.label}</p>
+                    {live.filter((t) => t.group === g.id).slice(0, 7).map((t) => (
+                      <a class="tool-link" href={toolUrl(t, { page: 'nav', placement: 'mega-menu' })} target={t.host === 'prewarmed.org' ? undefined : '_blank'} rel={t.host === 'prewarmed.org' ? undefined : 'noopener'}>
+                        {t.name}{t.host !== 'prewarmed.org' && <span class="ext" aria-label="opens warminboxes.com"> ↗</span>}
+                      </a>
+                    ))}
+                  </div>
+                ))}
+              </div>
+              <div class="mega-promo">
+                <p><strong>Domain flagged? Failed a check?</strong> Prewarmed replacements ship the same day.</p>
+                <div class="mega-cta">
+                  <a class="btn btn-primary" href="/prewarmed-inboxes/">See inboxes</a>
+                  <a href="/tools/">All {live.length} free tools →</a>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </nav>
+
+    <div class="nav-cta">
+      <a class="btn btn-primary" href={wi('/', { page: 'nav', placement: 'header' })}>Get inboxes</a>
+    </div>
+  </div>
+</header>
+
+<style>
+  .nav { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
+  .nav-inner { display: flex; align-items: center; gap: 28px; min-height: 64px; }
+  .brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; color: var(--text); }
+  .brand:hover { text-decoration: none; }
+  .links { display: flex; gap: 4px; margin-right: auto; }
+  .links > div { position: relative; }
+  .links > div > a { display: inline-flex; align-items: center; gap: 5px; padding: 9px 12px; border-radius: 6px; font-size: 15px; font-weight: 500; color: var(--text-2); }
+  .links > div > a:hover, .links > div > a[aria-current] { color: var(--text); background: var(--bg-elev); text-decoration: none; }
+  .caret { font-size: 10px; color: var(--text-muted); }
+  .menu, .mega { position: absolute; top: calc(100% + 6px); left: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 10px; display: none; box-shadow: 0 12px 32px rgba(0,0,0,.45); }
+  .menu { min-width: 220px; flex-direction: column; }
+  .menu a { display: block; padding: 9px 12px; border-radius: 6px; font-size: 15px; color: var(--text-2); }
+  .menu a:hover { background: var(--bg-elev-2); color: var(--text); text-decoration: none; }
+  .mega { width: min(920px, calc(100vw - 48px)); padding: 22px; }
+  .leads-mega { width: min(720px, calc(100vw - 48px)); }
+  .leads-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .leads-head .eyebrow { margin: 0 0 6px; }
+  .leads-stat { margin: 0; font-size: 14px; color: var(--text-2); }
+  .leads-stat b { color: var(--text); font-weight: 500; }
+  .leads-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 18px; }
+  .lead-cat { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; padding: 7px 0; font-size: 13.5px; color: var(--text-2); border-bottom: 1px solid var(--border); }
+  .lead-cat:hover { color: var(--accent); text-decoration: none; }
+  .cm { font-size: 10.5px; color: var(--text-muted); white-space: nowrap; }
+  .mega-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
+  .mega-grid .eyebrow { margin: 0 0 10px; }
+  .tool-link { display: block; font-size: 13.5px; color: var(--text-2); padding: 5px 0; line-height: 1.35; }
+  .tool-link:hover { color: var(--accent); text-decoration: none; }
+  .ext { color: var(--text-muted); font-size: 11px; }
+  .mega-promo { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .mega-promo p { margin: 0; font-size: 14.5px; color: var(--text-2); }
+  .mega-cta { display: flex; align-items: center; gap: 16px; margin-left: auto; font-size: 14px; }
+  .has-menu:hover .menu, .has-menu:hover .mega, .has-menu:focus-within .menu, .has-menu:focus-within .mega { display: flex; }
+  .mega { flex-direction: column; }
+  .nav-cta { display: flex; gap: 10px; }
+  @media (max-width: 1080px) {
+    .links { display: none; }
+    .nav-inner { justify-content: space-between; }
+  }
+</style>

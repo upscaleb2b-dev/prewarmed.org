@@ -1,0 +1,85 @@
+---
+import Base from '../../layouts/Base.astro';
+import { wi } from '../../data/site.js';
+---
+<Base
+  title="Warmup Tax Calculator — What Running Your Own 51 Days Costs"
+  description="Warming is not a one-time cost. Work out what a 30-day aging plus 21-day warming cycle costs your fleet every year, in sending capacity and emails not sent.">
+  <section class="section">
+    <div class="wrap calc-wrap">
+      <p class="eyebrow">Free tool</p>
+      <h1>The warmup tax</h1>
+      <p class="lede">Warming is not a one-time setup cost. Domains burn, and every replacement starts the 51-day clock again. Change any input; the formula is printed underneath.</p>
+
+      <div class="calc">
+        <div class="fields">
+          <div class="field"><label for="inboxes">Inboxes</label><input id="inboxes" type="number" min="1" max="5000" value="30" inputmode="numeric" /><span class="hint">your fleet</span></div>
+          <div class="field"><label for="perday">Sends / inbox / day</label><input id="perday" type="number" min="1" max="200" value="15" inputmode="numeric" /><span class="hint acc">we recommend 15</span></div>
+          <div class="field"><label for="cycle">Replacement cycle</label><input id="cycle" type="number" min="1" max="36" value="3" inputmode="numeric" /><span class="hint">months</span></div>
+          <div class="field"><label for="ready">Days to ready</label><input id="ready" type="number" min="0" max="120" value="51" inputmode="numeric" /><span class="hint acc">30 aged + 21 warmed</span></div>
+        </div>
+        <div class="out">
+          <div class="big mono" id="pct">56%</div>
+          <div>
+            <p id="sentence">More than half your annual sending capacity goes on getting domains ready rather than reaching prospects.</p>
+            <p class="mono nums">inbox-days lost per year <b id="days">6,120</b><br />emails not sent <b id="emails">91,800</b><br />replacements per inbox per year <b id="reps">4.0</b></p>
+          </div>
+        </div>
+        <p class="formula mono">inboxes × (12 ÷ cycle) × days to ready = inbox-days lost · ÷ (inboxes × 365) = share of capacity<br />Assumes an inbox not yet ready carries no cold volume. Partial ramping makes the real figure lower and the shape identical.</p>
+      </div>
+
+      <div class="after">
+        <h2>Or start at day 51</h2>
+        <p>Somebody has to run those 51 days. Prewarmed inboxes arrive on a domain that already has, which is the entire product.</p>
+        <a class="btn btn-primary btn-lg" href={wi('/', { page: 'warmup-tax', placement: 'calc-cta' })}>Get inboxes</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const $ = (id) => document.getElementById(id);
+  const ids = ['inboxes', 'perday', 'cycle', 'ready'];
+  const fmt = (n) => Math.round(n).toLocaleString('en-US');
+  const num = (el, min, max, fb) => { const v = parseFloat(el.value); return isFinite(v) ? Math.min(max, Math.max(min, v)) : fb; };
+  const phrase = (p) =>
+    p >= 70 ? 'Most of your sending year goes on getting domains ready rather than reaching prospects.'
+    : p >= 45 ? 'More than half your annual sending capacity goes on getting domains ready rather than reaching prospects.'
+    : p >= 28 ? 'Well over a quarter of your annual sending capacity goes on getting domains ready.'
+    : p >= 15 ? 'Around a fifth of your annual sending capacity goes on getting domains ready.'
+    : p >= 8 ? 'Roughly a tenth of your capacity goes on getting domains ready.'
+    : 'At this replacement cycle the readiness cost is manageable.';
+  function calc() {
+    const n = num($('inboxes'), 1, 5000, 30), spd = num($('perday'), 1, 200, 15);
+    const cyc = num($('cycle'), 1, 36, 3), w = num($('ready'), 0, 120, 51);
+    const per = 12 / cyc, lost = n * per * w, cap = n * 365;
+    const share = cap > 0 ? Math.min(100, (lost / cap) * 100) : 0;
+    $('pct').textContent = fmt(share) + '%';
+    $('days').textContent = fmt(lost);
+    $('emails').textContent = fmt(lost * spd);
+    $('reps').textContent = per.toFixed(1);
+    $('sentence').textContent = phrase(share);
+  }
+  ids.forEach((i) => $(i).addEventListener('input', calc));
+  calc();
+</script>
+
+<style>
+  .calc-wrap { max-width: 860px; }
+  h1 { margin: 12px 0 18px; }
+  .calc { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 28px; margin-top: 34px; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 26px; }
+  .field label { display: block; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 7px; font-weight: 500; }
+  .field input { width: 100%; font-family: var(--font-mono); font-size: 19px; background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; }
+  .hint { display: block; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-muted); margin-top: 6px; }
+  .hint.acc { color: var(--accent); }
+  .out { display: grid; grid-template-columns: auto 1fr; gap: 28px; align-items: center; border-top: 1px solid var(--border); padding-top: 24px; }
+  @media (max-width: 640px) { .out { grid-template-columns: 1fr; gap: 14px; } }
+  .big { font-size: clamp(56px, 4rem + 4vw, 92px); line-height: .9; color: var(--accent); font-weight: 500; letter-spacing: -.04em; }
+  .out p { margin: 0 0 10px; font-size: 17px; }
+  .nums { font-size: 13px; color: var(--text-muted); line-height: 1.9; }
+  .nums b { color: var(--text); font-weight: 500; }
+  .formula { margin: 22px 0 0; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11.5px; color: var(--text-muted); line-height: 1.8; }
+  .after { margin-top: 48px; padding-top: 34px; border-top: 1px solid var(--border); }
+  .after p { color: var(--text-2); max-width: 62ch; margin: 14px 0 24px; }
+</style>

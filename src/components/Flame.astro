@@ -1,0 +1,9 @@
+---
+import paths from './flame-path.json';
+const { size = 18, title = '' } = Astro.props;
+---
+<svg class="flame" viewBox="0 0 32 32" width={size} height={size} role={title ? 'img' : 'presentation'} aria-label={title || undefined} aria-hidden={title ? undefined : 'true'}>
+  <path d={paths.outer} fill="var(--accent)"></path>
+  <path d={paths.inner} fill="var(--accent-hover)"></path>
+</svg>
+<style>.flame { display: block; flex: 0 0 auto; }</style>

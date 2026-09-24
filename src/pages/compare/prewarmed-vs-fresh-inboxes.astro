@@ -1,0 +1,32 @@
+---
+import Simple from '../../layouts/Simple.astro';
+import { wi } from '../../data/site.js';
+---
+<Simple title="Prewarmed vs Fresh Inboxes for Cold Email"
+  description="What you actually get for the difference in price between a prewarmed inbox and a fresh one, and when fresh is the right call."
+  eyebrow="Compare" h1="Prewarmed vs fresh inboxes"
+  lede="The price gap looks large until you price the 51 days, the warmup tool and the failure rate of a first attempt.">
+  <div class="scroll-x" style="margin:28px 0">
+    <table>
+      <thead><tr><th></th><th>Prewarmed</th><th>Fresh</th></tr></thead>
+      <tbody>
+        <tr><td>Time to first send</td><td class="yes">Same day</td><td>14–21 days minimum</td></tr>
+        <tr><td>Domain age at first send</td><td class="yes">30 days +</td><td>0 days</td></tr>
+        <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No, about $12</td></tr>
+        <tr><td>DNS and authentication</td><td class="yes">Set before handover</td><td class="no">You</td></tr>
+        <tr><td>Warmup tooling</td><td class="yes">None needed</td><td class="no">Extra cost</td></tr>
+        <tr><td>Placement tested before you get it</td><td class="yes">Yes</td><td class="no">No</td></tr>
+        <tr><td>Per inbox per month</td><td>Higher</td><td class="yes">Lower</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <h2>When fresh is actually right</h2>
+  <p>Fresh inboxes are the better buy when your start date is more than two months out, when you already run warming infrastructure and know how to use it, or when you are adding capacity to domains that are already established and performing.</p>
+  <p>They are the wrong buy when a client campaign starts next week, when you have just burned a domain and do not yet know why, or when the person who would run the warming has other work to do. In those cases the cheaper line item is the more expensive decision.</p>
+  <h2>The comparison people get wrong</h2>
+  <p>Comparing monthly per-inbox cost treats the two as the same product. They are not. Fresh is an inbox; prewarmed is an inbox plus 51 days of elapsed calendar time plus a domain plus the configuration. Price the calendar time and the gap closes or inverts.</p>
+  <p><a href="/tools/warmup-tax/">Run your own numbers →</a></p>
+  <h2>The pages for each</h2>
+  <p>Fresh: <a href="/fresh-google-inboxes/">Google Workspace</a>, <a href="/fresh-microsoft-365-inboxes/">Microsoft 365</a>, <a href="/fresh-azure-inboxes/">Azure tenants</a>, <a href="/fresh-domains/">domains</a>. Prewarmed: <a href="/prewarmed-google-inboxes/">Google Workspace</a>, <a href="/prewarmed-microsoft-365-inboxes/">Microsoft 365</a>, <a href="/prewarmed-azure-inboxes/">Azure tenants</a>, <a href="/prewarmed-domains/">domains</a>.</p>
+  <p style="margin-top:30px"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'compare-fresh', placement: 'body' })}>Get inboxes</a></p>
+</Simple>

@@ -1,0 +1,138 @@
+---
+import Base from '../../layouts/Base.astro';
+import { wi } from '../../data/site.js';
+import pricing from '../../data/pricing.json';
+const P = {
+  packPerInbox: pricing.products['google-prewarmed'].perUnit.quarterly,
+  packSize: pricing.products['google-prewarmed'].packSize,
+  tenantPrice: pricing.products['azure-tenant'].perTenant.quarterly,
+  tenantInboxes: pricing.products['azure-tenant'].inboxesPerTenant,
+  verified: pricing._verified,
+};
+---
+<Base title="Cold Email Stack Calculator — Inboxes, Domains and Monthly Cost"
+      description="Target sends a day in; inboxes, domains, packs or tenants and monthly cost out. Compares packs against an Azure tenant at the same volume.">
+  <section class="section">
+    <div class="wrap calc-wrap">
+      <p class="eyebrow">Free tool</p>
+      <h1>How much infrastructure do you actually need?</h1>
+      <p class="lede">Most teams over-buy Google packs and under-use tenants. Put in a daily send target and see both shapes priced against each other.</p>
+
+      <div class="calc" data-cfg={JSON.stringify(P)}>
+        <div class="fields">
+          <div class="field"><label for="target">Target sends / day</label><input id="target" type="number" min="10" max="200000" value="1500" inputmode="numeric" /></div>
+          <div class="field"><label for="perinbox">Sends / inbox / day</label><input id="perinbox" type="number" min="1" max="100" value="15" inputmode="numeric" /><span class="hint acc">we recommend 15</span></div>
+          <div class="field"><label for="perdomain">Inboxes / domain</label><input id="perdomain" type="number" min="1" max="10" value="3" inputmode="numeric" /><span class="hint acc">3 keeps the damage small if one fails</span></div>
+          <div class="field"><label for="headroom">Replacement headroom</label><input id="headroom" type="number" min="0" max="100" value="20" inputmode="numeric" /><span class="hint">% held in reserve</span></div>
+        </div>
+
+        <div class="cols">
+          <div class="opt">
+            <p class="eyebrow">Packs — Google or Microsoft</p>
+            <p class="n mono" id="p-inboxes">—</p><p class="lbl">inboxes</p>
+            <ul class="mono det">
+              <li><span>domains</span><b id="p-domains">—</b></li>
+              <li><span>packs of {P.packSize}</span><b id="p-packs">—</b></li>
+              <li><span>per month</span><b id="p-cost">—</b></li>
+              <li><span>per 1,000 sends</span><b id="p-cpm">—</b></li>
+            </ul>
+            <p class="why">Risk stays on one domain. If it stops working you lose {P.packSize} inboxes.</p>
+          </div>
+          <div class="opt">
+            <p class="eyebrow">Azure tenants</p>
+            <p class="n mono" id="t-inboxes">—</p><p class="lbl">inboxes</p>
+            <ul class="mono det">
+              <li><span>tenants</span><b id="t-count">—</b></li>
+              <li><span>sends / mailbox</span><b id="t-per">—</b></li>
+              <li><span>per month</span><b id="t-cost">—</b></li>
+              <li><span>per 1,000 sends</span><b id="t-cpm">—</b></li>
+            </ul>
+            <p class="why">Cheaper, and spreads sending more safely, but all 100 mailboxes share one reputation.</p>
+          </div>
+        </div>
+
+        <p class="verdict" id="verdict"></p>
+        {!P.verified && <p class="unver mono">Costs use unverified pricing — confirm against warminboxes.com before quoting these to a client.</p>}
+      </div>
+
+      <div class="after">
+        <h2>Order this stack</h2>
+        <p>Bring the numbers with you and an operator will sanity-check the split before you buy.</p>
+        <a class="btn btn-primary btn-lg" href={wi('/', { page: 'stack-calculator', placement: 'calc-cta' })}>Get inboxes</a>
+        <a class="btn btn-ghost btn-lg" href="/contact/">Talk to an operator</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const root = document.querySelector('.calc');
+  const cfg = JSON.parse(root.dataset.cfg);
+  const $ = (id) => document.getElementById(id);
+  const ids = ['target', 'perinbox', 'perdomain', 'headroom'];
+  const n0 = (n) => Math.round(n).toLocaleString('en-US');
+  const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+  const num = (el, min, max, fb) => { const v = parseFloat(el.value); return isFinite(v) ? Math.min(max, Math.max(min, v)) : fb; };
+
+  function calc() {
+    const target = num($('target'), 10, 200000, 1500);
+    const perInbox = num($('perinbox'), 1, 100, 15);
+    const perDomain = num($('perdomain'), 1, 10, 3);
+    const head = num($('headroom'), 0, 100, 20) / 100;
+
+    const needed = Math.ceil((target / perInbox) * (1 + head));
+    const domains = Math.ceil(needed / perDomain);
+    const packs = Math.ceil(needed / cfg.packSize);
+    const packCost = packs * cfg.packSize * cfg.packPerInbox;
+    $('p-inboxes').textContent = n0(needed);
+    $('p-domains').textContent = n0(domains);
+    $('p-packs').textContent = n0(packs);
+    $('p-cost').textContent = money(packCost);
+    $('p-cpm').textContent = '$' + (packCost / (target * 30 / 1000)).toFixed(2);
+
+    const tenants = Math.max(1, Math.ceil(needed / cfg.tenantInboxes));
+    const tInboxes = tenants * cfg.tenantInboxes;
+    const tCost = tenants * cfg.tenantPrice;
+    $('t-inboxes').textContent = n0(tInboxes);
+    $('t-count').textContent = n0(tenants);
+    $('t-per').textContent = (target / tInboxes).toFixed(1);
+    $('t-cost').textContent = money(tCost);
+    $('t-cpm').textContent = '$' + (tCost / (target * 30 / 1000)).toFixed(2);
+
+    const perMailbox = target / tInboxes;
+    $('verdict').textContent =
+      target < 500
+        ? 'At this volume, buy packs. A tenant would leave most of its hundred mailboxes idle and put all your risk in one place for no gain.'
+        : perMailbox < 5
+          ? `A tenant costs ${money(packCost - tCost)} a month less, but would run at ${perMailbox.toFixed(1)} sends per mailbox. That is a lot of idle capacity — packs are the tidier answer until volume rises.`
+          : `A tenant costs ${money(packCost - tCost)} a month less and spreads the same volume across ${n0(tInboxes)} mailboxes at ${perMailbox.toFixed(1)} each, which is a safer shape than ${n0(needed)} at ${perInbox}. The trade is that all of them share one reputation, so only send to verified lists.`;
+  }
+  ids.forEach((i) => $(i).addEventListener('input', calc));
+  calc();
+</script>
+
+<style>
+  .calc-wrap { max-width: 900px; }
+  h1 { margin: 12px 0 18px; }
+  .calc { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 28px; margin-top: 34px; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px; margin-bottom: 28px; }
+  .field label { display: block; font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 7px; font-weight: 500; }
+  .field input { width: 100%; font-family: var(--font-mono); font-size: 19px; background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); border-radius: 6px; padding: 10px 12px; }
+  .hint { display: block; font-family: var(--font-mono); font-size: 10.5px; color: var(--text-muted); margin-top: 6px; }
+  .hint.acc { color: var(--accent); }
+  .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; border-top: 1px solid var(--border); padding-top: 26px; }
+  @media (max-width: 640px) { .cols { grid-template-columns: 1fr; } }
+  .opt { background: var(--bg-elev-2); border: 1px solid var(--border); border-radius: 10px; padding: 20px; }
+  .opt .eyebrow { margin: 0 0 14px; }
+  .n { font-size: 40px; line-height: 1; color: var(--accent); font-weight: 500; letter-spacing: -.035em; }
+  .lbl { font-size: 12px; color: var(--text-muted); margin: 6px 0 16px; text-transform: uppercase; letter-spacing: .07em; }
+  .det { list-style: none; margin: 0 0 14px; padding: 0; font-size: 13px; }
+  .det li { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--border); color: var(--text-muted); }
+  .det b { color: var(--text); font-weight: 500; }
+  .why { font-size: 13px; color: var(--text-muted); margin: 0; line-height: 1.45; }
+  .verdict { margin: 24px 0 0; padding-top: 20px; border-top: 1px solid var(--border); font-size: 16px; color: var(--text-2); }
+  .unver { font-size: 11.5px; color: var(--warning); margin: 14px 0 0; }
+  .after { margin-top: 46px; padding-top: 32px; border-top: 1px solid var(--border); display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .after h2 { width: 100%; }
+  .after p { width: 100%; color: var(--text-2); margin: 12px 0 8px; }
+</style>

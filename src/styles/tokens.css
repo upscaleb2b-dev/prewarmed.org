@@ -1,0 +1,55 @@
+/* ---------------------------------------------------------------
+   Three palettes. Switch the whole site with one attribute on <body>:
+     data-palette="ember"  (default — matches the Warm Inboxes mark)
+     data-palette="green"  (research-desk direction)
+     data-palette="blue"
+   Dark is the default surface; light is defined so the page holds up
+   if a viewer forces it.
+----------------------------------------------------------------*/
+:root,
+[data-palette='ember'] {
+  --bg: #0b0c0f;
+  --bg-elev: #131519;
+  --bg-elev-2: #1b1e24;
+  --border: #262a33;
+  --border-strong: #39404d;
+  --text: #f2f3f5;
+  --text-2: #c3c7cf;
+  --text-muted: #9aa1ad;
+  --accent: #ff6a1f;
+  --accent-hover: #ff7f3f;
+  --accent-soft: rgba(255, 106, 31, 0.12);
+  --accent-ink: #0b0c0f; /* text on a filled accent surface */
+  --heat: linear-gradient(135deg, #ff6a1f 0%, #ffb347 100%);
+  --success: #2ed47a;
+  --warning: #ffc53d;
+  --warning-soft: rgba(255, 197, 61, 0.1);
+}
+[data-palette='green'] {
+  --bg: #0d1210; --bg-elev: #151d19; --bg-elev-2: #1c241f;
+  --border: #26312b; --border-strong: #3b4841;
+  --text: #eef3f0; --text-2: #b9c4be; --text-muted: #8a968f;
+  --accent: #56c79c; --accent-hover: #7ad9b3; --accent-soft: rgba(86, 199, 156, 0.12);
+  --accent-ink: #0d1210;
+  --heat: linear-gradient(135deg, #56c79c 0%, #a7e8cd 100%);
+  --success: #2ed47a; --warning: #d9b45a; --warning-soft: rgba(217, 180, 90, 0.1);
+}
+[data-palette='blue'] {
+  --bg: #0b0f15; --bg-elev: #131a24; --bg-elev-2: #19212d;
+  --border: #222b39; --border-strong: #36414f;
+  --text: #eef2f7; --text-2: #b6c0cc; --text-muted: #87919e;
+  --accent: #66aef0; --accent-hover: #8cc4f5; --accent-soft: rgba(102, 174, 240, 0.12);
+  --accent-ink: #0b0f15;
+  --heat: linear-gradient(135deg, #66aef0 0%, #a9d5f9 100%);
+  --success: #2ed47a; --warning: #d9b45a; --warning-soft: rgba(217, 180, 90, 0.1);
+}
+
+:root {
+  --font-display: 'Inter Tight', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --max: 1200px;
+  --r-card: 12px;
+  --r-btn: 8px;
+  color-scheme: dark;
+}

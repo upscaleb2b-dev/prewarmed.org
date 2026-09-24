@@ -1,0 +1,68 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import { products } from '../../data/products.js';
+import { wi, site } from '../../data/site.js';
+const inbox = products.filter((p) => p.family === 'prewarmed' && p.slug !== 'prewarmed-domains');
+const fresh = products.filter((p) => p.family === 'fresh');
+const faqs = [
+  ['Which provider should I buy?', 'Whichever matches your list. Check where the people you are emailing actually read their mail first, because buying the wrong one is the most expensive mistake you can make at this point.'],
+  ['Packs or a tenant?', 'Packs of three keep problems contained: if a domain stops working you lose three inboxes. A tenant of 100 is far cheaper per inbox, but all 100 share one reputation. Under about 1,000 emails a day, buy packs.'],
+  ['Is the domain included?', 'Yes, free with every pack, already aged 30 days and warmed 21 more.'],
+  ['Do I get admin access?', 'Yes on every product. Ask this of every vendor: without it the inboxes are not yours.'],
+  ['What if I do not need them for two months?', 'Then buy fresh inboxes and warm them yourself. They cost less because the 51 days have not been spent yet. They are the wrong buy the moment a start date is fixed and close.'],
+];
+---
+<Base title="Prewarmed Inboxes for Cold Email — Google, Microsoft 365, Azure, Entra"
+      description="Prewarmed inboxes on Google Workspace, Microsoft 365, Azure or Entra tenants. Aged 30 days, warmed 21, DNS configured, delivered same day.">
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Prewarmed inboxes</p>
+      <h1>Every prewarmed inbox we sell, in one place</h1>
+      <p class="lede">All of them ship on a domain aged 30 days and warmed 21 more, with SPF, DKIM, DMARC and MX configured and admin access transferred. What differs is the platform, the per-inbox cost and how much risk sits in one pool.</p>
+      <div class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'inbox-hub', placement: 'hero' })}>Get inboxes</a><a class="btn btn-ghost btn-lg" href="/pricing/">Compare pricing</a></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="wrap">
+      <div class="grid g2">
+        {inbox.map((p) => (
+          <a class="card prod" href={`/${p.slug}/`}>
+            <h3>{p.eyebrow}</h3>
+            <p class="muted">{p.description}</p>
+            <span class="more">View →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section alt">
+    <div class="wrap">
+      <p class="eyebrow">Not in a hurry?</p>
+      <h2>Fresh inboxes, if you have time instead of money</h2>
+      <p class="lede sm">Same licensed mailboxes, same admin access, same records set up for you — with no aging and no warming done. They cost less, and they are not ready to send cold email for about 51 days. Buy these when your start date is more than two months out.</p>
+      <div class="grid g3" style="margin-top:26px">
+        {fresh.map((p) => (
+          <a class="card prod" href={`/${p.slug}/`}>
+            <h3>{p.eyebrow}</h3>
+            <p class="muted">{p.description}</p>
+            <span class="more">View →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <section class="section"><div class="wrap"><Faq faqs={faqs} /></div></section>
+</Base>
+<style>
+  h1 { margin: 12px 0 18px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .prod { display: block; }
+  .prod:hover { text-decoration: none; border-color: var(--accent); }
+  .prod h3 { font-size: 19px; margin-bottom: 10px; }
+  .prod p { font-size: 15px; margin: 0; }
+  .more { display: inline-block; margin-top: 14px; color: var(--accent); font-size: 14.5px; font-weight: 500; }
+  .alt { background: var(--bg-elev); border-block: 1px solid var(--border); }
+  .alt h2 { margin: 10px 0 14px; }
+  .lede.sm { max-width: 720px; font-size: 17px; }
+</style>

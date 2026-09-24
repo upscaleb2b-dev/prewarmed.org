@@ -1,0 +1,93 @@
+---
+import Base from '../../layouts/Base.astro';
+import Faq from '../../components/Faq.astro';
+import tools from '../../data/tools.json';
+import { toolUrl, wi } from '../../data/site.js';
+
+const groups = [
+  { id: 'diagnose', label: 'Something is wrong', blurb: 'Emails stopped landing. Find out why.' },
+  { id: 'authenticate', label: 'Setting up records', blurb: 'SPF, DKIM, DMARC and the rest of your email records.' },
+  { id: 'hygiene', label: 'Cleaning your list', blurb: 'Do this before your list touches a sending domain.' },
+  { id: 'qa', label: 'Before you hit send', blurb: 'Catch it now, while it still costs nothing to fix.' },
+  { id: 'plan', label: 'Working out what you need', blurb: 'How many inboxes, and how fast to build up.' },
+];
+const live = tools.tools.filter((t) => t.live);
+const faqs = [
+  ['Are these really free?', 'Yes, and there is no signup. They are built and hosted by Warm Inboxes, which we operate.'],
+  ['Which should I run first?', 'If something is broken right now: blacklist checker, then DMARC checker, then paste the headers of an email that failed into the header analyser. Those three explain most problems.'],
+  ['What if a check fails?', 'Each tool below has an "if it fails" line telling you what to do. Some problems you can fix in an afternoon. A blacklisting early in a domain\'s life usually is not one of them, and replacing the domain beats appealing.'],
+  ['Do you store the domains I check?', 'Ask before relying on it. If you are checking client domains, confirm the logging position with any tool vendor, including us.'],
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  itemListElement: live.map((t, i) => ({
+    '@type': 'ListItem', position: i + 1,
+    item: { '@type': 'WebApplication', name: t.name, url: t.host === 'prewarmed.org' ? `https://prewarmed.org${t.url}` : t.url, applicationCategory: 'BusinessApplication', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } },
+  })),
+};
+---
+<Base
+  title={`${live.length} Free Cold Email Deliverability Tools — Blacklist, DMARC, SPF, DNS`}
+  description={`${live.length} free tools to diagnose cold email infrastructure: blacklists, authentication, list hygiene and pre-send QA. No signup.`}
+  schema={schema}>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Free tools</p>
+      <h1>Diagnose before you buy.</h1>
+      <p class="lede">{live.length} free tools, no signup. Each one below tells you when to run it and what to do with the answer, which is the part the tool itself cannot tell you.</p>
+    </div>
+  </section>
+
+  {groups.map((g) => {
+    const items = live.filter((t) => t.group === g.id);
+    return items.length ? (
+      <section class="section">
+        <div class="wrap">
+          <h2>{g.label}</h2>
+          <p class="muted" style="margin-top:8px">{g.blurb}</p>
+          <div class="grid g3" style="margin-top:26px">
+            {items.map((t) => {
+              const ext = t.host !== 'prewarmed.org';
+              return (
+                <a class="card tool" href={toolUrl(t, { page: 'tools-hub', placement: 'hub' })} target={ext ? '_blank' : undefined} rel={ext ? 'noopener' : undefined}>
+                  <h3>{t.name}{ext && <span class="ext"> ↗</span>}</h3>
+                  <p class="short">{t.short}</p>
+                  {t.useWhen && <p class="when"><span class="lbl">Use when</span> {t.useWhen}</p>}
+                  {t.ifFails && <p class="fail"><span class="lbl">If it fails</span> {t.ifFails}</p>}
+                </a>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+    ) : null;
+  })}
+
+  <section class="section">
+    <div class="wrap"><Faq faqs={faqs} /></div>
+  </section>
+
+  <section class="section final">
+    <div class="wrap">
+      <h2>Failed a check?</h2>
+      <p class="lede" style="margin:14px auto 26px">Replacement inboxes ship the same day, on a domain that has already done its 51 days.</p>
+      <a class="btn btn-primary btn-lg" href={wi('/', { page: 'tools-hub', placement: 'footer-cta' })}>Get inboxes</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  h1 { margin: 12px 0 18px; }
+  .tool { display: block; }
+  .tool:hover { text-decoration: none; border-color: var(--accent); }
+  .tool h3 { font-size: 17px; margin-bottom: 8px; }
+  .ext { color: var(--text-muted); font-size: 13px; }
+  .short { font-size: 14.5px; color: var(--text-2); margin: 0 0 12px; }
+  .when, .fail { font-size: 13.5px; color: var(--text-muted); margin: 0 0 6px; line-height: 1.45; }
+  .lbl { display: inline-block; font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); border: 1px solid var(--border); border-radius: 3px; padding: 1px 5px; margin-right: 6px; }
+  .fail .lbl { color: var(--accent); border-color: color-mix(in srgb, var(--accent) 40%, transparent); }
+  .final { text-align: center; }
+  .final .lede { margin-inline: auto; }
+</style>
