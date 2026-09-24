@@ -43,6 +43,7 @@ export const nav = [
   ]},
   { label: 'Domains', href: '/prewarmed-domains/' },
   { label: 'Free tools', href: '/tools/', mega: true },
+  { label: 'Free leads', href: '/leads/', leads: true },
   { label: 'Pricing', href: '/pricing/' },
   { label: 'How it works', href: '/how-it-works/' },
 ];

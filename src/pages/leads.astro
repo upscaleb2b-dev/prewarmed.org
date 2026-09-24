@@ -1,0 +1,126 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import leads from '../data/leads.json';
+import { wi } from '../data/site.js';
+
+const M = (n) => (n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n.toLocaleString('en-US'));
+const totalM = (leads.totalLeads / 1_000_000).toFixed(0);
+const cats = leads.categories;
+const out = (url, placement) => {
+  const u = new URL(url);
+  u.searchParams.set('utm_source', 'prewarmed.org');
+  u.searchParams.set('utm_medium', 'leads');
+  u.searchParams.set('utm_campaign', 'leads-hub');
+  u.searchParams.set('utm_content', placement);
+  return u.toString();
+};
+
+const faqs = [
+  ['Are these really free?', 'Yes, and there is no signup. They are published by Warm Inboxes, which we operate.'],
+  ['Are the emails verified?', 'Treat every downloaded list as unverified until you have run it through a verifier yourself. That is true of any free list from any source, and bounces are what burn domains.'],
+  ['Can I just load one of these and send?', 'You can, and it is the fastest way to lose a domain. Verify, deduplicate at company level, check against your suppression list, then ramp. The list is the input most likely to kill your infrastructure.'],
+  ['How current are they?', 'Business email decays continuously as people change roles. Anything sitting unused for more than a quarter should be re-verified before it touches a sending domain.'],
+  ['What is the catch?', 'None on the lists. We sell the infrastructure you would send them from, which is the honest reason these exist.'],
+];
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Free B2B lead lists',
+  description: `${leads.totalLists} free B2B lead lists across ${cats.length} industries.`,
+};
+---
+<Base
+  title={`${leads.totalLists} Free B2B Lead Lists — ${totalM}M+ Contacts, No Signup`}
+  description={`${leads.totalLists} free B2B lead lists across ${cats.length} industries and ${totalM}M+ contacts. Plus what to do to a list before it touches a sending domain.`}
+  schema={schema}>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Free lead lists</p>
+      <h1>{leads.totalLists} free B2B lead lists</h1>
+      <p class="lede">Roughly {totalM} million contacts across {cats.length} industries, free and without a signup. Below the index is the part that matters more than the list: what to do to it before it touches a sending domain.</p>
+      <div class="stats mono">
+        <div><b>{leads.totalLists}</b><span>lists</span></div>
+        <div><b>{totalM}M+</b><span>contacts</span></div>
+        <div><b>{cats.length}</b><span>industries</span></div>
+        <div><b>$0</b><span>no signup</span></div>
+      </div>
+      <p class="src mono">Counts summed from the figures published on each list.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Before you send a single one of these</h2>
+      <p class="lede" style="margin-top:12px">A free list is the single most common way a good domain dies. Four steps, in this order, and none of them is optional.</p>
+      <ol class="steps">
+        <li><strong>Verify.</strong> Every address, every time. Bounces are the fastest signal a receiving provider has that you are working from bought data, and bounce rate moves before placement does.</li>
+        <li><strong>Deduplicate at company level, not just address level.</strong> Emailing four people at one company in a week produces internal forwarding, a shared complaint, and occasionally a domain-wide block.</li>
+        <li><strong>Check against your suppression list.</strong> Anyone who has opted out, replied to stop, or is already a customer. This is a legal obligation in most places and a reputation one everywhere.</li>
+        <li><strong>Ramp.</strong> Fifteen sends per inbox per day on prewarmed infrastructure, increasing only while bounce rate stays low. A clean domain pointed at an unverified list fails exactly like the last one did, faster.</li>
+      </ol>
+      <p class="hint">The verifier, the CSV cleaner and the suppression checker are all free too. <a href="/tools/">See the tools →</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <h2>Browse by industry</h2>
+      <p class="muted" style="margin-top:8px">Lists open on warminboxes.com.</p>
+      <div class="cats">
+        {cats.map((c) => (
+          <div class="cat">
+            <div class="cat-head">
+              <h3>{c.name}</h3>
+              <span class="mono meta">{c.lists} lists · {M(c.leads)}</span>
+            </div>
+            <ul>
+              {c.top.map((t) => (
+                <li><a href={out(t.url, 'category-list')} target="_blank" rel="noopener">{t.title}</a> <span class="mono n">{M(t.leads)}</span></li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <p class="all"><a class="btn btn-ghost btn-lg" href={out(leads.hub, 'browse-all')} target="_blank" rel="noopener">Browse all {leads.totalLists} lists ↗</a></p>
+    </div>
+  </section>
+
+  <section class="section"><div class="wrap"><Faq faqs={faqs} /></div></section>
+
+  <section class="section final">
+    <div class="wrap">
+      <h2>The list is free. The domain is what it costs you.</h2>
+      <p class="lede" style="margin:14px auto 26px">Send a hundred million free contacts from infrastructure you warmed yourself and you will learn this the expensive way. Prewarmed inboxes arrive on a domain that has already done its 51 days.</p>
+      <a class="btn btn-primary btn-lg" href={wi('/', { page: 'leads', placement: 'footer-cta' })}>Get inboxes</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  h1 { margin: 12px 0 18px; }
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; margin-top: 34px; }
+  .stats div { background: var(--bg-elev); padding: 18px 20px; }
+  .stats b { display: block; font-size: 28px; color: var(--accent); font-weight: 500; letter-spacing: -.03em; }
+  .stats span { display: block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+  .src { font-size: 11.5px; color: var(--text-muted); margin-top: 12px; }
+  .steps { counter-reset: s; list-style: none; padding: 0; margin: 28px 0 0; max-width: 720px; }
+  .steps li { counter-increment: s; position: relative; padding: 16px 0 16px 44px; border-bottom: 1px solid var(--border); color: var(--text-2); font-size: 16px; }
+  .steps li::before { content: counter(s); position: absolute; left: 0; top: 16px; width: 26px; height: 26px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-family: var(--font-mono); font-size: 13px; display: grid; place-items: center; }
+  .steps strong { color: var(--text); }
+  .hint { margin-top: 20px; font-size: 15px; color: var(--text-muted); }
+  .cats { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 28px 32px; margin-top: 30px; }
+  .cat-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; border-bottom: 1px solid var(--border-strong); padding-bottom: 8px; margin-bottom: 10px; }
+  .cat h3 { font-size: 16px; }
+  .meta { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+  .cat ul { list-style: none; margin: 0; padding: 0; }
+  .cat li { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; padding: 6px 0; font-size: 14px; border-bottom: 1px solid var(--border); }
+  .cat li a { color: var(--text-2); }
+  .cat li a:hover { color: var(--accent); }
+  .n { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+  .all { margin-top: 36px; }
+  .final { text-align: center; }
+  .final .lede { margin-inline: auto; }
+</style>

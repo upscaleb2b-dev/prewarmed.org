@@ -1,6 +1,7 @@
 ---
 import { nav, site, wi, toolUrl } from '../data/site.js';
 import tools from '../data/tools.json';
+import leads from '../data/leads.json';
 
 const groups = [
   { id: 'diagnose', label: 'Diagnose' },
@@ -11,6 +12,8 @@ const groups = [
 ];
 const live = tools.tools.filter((t) => t.live);
 const path = Astro.url.pathname;
+const leadCats = leads.categories.slice(0, 12);
+const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
 ---
 <header class="nav">
   <div class="wrap nav-inner">
@@ -26,6 +29,26 @@ const path = Astro.url.pathname;
           {item.children && (
             <div class="menu">
               {item.children.map((c) => <a href={c.href}>{c.label}</a>)}
+            </div>
+          )}
+
+          {item.leads && (
+            <div class="mega leads-mega">
+              <div class="leads-head">
+                <div>
+                  <p class="eyebrow">Free B2B lead lists</p>
+                  <p class="leads-stat"><b class="mono">{leads.totalLists}</b> lists · <b class="mono">{leadsM}M+</b> contacts · free, no signup</p>
+                </div>
+                <a class="btn btn-primary" href="/leads/">Browse all →</a>
+              </div>
+              <div class="leads-grid">
+                {leadCats.map((c) => (
+                  <a class="lead-cat" href="/leads/">
+                    <span class="cn">{c.name}</span>
+                    <span class="cm mono">{c.lists} lists</span>
+                  </a>
+                ))}
+              </div>
             </div>
           )}
 
@@ -78,6 +101,15 @@ const path = Astro.url.pathname;
   .menu a { display: block; padding: 9px 12px; border-radius: 6px; font-size: 15px; color: var(--text-2); }
   .menu a:hover { background: var(--bg-elev-2); color: var(--text); text-decoration: none; }
   .mega { width: min(920px, calc(100vw - 48px)); padding: 22px; }
+  .leads-mega { width: min(720px, calc(100vw - 48px)); }
+  .leads-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
+  .leads-head .eyebrow { margin: 0 0 6px; }
+  .leads-stat { margin: 0; font-size: 14px; color: var(--text-2); }
+  .leads-stat b { color: var(--text); font-weight: 500; }
+  .leads-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px 18px; }
+  .lead-cat { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; padding: 7px 0; font-size: 13.5px; color: var(--text-2); border-bottom: 1px solid var(--border); }
+  .lead-cat:hover { color: var(--accent); text-decoration: none; }
+  .cm { font-size: 10.5px; color: var(--text-muted); white-space: nowrap; }
   .mega-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 20px; }
   .mega-grid .eyebrow { margin: 0 0 10px; }
   .tool-link { display: block; font-size: 13.5px; color: var(--text-2); padding: 5px 0; line-height: 1.35; }
