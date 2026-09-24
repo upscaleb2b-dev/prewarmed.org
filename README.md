@@ -45,6 +45,10 @@ Everything renders from data, so adding a product or a tool is a data change, no
 
 `data-palette` on `<body>`, set per page via the `palette` prop on `Base.astro`. Default `ember` (matches the Warm Inboxes mark). `green` and `blue` are the research-desk alternates and are fully defined — change the default in `Base.astro` to switch the whole site.
 
+## Planning documents
+
+The research and site plan live in [`docs/plan/`](docs/plan/), numbered in the order they were written, from `01-DECISIONS.md` through [`24-AGED-DOMAIN-SOURCING.md`](docs/plan/24-AGED-DOMAIN-SOURCING.md). Read [`docs/EDITORIAL-STANDARDS.md`](docs/EDITORIAL-STANDARDS.md) before writing any page copy.
+
 ## Not built yet
 
 `/for/<sequencer>/` integration pages, `/fix/*` tool-failure landings, `/cold-email-infrastructure/`, `/aged-domains-for-cold-email/`, `/prewarmed-email-accounts/`, blog. The templates and data layer already support them.
