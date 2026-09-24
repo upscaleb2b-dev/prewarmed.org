@@ -21,7 +21,7 @@ const unitWord = price?.unit === 'tenant' ? 'inbox' : price?.unit;
 /** What the order panel shows, by billing type. Never renders /mo on a one-off. */
 const priceLabel =
   billing === 'included' ? { big: 'Free', sub: 'with any inbox pack' }
-  : billing === 'custom' ? { big: 'Custom', sub: 'quoted per domain' }
+  : billing === 'custom' ? { big: 'Custom', sub: `quoted per ${price.unit}` }
   : billing === 'one-time' ? { big: `$${price.price}`, sub: `per ${price.unit}, one-time` }
   : range ? { big: `$${range[0].toFixed(2)}–$${range[1].toFixed(2)}`, sub: `/${unitWord}/mo` }
   : per !== null ? { big: `$${per}`, sub: `/${unitWord}/mo` }
@@ -30,6 +30,10 @@ const hasTiers = Array.isArray(p.tiers) && p.tiers.length > 0;
 /** Only products billed per term belong in the term table. A one-off $12
  *  registration rendered as monthly/2-month/quarterly is three empty rows. */
 const termed = !!(price?.perUnit || price?.perTenant || price?.perUnitRange);
+/** No published figure means the primary CTA has to start a conversation.
+ *  The pricing section still carries a tracked Warm Inboxes link. */
+const askFirst = price?.contact === 'whatsapp';
+const askMsg = p.waMessage ?? `Hi — I am interested in ${p.eyebrow.toLowerCase()}. Could you send me the price?`;
 
 /**
  * The order panel's checklist. Prewarmed products share one; fresh products
@@ -71,7 +75,9 @@ const schema = {
           <h1>{p.h1}</h1>
           <p class="lede">{p.subhead}</p>
           <div class="cta">
-            <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'hero' })}>Get inboxes at Warm Inboxes</a>
+            {askFirst
+              ? <a class="btn btn-primary btn-lg" href={wa(askMsg)}>Ask for a price on WhatsApp</a>
+              : <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'hero' })}>Get inboxes at Warm Inboxes</a>}
             <a class="btn btn-ghost btn-lg" href="/pricing/">See pricing</a>
           </div>
           <p class="disclosure micro">{site.disclosure}</p>
@@ -86,7 +92,9 @@ const schema = {
           {priceLabel && (
             <p class="from">{billing === 'monthly' && !range && 'from '}<span class="mono big">{priceLabel.big}</span> <span class="muted">{priceLabel.sub}</span></p>
           )}
-          <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })}>Order at Warm Inboxes →</a>
+          {askFirst
+            ? <a class="btn btn-primary full" href={wa(askMsg)}>Ask for a price →</a>
+            : <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })}>Order at Warm Inboxes →</a>}
           <p class="micro muted">{pricing.policy.delivery}.</p>
         </aside>
       </div>

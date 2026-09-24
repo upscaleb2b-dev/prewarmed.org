@@ -183,6 +183,7 @@ export const products = [
   {
     slug: 'prewarmed-azure-inboxes',
     family: 'prewarmed',
+    alt: { lead: 'Start date more than two months out?', slug: 'fresh-azure-inboxes', label: 'A fresh Azure tenant costs less and you run the warming' },
     eyebrow: 'Prewarmed Azure tenants',
     h1: 'Prewarmed Azure inboxes: 100 per tenant, ready to send',
     title: 'Prewarmed Azure Inboxes — 100-Inbox Tenants, Volume Cold Email Infrastructure',
@@ -537,6 +538,88 @@ export const products = [
       ['How many should I put on one domain?', 'Three, the same as prewarmed. Fewer inboxes across more domains is the right shape whether or not you warmed them yourself.'],
     ],
     related: ['prewarmed-microsoft-365-inboxes', 'fresh-google-inboxes', 'fresh-domains'],
+  },
+  {
+    slug: 'fresh-azure-inboxes',
+    family: 'fresh',
+    alt: { lead: 'Need to send this week?', slug: 'prewarmed-azure-inboxes', label: 'A prewarmed Azure tenant arrives with all 100 mailboxes already warmed' },
+    eyebrow: 'Fresh Azure tenants',
+    h1: 'Fresh Azure tenants: 100 mailboxes you warm yourself',
+    title: 'Fresh Azure Inboxes — 100-Mailbox Tenants, Unwarmed, Admin Access Included',
+    description:
+      'A dedicated Azure tenant with 100 Exchange Online mailboxes, delivered with no aging and no warming. The cheapest sending capacity there is, and the hardest to bring online.',
+    keyword: 'fresh azure inboxes',
+    subhead:
+      'Your own Azure account holding 100 mailboxes, handed over with the admin login and the records already set up. No aging, no warming, no domain. Warming a hundred mailboxes is a real job, and most of this page is about whether you should take it on.',
+    pricingKey: 'azure-fresh',
+    inlineTool: 'inbox-rotation-planner',
+    waMessage: 'Hi — I am interested in a fresh Azure tenant (100 mailboxes, unwarmed). Could you send me the price?',
+    ships: [
+      'A dedicated Azure tenant, **100 mailboxes**',
+      'Global Admin login, tenant ID and the mailbox list',
+      'SPF, DKIM, DMARC and MX published for you',
+      '**No aging and no warming** — that part is yours',
+      'Delivered same day',
+    ],
+    specs: [
+      ['Product', 'Dedicated Azure tenant'],
+      ['Mailboxes', '100 Exchange Online'],
+      ['Warming', 'None. You run it'],
+      ['Domain', 'Yours, or add a fresh .com for $12'],
+      ['Email records', 'SPF · DKIM · DMARC · MX already set'],
+      ['What you get', 'Global Admin login, tenant ID, mailbox list'],
+      ['Ready to send cold email', 'About 51 days from today'],
+      ['You get it', 'Same day, business days'],
+    ],
+    whoFor: [
+      ['Teams who have warmed a tenant before', 'You have done this, you know how many weeks it takes and what it costs in warming seats. You are buying the tenant, not the help.'],
+      ['Operators building for next quarter', 'Buy now, warm through a quiet month, and have 1,000 to 1,500 emails a day of capacity ready the week you need it.'],
+      ['Anyone who has priced the warming and still wants it', 'Warming tools charge per mailbox. A hundred mailboxes for the better part of two months is the number that decides this, and most people never work it out.'],
+    ],
+    body: [
+      {
+        h: 'Warming a hundred mailboxes is not warming three, a hundred times over',
+        p: [
+          'This is the part that catches people. Almost every warming tool charges per mailbox. Three mailboxes for three weeks is a rounding error. A hundred mailboxes for the better part of two months is a real bill, and it arrives every month until you are done.',
+          'Work that number out before you order, not after. Take what your warming tool charges per mailbox, multiply by a hundred, multiply by two months. Compare it to the gap between this and a prewarmed tenant. For a lot of teams the gap closes completely, and some find that warming it themselves costs more than buying it warmed.',
+          'The other cost is the calendar. It is not a hundred separate 51-day clocks, it is one clock running on all hundred at once, and nothing you buy can make it shorter.',
+        ],
+      },
+      {
+        h: 'One reputation, and nothing to fall back on',
+        warn: 'All 100 mailboxes share one reputation, and on a fresh tenant none of them have any yet. There is no history to absorb a mistake. A single unverified list in the first month can finish the whole tenant before it has ever landed anything.',
+        p: [
+          'When you buy in packs of three and something goes wrong, you lose three inboxes. Here you can lose a hundred at once. That is the trade you make for the cost per inbox, and it is the same trade the prewarmed tenant asks you to make.',
+          'The difference is that a prewarmed tenant has already sent and received real mail for three weeks and survived it. A fresh one has proved nothing. You are taking on the concentrated risk and the unproven start at the same time, which is why this is the most advanced thing on the site rather than just the cheapest.',
+        ],
+      },
+      {
+        h: 'Bring them online in batches, not all at once',
+        p: [
+          'Do not switch on a hundred brand new mailboxes on the same morning. Start about twenty, let them run, watch what happens, and add the next twenty when the first are behaving. A hundred accounts appearing from nowhere and immediately sending is a pattern worth avoiding.',
+          'Verify every list before it touches the tenant, and check your bounce rate daily for the first fortnight. Bounces are the fastest way to lose a tenant, and on a hundred shared mailboxes they are the most expensive.',
+          'Plan the rotation before the first send rather than after. Ten to fifteen emails per mailbox per day across a hundred mailboxes is a thousand to fifteen hundred a day, which is plenty, and going higher buys you very little while risking all of it.',
+        ],
+      },
+      {
+        h: 'When to buy the prewarmed tenant instead',
+        p: [
+          'If you have never run a tenant, do not start with a fresh one. The prewarmed version exists because the first two months are where tenants die, and having someone else take that risk is most of what you are paying for.',
+          'Buy fresh when all three of these are true: your start date is more than two months out, you already run warming infrastructure and know what it costs, and you have done a staged tenant startup before. If any one of them is false, the prewarmed tenant is cheaper than it looks.',
+          'And if you are somewhere in between, split it. Run a prewarmed tenant for what is live now and warm a fresh one behind it for next quarter. That is what teams sending at this volume actually do.',
+        ],
+      },
+    ],
+    faqs: [
+      ['What is an Azure tenant for cold email?', 'Your own Microsoft cloud directory containing 100 Exchange Online mailboxes under one admin login. Buying a tenant rather than mailboxes three at a time is what drops the cost per inbox by about ten times.'],
+      ['When can I send cold email from it?', 'About 51 days if the domain is new: 30 days of aging, then 21 of warming. Roughly 21 days if the domain is already old and has been sending normal business email.'],
+      ['Is a domain included?', 'No. Fresh products go on a domain you already own, or you can add a fresh .com for $12. The free prewarmed domain comes with prewarmed packs and prewarmed tenants.'],
+      ['Do I get Global Admin?', 'Yes, plus the tenant ID and a spreadsheet of all 100 mailboxes and their passwords.'],
+      ['What does it cost to warm 100 mailboxes?', 'That depends on your warming tool, and it is the number that should decide this purchase. Most tools charge per mailbox per month. Multiply by a hundred, then by two months, before you order.'],
+      ['Should I buy this if I have never run a tenant?', 'Honestly, no. Start with the prewarmed tenant, learn how it behaves, and buy fresh ones once you know what the first two months take.'],
+      ['How is it priced?', 'Per tenant. The figure is not published on this page yet — message us and we will send you the current one.'],
+    ],
+    related: ['prewarmed-azure-inboxes', 'fresh-microsoft-365-inboxes', 'fresh-domains'],
   },
   {
     slug: 'fresh-domains',

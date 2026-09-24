@@ -53,6 +53,7 @@ export const nav = [
     { label: 'Entra tenants', href: '/prewarmed-entra-inboxes/' },
     { label: 'Fresh Google', href: '/fresh-google-inboxes/' },
     { label: 'Fresh Microsoft 365', href: '/fresh-microsoft-365-inboxes/' },
+    { label: 'Fresh Azure tenants', href: '/fresh-azure-inboxes/' },
   ]},
   { label: 'Domains', href: '/prewarmed-domains/', children: [
     { label: 'Prewarmed domains', href: '/prewarmed-domains/' },

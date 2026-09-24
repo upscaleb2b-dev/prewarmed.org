@@ -101,6 +101,17 @@
         ]
       }
     },
+    "azure-fresh": {
+      "label": "Fresh Azure tenant",
+      "unit": "tenant",
+      "inboxesPerTenant": 100,
+      "domainIncluded": false,
+      "billing": "custom",
+      "price": null,
+      "contact": "whatsapp",
+      "_needsPrice": true,
+      "note": "Priced per tenant. The figure is not published here yet — message us for the current one."
+    },
     "domain-fresh": {
       "label": "Fresh .com domain",
       "unit": "domain",
@@ -125,7 +136,7 @@
     }
   },
   "policy": {
-    "refunds": "No refunds. State this plainly on /refund-policy/ \u2014 hiding it is both an Ads disapproval risk and a chargeback risk.",
+    "refunds": "No refunds. State this plainly on /refund-policy/ — hiding it is both an Ads disapproval risk and a chargeback risk.",
     "nonComFrom": 4.5,
     "delivery": "Same day on business days"
   }
