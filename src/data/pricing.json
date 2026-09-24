@@ -5,39 +5,127 @@
   "_confirmedAt": null,
   "currency": "USD",
   "terms": [
-    { "id": "monthly", "label": "Monthly", "months": 1 },
-    { "id": "two-month", "label": "2-Month", "months": 2 },
-    { "id": "quarterly", "label": "Quarterly", "months": 3, "best": true }
+    {
+      "id": "monthly",
+      "label": "Monthly",
+      "months": 1
+    },
+    {
+      "id": "two-month",
+      "label": "2-Month",
+      "months": 2
+    },
+    {
+      "id": "quarterly",
+      "label": "Quarterly",
+      "months": 3,
+      "best": true
+    }
   ],
   "products": {
     "google-prewarmed": {
       "label": "Prewarmed Google Workspace",
-      "unit": "inbox", "packSize": 3, "domainIncluded": true,
-      "perUnit": { "monthly": 8, "two-month": 7, "quarterly": 6 }
+      "unit": "inbox",
+      "packSize": 3,
+      "domainIncluded": true,
+      "perUnit": {
+        "monthly": 8,
+        "two-month": 7,
+        "quarterly": 6
+      }
     },
     "microsoft-prewarmed": {
       "label": "Prewarmed Microsoft 365",
-      "unit": "inbox", "packSize": 3, "domainIncluded": true,
-      "perUnit": { "monthly": 8, "two-month": 7, "quarterly": 6 }
+      "unit": "inbox",
+      "packSize": 3,
+      "domainIncluded": true,
+      "perUnit": {
+        "monthly": 8,
+        "two-month": 7,
+        "quarterly": 6
+      }
     },
     "azure-tenant": {
       "label": "Prewarmed Azure tenant",
-      "unit": "tenant", "inboxesPerTenant": 100, "domainIncluded": true,
-      "perTenant": { "monthly": 69, "two-month": 60, "quarterly": 50 },
-      "perInbox": { "monthly": 0.69, "two-month": 0.6, "quarterly": 0.5 }
+      "unit": "tenant",
+      "inboxesPerTenant": 100,
+      "domainIncluded": true,
+      "perTenant": {
+        "monthly": 69,
+        "two-month": 60,
+        "quarterly": 50
+      },
+      "perInbox": {
+        "monthly": 0.69,
+        "two-month": 0.6,
+        "quarterly": 0.5
+      }
     },
     "google-fresh": {
-      "label": "Fresh Google Workspace", "unit": "inbox", "packSize": 3, "domainIncluded": false,
-      "perUnitRange": { "monthly": [3.0, 3.5], "two-month": [3.0, 3.5], "quarterly": [3.0, 3.5] }
+      "label": "Fresh Google Workspace",
+      "unit": "inbox",
+      "packSize": 3,
+      "domainIncluded": false,
+      "perUnitRange": {
+        "monthly": [
+          3.0,
+          3.5
+        ],
+        "two-month": [
+          3.0,
+          3.5
+        ],
+        "quarterly": [
+          3.0,
+          3.5
+        ]
+      }
     },
     "microsoft-fresh": {
-      "label": "Fresh Microsoft 365", "unit": "inbox", "packSize": 3, "domainIncluded": false,
-      "perUnitRange": { "monthly": [2.0, 3.0], "two-month": [2.0, 3.0], "quarterly": [2.0, 3.0] }
+      "label": "Fresh Microsoft 365",
+      "unit": "inbox",
+      "packSize": 3,
+      "domainIncluded": false,
+      "perUnitRange": {
+        "monthly": [
+          2.0,
+          3.0
+        ],
+        "two-month": [
+          2.0,
+          3.0
+        ],
+        "quarterly": [
+          2.0,
+          3.0
+        ]
+      }
     },
-    "domain-standalone": { "label": "Standalone prewarmed .com", "unit": "domain", "price": 12 }
+    "domain-fresh": {
+      "label": "Fresh .com domain",
+      "unit": "domain",
+      "billing": "one-time",
+      "price": 12,
+      "note": "Registered clean and handed over. No aging, no warming, no sending history."
+    },
+    "domain-prewarmed": {
+      "label": "Prewarmed domain",
+      "unit": "domain",
+      "billing": "included",
+      "price": 0,
+      "note": "Aged 30 days, warmed 21. Included free with every inbox pack."
+    },
+    "domain-aged": {
+      "label": "Aged .com domain",
+      "unit": "domain",
+      "billing": "custom",
+      "price": null,
+      "contact": "whatsapp",
+      "note": "Sourced individually against your requirement. History checked before anything is handed over. Priced per domain."
+    }
   },
   "policy": {
-    "refunds": "No refunds. State this plainly on /refund-policy/ — hiding it is both an Ads disapproval risk and a chargeback risk.",
+    "refunds": "No refunds. State this plainly on /refund-policy/ \u2014 hiding it is both an Ads disapproval risk and a chargeback risk.",
     "nonComFrom": 4.5,
     "delivery": "Same day on business days"
   }

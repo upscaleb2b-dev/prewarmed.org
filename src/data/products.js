@@ -303,7 +303,16 @@ export const products = [
     keyword: 'prewarmed domains',
     subhead:
       'Thirty days of registration age, then twenty-one days of real sending and receiving, with authentication published throughout. Included free with every inbox pack.',
-    pricingKey: 'domain-standalone',
+    tiers: [
+      { k: 'domain-prewarmed', h: 'Prewarmed .com', price: 'Free with any inbox pack',
+        b: 'Aged 30 days, warmed 21, authenticated and placement tested. This is the one the rest of this page is about.' },
+      { k: 'domain-fresh', h: 'Fresh .com', price: '$12 per domain',
+        b: 'Registered clean and handed straight over. No aging, no warming, no sending history. You run the 51 days.' },
+      { k: 'domain-aged', h: 'Aged .com', price: 'Custom, per domain',
+        b: 'Sourced individually against your requirement, with registration and drop history checked before anything is handed over. Priced per domain because every one is different.',
+        wa: 'Hi — I am looking for aged .com domains. Here is what I need:' },
+    ],
+    pricingKey: 'domain-prewarmed',
     inlineTool: 'blacklist-checker',
     specs: [
       ['Aging', '30 days minimum before first send'],
@@ -336,10 +345,18 @@ export const products = [
         ],
       },
       {
-        h: 'Why the domains are free',
+        h: 'Three kinds of domain, three different prices',
         p: [
-          'A .com costs about ten dollars a year. The fifty-one days of aging, authentication, engagement and testing is where the cost actually sits, and that work lives in the mailboxes rather than in the registration. So we do not charge for domains.',
-          'It also means you can spread across more domains than you would if you were paying per domain, which is how a fleet should be built anyway. Concentration is what turns one bad week into a dead campaign.',
+          'A prewarmed .com is included free with every inbox pack. Registration costs about twelve dollars a year; the fifty-one days of aging, authentication, engagement and testing is where the cost actually sits, and that work lives in the mailboxes rather than in the registration. So we do not charge for the domain on top.',
+          'A fresh .com is twelve dollars, registered clean and handed over the same day. It has no history and no reputation, and you run the 51 days yourself. Buy these when you are building capacity for a start date two months out.',
+          'An aged .com is priced per domain, because every one is different. Age, prior use, drop history and blocklist exposure all vary, and a sensible price depends on what the specific domain turns out to be. Those are sourced against your requirement rather than sold off a shelf, which is why the conversation happens before the price.',
+        ],
+      },
+      {
+        h: 'Free domains let you spread, which is the point',
+        p: [
+          'Including the domain means you can run more domains at fewer inboxes each, which is how a fleet should be built anyway. Concentration is what turns one bad week into a dead campaign.',
+          'Three inboxes per domain across ten domains survives an incident that would end thirty inboxes on three domains. Paying per domain pushes people toward the second shape for reasons that have nothing to do with deliverability.',
         ],
       },
     ],
@@ -349,6 +366,8 @@ export const products = [
       ['Can I point it at my main website?', 'Yes, forwarding is standard practice and makes the domain look like what it claims to be.'],
       ['What happens if a domain burns?', 'Get the replacement terms in writing before ordering. Recovery is slow and often does not stick, so replacement speed is the thing to ask about.'],
       ['Are non-.com domains available?', 'Yes, via support. TLD carries real reputation differences, so ask before assuming a cheaper TLD is equivalent.'],
+      ['How much is an aged domain?', 'It depends entirely on the domain. Age, prior use, drop history and blocklist exposure all move the price, so aged domains are quoted individually rather than listed. Message us with what you need.'],
+      ['What is the difference between fresh at $12 and prewarmed free?', 'The 51 days. A fresh .com is a clean registration you warm yourself. A prewarmed .com has already been aged 30 days and warmed 21, and comes with the inboxes.'],
     ],
     related: ['prewarmed-inboxes', 'prewarmed-google-inboxes', 'prewarmed-azure-inboxes'],
   },

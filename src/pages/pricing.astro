@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PricingTable from '../components/PricingTable.astro';
-import { wi } from '../data/site.js';
+import { wi, wa } from '../data/site.js';
 import pricing from '../data/pricing.json';
 ---
 <Base title="Prewarmed Inbox & Domain Pricing — Google, Microsoft 365, Azure"
@@ -28,7 +28,7 @@ import pricing from '../data/pricing.json';
       <ul class="notes">
         <li>Prewarmed packs include a prewarmed .com or .co domain at no cost.</li>
         <li>Non-.com prewarmed domains from ${pricing.policy.nonComFrom} via support.</li>
-        <li>Standalone prewarmed .com: ${pricing.products['domain-standalone'].price}.</li>
+        <li><strong>Domains.</strong> A prewarmed .com is included free with every inbox pack. A fresh .com is ${pricing.products['domain-fresh'].price} per domain, one-time. Aged .com domains are quoted individually — <a href={wa('Hi — I am looking for aged .com domains. Here is what I need:')}>message us</a> with what you need.</li>
         <li>{pricing.policy.delivery}.</li>
         <li><strong>Refunds:</strong> see <a href="/refund-policy/">the refund policy</a>. Read it before ordering.</li>
       </ul>

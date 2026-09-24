@@ -5,7 +5,7 @@ import PricingTable from '../components/PricingTable.astro';
 import ToolCallout from '../components/ToolCallout.astro';
 import Faq from '../components/Faq.astro';
 import { products, bySlug } from '../data/products.js';
-import { site, wi } from '../data/site.js';
+import { site, wi, wa } from '../data/site.js';
 import pricing from '../data/pricing.json';
 
 export function getStaticPaths() {
@@ -13,7 +13,17 @@ export function getStaticPaths() {
 }
 const { p } = Astro.props;
 const price = pricing.products[p.pricingKey];
-const from = price?.perUnit?.quarterly ?? price?.perInbox?.quarterly ?? price?.price ?? null;
+const billing = price?.billing ?? 'monthly';
+const per = price?.perUnit?.quarterly ?? price?.perInbox?.quarterly ?? null;
+
+/** What the order panel shows, by billing type. Never renders /mo on a one-off. */
+const priceLabel =
+  billing === 'included' ? { big: 'Free', sub: 'with any inbox pack' }
+  : billing === 'custom' ? { big: 'Custom', sub: 'quoted per domain' }
+  : billing === 'one-time' ? { big: `$${price.price}`, sub: `per ${price.unit}, one-time` }
+  : per !== null ? { big: `$${per}`, sub: `/${price.unit === 'tenant' ? 'inbox' : price.unit}/mo` }
+  : null;
+const hasTiers = Array.isArray(p.tiers) && p.tiers.length > 0;
 
 const schema = {
   '@context': 'https://schema.org',
@@ -52,8 +62,8 @@ const schema = {
             <li>Admin access transferred to you</li>
             <li>Delivered same day</li>
           </ul>
-          {from !== null && (
-            <p class="from">from <span class="mono big">${from}</span> <span class="muted">/{price.unit === 'tenant' ? 'inbox' : price.unit}/mo</span></p>
+          {priceLabel && (
+            <p class="from">{billing === 'monthly' && 'from '}<span class="mono big">{priceLabel.big}</span> <span class="muted">{priceLabel.sub}</span></p>
           )}
           <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })}>Order at Warm Inboxes →</a>
           <p class="micro muted">{pricing.policy.delivery}.</p>
@@ -95,8 +105,25 @@ const schema = {
   <section class="section">
     <div class="wrap">
       <h2>Pricing</h2>
-      <PricingTable productKey={p.pricingKey} />
-      <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: 'pricing' })}>Order at Warm Inboxes →</a>
+      {hasTiers ? (
+        <div class="tiers">
+          {p.tiers.map((t) => (
+            <div class="tier">
+              <h3>{t.h}</h3>
+              <p class="tprice mono">{t.price}</p>
+              <p class="tbody">{t.b}</p>
+              {t.wa
+                ? <a class="btn btn-ghost" href={wa(t.wa)}>Talk on WhatsApp →</a>
+                : <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: `tier-${t.k}` })}>Order at Warm Inboxes →</a>}
+            </div>
+          ))}
+        </div>
+      ) : (
+        <>
+          <PricingTable productKey={p.pricingKey} />
+          <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: 'pricing' })}>Order at Warm Inboxes →</a>
+        </>
+      )}
     </div>
   </section>
 
@@ -139,6 +166,12 @@ const schema = {
   .blk h2 { margin-bottom: 16px; }
   .blk p { color: var(--text-2); }
   .warn { border-left: 3px solid var(--warning); background: var(--warning-soft); padding: 14px 18px; border-radius: 0 6px 6px 0; color: var(--text) !important; font-size: 16px; }
+  .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 26px; }
+  .tier { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 24px; display: flex; flex-direction: column; }
+  .tier h3 { font-size: 18px; margin-bottom: 10px; }
+  .tprice { font-size: 20px; color: var(--accent); font-weight: 500; margin: 0 0 14px; letter-spacing: -.02em; }
+  .tbody { font-size: 15px; color: var(--text-2); margin: 0 0 22px; flex: 1; }
+  .tier .btn { align-self: flex-start; }
   .rel h3 { font-size: 18px; margin-bottom: 8px; }
   .rel { display: block; }
   .rel:hover { text-decoration: none; border-color: var(--accent); }

@@ -33,6 +33,17 @@ export function toolUrl(tool, { page = 'site', placement = 'body', domain = '' }
   return u.toString();
 }
 
+/**
+ * WhatsApp link. Falls back to /contact/ while site.whatsapp is empty, so a
+ * missing number never ships as a dead link.
+ */
+export function wa(message = '') {
+  if (!site.whatsapp) return '/contact/';
+  const u = new URL(site.whatsapp);
+  if (message) u.searchParams.set('text', message);
+  return u.toString();
+}
+
 export const nav = [
   { label: 'Inboxes', href: '/prewarmed-inboxes/', children: [
     { label: 'Google Workspace', href: '/prewarmed-google-inboxes/' },
