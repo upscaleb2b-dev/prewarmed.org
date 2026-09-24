@@ -2,6 +2,7 @@
 import { nav, site, wi, toolUrl } from '../data/site.js';
 import tools from '../data/tools.json';
 import leads from '../data/leads.json';
+import Flame from './Flame.astro';
 
 const groups = [
   { id: 'diagnose', label: 'Diagnose' },
@@ -17,7 +18,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
 ---
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="/"><span class="dot" aria-hidden="true"></span>prewarmed<span class="muted">.org</span></a>
+    <a class="brand" href="/"><Flame size={20} />prewarmed<span class="muted">.org</span></a>
 
     <nav class="links" aria-label="Main">
       {nav.map((item) => (
@@ -90,7 +91,6 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
   .nav-inner { display: flex; align-items: center; gap: 28px; min-height: 64px; }
   .brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; color: var(--text); }
   .brand:hover { text-decoration: none; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--heat); }
   .links { display: flex; gap: 4px; margin-right: auto; }
   .links > div { position: relative; }
   .links > div > a { display: inline-flex; align-items: center; gap: 5px; padding: 9px 12px; border-radius: 6px; font-size: 15px; font-weight: 500; color: var(--text-2); }

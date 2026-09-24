@@ -2,13 +2,14 @@
 import { site, wi, toolUrl } from '../data/site.js';
 import tools from '../data/tools.json';
 import { products } from '../data/products.js';
+import Flame from './Flame.astro';
 const featured = tools.tools.filter((t) => t.live && t.host === 'warminboxes.com').slice(0, 9);
 ---
 <footer class="ft">
   <div class="wrap">
     <div class="ft-top">
       <div class="ft-brand">
-        <p class="brand"><span class="dot" aria-hidden="true"></span>prewarmed<span class="muted">.org</span></p>
+        <p class="brand"><Flame size={20} />prewarmed<span class="muted">.org</span></p>
         <p class="disclosure">{site.disclosure}</p>
       </div>
 
@@ -57,7 +58,6 @@ const featured = tools.tools.filter((t) => t.live && t.host === 'warminboxes.com
   .ft-top { display: grid; grid-template-columns: minmax(230px, 300px) 1fr; gap: 40px; }
   @media (max-width: 900px) { .ft-top { grid-template-columns: 1fr; gap: 32px; } }
   .brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; margin: 0 0 12px; }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--heat); }
   .ft-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 28px; }
   .ft-cols .eyebrow { margin: 0 0 12px; }
   .ft-cols a { display: block; font-size: 14.5px; color: var(--text-2); padding: 4px 0; }

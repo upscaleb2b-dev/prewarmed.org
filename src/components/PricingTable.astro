@@ -11,7 +11,7 @@ const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
   )}
   <div class="scroll-x">
     <table>
-      <caption>{p.label}{p.packSize ? ` · sold in packs of ${p.packSize}` : ''}{p.domainIncluded ? ' · prewarmed domain included' : ''}</caption>
+      <caption>{p.label}{p.packSize ? ` · sold in packs of ${p.packSize}` : ''}{p.unit === 'domain' ? '' : p.domainIncluded ? ' · prewarmed domain included' : ' · domain not included'}</caption>
       <thead>
         <tr><th>Billing</th><th>{p.unit === 'tenant' ? 'Per tenant' : `Per ${p.unit}`}</th>{p.unit === 'tenant' ? <th>Per inbox</th> : p.packSize ? <th>Pack of {p.packSize}</th> : null}</tr>
       </thead>
@@ -19,12 +19,16 @@ const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
         {terms.map((t) => {
           const per = p.perUnit?.[t.id] ?? p.perTenant?.[t.id] ?? null;
           const range = p.perUnitRange?.[t.id];
-          const second = p.perInbox?.[t.id] ?? (p.packSize && per ? per * p.packSize : null);
+          // Ranged products have no single perUnit, so the pack column has to be
+          // derived from the range or it silently renders an em dash.
+          const second = p.perInbox?.[t.id]
+            ?? (p.packSize && per ? per * p.packSize : null)
+            ?? (p.packSize && range ? [range[0] * p.packSize, range[1] * p.packSize] : null);
           return (
             <tr class={t.best ? 'best' : ''}>
               <td>{t.label}{t.best && <span class="tag">best value</span>}</td>
               <td class="mono price">{range ? `${fmt(range[0])}–${fmt(range[1])}` : per !== null ? fmt(per) : '—'}</td>
-              {(p.unit === 'tenant' || p.packSize) && <td class="mono">{second !== null ? `${fmt(second)}${p.unit === 'tenant' ? ' /inbox' : ''}` : '—'}</td>}
+              {(p.unit === 'tenant' || p.packSize) && <td class="mono">{Array.isArray(second) ? `${fmt(second[0])}–${fmt(second[1])}` : second !== null ? `${fmt(second)}${p.unit === 'tenant' ? ' /inbox' : ''}` : '—'}</td>}
             </tr>
           );
         })}

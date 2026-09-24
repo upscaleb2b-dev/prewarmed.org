@@ -5,17 +5,17 @@ import tools from '../../data/tools.json';
 import { toolUrl, wi } from '../../data/site.js';
 
 const groups = [
-  { id: 'diagnose', label: 'Diagnose', blurb: 'Something broke. Find out what.' },
-  { id: 'authenticate', label: 'Authenticate', blurb: 'SPF, DKIM, DMARC and the records around them.' },
-  { id: 'hygiene', label: 'List hygiene', blurb: 'Clean the list before it touches a domain.' },
-  { id: 'qa', label: 'Pre-send QA', blurb: 'Catch it now, while it is still free to fix.' },
-  { id: 'plan', label: 'Plan', blurb: 'Size the fleet and the ramp.' },
+  { id: 'diagnose', label: 'Something is wrong', blurb: 'Emails stopped landing. Find out why.' },
+  { id: 'authenticate', label: 'Setting up records', blurb: 'SPF, DKIM, DMARC and the rest of your email records.' },
+  { id: 'hygiene', label: 'Cleaning your list', blurb: 'Do this before your list touches a sending domain.' },
+  { id: 'qa', label: 'Before you hit send', blurb: 'Catch it now, while it still costs nothing to fix.' },
+  { id: 'plan', label: 'Working out what you need', blurb: 'How many inboxes, and how fast to build up.' },
 ];
 const live = tools.tools.filter((t) => t.live);
 const faqs = [
   ['Are these really free?', 'Yes, and there is no signup. They are built and hosted by Warm Inboxes, which we operate.'],
-  ['Which should I run first?', 'On a live problem: blacklist, then DMARC, then a header analysis of a message that failed. Those three explain most incidents.'],
-  ['What if a check fails?', 'Each tool below has an "if it fails" line. Some failures are fixable in an afternoon. A blacklisting early in a domain\'s life usually is not, and replacement beats appeal.'],
+  ['Which should I run first?', 'If something is broken right now: blacklist checker, then DMARC checker, then paste the headers of an email that failed into the header analyser. Those three explain most problems.'],
+  ['What if a check fails?', 'Each tool below has an "if it fails" line telling you what to do. Some problems you can fix in an afternoon. A blacklisting early in a domain\'s life usually is not one of them, and replacing the domain beats appealing.'],
   ['Do you store the domains I check?', 'Ask before relying on it. If you are checking client domains, confirm the logging position with any tool vendor, including us.'],
 ];
 const schema = {
@@ -36,7 +36,7 @@ const schema = {
     <div class="wrap">
       <p class="eyebrow">Free tools</p>
       <h1>Diagnose before you buy.</h1>
-      <p class="lede">{live.length} tools, no signup, built by the team that operates the infrastructure. Each one below says when to run it and what to do with the answer, which is the part the tools themselves cannot tell you.</p>
+      <p class="lede">{live.length} free tools, no signup. Each one below tells you when to run it and what to do with the answer, which is the part the tool itself cannot tell you.</p>
     </div>
   </section>
 
@@ -72,7 +72,7 @@ const schema = {
   <section class="section final">
     <div class="wrap">
       <h2>Failed a check?</h2>
-      <p class="lede" style="margin:14px auto 26px">Prewarmed replacements ship the same day, on a domain that has already done its 51 days.</p>
+      <p class="lede" style="margin:14px auto 26px">Replacement inboxes ship the same day, on a domain that has already done its 51 days.</p>
       <a class="btn btn-primary btn-lg" href={wi('/', { page: 'tools-hub', placement: 'footer-cta' })}>Get inboxes</a>
     </div>
   </section>

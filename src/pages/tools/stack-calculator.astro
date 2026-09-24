@@ -22,7 +22,7 @@ const P = {
         <div class="fields">
           <div class="field"><label for="target">Target sends / day</label><input id="target" type="number" min="10" max="200000" value="1500" inputmode="numeric" /></div>
           <div class="field"><label for="perinbox">Sends / inbox / day</label><input id="perinbox" type="number" min="1" max="100" value="15" inputmode="numeric" /><span class="hint acc">we recommend 15</span></div>
-          <div class="field"><label for="perdomain">Inboxes / domain</label><input id="perdomain" type="number" min="1" max="10" value="3" inputmode="numeric" /><span class="hint acc">3 keeps the blast radius small</span></div>
+          <div class="field"><label for="perdomain">Inboxes / domain</label><input id="perdomain" type="number" min="1" max="10" value="3" inputmode="numeric" /><span class="hint acc">3 keeps the damage small if one fails</span></div>
           <div class="field"><label for="headroom">Replacement headroom</label><input id="headroom" type="number" min="0" max="100" value="20" inputmode="numeric" /><span class="hint">% held in reserve</span></div>
         </div>
 
@@ -36,7 +36,7 @@ const P = {
               <li><span>per month</span><b id="p-cost">—</b></li>
               <li><span>per 1,000 sends</span><b id="p-cpm">—</b></li>
             </ul>
-            <p class="why">Risk isolated per domain. A burn costs {P.packSize} inboxes.</p>
+            <p class="why">Risk stays on one domain. If it stops working you lose {P.packSize} inboxes.</p>
           </div>
           <div class="opt">
             <p class="eyebrow">Azure tenants</p>
@@ -47,7 +47,7 @@ const P = {
               <li><span>per month</span><b id="t-cost">—</b></li>
               <li><span>per 1,000 sends</span><b id="t-cpm">—</b></li>
             </ul>
-            <p class="why">Cheaper and a safer volume shape, but one shared reputation pool.</p>
+            <p class="why">Cheaper, and spreads sending more safely, but all 100 mailboxes share one reputation.</p>
           </div>
         </div>
 
@@ -102,10 +102,10 @@ const P = {
     const perMailbox = target / tInboxes;
     $('verdict').textContent =
       target < 500
-        ? 'At this volume, buy packs. A tenant would leave most of its hundred mailboxes idle and concentrate all your risk in one pool for no gain.'
+        ? 'At this volume, buy packs. A tenant would leave most of its hundred mailboxes idle and put all your risk in one place for no gain.'
         : perMailbox < 5
           ? `A tenant costs ${money(packCost - tCost)} a month less, but would run at ${perMailbox.toFixed(1)} sends per mailbox. That is a lot of idle capacity — packs are the tidier answer until volume rises.`
-          : `A tenant costs ${money(packCost - tCost)} a month less and spreads the same volume across ${n0(tInboxes)} mailboxes at ${perMailbox.toFixed(1)} each, which is a safer shape than ${n0(needed)} at ${perInbox}. The trade is one shared reputation pool: verified lists only.`;
+          : `A tenant costs ${money(packCost - tCost)} a month less and spreads the same volume across ${n0(tInboxes)} mailboxes at ${perMailbox.toFixed(1)} each, which is a safer shape than ${n0(needed)} at ${perInbox}. The trade is that all of them share one reputation, so only send to verified lists.`;
   }
   ids.forEach((i) => $(i).addEventListener('input', calc));
   calc();

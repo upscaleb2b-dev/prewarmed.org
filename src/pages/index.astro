@@ -9,13 +9,13 @@ import tools from '../data/tools.json';
 
 const liveTools = tools.tools.filter((t) => t.live).length;
 const faqs = [
-  ['What does prewarmed actually mean?', 'Thirty days of registration age with authentication published, then twenty-one days of real sending and receiving. Fifty-one days before the first cold email. Most of what is sold as prewarmed skips one half or both.'],
-  ['Are these real Google and Microsoft accounts?', 'Yes. Licensed accounts with admin access transferred to you, not SMTP relays and not seats on somebody else\'s tenant.'],
-  ['How fast is delivery?', 'Same day on business days. The waiting already happened.'],
-  ['How many emails a day can I send from one?', 'We recommend 15 per inbox per day, three inboxes per domain. That is deliberately conservative and it is the configuration that survives.'],
-  ['Do I get admin access?', 'Yes. It is the single question that separates a real inbox from a rented seat. Ask it of every vendor including us.'],
-  ['What if a domain gets flagged?', 'Get replacement terms in writing before ordering, from anyone. Recovery is slow and often does not stick, so replacement speed is what matters.'],
-  ['Which sequencers do these work with?', 'Any that accept OAuth or SMTP credentials: Smartlead, Instantly, Email Bison, ManyReach and others.'],
+  ['What does prewarmed actually mean?', 'Thirty days of letting the domain get older with its records in place, then twenty-one days of sending and receiving real email. Fifty-one days before the first cold email goes out. A lot of what gets sold as prewarmed skips one half, or both.'],
+  ['Are these real Google and Microsoft accounts?', 'Yes. Proper paid accounts, and you get the admin login. Not a relay service, and not a seat on somebody else\'s account.'],
+  ['How fast do I get them?', 'The same day, on business days. The 51 days of waiting already happened before you ordered.'],
+  ['How many emails a day can I send?', 'We suggest 15 per inbox per day, with three inboxes on each domain. That is deliberately cautious, and it is the setup that keeps working month after month.'],
+  ['Do I get the admin login?', 'Yes. This is the question that separates a real account from a rented seat. Ask it of everyone you buy from, including us.'],
+  ['What if a domain stops landing in the inbox?', 'Ask for the replacement terms in writing before you order, from anyone. Getting a damaged domain back is slow and often does not work, so how fast they replace it is what matters.'],
+  ['Which sending tools do these work with?', 'Any of them. Smartlead, Instantly, Email Bison, ManyReach and the rest all connect the same way.'],
   ['Who runs prewarmed.org?', site.disclosure],
 ];
 const schema = {
@@ -36,7 +36,7 @@ const schema = {
     <div class="wrap">
       <p class="eyebrow">Prewarmed inboxes and domains for cold email</p>
       <h1>51 days of reputation.<br />Yours today.</h1>
-      <p class="lede">Every sending domain needs 30 days of registration age and then 21 days of warming before it can carry real volume. We run those 51 days on our own infrastructure and hand you the result. Official Google Workspace, Microsoft 365 and Azure inboxes, on a prewarmed domain, delivered same day.</p>
+      <p class="lede">A brand new domain has no history, so Gmail and Outlook do not trust it yet. It needs about 30 days of age, then 21 days of real emails going out and coming back, before it can send cold email properly. We run those 51 days for you. Official Google Workspace, Microsoft 365 and Azure inboxes on a domain that is already warmed up, delivered the same day.</p>
       <div class="cta">
         <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'hero' })}>Get inboxes</a>
         <a class="btn btn-ghost btn-lg" href="/tools/">{liveTools} free tools</a>
@@ -53,10 +53,10 @@ const schema = {
     <div class="wrap">
       <h2>What prewarmed means here</h2>
       <div class="grid g4" style="margin-top:26px">
-        <div class="card"><h3>Real licences</h3><p class="muted">Official Google and Microsoft accounts with admin access transferred to you.</p></div>
-        <div class="card"><h3>Aged 30 days</h3><p class="muted">Registration age is the one signal a sender cannot fake or accelerate.</p></div>
-        <div class="card"><h3>Warmed 21 days</h3><p class="muted">Real send and receive traffic, with authentication published throughout.</p></div>
-        <div class="card"><h3>Same-day delivery</h3><p class="muted">Order to credentials in hours. The waiting already happened.</p></div>
+        <div class="card"><h3>Proper accounts</h3><p class="muted">Real Google and Microsoft accounts, not a relay service. You get the admin login.</p></div>
+        <div class="card"><h3>30 days of age</h3><p class="muted">How old a domain is cannot be faked or rushed, and Gmail and Outlook can both check it.</p></div>
+        <div class="card"><h3>21 days of warming</h3><p class="muted">Three weeks of real emails sent and replied to, so the domain has a track record.</p></div>
+        <div class="card"><h3>Ready the same day</h3><p class="muted">You get the logins within hours. The 51 days of waiting already happened.</p></div>
       </div>
     </div>
   </section>
@@ -64,7 +64,7 @@ const schema = {
   <section class="section">
     <div class="wrap">
       <h2>Pick your provider</h2>
-      <p class="lede" style="margin-top:12px">The right answer depends on your recipient mix, not on preference. Segment your list first.</p>
+      <p class="lede" style="margin-top:12px">Pick based on where the people you are emailing actually read their mail, not on which brand you prefer. Check your list first.</p>
       <div class="grid g3" style="margin-top:28px">
         {products.filter((p) => ['prewarmed-google-inboxes','prewarmed-microsoft-365-inboxes','prewarmed-azure-inboxes'].includes(p.slug)).map((p) => (
           <a class="card pick" href={`/${p.slug}/`}>
@@ -82,15 +82,15 @@ const schema = {
       <h2>Prewarmed, fresh or do it yourself</h2>
       <div class="scroll-x" style="margin-top:24px">
         <table>
-          <thead><tr><th></th><th>Prewarmed</th><th>Fresh inbox</th><th>Warm it yourself</th></tr></thead>
+          <thead><tr><th></th><th>Prewarmed</th><th>Fresh inbox</th><th>Do it yourself</th></tr></thead>
           <tbody>
-            <tr><td>Time to first send</td><td class="yes">Same day</td><td>14–21 days</td><td>51 days</td></tr>
-            <tr><td>Domain age at first send</td><td class="yes">30 days +</td><td>0 days</td><td>30 days, if you wait</td></tr>
-            <tr><td>Warmup tool cost</td><td class="yes">None</td><td>Extra</td><td>Extra</td></tr>
+            <tr><td>How soon you can send</td><td class="yes">Same day</td><td>14–21 days</td><td>51 days</td></tr>
+            <tr><td>Domain age on day one</td><td class="yes">30 days +</td><td>0 days</td><td>30 days, if you wait</td></tr>
+            <tr><td>Cost of a warmup tool</td><td class="yes">None</td><td>Extra</td><td>Extra</td></tr>
             <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No</td><td class="no">No</td></tr>
-            <tr><td>DNS configured</td><td class="yes">Before handover</td><td class="no">You</td><td class="no">You</td></tr>
-            <tr><td>Admin access</td><td class="yes">Full</td><td class="yes">Full</td><td class="yes">Full</td></tr>
-            <tr><td>Replacement if burned</td><td class="yes">Same-day swap</td><td class="no">—</td><td class="no">—</td></tr>
+            <tr><td>SPF, DKIM and DMARC set up</td><td class="yes">Before handover</td><td class="no">You</td><td class="no">You</td></tr>
+            <tr><td>Admin login</td><td class="yes">Full</td><td class="yes">Full</td><td class="yes">Full</td></tr>
+            <tr><td>Replacement if it stops working</td><td class="yes">Same-day swap</td><td class="no">—</td><td class="no">—</td></tr>
           </tbody>
         </table>
       </div>
@@ -100,8 +100,8 @@ const schema = {
   <section class="section">
     <div class="wrap">
       <ToolCallout id="blacklist-checker" page="home"
-        headline="Not sure your current domain is even the problem?"
-        body="Replies stopped overnight is the classic symptom of a blacklisting, and it is the first thing to rule out before buying more capacity. Checks 20+ lists, no signup." />
+        headline="Not sure your current domain is the problem?"
+        body="If replies stopped overnight, a blacklist is the usual cause, and it is the first thing to rule out before you buy more inboxes. Checks 20+ blacklists, free, no signup." />
     </div>
   </section>
 
@@ -112,7 +112,7 @@ const schema = {
   <section class="section final">
     <div class="wrap">
       <h2>Your next campaign can start today.</h2>
-      <p class="lede" style="margin:14px auto 26px">Prewarmed inboxes on a domain that has already done its 51 days.</p>
+      <p class="lede" style="margin:14px auto 26px">Inboxes on a domain that has already done its 51 days, so you can start sending cold email today.</p>
       <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'footer-cta' })}>Get inboxes</a>
     </div>
   </section>

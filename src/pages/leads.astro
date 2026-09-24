@@ -19,8 +19,8 @@ const out = (url, placement) => {
 const faqs = [
   ['Are these really free?', 'Yes, and there is no signup. They are published by Warm Inboxes, which we operate.'],
   ['Are the emails verified?', 'Treat every downloaded list as unverified until you have run it through a verifier yourself. That is true of any free list from any source, and bounces are what burn domains.'],
-  ['Can I just load one of these and send?', 'You can, and it is the fastest way to lose a domain. Verify, deduplicate at company level, check against your suppression list, then ramp. The list is the input most likely to kill your infrastructure.'],
-  ['How current are they?', 'Business email decays continuously as people change roles. Anything sitting unused for more than a quarter should be re-verified before it touches a sending domain.'],
+  ['Can I just load one of these and start sending?', 'You can, and it is the fastest way to lose a domain. Check the addresses are real, remove duplicate companies, remove anyone who has already said no, then build up slowly. Your list is the thing most likely to ruin your inboxes.'],
+  ['How up to date are they?', 'Work email addresses go stale constantly as people change jobs. Anything that has been sitting unused for more than three months should be re-checked before you send to it.'],
   ['What is the catch?', 'None on the lists. We sell the infrastructure you would send them from, which is the honest reason these exist.'],
 ];
 
@@ -40,7 +40,7 @@ const schema = {
     <div class="wrap">
       <p class="eyebrow">Free lead lists</p>
       <h1>{leads.totalLists} free B2B lead lists</h1>
-      <p class="lede">Roughly {totalM} million contacts across {cats.length} industries, free and without a signup. Below the index is the part that matters more than the list: what to do to it before it touches a sending domain.</p>
+      <p class="lede">About {totalM} million contacts across {cats.length} industries, free, no signup. Below the list index is the part that matters more than the lists themselves: what to do with one before you send to it.</p>
       <div class="stats mono">
         <div><b>{leads.totalLists}</b><span>lists</span></div>
         <div><b>{totalM}M+</b><span>contacts</span></div>
@@ -54,12 +54,12 @@ const schema = {
   <section class="section">
     <div class="wrap">
       <h2>Before you send a single one of these</h2>
-      <p class="lede" style="margin-top:12px">A free list is the single most common way a good domain dies. Four steps, in this order, and none of them is optional.</p>
+      <p class="lede" style="margin-top:12px">A free list is the most common way a good domain gets ruined. Four steps, in this order, and you need all four.</p>
       <ol class="steps">
-        <li><strong>Verify.</strong> Every address, every time. Bounces are the fastest signal a receiving provider has that you are working from bought data, and bounce rate moves before placement does.</li>
-        <li><strong>Deduplicate at company level, not just address level.</strong> Emailing four people at one company in a week produces internal forwarding, a shared complaint, and occasionally a domain-wide block.</li>
-        <li><strong>Check against your suppression list.</strong> Anyone who has opted out, replied to stop, or is already a customer. This is a legal obligation in most places and a reputation one everywhere.</li>
-        <li><strong>Ramp.</strong> Fifteen sends per inbox per day on prewarmed infrastructure, increasing only while bounce rate stays low. A clean domain pointed at an unverified list fails exactly like the last one did, faster.</li>
+        <li><strong>Check every address is real.</strong> Every time. Bounces are the quickest way for Gmail and Outlook to spot that you are emailing a bought list, and your bounce rate climbs before your emails stop landing.</li>
+        <li><strong>Remove duplicate companies, not just duplicate addresses.</strong> Emailing four people at the same company in one week gets your message forwarded around internally, reported once by all of them, and sometimes blocked across their whole company.</li>
+        <li><strong>Remove anyone who already said no.</strong> People who unsubscribed, replied asking you to stop, or are already customers. In most countries this is a legal requirement, and everywhere it is how you avoid complaints.</li>
+        <li><strong>Build up slowly.</strong> Fifteen emails per inbox per day to start, increasing only while your bounce rate stays low. A clean domain pointed at an unchecked list fails exactly like the last one did, only faster.</li>
       </ol>
       <p class="hint">The verifier, the CSV cleaner and the suppression checker are all free too. <a href="/tools/">See the tools →</a></p>
     </div>
@@ -93,7 +93,7 @@ const schema = {
   <section class="section final">
     <div class="wrap">
       <h2>The list is free. The domain is what it costs you.</h2>
-      <p class="lede" style="margin:14px auto 26px">Send a hundred million free contacts from infrastructure you warmed yourself and you will learn this the expensive way. Prewarmed inboxes arrive on a domain that has already done its 51 days.</p>
+      <p class="lede" style="margin:14px auto 26px">A free list costs you nothing. The domain you burn sending to it badly is the expensive part. Our inboxes arrive on a domain that has already done its 51 days.</p>
       <a class="btn btn-primary btn-lg" href={wi('/', { page: 'leads', placement: 'footer-cta' })}>Get inboxes</a>
     </div>
   </section>

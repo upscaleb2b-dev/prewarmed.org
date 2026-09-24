@@ -15,15 +15,38 @@ const { p } = Astro.props;
 const price = pricing.products[p.pricingKey];
 const billing = price?.billing ?? 'monthly';
 const per = price?.perUnit?.quarterly ?? price?.perInbox?.quarterly ?? null;
+const range = price?.perUnitRange?.quarterly ?? null;
+const unitWord = price?.unit === 'tenant' ? 'inbox' : price?.unit;
 
 /** What the order panel shows, by billing type. Never renders /mo on a one-off. */
 const priceLabel =
   billing === 'included' ? { big: 'Free', sub: 'with any inbox pack' }
   : billing === 'custom' ? { big: 'Custom', sub: 'quoted per domain' }
   : billing === 'one-time' ? { big: `$${price.price}`, sub: `per ${price.unit}, one-time` }
-  : per !== null ? { big: `$${per}`, sub: `/${price.unit === 'tenant' ? 'inbox' : price.unit}/mo` }
+  : range ? { big: `$${range[0].toFixed(2)}–$${range[1].toFixed(2)}`, sub: `/${unitWord}/mo` }
+  : per !== null ? { big: `$${per}`, sub: `/${unitWord}/mo` }
   : null;
 const hasTiers = Array.isArray(p.tiers) && p.tiers.length > 0;
+/** Only products billed per term belong in the term table. A one-off $12
+ *  registration rendered as monthly/2-month/quarterly is three empty rows. */
+const termed = !!(price?.perUnit || price?.perTenant || price?.perUnitRange);
+
+/**
+ * The order panel's checklist. Prewarmed products share one; fresh products
+ * ship something materially different and must never inherit the 51-day copy.
+ * `**bold**` is the only markup honoured.
+ */
+const ships = p.ships ?? [
+  'Domain aged **30 days** before first send',
+  'Then warmed **21 days** on real traffic',
+  'SPF, DKIM, DMARC and MX configured',
+  'Admin access transferred to you',
+  'Delivered same day',
+];
+const parts = (t) => t.split('**').map((chunk, i) => ({ chunk, bold: i % 2 === 1 }));
+const crumb = p.slug === 'fresh-domains'
+  ? { href: '/prewarmed-domains/', label: 'Domains' }
+  : { href: '/prewarmed-inboxes/', label: 'Inboxes' };
 
 const schema = {
   '@context': 'https://schema.org',
@@ -41,7 +64,7 @@ const schema = {
 <Base title={`${p.title} | prewarmed.org`} description={p.description} schema={schema}>
   <section class="hero section">
     <div class="wrap">
-      <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <a href="/prewarmed-inboxes/">Inboxes</a> <span class="muted">›</span> <span class="muted">{p.eyebrow}</span></p>
+      <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <a href={crumb.href}>{crumb.label}</a> <span class="muted">›</span> <span class="muted">{p.eyebrow}</span></p>
       <div class="hero-grid">
         <div>
           <p class="eyebrow">{p.eyebrow}</p>
@@ -56,14 +79,12 @@ const schema = {
         <aside class="order card">
           <p class="eyebrow">What ships</p>
           <ul class="ships">
-            <li>Domain aged <strong>30 days</strong> before first send</li>
-            <li>Then warmed <strong>21 days</strong> on real traffic</li>
-            <li>SPF, DKIM, DMARC and MX configured</li>
-            <li>Admin access transferred to you</li>
-            <li>Delivered same day</li>
+            {ships.map((line) => (
+              <li>{parts(line).map((x) => (x.bold ? <strong>{x.chunk}</strong> : x.chunk))}</li>
+            ))}
           </ul>
           {priceLabel && (
-            <p class="from">{billing === 'monthly' && 'from '}<span class="mono big">{priceLabel.big}</span> <span class="muted">{priceLabel.sub}</span></p>
+            <p class="from">{billing === 'monthly' && !range && 'from '}<span class="mono big">{priceLabel.big}</span> <span class="muted">{priceLabel.sub}</span></p>
           )}
           <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })}>Order at Warm Inboxes →</a>
           <p class="micro muted">{pricing.policy.delivery}.</p>
@@ -114,18 +135,34 @@ const schema = {
               <p class="tbody">{t.b}</p>
               {t.wa
                 ? <a class="btn btn-ghost" href={wa(t.wa)}>Talk on WhatsApp →</a>
+                : t.to
+                ? <a class="btn btn-ghost" href={t.to}>{t.toLabel}</a>
                 : <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: `tier-${t.k}` })}>Order at Warm Inboxes →</a>}
             </div>
           ))}
         </div>
       ) : (
         <>
-          <PricingTable productKey={p.pricingKey} />
+          {termed ? <PricingTable productKey={p.pricingKey} /> : (
+            <div class="flat">
+              <p class="fprice mono">{priceLabel?.big} <span class="muted">{priceLabel?.sub}</span></p>
+              {price?.note && <p class="fnote">{price.note}</p>}
+              <p class="fnote">{pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>
+            </div>
+          )}
           <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: 'pricing' })}>Order at Warm Inboxes →</a>
         </>
       )}
     </div>
   </section>
+
+  {p.alt && (
+    <section class="section">
+      <div class="wrap">
+        <p class="alt-line">{p.alt.lead} <a href={`/${p.alt.slug}/`}>{p.alt.label}</a>.</p>
+      </div>
+    </section>
+  )}
 
   <section class="section">
     <div class="wrap"><Faq faqs={p.faqs} /></div>
@@ -166,6 +203,10 @@ const schema = {
   .blk h2 { margin-bottom: 16px; }
   .blk p { color: var(--text-2); }
   .warn { border-left: 3px solid var(--warning); background: var(--warning-soft); padding: 14px 18px; border-radius: 0 6px 6px 0; color: var(--text) !important; font-size: 16px; }
+  .flat { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 24px; margin: 26px 0 22px; max-width: 560px; }
+  .fprice { font-size: 26px; color: var(--text); font-weight: 500; margin: 0 0 12px; letter-spacing: -.02em; }
+  .fprice .muted { font-size: 15px; font-weight: 400; }
+  .fnote { font-size: 14px; color: var(--text-muted); margin: 0 0 6px; }
   .tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 26px; }
   .tier { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 24px; display: flex; flex-direction: column; }
   .tier h3 { font-size: 18px; margin-bottom: 10px; }
@@ -176,4 +217,5 @@ const schema = {
   .rel { display: block; }
   .rel:hover { text-decoration: none; border-color: var(--accent); }
   .rel p { font-size: 14.5px; margin: 0; }
+  .alt-line { max-width: 760px; font-size: 16.5px; color: var(--text-2); border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin: 0; }
 </style>
