@@ -1,0 +1,96 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import { wi } from '../data/site.js';
+import pricing from '../data/pricing.json';
+const g = pricing.products['google-prewarmed'];
+const gf = pricing.products['google-fresh'];
+const faqs = [
+  ['What is the difference between prewarmed and fresh inboxes?', 'The same licensed mailbox, sold at two points in its life. Prewarmed has had 30 days of domain aging and 21 days of warming spent on it and comes with the domain. Fresh has had neither and does not.'],
+  ['How long until a fresh inbox can send cold email?', 'About 51 days on a new domain: 30 of aging, then 21 of warming. On a domain that is already old and sending normal business mail, roughly 21.'],
+  ['Is prewarmed worth the extra cost?', 'It depends entirely on your start date. If you need to send inside two months it is not really a comparison, because fresh cannot get there. If your launch is further out and you already run warming, fresh is the better buy.'],
+  ['Can I speed up warming?', 'No. Every method that claims to is just sending earlier, and sending early is what gets domains blocklisted in a way that is very hard to reverse.'],
+  ['Can I mix the two?', 'That is what most teams sending seriously end up doing. Prewarmed for the campaign that starts now, fresh warming behind it for next quarter. It is cheaper than either extreme.'],
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [{ '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
+};
+---
+<Base title="Prewarmed vs Fresh Inboxes — Which to Buy, and When"
+      description="The same mailbox sold at two points in its life. What the price gap actually buys, when fresh is the better purchase, and the arithmetic that decides it."
+      schema={schema}>
+  <section class="section">
+    <div class="wrap narrow">
+      <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <span class="muted">Prewarmed vs fresh</span></p>
+      <p class="eyebrow">Compare</p>
+      <h1>Prewarmed vs fresh inboxes</h1>
+      <p class="lede">They are the same licensed mailbox sold at two points in its life. The gap between the prices is roughly what 51 days of work costs. Whether that is worth paying comes down to one thing, and it is not the price.</p>
+      <p class="cta"><a class="btn btn-primary btn-lg" href="/calculator/">Put your dates in →</a></p>
+
+      <div class="scroll-x">
+        <table>
+          <thead><tr><th></th><th>Prewarmed</th><th>Fresh</th></tr></thead>
+          <tbody>
+            <tr><td>Time to first send</td><td class="yes">Same day</td><td>21 days on a domain you already use, 51 on a new one</td></tr>
+            <tr><td>Domain age at first send</td><td class="yes">30 days +</td><td>Whatever yours already is</td></tr>
+            <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No, about ${pricing.products['domain-fresh'].price}</td></tr>
+            <tr><td>SPF, DKIM, DMARC and MX</td><td class="yes">Set before handover</td><td class="yes">Set before handover</td></tr>
+            <tr><td>Warming tool</td><td class="yes">None needed</td><td class="no">Extra, per mailbox per month</td></tr>
+            <tr><td>Placement tested before you get it</td><td class="yes">Yes</td><td class="no">No</td></tr>
+            <tr><td>Admin login</td><td class="yes">Full</td><td class="yes">Full</td></tr>
+            <tr><td>Per inbox per month</td><td>${g.perUnit.quarterly}</td><td class="yes">${gf.perUnitRange.quarterly[0].toFixed(2)}–${gf.perUnitRange.quarterly[1].toFixed(2)}</td></tr>
+          </tbody>
+        </table>
+      </div>
+      {!pricing._verified && <p class="unver mono">Prices unverified — confirm against warminboxes.com before relying on these figures.</p>}
+
+      <h2>The comparison people get wrong</h2>
+      <p>Put the two monthly per-inbox prices side by side and fresh wins easily. That comparison treats them as the same product at different prices, and they are not. Fresh is a mailbox. Prewarmed is a mailbox plus 51 days of elapsed calendar time plus a domain plus the configuration plus a placement test.</p>
+      <p>Price the calendar time and the gap closes, and for a lot of teams it inverts. The question is not which line item is cheaper. It is what a month of not sending costs your business.</p>
+
+      <h2>What fresh actually costs you</h2>
+      <p>Three things get left out of the cheaper number, and the third is the one that catches people.</p>
+      <p><strong>The warming tool.</strong> Most charge per mailbox per month, and you pay it for the whole warming period. On three mailboxes it is a rounding error. On a hundred it is a real bill, and it can exceed the entire saving.</p>
+      <p><strong>The domain.</strong> Prewarmed includes it. Fresh does not, so add the registration for every domain in the plan.</p>
+      <p><strong>The risk that your first attempt does not work.</strong> Warming is a schedule, and the most common way people ruin fresh inboxes is impatience — four days of warming, a decision that it looks fine, two hundred cold emails, and a dead domain within a fortnight. That cost falls entirely on the fresh column and no calculator can price it.</p>
+
+      <h2>When fresh is the right call</h2>
+      <p>All three of these have to be true:</p>
+      <ul>
+        <li>Your start date is more than about two months out, so the 51 days fits inside time you already had.</li>
+        <li>You already run warming infrastructure and know what it costs you per mailbox.</li>
+        <li>The person who would run it has the attention to follow the schedule rather than cutting it short.</li>
+      </ul>
+      <p>If any one of them is false, prewarmed is cheaper than it looks. And if you are somewhere in between, split it: buy prewarmed for what is live now and warm a fresh batch behind it for next quarter.</p>
+
+      <h2>When fresh is the wrong call</h2>
+      <p>A client campaign that starts next week. A domain you have just burned and have not yet diagnosed. A team where warming would be somebody's fourth priority. In each of those the cheaper line item is the more expensive decision, and the gap is not the price difference — it is the month of meetings you do not get.</p>
+
+      <h2>Work out which you are</h2>
+      <p>The <a href="/calculator/">calculator</a> takes your daily send target and your launch date, sizes the infrastructure on each of the three platforms, prices both ways, and tells you whether fresh can reach your date at all. The <a href="/tools/warmup-tax/">warmup tax calculator</a> prices the waiting on its own.</p>
+
+      <h2>The pages for each</h2>
+      <p><strong>Prewarmed:</strong> <a href="/prewarmed-google-inboxes/">Google Workspace</a>, <a href="/prewarmed-microsoft-365-inboxes/">Microsoft 365</a>, <a href="/prewarmed-azure-inboxes/">Azure tenants</a>, <a href="/prewarmed-domains/">domains</a>.</p>
+      <p><strong>Fresh:</strong> <a href="/fresh-google-inboxes/">Google Workspace</a>, <a href="/fresh-microsoft-365-inboxes/">Microsoft 365</a>, <a href="/fresh-azure-inboxes/">Azure tenants</a>, <a href="/fresh-domains/">domains</a>.</p>
+
+      <Faq faqs={faqs} />
+
+      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'prewarmed-vs-fresh', placement: 'footer-cta' })}>Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Run the numbers →</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrow { max-width: 780px; }
+  .crumb { font-size: 13.5px; color: var(--text-2); margin: 0 0 26px; }
+  h1 { margin: 12px 0 18px; }
+  h2 { margin: 50px 0 16px; }
+  p { color: var(--text-2); }
+  p strong { color: var(--text); }
+  li { color: var(--text-2); margin-bottom: 8px; }
+  ul { padding-left: 20px; }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 28px 0 34px; }
+  .cta.end { margin-top: 44px; }
+  .unver { font-size: 12px; color: var(--warning); background: var(--warning-soft); border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent); border-radius: 6px; padding: 8px 12px; margin: 14px 0 0; }
+</style>

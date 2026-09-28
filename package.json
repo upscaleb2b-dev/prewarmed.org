@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/check-pricing.mjs && astro build",
-    "build:live": "node scripts/check-pricing.mjs --live && astro build",
+    "build": "node scripts/check-pricing.mjs && node scripts/check-providers.mjs && astro build",
+    "build:live": "node scripts/check-pricing.mjs --live && node scripts/check-providers.mjs --live && astro build",
     "preview": "astro preview"
   },
   "dependencies": {

@@ -406,16 +406,17 @@
     },
     {
       "id": "stack-calculator",
-      "name": "Cold Email Stack Calculator",
+      "name": "How Many Inboxes Do You Need?",
       "group": "plan",
       "host": "prewarmed.org",
       "url": "/tools/stack-calculator/",
-      "short": "Target sends a day in, inboxes, domains and monthly cost out.",
+      "short": "The four-step sizing arithmetic, plus packs vs tenant. Runs at Warm Inboxes.",
       "useWhen": "Sizing a campaign or a client",
       "ifFails": "",
       "fixPage": "",
       "supportsDomainParam": false,
-      "live": true
+      "live": true,
+      "handoff": "https://warminboxes.com/calculator"
     },
     {
       "id": "warmup-tax",

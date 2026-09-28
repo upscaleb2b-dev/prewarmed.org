@@ -1,0 +1,237 @@
+---
+/**
+ * The decision tool. Deliberately NOT a rebuild of warminboxes.com/calculator,
+ * which sizes volume into inboxes/domains/cost. This one adds the axis only
+ * this site has a view on: at your volume and your start date, on each of the
+ * three platforms, is prewarmed or fresh the right buy? It ends at Warm
+ * Inboxes rather than at a cart.
+ *
+ * Every figure comes from pricing.json so the tool cannot drift from the
+ * published prices, and it says out loud when those prices are unverified.
+ */
+import Base from '../layouts/Base.astro';
+import { wi } from '../data/site.js';
+import pricing from '../data/pricing.json';
+
+const P = pricing.products;
+const cfg = {
+  verified: pricing._verified,
+  domainFresh: P['domain-fresh'].price,
+  platforms: {
+    google: {
+      label: 'Google Workspace',
+      shape: 'packs',
+      packSize: P['google-prewarmed'].packSize,
+      prewarmed: P['google-prewarmed'].perUnit.quarterly,
+      fresh: P['google-fresh'].perUnitRange.quarterly,
+      note: 'Best when most of the people you email are on Gmail or Google Workspace, which is most business lists.',
+    },
+    microsoft: {
+      label: 'Microsoft 365',
+      shape: 'packs',
+      packSize: P['microsoft-prewarmed'].packSize,
+      prewarmed: P['microsoft-prewarmed'].perUnit.quarterly,
+      fresh: P['microsoft-fresh'].perUnitRange.quarterly,
+      note: 'Best when your list is Microsoft-heavy, and the only platform that tells you why a message was filtered.',
+    },
+    azure: {
+      label: 'Azure tenant',
+      shape: 'tenant',
+      per: P['azure-tenant'].inboxesPerTenant,
+      prewarmed: P['azure-tenant'].perTenant.quarterly,
+      fresh: null, // azure-fresh has no published figure yet
+      note: 'Far cheaper per inbox, and all 100 mailboxes share one reputation. Above about 1,000 sends a day.',
+    },
+  },
+};
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [{
+    '@type': 'WebApplication', name: 'Prewarmed vs Fresh Inbox Calculator',
+    applicationCategory: 'BusinessApplication', operatingSystem: 'Any',
+    url: 'https://prewarmed.org/calculator/',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  }],
+};
+---
+<Base title="Prewarmed vs Fresh Inbox Calculator — Volume, Provider and Start Date"
+      description="Put in your daily send target and your launch date. Get the inboxes and domains you need on Google, Microsoft 365 or an Azure tenant, priced prewarmed against fresh, with a straight answer on which to buy."
+      schema={schema}>
+  <section class="section">
+    <div class="wrap calcw">
+      <p class="eyebrow">Free tool</p>
+      <h1>Prewarmed or fresh? Put your numbers in.</h1>
+      <p class="lede">How much infrastructure your volume needs, on each of the three platforms, priced both ways — and whether your launch date leaves room to warm it yourself.</p>
+
+      <div class="calc" data-cfg={JSON.stringify(cfg)}>
+        <div class="fields">
+          <div class="field">
+            <label for="target">Cold emails a day you want to send</label>
+            <input id="target" type="number" min="10" max="200000" value="1000" inputmode="numeric" />
+          </div>
+          <div class="field">
+            <label for="weeks">Weeks until you need to start</label>
+            <input id="weeks" type="number" min="0" max="52" value="2" inputmode="numeric" />
+            <span class="hint">0 means this week</span>
+          </div>
+          <div class="field">
+            <label for="domainstate">The domain you would warm</label>
+            <select id="domainstate">
+              <option value="51">Brand new — needs 30 days aging first</option>
+              <option value="21">Already old and sending normal email</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="warmcost">Your warming tool, per inbox per month</label>
+            <input id="warmcost" type="number" min="0" max="100" step="0.5" value="0" inputmode="decimal" />
+            <span class="hint">0 if your sequencer includes it</span>
+          </div>
+          <div class="field">
+            <label for="perinbox">Cold emails per inbox per day</label>
+            <input id="perinbox" type="number" min="1" max="100" value="15" inputmode="numeric" />
+            <span class="hint acc">we recommend 15</span>
+          </div>
+          <div class="field">
+            <label for="headroom">Spare capacity held back</label>
+            <input id="headroom" type="number" min="0" max="100" value="20" inputmode="numeric" />
+            <span class="hint">% for replacements</span>
+          </div>
+        </div>
+
+        <p class="verdict" id="verdict">—</p>
+
+        <div class="plats" id="plats"></div>
+
+        {!cfg.verified && (
+          <p class="unver mono">Prices unverified — confirm against warminboxes.com before relying on these figures.</p>
+        )}
+
+        <div class="endcap">
+          <p>Whichever way it came out, the order happens at Warm Inboxes.</p>
+          <a class="btn btn-primary btn-lg" href={wi('/', { page: 'calculator', placement: 'result' })}>Get inboxes at Warm Inboxes →</a>
+        </div>
+      </div>
+
+      <h2>How it decides</h2>
+      <p>Two things move the answer, and only one of them is money.</p>
+      <p><strong>Volume</strong> sets how many inboxes you need: your daily target divided by 15, plus a fifth held back for replacements, then three inboxes to a domain. That part is the same whichever way you buy.</p>
+      <p><strong>Your start date</strong> sets whether fresh is available to you at all. A brand new domain needs 30 days of sitting still and then 21 days of warming before the first cold email — 51 days. On a domain that is already old and sending normal business email, you owe the 21 days only. If your launch is inside that window, the cheaper line item is not an option, it is a missed month.</p>
+      <p>When both are available, the calculator prices them against each other, including the warming tool you would pay for and the domain you would buy. The prewarmed price includes the domain; the fresh price does not.</p>
+      <p>What it cannot price is the risk that your first attempt at warming does not work. That is a real cost and it falls entirely on the fresh column.</p>
+
+      <h2>What it does not do</h2>
+      <p>This tool answers one question: prewarmed or fresh, at your volume, on your timeline. For pure sizing — how many inboxes and domains for a target, with a ramp plan — Warm Inboxes already has <a href={wi('/calculator', { page: 'calculator', placement: 'handoff' })} target="_blank" rel="noopener">a calculator</a> and we have not rebuilt it. The arithmetic behind both is written out on <a href="/tools/stack-calculator/">the sizing page</a>.</p>
+      <p>To price the waiting on its own, use the <a href="/tools/warmup-tax/">warmup tax calculator</a>. To read the argument rather than the numbers, see <a href="/prewarmed-vs-fresh-inboxes/">prewarmed vs fresh inboxes</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<script is:inline>
+(() => {
+  const root = document.querySelector('.calc');
+  if (!root) return;
+  const C = JSON.parse(root.dataset.cfg);
+  const $ = (id) => document.getElementById(id);
+  const ids = ['target', 'weeks', 'domainstate', 'warmcost', 'perinbox', 'headroom'];
+  const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
+  const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+  function render() {
+    const target = Math.max(1, +$('target').value || 0);
+    const weeks = Math.max(0, +$('weeks').value || 0);
+    const days = +$('domainstate').value;
+    const warmCost = Math.max(0, +$('warmcost').value || 0);
+    const perInbox = Math.max(1, +$('perinbox').value || 15);
+    const headroom = Math.min(100, Math.max(0, +$('headroom').value || 0));
+
+    const inboxes = Math.ceil(Math.ceil(target / perInbox) * (1 + headroom / 100));
+    const domains = Math.ceil(inboxes / 3);
+    const freshFits = weeks * 7 >= days;
+
+    $('verdict').className = 'verdict ' + (freshFits ? 'v-open' : 'v-shut');
+    $('verdict').textContent = freshFits
+      ? `You have ${weeks} weeks and warming needs ${days} days, so fresh is genuinely on the table. Below is what each costs you.`
+      : `You need to send in ${weeks === 0 ? 'under a week' : weeks + ' weeks'} and warming a domain takes ${days} days. Fresh cannot get there. Buy prewarmed, or move the date.`;
+
+    $('plats').innerHTML = Object.entries(C.platforms).map(([key, p]) => {
+      const tenant = p.shape === 'tenant';
+      const units = tenant ? Math.ceil(inboxes / p.per) : inboxes;
+      const pre = tenant ? units * p.prewarmed : inboxes * p.prewarmed;
+      const unitLine = tenant
+        ? `${units} tenant${units === 1 ? '' : 's'} of ${p.per}`
+        : `${inboxes} inboxes · ${domains} domains`;
+
+      let freshBlock;
+      if (!p.fresh) {
+        freshBlock = `<p class="big mono">On request</p>
+          <p class="sub">No published figure for a fresh tenant yet.</p>`;
+      } else {
+        const lo = inboxes * p.fresh[0] + inboxes * warmCost;
+        const hi = inboxes * p.fresh[1] + inboxes * warmCost;
+        freshBlock = `<p class="big mono">${money(lo)}${hi > lo ? '–' + money(hi) : ''}<span class="mo">/mo</span></p>
+          <p class="sub">plus ${money(domains * C.domainFresh)} once for ${domains} domain${domains === 1 ? '' : 's'}${warmCost > 0 ? `, warming tool included above` : ''}</p>
+          <p class="sub when">Ready to send in ${days} days</p>`;
+      }
+
+      return `<div class="plat">
+        <div class="plat-h"><h3>${esc(p.label)}</h3><p class="units mono">${esc(unitLine)}</p></div>
+        <p class="note">${esc(p.note)}</p>
+        <div class="two">
+          <div class="opt ${freshFits ? '' : 'win'}">
+            <p class="tag">Prewarmed</p>
+            <p class="big mono">${money(pre)}<span class="mo">/mo</span></p>
+            <p class="sub">domain included</p>
+            <p class="sub when">Ready to send today</p>
+          </div>
+          <div class="opt ${freshFits ? '' : 'out'}">
+            <p class="tag">Fresh${freshFits ? '' : ' — too late'}</p>
+            ${freshBlock}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  ids.forEach((id) => { const el = $(id); el && el.addEventListener('input', render); el && el.addEventListener('change', render); });
+  render();
+})();
+</script>
+
+<style>
+  .calcw { max-width: 920px; }
+  h1 { margin: 12px 0 18px; }
+  h2 { margin: 52px 0 14px; }
+  .calcw > p { color: var(--text-2); }
+  .calc { margin-top: 34px; }
+  .fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 24px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field label { font-size: 13.5px; color: var(--text-2); font-weight: 500; }
+  .field input, .field select { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 10px 12px; color: var(--text); font-size: 15px; font-family: var(--font-mono, inherit); width: 100%; }
+  .field select { font-family: inherit; }
+  .field input:focus, .field select:focus { outline: 2px solid var(--accent); outline-offset: 1px; }
+  .hint { font-size: 12px; color: var(--text-muted); }
+  .hint.acc { color: var(--accent); }
+  .verdict { margin: 26px 0 0; padding: 14px 18px; border-radius: 8px; font-size: 16px; }
+  .v-open { background: var(--bg-elev); border-left: 3px solid var(--success, var(--accent)); color: var(--text); }
+  .v-shut { background: var(--warning-soft); border-left: 3px solid var(--warning); color: var(--text); }
+  .plats { display: grid; gap: 18px; margin-top: 22px; }
+  .plat { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 22px 24px; }
+  .plat-h { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .plat h3 { font-size: 18px; margin: 0; }
+  .units { font-size: 13.5px; color: var(--accent); }
+  .plat .note { font-size: 14px; color: var(--text-muted); margin: 8px 0 18px; }
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  @media (max-width: 620px) { .two { grid-template-columns: 1fr; } }
+  .opt { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .opt.win { border-color: var(--accent); }
+  .opt.out { opacity: .5; }
+  .tag { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 10px; }
+  .big { font-size: 26px; color: var(--text); font-weight: 500; margin: 0 0 6px; letter-spacing: -.02em; }
+  .mo { font-size: 14px; color: var(--text-muted); font-weight: 400; }
+  .sub { font-size: 13px; color: var(--text-muted); margin: 0 0 3px; }
+  .sub.when { color: var(--text-2); margin-top: 8px; }
+  .unver { font-size: 12px; color: var(--warning); background: var(--warning-soft); border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent); border-radius: 6px; padding: 8px 12px; margin: 18px 0 0; }
+  .endcap { margin-top: 26px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
+  .endcap p { margin: 0; color: var(--text-2); font-size: 15.5px; }
+</style>

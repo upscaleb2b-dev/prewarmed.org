@@ -1,0 +1,89 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import ToolCallout from '../components/ToolCallout.astro';
+import { wi } from '../data/site.js';
+import { bySlug } from '../data/products.js';
+import pricing from '../data/pricing.json';
+const pages = ['prewarmed-google-inboxes', 'fresh-google-inboxes', 'prewarmed-domains'].map((s) => bySlug[s]).filter(Boolean);
+const pre = pricing.products['google-prewarmed'];
+const faqs = [
+  ['Are prewarmed Google inboxes real Workspace accounts?', 'They should be licensed Google Workspace accounts on a tenant you receive Super Admin access to. If a seller cannot confirm that, you are being offered a relay or a shared seat, which is a different product.'],
+  ['How many cold emails a day per Google inbox?', 'We run 15, with three inboxes to a domain. Google publishes a much higher daily cap, but that number is where they stop you, not advice on what is safe.'],
+  ['Should I use Google or Microsoft?', 'Whichever matches your list. Most business lists are Google-weighted, which makes Google the default. A list concentrated in large enterprises, finance or government usually is not.'],
+  ['Will Google suspend accounts used for cold email?', 'It can, and every provider deals with it. Get the replacement terms in writing before you order rather than after the first suspension.'],
+  ['Can I put more than three inboxes on a domain?', 'Yes, and it is cheaper per inbox. It also means losing more at once when the domain goes. Three is the number that keeps a failure small.'],
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'CollectionPage', name: 'Prewarmed Google Workspace inboxes', url: 'https://prewarmed.org/google/' },
+    { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+  ],
+};
+---
+<Base title="Prewarmed Google Workspace Inboxes for Cold Email — The Complete Guide"
+      description="How prewarmed Google Workspace inboxes work, what Gmail actually checks, how many you need at your volume, and when to buy fresh instead. Delivered same day by Warm Inboxes."
+      schema={schema}>
+  <section class="section">
+    <div class="wrap narrow">
+      <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <span class="muted">Google</span></p>
+      <p class="eyebrow">Google Workspace</p>
+      <h1>Prewarmed Google Workspace inboxes</h1>
+      <p class="lede">Licensed Workspace accounts on domains aged 30 days and warmed 21 more, with Super Admin transferred and SPF, DKIM, DMARC and MX already published. From ${pre.perUnit.quarterly} per inbox a month, domain included, delivered the same day.</p>
+      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'google-hub', placement: 'hero' })}>Get Google inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a></p>
+
+      <h2>Why most cold email starts on Google</h2>
+      <p>Mail sent from Google lands more reliably when the person receiving it is also on Google, and for most business lists that is somewhere between half and two thirds of the names. That is the whole reason Google is the default rather than anything about the platform being better.</p>
+      <p>It is the wrong default in one case: a list concentrated in large enterprises, finance or government, where Microsoft dominates. Check your list before you buy, because buying the wrong platform is the most expensive mistake available at this point and it takes a few minutes to avoid. The <a href="/compare/google-vs-microsoft-vs-azure/">platform comparison</a> covers the split.</p>
+
+      <h2>What Gmail actually checks</h2>
+      <p>Three things you can control. <strong>Authentication</strong> — whether SPF, DKIM and DMARC line up, which is pass or fail and the easiest to get wrong silently. <strong>Domain history</strong> — how long the domain has existed and what it has sent, which is the part you cannot accelerate and the reason the 30 days exists. <strong>Recipient behaviour</strong> — whether people open, reply, delete or complain, which is your list and your copy rather than your infrastructure.</p>
+      <p>The one thing Gmail will not give you is a reason. When a message goes to spam, nothing in it tells you why. You are reading reply rates and guessing. That is a real argument for putting some of your volume on Microsoft, which does tell you.</p>
+
+      <h2>The shape that works</h2>
+      <p>Three inboxes per domain, 15 cold emails per inbox per day. That is 45 a day from each domain, which looks like three people doing their jobs rather than a machine. More inboxes on fewer domains is cheaper and concentrates the damage: when a domain stops landing, everything on it goes at once.</p>
+      <p>Size it before you buy. At 1,000 sends a day you need about 80 inboxes across 27 domains once you hold back a fifth for replacements — which is more than most people expect, and the reason campaigns quietly run under target.</p>
+
+      <ToolCallout id="deliverability-checker" page="google-hub" />
+
+      <h2>Prewarmed or fresh</h2>
+      <p>The same Workspace mailbox is sold both ways. Prewarmed has had the 51 days spent on it and comes with the domain; fresh has not and does not. The gap between the prices is roughly what that work costs.</p>
+      <p>Fresh is the better buy when your start date is more than two months out and you already run warming. It is the wrong buy the moment a date is fixed and close, because there is no way to shorten the wait that does not also cost you the domain. Put your date into the <a href="/calculator/">calculator</a> and it will tell you which side you are on.</p>
+
+      <div class="grid g3 pages">
+        {pages.map((p) => (
+          <a class="card" href={`/${p.slug}/`}>
+            <h3>{p.eyebrow}</h3>
+            <p class="muted">{p.description}</p>
+            <span class="more">View →</span>
+          </a>
+        ))}
+      </div>
+
+      <h2>Before you buy from anyone</h2>
+      <p>Ask how many days the domain was registered before its first send, how many days it sent real mail before handover, whether you get the Super Admin login, and what the replacement terms are in writing. Those four answers separate a real product from a repackaged one. The full version is in the <a href="/best-prewarmed-inboxes/">buyer's guide</a>.</p>
+
+      <Faq faqs={faqs} />
+
+      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'google-hub', placement: 'footer-cta' })}>Get Google inboxes at Warm Inboxes</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrow { max-width: 780px; }
+  .crumb { font-size: 13.5px; color: var(--text-2); margin: 0 0 26px; }
+  h1 { margin: 12px 0 18px; }
+  h2 { margin: 50px 0 16px; }
+  p { color: var(--text-2); }
+  p strong { color: var(--text); }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .cta.end { margin-top: 44px; }
+  .pages { margin-top: 30px; }
+  .pages .card { display: block; }
+  .pages .card:hover { text-decoration: none; border-color: var(--accent); }
+  .pages h3 { font-size: 17px; margin-bottom: 8px; }
+  .pages p { font-size: 14.5px; margin: 0; }
+  .more { display: inline-block; margin-top: 12px; color: var(--accent); font-size: 14px; font-weight: 500; }
+</style>

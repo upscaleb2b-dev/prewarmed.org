@@ -1,0 +1,103 @@
+---
+import Base from '../../layouts/Base.astro';
+import { wi, site } from '../../data/site.js';
+import { providers, criteria, unverified } from '../../data/providers.js';
+const checked = providers.filter((p) => p.verified);
+const pending = providers.filter((p) => !p.verified);
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [{
+    '@type': 'CollectionPage', name: 'Prewarmed inbox providers',
+    url: 'https://prewarmed.org/providers/',
+    about: criteria.map(([h]) => ({ '@type': 'Thing', name: h })),
+  }],
+};
+---
+<Base title="Prewarmed Inbox Providers — Directory and Criteria"
+      description="Who sells prewarmed inboxes, judged on domain aging, warming, admin access, included domains, replacement terms and platforms. Checked entries only; unchecked fields are left blank."
+      schema={schema}>
+  <section class="section">
+    <div class="wrap wide">
+      <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <span class="muted">Providers</span></p>
+      <p class="eyebrow">Directory</p>
+      <h1>Who sells prewarmed inboxes</h1>
+      <p class="lede">Judged on six things, listed before anyone is scored. One of these companies is ours, which is said on every row rather than buried at the bottom.</p>
+      <p class="disclosure">{site.disclosure} See <a href="/methodology/">the methodology</a> for how this directory is compiled.</p>
+
+      <h2>The six criteria</h2>
+      <div class="grid g3 crit">
+        {criteria.map(([h, b]) => (
+          <div class="card"><h3>{h}</h3><p class="muted">{b}</p></div>
+        ))}
+      </div>
+
+      <h2>Checked</h2>
+      <div class="scroll-x">
+        <table>
+          <thead>
+            <tr><th>Provider</th><th>Aging</th><th>Warming</th><th>Admin</th><th>Domain</th><th>Platforms</th><th>Delivery</th></tr>
+          </thead>
+          <tbody>
+            {checked.map((p) => (
+              <tr>
+                <td>
+                  <strong>{p.name}</strong>
+                  {p.ours && <span class="ours">ours</span>}
+                  <span class="when">checked {p.checkedOn}</span>
+                </td>
+                <td class={p.agingDays >= 30 ? 'yes' : ''}>{p.agingDays !== null ? `${p.agingDays} days` : '—'}</td>
+                <td class={p.warmingDays >= 21 ? 'yes' : ''}>{p.warmingDays !== null ? `${p.warmingDays} days` : '—'}</td>
+                <td class={p.adminAccess === 'full' ? 'yes' : ''}>{p.adminAccess ?? '—'}</td>
+                <td class={p.domainIncluded ? 'yes' : ''}>{p.domainIncluded === null ? '—' : p.domainIncluded ? 'included' : 'extra'}</td>
+                <td>{p.platforms ? p.platforms.join(', ') : '—'}</td>
+                <td>{p.delivery ?? '—'}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {checked.map((p) => p.summary && (
+        <p class="summ"><strong>{p.name}.</strong> {p.summary} {p.replacement && <em>{p.replacement}</em>}</p>
+      ))}
+
+      <h2>Not yet checked</h2>
+      <p class="muted narrow">These sell in the same category and are on the list to review. Nothing is written against them because nobody here has checked them yet, and a directory that guesses at a rival's spec is worse than one that admits the gap. Each gets a row above once someone has been through their own material and dated it.</p>
+      <ul class="pending">
+        {pending.map((p) => <li><span>{p.name}</span><span class="muted">not checked</span></li>)}
+      </ul>
+
+      <h2>Checking one yourself</h2>
+      <p class="narrow">You do not need this directory to evaluate a provider. Four questions separate a real product from a repackaged one, and they work on us too:</p>
+      <ol class="asks narrow">
+        <li><strong>How many days was the domain registered before its first send?</strong> Under 30 and you are buying an early blocklisting risk.</li>
+        <li><strong>How many days did it send and receive real mail before handover?</strong> Aged and prewarmed are not the same product, and the difference is this answer.</li>
+        <li><strong>Do I get the admin login?</strong> Anything other than a straight yes means you are renting.</li>
+        <li><strong>What are the replacement terms, in writing, before I order?</strong> Everyone has failures. They differ in what happens next.</li>
+      </ol>
+      <p class="narrow">A provider that answers all four plainly is worth considering. One that talks around any of them has told you something.</p>
+
+      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'providers', placement: 'body' })}>See what Warm Inboxes ships</a> <a class="btn btn-ghost btn-lg" href="/best-prewarmed-inboxes/">How to choose →</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .wide { max-width: 1040px; }
+  .crumb { font-size: 13.5px; color: var(--text-2); margin: 0 0 26px; }
+  h1 { margin: 12px 0 18px; }
+  h2 { margin: 52px 0 18px; }
+  .narrow { max-width: 760px; }
+  .disclosure { font-size: 13.5px; color: var(--text-muted); margin-top: 18px; max-width: 760px; }
+  .crit h3 { font-size: 16.5px; margin-bottom: 8px; }
+  .crit p { font-size: 14.5px; margin: 0; }
+  .ours { font-size: 10.5px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border-radius: 4px; padding: 2px 6px; margin-left: 8px; }
+  .when { display: block; font-size: 11.5px; color: var(--text-muted); margin-top: 4px; }
+  .summ { max-width: 860px; font-size: 15.5px; color: var(--text-2); margin-top: 18px; }
+  .summ em { color: var(--text-muted); font-style: normal; }
+  .pending { list-style: none; padding: 0; margin: 18px 0 0; max-width: 520px; }
+  .pending li { display: flex; justify-content: space-between; padding: 11px 0; border-bottom: 1px solid var(--border); font-size: 15.5px; color: var(--text-2); }
+  .pending .muted { font-size: 13px; }
+  .asks li { margin-bottom: 12px; color: var(--text-2); }
+  .asks strong { color: var(--text); }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 44px; }
+</style>

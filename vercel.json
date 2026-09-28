@@ -3,5 +3,12 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "framework": "astro",
-  "trailingSlash": true
+  "trailingSlash": true,
+  "redirects": [
+    {
+      "source": "/compare/prewarmed-vs-fresh-inboxes",
+      "destination": "/prewarmed-vs-fresh-inboxes",
+      "permanent": true
+    }
+  ]
 }

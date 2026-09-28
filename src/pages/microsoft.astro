@@ -1,0 +1,91 @@
+---
+import Base from '../layouts/Base.astro';
+import Faq from '../components/Faq.astro';
+import ToolCallout from '../components/ToolCallout.astro';
+import { wi } from '../data/site.js';
+import { bySlug } from '../data/products.js';
+import pricing from '../data/pricing.json';
+const pages = ['prewarmed-microsoft-365-inboxes', 'prewarmed-outlook-inboxes', 'prewarmed-azure-inboxes', 'prewarmed-entra-inboxes', 'fresh-microsoft-365-inboxes', 'fresh-azure-inboxes']
+  .map((s) => bySlug[s]).filter(Boolean);
+const pre = pricing.products['microsoft-prewarmed'];
+const tenant = pricing.products['azure-tenant'];
+const faqs = [
+  ['What is the difference between Microsoft 365, Outlook and Azure inboxes?', 'Microsoft 365 and Outlook are the same thing under two names: licensed Exchange Online mailboxes sold in packs. An Azure tenant is your own directory holding 100 mailboxes under one admin, at a far lower cost per inbox and with one shared reputation.'],
+  ['Are these Outlook.com accounts?', 'No. Free personal accounts cannot use your own domain properly and have no admin controls. What you want is licensed Microsoft 365 with Exchange Online on a domain you control.'],
+  ['Why does Microsoft tell me more than Google does?', 'Microsoft writes a filtering score and related notes into the hidden part of the message. Paste it into a header analyser and you get the reason your mail was filtered. Gmail gives you nothing comparable.'],
+  ['Packs or an Azure tenant?', 'Under about 1,000 cold emails a day, packs. A failure stays contained to three inboxes. Above that a tenant is dramatically cheaper, and all 100 mailboxes share one reputation, so it rewards discipline and punishes a bad list fast.'],
+  ['Is Entra different from Azure AD?', 'Only the name and the admin screen. Microsoft renamed Azure Active Directory to Entra ID. Nothing about how your email lands changed.'],
+];
+const schema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    { '@type': 'CollectionPage', name: 'Prewarmed Microsoft 365, Outlook and Azure inboxes', url: 'https://prewarmed.org/microsoft/' },
+    { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+  ],
+};
+---
+<Base title="Prewarmed Microsoft 365, Outlook and Azure Inboxes for Cold Email"
+      description="Prewarmed Exchange Online mailboxes in packs, or a dedicated Azure tenant of 100. What Microsoft checks, why it is the only platform that tells you why mail failed, and which shape to buy."
+      schema={schema}>
+  <section class="section">
+    <div class="wrap narrow">
+      <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <span class="muted">Microsoft</span></p>
+      <p class="eyebrow">Microsoft 365 · Outlook · Azure</p>
+      <h1>Prewarmed Microsoft inboxes</h1>
+      <p class="lede">Licensed Exchange Online mailboxes on domains aged 30 days and warmed 21 more, with Exchange admin transferred and authentication published. From ${pre.perUnit.quarterly} an inbox in packs, or ${tenant.perTenant.quarterly} for a tenant of {tenant.inboxesPerTenant}. Same day.</p>
+      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'hero' })}>Get Microsoft inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a></p>
+
+      <h2>Three names, two products</h2>
+      <p><strong>Microsoft 365</strong> and <strong>Outlook</strong> inboxes are the same thing. Buyers search both, sellers quote both, and the mailbox underneath is a licensed Exchange Online account either way. Outlook the application is just software for reading mail, and Outlook.com is the free personal service, which is not sending infrastructure.</p>
+      <p><strong>Azure</strong> — and <strong>Entra</strong>, which is the same directory under Microsoft's newer name — is the different product. Instead of buying mailboxes three at a time you get your own tenant holding {tenant.inboxesPerTenant} of them under one admin login. Microsoft licenses that differently, which is why the cost per inbox drops by roughly ten times rather than a few percent.</p>
+
+      <h2>The advantage nobody mentions</h2>
+      <p>When Microsoft filters a message to junk, it writes a score and a few related notes into the message headers. Paste those into a header analyser and you get the actual reason — your copy, the sending server, or a record failing a check. Gmail tells you nothing of the kind.</p>
+      <p>That changes how fast you can fix things. On Google you watch reply rates fall and guess. On Microsoft you find out which of three problems you have, and one of them you can fix the same afternoon. It is a good reason to keep some volume on Microsoft even when your list is Google-weighted.</p>
+
+      <ToolCallout id="scl-analyzer" page="microsoft-hub" />
+
+      <h2>Microsoft is harder on new senders</h2>
+      <p>It is stricter than Gmail with senders it does not recognise and it weights spam complaints heavily. In practice that means ramping more slowly, keeping bounces low, and expecting the Microsoft side of a fleet to take longer to come good than the Google side. Landing in Gmail while going to junk at Outlook is normal early on and does not mean the setup is broken.</p>
+      <p>It also means authentication has to be right from the first day rather than fixed later. Every domain we hand over arrives with SPF, DKIM, DMARC and MX published and checked, because three weeks of warming on a broken record is three weeks that did nothing.</p>
+
+      <h2>Packs or a tenant</h2>
+      <p>This is the only real decision on the Microsoft side, and it is about risk rather than price. Packs of three keep a failure contained: a domain goes, you lose three inboxes. A tenant is far cheaper per inbox and all {tenant.inboxesPerTenant} mailboxes share one reputation, so a single unverified list can damage every one of them at once.</p>
+      <p>Under about 1,000 cold emails a day, buy packs — the saving is not worth the concentration. Above it, buy a tenant and run it properly: verified lists only, mailboxes started in batches of about twenty rather than all at once, and bounce rate checked daily for the first fortnight. The two are compared directly in <a href="/compare/azure-tenant-vs-microsoft-365/">Azure tenant vs Microsoft 365 packs</a>.</p>
+
+      <div class="grid g3 pages">
+        {pages.map((p) => (
+          <a class="card" href={`/${p.slug}/`}>
+            <h3>{p.eyebrow}</h3>
+            <p class="muted">{p.description}</p>
+            <span class="more">View →</span>
+          </a>
+        ))}
+      </div>
+
+      <h2>Before you buy from anyone</h2>
+      <p>Ask how many days the domain aged before its first send, how many days it sent real mail before handover, whether the Exchange admin login is transferred to you, and what the replacement terms are in writing. The full version is in the <a href="/best-prewarmed-inboxes/">buyer's guide</a>.</p>
+
+      <Faq faqs={faqs} />
+
+      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'footer-cta' })}>Get Microsoft inboxes at Warm Inboxes</a></p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .narrow { max-width: 780px; }
+  .crumb { font-size: 13.5px; color: var(--text-2); margin: 0 0 26px; }
+  h1 { margin: 12px 0 18px; }
+  h2 { margin: 50px 0 16px; }
+  p { color: var(--text-2); }
+  p strong { color: var(--text); }
+  .cta { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+  .cta.end { margin-top: 44px; }
+  .pages { margin-top: 30px; }
+  .pages .card { display: block; }
+  .pages .card:hover { text-decoration: none; border-color: var(--accent); }
+  .pages h3 { font-size: 17px; margin-bottom: 8px; }
+  .pages p { font-size: 14.5px; margin: 0; }
+  .more { display: inline-block; margin-top: 12px; color: var(--accent); font-size: 14px; font-weight: 500; }
+</style>

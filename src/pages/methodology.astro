@@ -1,0 +1,58 @@
+---
+import Simple from '../layouts/Simple.astro';
+import { site } from '../data/site.js';
+import { criteria, unverified } from '../data/providers.js';
+---
+<Simple title="Methodology — How prewarmed.org Judges Inbox Providers"
+  description="The criteria this site judges prewarmed inbox providers on, where the numbers come from, what we will not claim, and how we handle the fact that we sell the thing we write about."
+  eyebrow="Methodology" h1="How we judge, and what we will not claim"
+  lede="We sell prewarmed inboxes. That does not make a comparison worthless, but it does mean the method has to be visible enough for you to check our work.">
+
+  <p class="note">{site.disclosure}</p>
+
+  <h2>The conflict, stated first</h2>
+  <p>Warm Inboxes is one of the providers this site writes about. Every ranking page here will rank a company we own, and no amount of careful wording changes that. So rather than pretend to a neutrality we do not have, we do three things: publish the criteria before the conclusions, publish the figures that produce them, and never make a claim about a competitor that we have not checked against that competitor's own material.</p>
+  <p>If a comparison here favours us on a criterion you think is the wrong criterion, the criterion is the thing to argue with. That is why they are listed before anything is scored.</p>
+
+  <h2>The six criteria</h2>
+  <p>These are the things that decide whether an inbox works, in the order they tend to matter. They are not weighted into a single score, because a single score hides exactly the trade-off a buyer needs to see.</p>
+  <dl class="crit">
+    {criteria.map(([h, b]) => (
+      <div><dt>{h}</dt><dd>{b}</dd></div>
+    ))}
+  </dl>
+
+  <h2>Where the numbers come from</h2>
+  <ul>
+    <li><strong>Our own figures</strong> — aging and warming durations, sending rates, pack shapes — come from the infrastructure Warm Inboxes operates. They are what we run, not what we recommend to others and avoid ourselves.</li>
+    <li><strong>Prices</strong> come from a single data file that every page on this site reads. There is one price for a thing, and changing it changes it everywhere. The build refuses to publish while that file is marked unverified.</li>
+    <li><strong>Competitor facts</strong> are recorded only from a company's own site or documentation, with the date they were checked. Where a field has not been checked, the page says so rather than guessing.</li>
+  </ul>
+
+  <h2>What we will not do</h2>
+  <ul>
+    <li>Publish a number we have not verified, including our own. Pages carry a visible warning where a figure is pending confirmation.</li>
+    <li>State a competitor's price, aging period or policy from memory or from a third-party summary. Those change, and being wrong about a rival is both a legal problem and the fastest way to lose a reader.</li>
+    <li>Write a review of a product nobody here has used, or attribute a quote to a person who did not say it.</li>
+    <li>Claim independence. This site is operated by a seller and says so on every page.</li>
+  </ul>
+
+  {unverified.length > 0 && (
+    <p class="note"><strong>Current state:</strong> {unverified.length} of the providers listed in the directory have not been checked yet. Their entries show no figures at all rather than placeholder ones, and the live build is blocked until each has a checked date against it.</p>
+  )}
+
+  <h2>Why 30 days and 21 days</h2>
+  <p>The two numbers this site is built around deserve their own justification. Thirty days of aging exists because a domain that starts sending in its first few days is added to the major blocklists almost immediately, and a listing that early is the hardest kind to reverse. Age is one of the very few signals a sender cannot fake or accelerate.</p>
+  <p>Twenty-one days of warming exists because age alone builds no reputation. A domain that is old and has never sent anything is an unknown, not a trusted, sender. The warming period is what turns the age into a record.</p>
+  <p>Both are cautious. Shorter periods work often enough that plenty of providers sell them. They fail in a way that costs you a month, which is why we do not.</p>
+
+  <h2>Corrections</h2>
+  <p>If a figure here is wrong — ours or a competitor's — write to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>. We will correct it and note what changed rather than editing quietly.</p>
+</Simple>
+
+<style>
+  .crit { margin: 22px 0 0; }
+  .crit > div { padding: 14px 0; border-bottom: 1px solid var(--border); }
+  .crit dt { font-weight: 600; color: var(--text); font-size: 16px; margin-bottom: 6px; }
+  .crit dd { margin: 0; color: var(--text-2); font-size: 15.5px; }
+</style>
