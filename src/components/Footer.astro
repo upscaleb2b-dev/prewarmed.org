@@ -1,12 +1,80 @@
 ---
+/**
+ * Deliberately large, in the shape of the warminboxes.com footer: every free
+ * tool, the lead database and the affiliate programme, on every page. The
+ * tools are the reason most people arrive, so burying them behind a "see all"
+ * link costs more than the space it saves.
+ *
+ * Every outbound link goes through toolUrl()/wi()/ub() so it carries UTMs.
+ * Anchor text stays brand- or tool-named — never keyword-rich — because we
+ * own both ends of these links.
+ */
 import { site, wi, ub, toolUrl } from '../data/site.js';
 import tools from '../data/tools.json';
+import leads from '../data/leads.json';
 import { products } from '../data/products.js';
 import Flame from './Flame.astro';
-const featured = tools.tools.filter((t) => t.live && t.host === 'warminboxes.com').slice(0, 9);
+
+const groups = [
+  { id: 'diagnose', label: 'Diagnose' },
+  { id: 'authenticate', label: 'Authenticate' },
+  { id: 'hygiene', label: 'List hygiene' },
+  { id: 'qa', label: 'Pre-send QA' },
+  { id: 'plan', label: 'Plan' },
+];
+const live = tools.tools.filter((t) => t.live);
+const byGroup = groups.map((g) => ({ ...g, items: live.filter((t) => t.group === g.id) }));
+const leadsM = Math.round(leads.totalLeads / 1e6);
+const href = (t) => (t.host === 'prewarmed.org' ? t.url : toolUrl(t, { page: 'footer', placement: 'footer-tools' }));
 ---
 <footer class="ft">
   <div class="wrap">
+
+    <section class="ft-tools">
+      <div class="ft-tools-h">
+        <div>
+          <p class="eyebrow">Free tools</p>
+          <p class="th">All {live.length} of them. No signup, no credit card.</p>
+        </div>
+        <a class="btn btn-ghost" href="/tools/">Browse the hub →</a>
+      </div>
+      <div class="tool-grid">
+        {byGroup.map((g) => (
+          <div>
+            <p class="gl">{g.label}</p>
+            {g.items.map((t) => (
+              <a href={href(t)}
+                 target={t.host === 'prewarmed.org' ? undefined : '_blank'}
+                 rel={t.host === 'prewarmed.org' ? undefined : 'noopener'}>
+                {t.name}{t.host !== 'prewarmed.org' && <span class="ext" aria-hidden="true">↗</span>}
+              </a>
+            ))}
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <section class="ft-promos">
+      <a class="promo" href="/leads/">
+        <p class="eyebrow">Free lead database</p>
+        <p class="pt"><b class="mono">{leads.totalLists}</b> lists · <b class="mono">{leadsM}M+</b> B2B contacts</p>
+        <p class="pb">Across {leads.categories.length} categories. Free to download, no signup.</p>
+        <span class="more">Browse the lists →</span>
+      </a>
+      <a class="promo" href={wi('/leads', { page: 'footer', placement: 'promo-leads' })} target="_blank" rel="noopener">
+        <p class="eyebrow">Lead data at Warm Inboxes <span class="ext" aria-hidden="true">↗</span></p>
+        <p class="pt">Free B2B lead lists and email data</p>
+        <p class="pb">The full hub, kept up to date on warminboxes.com.</p>
+        <span class="more">Open at Warm Inboxes →</span>
+      </a>
+      <a class="promo" href={wi('/affiliate', { page: 'footer', placement: 'promo-affiliate' })} target="_blank" rel="noopener">
+        <p class="eyebrow">Affiliate programme <span class="ext" aria-hidden="true">↗</span></p>
+        <p class="pt">Warm Inboxes Affiliate Program</p>
+        <p class="pb">Earn on infrastructure you already recommend.</p>
+        <span class="more">See the terms →</span>
+      </a>
+    </section>
+
     <div class="ft-top">
       <div class="ft-brand">
         <p class="brand"><Flame size={20} />prewarmed<span class="muted">.org</span></p>
@@ -20,13 +88,7 @@ const featured = tools.tools.filter((t) => t.live && t.host === 'warminboxes.com
           {products.map((p) => <a href={`/${p.slug}/`}>{p.eyebrow}</a>)}
         </div>
         <div>
-          <p class="eyebrow">Free tools ↗</p>
-          {featured.map((t) => <a href={toolUrl(t, { page: 'footer', placement: 'footer-tools' })} target="_blank" rel="noopener">{t.name}</a>)}
-          <a href="/tools/"><strong>All {tools.tools.filter((t) => t.live).length} tools →</strong></a>
-        </div>
-        <div>
           <p class="eyebrow">Guides</p>
-          <a href="/prewarmed-inboxes/">Prewarmed inboxes</a>
           <a href="/prewarmed-vs-fresh-inboxes/">Prewarmed vs fresh</a>
           <a href="/best-prewarmed-inboxes/">How to choose</a>
           <a href="/google/">Google Workspace</a>
@@ -48,6 +110,7 @@ const featured = tools.tools.filter((t) => t.live && t.host === 'warminboxes.com
           <a href="/contact/">Contact</a>
           <a href={wi('/', { page: 'footer', placement: 'company' })} target="_blank" rel="noopener">Warm Inboxes <span class="ext" aria-hidden="true">↗</span></a>
           <a href={ub('/', { page: 'footer', placement: 'company' })} target="_blank" rel="noopener">DFY Cold Email <span class="ext" aria-hidden="true">↗</span></a>
+          <a href={wi('/affiliate', { page: 'footer', placement: 'company' })} target="_blank" rel="noopener">Affiliate <span class="ext" aria-hidden="true">↗</span></a>
         </div>
         <div>
           <p class="eyebrow">Legal</p>
@@ -66,13 +129,35 @@ const featured = tools.tools.filter((t) => t.live && t.host === 'warminboxes.com
 
 <style>
   .ft { border-top: 1px solid var(--border); background: var(--bg-elev); padding-block: 48px 40px; margin-top: 40px; }
-  .ft-top { display: grid; grid-template-columns: minmax(230px, 300px) 1fr; gap: 40px; }
+
+  .ft-tools { padding-bottom: 34px; border-bottom: 1px solid var(--border); }
+  .ft-tools-h { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; margin-bottom: 22px; }
+  .ft-tools-h .eyebrow { margin: 0 0 6px; }
+  .th { margin: 0; font-size: 15px; color: var(--text-2); }
+  .tool-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 22px; }
+  @media (max-width: 1000px) { .tool-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 620px) { .tool-grid { grid-template-columns: repeat(2, 1fr); } }
+  .gl { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 10px; }
+  .tool-grid a { display: block; font-size: 13.5px; color: var(--text-2); padding: 4px 0; line-height: 1.35; }
+  .tool-grid a:hover { color: var(--accent); text-decoration: none; }
+
+  .ft-promos { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; padding: 30px 0; border-bottom: 1px solid var(--border); }
+  @media (max-width: 860px) { .ft-promos { grid-template-columns: 1fr; } }
+  .promo { display: block; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-card); padding: 20px 22px; }
+  .promo:hover { text-decoration: none; border-color: var(--accent); }
+  .promo .eyebrow { margin: 0 0 10px; }
+  .pt { margin: 0 0 6px; font-size: 16px; color: var(--text); }
+  .pt b { color: var(--accent); font-weight: 500; }
+  .pb { margin: 0; font-size: 13.5px; color: var(--text-muted); }
+  .promo .more { display: inline-block; margin-top: 14px; color: var(--accent); font-size: 13.5px; font-weight: 500; }
+
+  .ft-top { display: grid; grid-template-columns: minmax(230px, 300px) 1fr; gap: 40px; padding-top: 34px; }
   @media (max-width: 900px) { .ft-top { grid-template-columns: 1fr; gap: 32px; } }
   .brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; margin: 0 0 12px; }
   .ft-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 28px; }
   .ft-cols .eyebrow { margin: 0 0 12px; }
   .ft-cols a { display: block; font-size: 14.5px; color: var(--text-2); padding: 4px 0; }
   .ft-cols a:hover { color: var(--accent); text-decoration: none; }
-  .ft-cols .ext { font-size: 11px; color: var(--text-muted); }
+  .ext { font-size: 11px; color: var(--text-muted); }
   .ft-legal { margin: 36px 0 0; padding-top: 22px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); line-height: 1.6; }
 </style>
