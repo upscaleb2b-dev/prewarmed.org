@@ -48,3 +48,38 @@ Everything renders from data, so adding a product or a tool is a data change, no
 ## Not built yet
 
 `/for/<sequencer>/` integration pages, `/fix/*` tool-failure landings, `/cold-email-infrastructure/`, `/aged-domains-for-cold-email/`, `/prewarmed-email-accounts/`, blog. The templates and data layer already support them.
+
+## Deploying
+
+The build is a plain static `dist/`, so it runs on either host. Both configs
+are kept in the repo because a redirect added to one and not the other fails
+silently on the host that cannot see it.
+
+| | Vercel | Cloudflare Pages |
+|---|---|---|
+| Config | `vercel.json` | `public/_redirects`, `public/_headers` |
+| Build command | `npm run build` | `npm run build` |
+| Output directory | `dist` | `dist` |
+| Node version | repo default | set `NODE_VERSION=22` in Pages env vars |
+
+### Cloudflare Pages, first time
+
+1. Pages → **Create** → **Connect to Git** → `upscaleb2b-dev/prewarmed.org`.
+2. Production branch: whichever branch is being shipped.
+3. Build command `npm run build`, output directory `dist`.
+4. Add environment variable `NODE_VERSION` = `22`.
+5. Custom domain `prewarmed.org`. **This replaces the existing redirect** that
+   currently sends prewarmed.org to warminboxes.com — that rule has to be
+   removed in DNS/Rules or it wins and the site never appears.
+
+Connecting the Git repo means Cloudflare builds on every push. No API token
+is needed for this, and none should be pasted into a chat or committed here.
+
+### Before the domain goes live
+
+- `public/robots.txt` still carries `Disallow: /`. Delete that line or nothing
+  gets indexed.
+- `src/data/pricing.json` is `_verified: false`, and `npm run build:live`
+  refuses to build until it is confirmed. `npm run build` (preview) ignores it.
+- `src/data/providers.js` has four unchecked competitors; `build:live` blocks
+  on those too.

@@ -1,0 +1,8 @@
+# Cloudflare Pages redirects. Vercel reads vercel.json; Cloudflare reads this
+# file, so any redirect added in one has to be added in the other or it fails
+# silently on the host that cannot see it.
+# Format: <source> <destination> <status>
+
+# /prewarmed-vs-fresh-inboxes/ moved up from /compare/ when it became a pillar.
+/compare/prewarmed-vs-fresh-inboxes   /prewarmed-vs-fresh-inboxes/   301
+/compare/prewarmed-vs-fresh-inboxes/  /prewarmed-vs-fresh-inboxes/   301
