@@ -545,7 +545,6 @@ export const products = [
       'Your own Azure account with 100 mailboxes, set up but not warmed. Warming a hundred is a real job — this page is about whether you should.',
     pricingKey: 'azure-fresh',
     inlineTool: 'inbox-rotation-planner',
-    waMessage: 'Hi — I am interested in a fresh Azure tenant (100 mailboxes, unwarmed). Could you send me the price?',
     ships: [
       'A dedicated Azure tenant, **100 mailboxes**',
       'Tenant ID and the full mailbox list',
@@ -560,6 +559,7 @@ export const products = [
       ['Domain', 'Yours, or add a fresh .com for $12'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
       ['What you get', 'Tenant ID and the full mailbox list'],
+      ['Price', '$50 per tenant, flat'],
       ['Ready to send cold email', 'About 51 days from today'],
       ['You get it', 'Same day, business days'],
     ],
@@ -594,8 +594,10 @@ export const products = [
         ],
       },
       {
-        h: 'When to buy the prewarmed tenant instead',
+        h: 'On a three-month commit, the warmed one is the same price',
         p: [
+          'This is the fact that should decide it. A fresh tenant is $50. A prewarmed tenant is $69 a month, or $50 on a three-month commit — so if you were going to keep the tenant for a quarter anyway, the warmed one costs you nothing extra and arrives having already done the 51 days. At that point buying fresh is paying the same money to wait.',
+          'Fresh only wins on price if you genuinely need the tenant for a month or two. Below three months it is $50 against $69, and you are trading $19 a month for seven weeks of not sending.',
           'If you have never run a tenant, do not start with a fresh one. The prewarmed version exists because the first two months are where tenants die, and having someone else take that risk is most of what you are paying for.',
           'Buy fresh when all three of these are true: your start date is more than two months out, you already run warming infrastructure and know what it costs, and you have done a staged tenant startup before. If any one of them is false, the prewarmed tenant is cheaper than it looks.',
           'And if you are somewhere in between, split it. Run a prewarmed tenant for what is live now and warm a fresh one behind it for next quarter. That is what teams sending at this volume actually do.',
@@ -608,7 +610,7 @@ export const products = [
       ['Is a domain included?', 'No. Fresh products go on a domain you already own, or you can add a fresh .com for $12. The free prewarmed domain comes with prewarmed packs and prewarmed tenants.'],
       ['What does it cost to warm 100 mailboxes?', 'That depends on your warming tool, and it is the number that should decide this purchase. Most tools charge per mailbox per month. Multiply by a hundred, then by two months, before you order.'],
       ['Should I buy this if I have never run a tenant?', 'Honestly, no. Start with the prewarmed tenant, learn how it behaves, and buy fresh ones once you know what the first two months take.'],
-      ['How is it priced?', 'Per tenant. The figure is not published on this page yet — message us and we will send you the current one.'],
+      ['How is it priced?', '$50 per tenant, flat, whatever density you choose. A prewarmed tenant is $69 a month, or $50 on a three-month commit — which means at a quarterly commit the warmed one costs you the same as this.'],
     ],
     related: ['prewarmed-azure-inboxes', 'fresh-microsoft-365-inboxes', 'fresh-domains'],
   },

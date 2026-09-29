@@ -31,7 +31,9 @@ const cfg = {
       fresh: mid(P['microsoft-fresh'].perUnitRange.quarterly), slug: 'prewarmed-microsoft-365-inboxes' },
     { id: 'azure', label: 'Azure tenant', shape: 'tenant', per: P['azure-tenant'].inboxesPerTenant,
       densities: P['azure-tenant'].densities,
-      pre: P['azure-tenant'].perTenant.quarterly, fresh: null, slug: 'prewarmed-azure-inboxes' },
+      pre: P['azure-tenant'].perTenant.quarterly,
+      preMonthly: P['azure-tenant'].perTenant.monthly,
+      fresh: P['azure-fresh'].perTenant.quarterly, freshPerTenant: true, slug: 'prewarmed-azure-inboxes' },
   ],
 };
 ---
@@ -83,7 +85,7 @@ const cfg = {
   if (!root) return;
   const C = JSON.parse(root.dataset.cfg);
   const $ = (id) => document.getElementById(id);
-  const money = (n) => '$' + (n >= 100 ? Math.round(n).toLocaleString('en-US') : n.toFixed(2));
+  const money = (n) => '$' + (Number.isInteger(n) ? n.toLocaleString('en-US') : n >= 100 ? Math.round(n).toLocaleString('en-US') : n.toFixed(2));
   const num = (n) => Math.round(n).toLocaleString('en-US');
   let active = C.platforms[0];
   let density = 100;
@@ -104,22 +106,23 @@ const cfg = {
 
     $('cc-blocked').textContent = num(blocked);
 
-    if (active.fresh === null) {
+    if (active.freshPerTenant) {
       // A fresh tenant has no published price, so comparing prewarmed-vs-fresh
       // is not available here. The comparison that IS real at this volume is a
       // tenant against the same mailboxes bought as packs.
-      const packK = (n * C.platforms[0].pre * months) / preEmails * 1000;
-      const preK = (preCost / preEmails) * 1000;
-      const pct = Math.round((1 - preK / packK) * 100);
       const tenants = Math.ceil(n / density);
-      $('cc-fresh').textContent = money(packK);
-      $('cc-fresh-l').textContent = 'The same ' + n + ' mailboxes bought as packs of three, per 1,000 sent';
+      const freshCost = tenants * active.fresh * months + tenants * C.domainOnce;
+      const preK = (preCost / preEmails) * 1000;
+      const freshK = (freshCost / freshEmails) * 1000;
+      const pct = Math.round((1 - preK / freshK) * 100);
+      $('cc-fresh').textContent = money(freshK);
+      $('cc-fresh-l').textContent = 'Fresh tenant: cost per 1,000 emails actually sent in your first 90 days';
       $('cc-pre').textContent = money(preK);
-      $('cc-pre-l').textContent = 'Prewarmed Azure tenant, per 1,000 emails sent in 90 days';
+      $('cc-pre-l').textContent = 'Prewarmed tenant, per 1,000 emails sent in the same 90 days';
       $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
-      $('cc-delta-l').textContent = 'Cheaper per email than packs — with every mailbox sharing one reputation';
+      $('cc-delta-l').textContent = 'Cheaper per email delivered — at a quarterly commit both cost the same per tenant';
       $('cc-say').innerHTML =
-        `At ${density} mailboxes to a tenant, ${n} inboxes need ${tenants} ${tenants === 1 ? 'tenant' : 'tenants'} and cost <strong>${money(preCost)}</strong> over 90 days — <strong>${money(preK)} per thousand</strong> against ${money(packK)} on packs. The tenant price is flat, so density is the dial: every mailbox in a tenant shares one reputation, and at ${density} a bad list reaches ${density} of them at once. Fewer per tenant costs more each and contains the damage.`;
+        `Both tenants cost <strong>${money(active.fresh)}</strong> each on a three-month commit, so at ${density} mailboxes to a tenant your ${n} inboxes cost <strong>${money(preCost)}</strong> either way — except the prewarmed one sends for all 90 days and the fresh one for ${C.windowDays - C.readyDays}. That is <strong>${money(preK)} per thousand against ${money(freshK)}</strong>. Paying the same money to wait ${C.readyDays} days is the whole decision.`;
     } else {
       const domains = Math.ceil(n / 3);
       const freshCost = n * active.fresh * months + domains * C.domainOnce;

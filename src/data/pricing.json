@@ -119,12 +119,32 @@
       "label": "Fresh Azure tenant",
       "unit": "tenant",
       "inboxesPerTenant": 100,
+      "densities": [
+        {
+          "inboxes": 25,
+          "risk": "Lowest risk"
+        },
+        {
+          "inboxes": 49,
+          "risk": "Balanced"
+        },
+        {
+          "inboxes": 100,
+          "risk": "Lowest cost per inbox"
+        }
+      ],
       "domainIncluded": false,
-      "billing": "custom",
-      "price": null,
-      "contact": "whatsapp",
-      "_needsPrice": true,
-      "note": "Priced per tenant. The figure is not published here yet — message us for the current one."
+      "perTenant": {
+        "monthly": 50,
+        "two-month": 50,
+        "quarterly": 50
+      },
+      "perInbox": {
+        "monthly": 0.5,
+        "two-month": 0.5,
+        "quarterly": 0.5
+      },
+      "note": "Flat per tenant, unwarmed. No aging, no warming, no domain."
     },
     "domain-fresh": {
       "label": "Fresh .com domain",

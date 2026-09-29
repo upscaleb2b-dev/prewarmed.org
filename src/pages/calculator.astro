@@ -39,7 +39,7 @@ const cfg = {
       shape: 'tenant',
       per: P['azure-tenant'].inboxesPerTenant,
       prewarmed: P['azure-tenant'].perTenant.quarterly,
-      fresh: null, // azure-fresh has no published figure yet
+      fresh: P['azure-fresh'].perTenant.quarterly, freshPerTenant: true,
       note: 'One flat price per tenant holding 25, 49 or 100 mailboxes. Density is the dial between cost per inbox and how much one bad list reaches.',
     },
   },
@@ -159,9 +159,11 @@ const schema = {
         : `${inboxes} inboxes · ${domains} domains`;
 
       let freshBlock;
-      if (!p.fresh) {
-        freshBlock = `<p class="big mono">On request</p>
-          <p class="sub">No published figure for a fresh tenant yet.</p>`;
+      if (p.freshPerTenant) {
+        const fc = units * p.fresh;
+        freshBlock = `<p class="big mono">${money(fc)}<span class="mo">/mo</span></p>
+          <p class="sub">${units} tenant${units === 1 ? '' : 's'} at ${money(p.fresh)}, plus ${money(units * C.domainFresh)} once for domains</p>
+          <p class="sub when">Ready to send in ${days} days</p>`;
       } else {
         const lo = inboxes * p.fresh[0] + inboxes * warmCost;
         const hi = inboxes * p.fresh[1] + inboxes * warmCost;
