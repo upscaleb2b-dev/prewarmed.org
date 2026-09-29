@@ -9,7 +9,7 @@ import tools from '../data/tools.json';
 
 const liveTools = tools.tools.filter((t) => t.live).length;
 const faqs = [
-  ['What does prewarmed actually mean?', 'Thirty days of letting the domain get older with its records in place, then twenty-one days of sending and receiving real email. Fifty-one days before the first cold email goes out. A lot of what gets sold as prewarmed skips one half, or both.'],
+  ['What does prewarmed actually mean?', 'Thirty days of aging with the records in place, then twenty-one days of real sending and receiving. A lot of what is sold as prewarmed skips one half, or both.'],
   ['Are these real Google and Microsoft accounts?', 'Yes. Proper paid accounts, and you get the admin login. Not a relay service, and not a seat on somebody else\'s account.'],
   ['How fast do I get them?', 'The same day, on business days. The 51 days of waiting already happened before you ordered.'],
   ['How many emails a day can I send?', 'We suggest 15 per inbox per day, with three inboxes on each domain. That is deliberately cautious, and it is the setup that keeps working month after month.'],
@@ -36,7 +36,7 @@ const schema = {
     <div class="wrap">
       <p class="eyebrow">Prewarmed inboxes and domains for cold email</p>
       <h1>51 days of reputation.<br />Yours today.</h1>
-      <p class="lede">Gmail and Outlook do not trust a new domain. We spend the 51 days so you can send today. Google Workspace, Microsoft 365 and Azure inboxes, same day.</p>
+      <p class="lede">Gmail and Outlook do not trust a new domain. We age and warm it 51 days so you can send today — Google Workspace, Microsoft 365 or Azure.</p>
       <div class="cta">
         <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'hero' })}>Get inboxes</a>
         <a class="btn btn-ghost btn-lg" href="/tools/">{liveTools} free tools</a>
@@ -54,7 +54,7 @@ const schema = {
       <h2>What prewarmed means here</h2>
       <div class="grid g4" style="margin-top:26px">
         <div class="card"><h3>Proper accounts</h3><p class="muted">Real Google and Microsoft accounts, not a relay service. You get the admin login.</p></div>
-        <div class="card"><h3>30 days of age</h3><p class="muted">How old a domain is cannot be faked or rushed, and Gmail and Outlook can both check it.</p></div>
+        <div class="card"><h3>30 days of age</h3><p class="muted">A domain’s age cannot be faked or rushed, and Gmail and Outlook both check it.</p></div>
         <div class="card"><h3>21 days of warming</h3><p class="muted">Three weeks of real emails sent and replied to, so the domain has a track record.</p></div>
         <div class="card"><h3>Ready the same day</h3><p class="muted">You get the logins within hours. The 51 days of waiting already happened.</p></div>
       </div>
@@ -64,18 +64,18 @@ const schema = {
   <section class="section">
     <div class="wrap">
       <h2>Pick your provider</h2>
-      <p class="lede" style="margin-top:12px">Pick based on where the people you are emailing actually read their mail, not on which brand you prefer. Check your list first.</p>
+      <p class="lede" style="margin-top:12px">Match the platform to your list, not to your preference.</p>
       <div class="grid g3" style="margin-top:28px">
         {products.filter((p) => ['prewarmed-google-inboxes','prewarmed-microsoft-365-inboxes','prewarmed-azure-inboxes'].includes(p.slug)).map((p) => (
           <a class="card pick" href={`/${p.slug}/`}>
             <h3>{p.eyebrow}</h3>
-            <p class="muted">{p.description}</p>
+            <p class="muted">{p.card ?? p.description}</p>
             <span class="more">View →</span>
           </a>
         ))}
       </div>
       <div class="fresh-strip">
-        <p><strong>Not starting for a couple of months?</strong> Every one of these has a fresh version: the same mailboxes with no aging and no warming done, for less. You run the 51 days.</p>
+        <p><strong>Not starting for two months?</strong> Each one has a fresh version — cheaper, and you run the 51 days.</p>
         <p class="fresh-links">
           <a href="/fresh-google-inboxes/">Fresh Google</a>
           <a href="/fresh-microsoft-365-inboxes/">Fresh Microsoft 365</a>
@@ -104,8 +104,7 @@ const schema = {
           </tbody>
         </table>
       </div>
-      <p class="tnote"><strong>Doing it yourself is not the cheap option.</strong> Buying Google Workspace or Microsoft 365 licences direct means paying the public list price. We buy at reseller rates, so the same mailbox costs us less than it costs you. That is why a prewarmed inbox — with 51 days of work already done and the domain thrown in — lands near what you would pay a provider for the licence on its own. Put the warming tool and the domain back on top and doing it yourself stops being cheaper at all.</p>
-      <p class="tnote">The one thing it does buy you is control, and if you are going to run your own warming anyway, the <a href="/fresh-google-inboxes/">fresh inboxes</a> get you the reseller rate without the 51 days of someone else's work in the price.</p>
+      <p class="tnote"><strong>Doing it yourself is not cheaper.</strong> We buy at reseller rates, so a prewarmed inbox costs about what a provider charges you for the licence alone.</p>
     </div>
   </section>
 
@@ -113,7 +112,7 @@ const schema = {
     <div class="wrap">
       <ToolCallout id="blacklist-checker" page="home"
         headline="Not sure your current domain is the problem?"
-        body="If replies stopped overnight, a blacklist is the usual cause, and it is the first thing to rule out before you buy more inboxes. Checks 20+ blacklists, free, no signup." />
+        body="If replies stopped overnight, rule out a blacklist before you buy more inboxes. 20+ lists, free, no signup." />
     </div>
   </section>
 
@@ -124,7 +123,6 @@ const schema = {
   <section class="section final">
     <div class="wrap">
       <h2>Your next campaign can start today.</h2>
-      <p class="lede" style="margin:14px auto 26px">Inboxes on a domain that has already done its 51 days, so you can start sending cold email today.</p>
       <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'footer-cta' })}>Get inboxes</a>
     </div>
   </section>

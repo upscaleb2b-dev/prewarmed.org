@@ -14,6 +14,7 @@ export const products = [
     description:
       'Official Google Workspace inboxes, warmed on an aged .com, with super-admin access and DNS configured before handover. Delivered same day.',
     keyword: 'prewarmed google inboxes',
+    card: 'Real Google Workspace accounts with the admin login. Same day.',
     subhead:
       'Licensed Workspace accounts on a domain aged 30 days and warmed 21. Super-admin login and email records set up before you get it.',
     pricingKey: 'google-prewarmed',
@@ -76,6 +77,7 @@ export const products = [
     description:
       'Licensed Microsoft 365 mailboxes, warmed on an aged .com, with Exchange admin access and authentication configured. Delivered same day.',
     keyword: 'prewarmed microsoft 365 inboxes',
+    card: 'Licensed Microsoft mailboxes, best for Outlook-heavy lists.',
     subhead:
       'Paid Microsoft 365 mailboxes on a domain aged 30 days and warmed 21. Exchange admin login and email records set up before you get it.',
     pricingKey: 'microsoft-prewarmed',
@@ -190,6 +192,7 @@ export const products = [
     description:
       'A dedicated prewarmed Azure tenant with 100 Exchange Online mailboxes. Volume infrastructure for agencies and high-send teams.',
     keyword: 'prewarmed azure inboxes',
+    card: '100 mailboxes in one account. For high volume.',
     subhead:
       'Your own Azure account holding 100 warmed mailboxes under one admin login. Volume sending, at a fraction of the cost per inbox.',
     pricingKey: 'azure-tenant',
