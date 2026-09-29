@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import ToolCallout from '../components/ToolCallout.astro';
+import CostCalc from '../components/CostCalc.astro';
 import Faq from '../components/Faq.astro';
 import { products } from '../data/products.js';
 import { site, wi } from '../data/site.js';
@@ -103,6 +104,8 @@ const schema = {
       <p class="tnote"><strong>Doing it yourself is not cheaper.</strong> We buy at reseller rates, so a prewarmed inbox costs about what a provider charges you for the licence alone.</p>
     </div>
   </section>
+
+  <CostCalc />
 
   <section class="section">
     <div class="wrap">

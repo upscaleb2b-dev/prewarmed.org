@@ -64,3 +64,7 @@ thead th { background: var(--bg-elev-2); font-family: var(--font-display); font-
 
 /* disclosure line, used in several places */
 .disclosure { font-size: 14px; color: var(--text-muted); line-height: 1.5; }
+
+/* The header is sticky, so anything scrolled to by anchor or by script lands
+   underneath it without this. */
+:target, section[id], h2[id], h3[id], .section { scroll-margin-top: 80px; }

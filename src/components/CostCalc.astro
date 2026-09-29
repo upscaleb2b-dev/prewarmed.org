@@ -1,0 +1,172 @@
+---
+/**
+ * Home-page cost calculator.
+ *
+ * The obvious framing — "monthly savings vs fresh + a warmup tool" — does not
+ * work honestly with our prices. Fresh Google is $3.00-3.50 an inbox against
+ * $6 prewarmed, so a monthly-savings card would show fresh winning unless we
+ * invented a large warming-tool fee. So it measures the thing that is actually
+ * true: fresh sends nothing for 51 days, so over a first quarter you pay for
+ * months in which no cold email leaves the building. Cost per thousand emails
+ * ACTUALLY SENT inverts the comparison, and survives someone checking it.
+ *
+ * It also deliberately assumes a warming-tool fee of zero, which flatters
+ * fresh. The conclusion holds anyway, and an assumption that favours the other
+ * side is the only kind worth publishing.
+ */
+import { wi } from '../data/site.js';
+import pricing from '../data/pricing.json';
+
+const P = pricing.products;
+const mid = (r) => (r[0] + r[1]) / 2;
+const cfg = {
+  perDay: 15,
+  readyDays: 51,
+  windowDays: 90,
+  domainOnce: P['domain-fresh'].price,
+  platforms: [
+    { id: 'google', label: 'Google Workspace', shape: 'pack', pre: P['google-prewarmed'].perUnit.quarterly,
+      fresh: mid(P['google-fresh'].perUnitRange.quarterly), slug: 'prewarmed-google-inboxes' },
+    { id: 'microsoft', label: 'Microsoft 365', shape: 'pack', pre: P['microsoft-prewarmed'].perUnit.quarterly,
+      fresh: mid(P['microsoft-fresh'].perUnitRange.quarterly), slug: 'prewarmed-microsoft-365-inboxes' },
+    { id: 'azure', label: 'Azure tenant', shape: 'tenant', per: P['azure-tenant'].inboxesPerTenant,
+      pre: P['azure-tenant'].perTenant.quarterly, fresh: null, slug: 'prewarmed-azure-inboxes' },
+  ],
+};
+---
+<section class="cc" data-cfg={JSON.stringify(cfg)}>
+  <div class="wrap">
+    <p class="pill">Cost calculator</p>
+    <h2>What does the 51-day wait actually cost you?</h2>
+    <p class="sub">Fresh inboxes are cheaper every month. They also send nothing for {cfg.readyDays} days. Measure the same money against emails actually sent and the answer flips.</p>
+
+    <div class="panel">
+      <div class="tabs" role="tablist">
+        {cfg.platforms.map((p, i) => (
+          <button class={`tab${i === 0 ? ' on' : ''}`} data-p={p.id} role="tab" aria-selected={i === 0 ? 'true' : 'false'} type="button">{p.label}</button>
+        ))}
+      </div>
+
+      <div class="slide">
+        <label for="cc-n">Inboxes you need</label>
+        <output id="cc-nout" class="mono">15 inboxes</output>
+        <input id="cc-n" type="range" min="3" max="300" step="3" value="15" />
+      </div>
+
+      <div class="cards">
+        <div class="c"><p class="n mono" id="cc-blocked">—</p><p class="l">Cold emails you cannot send while a fresh domain ages and warms</p></div>
+        <div class="c"><p class="n mono" id="cc-fresh">—</p><p class="l" id="cc-fresh-l">Fresh: cost per 1,000 emails actually sent in your first 90 days</p></div>
+        <div class="c win"><p class="n mono" id="cc-pre">—</p><p class="l" id="cc-pre-l">Prewarmed: cost per 1,000 emails actually sent in the same 90 days</p></div>
+        <div class="c good"><p class="n mono" id="cc-delta">—</p><p class="l" id="cc-delta-l">Cheaper per email delivered, because nothing is spent waiting</p></div>
+      </div>
+
+      <p class="say" id="cc-say">—</p>
+
+      <div class="cta">
+        <a class="btn btn-primary btn-lg" id="cc-cta" href={wi('/', { page: 'cost-calculator', placement: 'result' })}>Get prewarmed inboxes</a>
+        <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a>
+      </div>
+      <p class="foot">Assumes {cfg.perDay} cold emails per inbox per day, three inboxes to a domain, and <strong>no warming-tool fee at all</strong> — which flatters the fresh column. Fresh also buys its own domains at ${cfg.domainOnce}; prewarmed includes them.</p>
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+(() => {
+  const root = document.querySelector('.cc');
+  if (!root) return;
+  const C = JSON.parse(root.dataset.cfg);
+  const $ = (id) => document.getElementById(id);
+  const money = (n) => '$' + (n >= 100 ? Math.round(n).toLocaleString('en-US') : n.toFixed(2));
+  const num = (n) => Math.round(n).toLocaleString('en-US');
+  let active = C.platforms[0];
+
+  function render() {
+    const n = +$('cc-n').value;
+    $('cc-nout').textContent = n + ' inboxes';
+
+    const sendDays = C.windowDays - C.readyDays;              // fresh sends only after day 51
+    const blocked = n * C.perDay * C.readyDays;
+    const preEmails = n * C.perDay * C.windowDays;
+    const freshEmails = n * C.perDay * sendDays;
+
+    const months = C.windowDays / 30;
+    const preCost = active.shape === 'tenant'
+      ? Math.ceil(n / active.per) * active.pre * months
+      : n * active.pre * months;
+
+    $('cc-blocked').textContent = num(blocked);
+
+    if (active.fresh === null) {
+      // A fresh tenant has no published price, so comparing prewarmed-vs-fresh
+      // is not available here. The comparison that IS real at this volume is a
+      // tenant against the same mailboxes bought as packs.
+      const packK = (n * C.platforms[0].pre * months) / preEmails * 1000;
+      const preK = (preCost / preEmails) * 1000;
+      const pct = Math.round((1 - preK / packK) * 100);
+      const tenants = Math.ceil(n / active.per);
+      $('cc-fresh').textContent = money(packK);
+      $('cc-fresh-l').textContent = 'The same ' + n + ' mailboxes bought as packs of three, per 1,000 sent';
+      $('cc-pre').textContent = money(preK);
+      $('cc-pre-l').textContent = 'Prewarmed Azure tenant, per 1,000 emails sent in 90 days';
+      $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
+      $('cc-delta-l').textContent = 'Cheaper per email than packs — with every mailbox sharing one reputation';
+      $('cc-say').innerHTML =
+        `${tenants} prewarmed ${tenants === 1 ? 'tenant carries' : 'tenants carry'} ${n} mailboxes for <strong>${money(preCost)}</strong> over 90 days — <strong>${money(preK)} per thousand</strong> against ${money(packK)} on packs. It buys that with concentration: all ${active.per} mailboxes in a tenant share one reputation, so a single unverified list can damage every one at once. Under about 1,000 sends a day, buy packs.`;
+    } else {
+      const domains = Math.ceil(n / 3);
+      const freshCost = n * active.fresh * months + domains * C.domainOnce;
+      const preK = (preCost / preEmails) * 1000;
+      const freshK = (freshCost / freshEmails) * 1000;
+      const pct = Math.round((1 - preK / freshK) * 100);
+      $('cc-fresh').textContent = money(freshK);
+      $('cc-fresh-l').textContent = 'Fresh: cost per 1,000 emails actually sent in your first 90 days';
+      $('cc-pre').textContent = money(preK);
+      $('cc-pre-l').textContent = 'Prewarmed: cost per 1,000 emails actually sent in the same 90 days';
+      $('cc-delta-l').textContent = 'Cheaper per email delivered, because nothing is spent waiting';
+      $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
+      $('cc-say').innerHTML =
+        `Over 90 days, ${n} fresh ${active.label} inboxes cost <strong>${money(freshCost)}</strong> and deliver ${num(freshEmails)} cold emails, because the first ${C.readyDays} days are spent aging and warming. The same ${n} prewarmed inboxes cost <strong>${money(preCost)}</strong> and deliver ${num(preEmails)}, sending from the day they arrive — <strong>${money(preK)} per thousand against ${money(freshK)}</strong>.`;
+    }
+    $('cc-more').href = '/' + active.slug + '/';
+  }
+
+  root.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => {
+    root.querySelectorAll('.tab').forEach((x) => { x.classList.remove('on'); x.setAttribute('aria-selected', 'false'); });
+    b.classList.add('on'); b.setAttribute('aria-selected', 'true');
+    active = C.platforms.find((p) => p.id === b.dataset.p);
+    render();
+  }));
+  $('cc-n').addEventListener('input', render);
+  render();
+})();
+</script>
+
+<style>
+  .cc { padding-block: 72px; background: var(--bg-elev); border-block: 1px solid var(--border); text-align: center; }
+  .pill { display: inline-block; font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); background: var(--accent-soft); border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent); border-radius: 999px; padding: 6px 14px; margin: 0 0 18px; font-weight: 600; }
+  .cc h2 { margin: 0 auto 14px; max-width: 700px; }
+  .sub { max-width: 620px; margin: 0 auto; color: var(--text-2); font-size: 16.5px; }
+  .panel { max-width: 720px; margin: 32px auto 0; background: var(--bg); border: 1px solid var(--border); border-radius: var(--r-card); padding: 26px; text-align: left; }
+  .tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .tab { background: var(--bg-elev); border: 1px solid var(--border); color: var(--text-2); border-radius: 999px; padding: 8px 16px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; }
+  .tab.on { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+  .slide { margin-top: 26px; display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: baseline; }
+  .slide label { font-size: 13.5px; color: var(--text-2); font-weight: 500; }
+  .slide output { font-size: 16px; color: var(--text); font-weight: 500; }
+  .slide input { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); height: 22px; }
+  .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 22px; }
+  @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
+  .c { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }
+  .c.win { border-color: var(--accent); background: var(--accent-soft); }
+  .c.good { border-color: color-mix(in srgb, var(--success, #3fb950) 45%, transparent); }
+  .c .n { font-size: 27px; font-weight: 500; color: var(--text); letter-spacing: -.02em; margin: 0 0 6px; }
+  .c.win .n { color: var(--accent); }
+  .c.good .n { color: var(--success, #3fb950); }
+  .c .l { font-size: 12.5px; color: var(--text-muted); margin: 0; line-height: 1.4; }
+  .say { margin: 20px 0 0; padding: 14px 16px; background: var(--bg-elev); border-left: 3px solid var(--accent); border-radius: 0 8px 8px 0; font-size: 15px; color: var(--text-2); }
+  .say strong { color: var(--text); }
+  .cta { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px; }
+  .foot { font-size: 12.5px; color: var(--text-muted); margin: 16px 0 0; line-height: 1.5; }
+  .foot strong { color: var(--text-2); }
+</style>
