@@ -373,7 +373,7 @@ export const products = [
       ['What makes a domain prewarmed rather than aged?', 'Aged means old. Prewarmed means aged and then used to send and receive real mail under published authentication. Only the second builds reputation.'],
       ['Do I own the domain?', 'Confirm registrar access and nameserver control in writing before ordering, from us or anyone. Domains on a vendor nameserver are the vendor\'s.'],
       ['Can I point it at my main website?', 'Yes, forwarding is standard practice and makes the domain look like what it claims to be.'],
-      ['What happens if a domain burns?', 'Get the replacement terms in writing before ordering. Recovery is slow and often does not stick, so replacement speed is the thing to ask about.'],
+      ['What happens if a domain burns?', 'Get the terms in writing before ordering, here as anywhere — there is no automatic swap. Recovery is slow and often does not stick, so plan on holding back spare capacity rather than on being replaced.'],
       ['Are non-.com domains available?', 'Yes, via support. TLD carries real reputation differences, so ask before assuming a cheaper TLD is equivalent.'],
       ['How much is an aged domain?', 'It depends entirely on the domain. Age, prior use, drop history and blocklist exposure all move the price, so aged domains are quoted individually rather than listed. Message us with what you need.'],
       ['What is the difference between fresh at $12 and prewarmed free?', 'The 51 days. A fresh .com is a clean registration you warm yourself. A prewarmed .com has already been aged 30 days and warmed 21, and comes with the inboxes.'],

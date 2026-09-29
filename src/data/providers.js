@@ -41,7 +41,7 @@ export const providers = [
     agingDays: 30,
     warmingDays: 21,
     domainIncluded: true,
-    replacement: 'Ask for the terms in writing before ordering, from us as much as anyone.',
+    replacement: 'No automatic swap. Ask for the terms in writing before ordering, from us as much as anyone.',
     platforms: ['Google Workspace', 'Microsoft 365', 'Azure / Entra tenants'],
     delivery: 'Same day, business days',
     page: '/providers/warm-inboxes/',
