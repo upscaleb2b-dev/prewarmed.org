@@ -15,7 +15,7 @@ export const products = [
       'Official Google Workspace inboxes, warmed on an aged .com, with super-admin access and DNS configured before handover. Delivered same day.',
     keyword: 'prewarmed google inboxes',
     subhead:
-      'Real Google Workspace accounts on a domain we let age for 30 days and then warmed for 21 more. You get the super-admin login, and the SPF, DKIM and DMARC records are already set up.',
+      'Licensed Workspace accounts on a domain aged 30 days and warmed 21. Super-admin login and email records set up before you get it.',
     pricingKey: 'google-prewarmed',
     inlineTool: 'deliverability-checker',
     specs: [
@@ -77,7 +77,7 @@ export const products = [
       'Licensed Microsoft 365 mailboxes, warmed on an aged .com, with Exchange admin access and authentication configured. Delivered same day.',
     keyword: 'prewarmed microsoft 365 inboxes',
     subhead:
-      'Paid Microsoft 365 mailboxes on a domain we let age for 30 days and then warmed for 21 more. You get the Exchange admin login, and SPF, DKIM and DMARC are already set up.',
+      'Paid Microsoft 365 mailboxes on a domain aged 30 days and warmed 21. Exchange admin login and email records set up before you get it.',
     pricingKey: 'microsoft-prewarmed',
     inlineTool: 'scl-analyzer',
     specs: [
@@ -138,7 +138,7 @@ export const products = [
       'Prewarmed Outlook inboxes on licensed Microsoft 365 mailboxes, on an aged domain with authentication configured. Delivered same day.',
     keyword: 'prewarmed outlook inboxes',
     subhead:
-      'If you call them Outlook inboxes, these are them. Paid Microsoft 365 mailboxes on a domain aged 30 days and warmed 21 more, ready to send cold email the day you get them.',
+      'If you call them Outlook inboxes, these are them. Paid Microsoft 365 mailboxes, aged 30 days and warmed 21, ready the day you get them.',
     pricingKey: 'microsoft-prewarmed',
     inlineTool: 'dmarc-checker',
     specs: [
@@ -191,7 +191,7 @@ export const products = [
       'A dedicated prewarmed Azure tenant with 100 Exchange Online mailboxes. Volume infrastructure for agencies and high-send teams.',
     keyword: 'prewarmed azure inboxes',
     subhead:
-      'Your own Azure account holding 100 mailboxes, all under one admin login, already warmed. Built for people sending a lot of cold email, at a fraction of the cost per inbox.',
+      'Your own Azure account holding 100 warmed mailboxes under one admin login. Volume sending, at a fraction of the cost per inbox.',
     pricingKey: 'azure-tenant',
     inlineTool: 'inbox-rotation-planner',
     specs: [
@@ -253,7 +253,7 @@ export const products = [
       'Prewarmed Microsoft Entra ID tenants with 100 Exchange Online mailboxes. What changed from Azure AD, and why it does not affect sending.',
     keyword: 'prewarmed entra inboxes',
     subhead:
-      'Entra ID is the new name for Azure AD. If you searched for Entra inboxes, this is the same thing as our Azure product, just described the way Microsoft names it today.',
+      'Entra ID is the new name for Azure AD. Same product as our Azure tenants, described the way Microsoft names it today.',
     pricingKey: 'azure-tenant',
     inlineTool: 'nameserver-checker',
     specs: [
@@ -388,13 +388,13 @@ export const products = [
     alt: { lead: 'Need to send this week?', slug: 'prewarmed-google-inboxes', label: 'Prewarmed Google inboxes arrive with the 51 days already done' },
     family: 'fresh',
     eyebrow: 'Fresh Google inboxes',
-    h1: 'Fresh Google Workspace inboxes, for a start date that is not this week',
+    h1: 'Fresh Google Workspace inboxes',
     title: 'Fresh Google Workspace Inboxes for Cold Email — Unwarmed, Admin Access Included',
     description:
       'Brand new licensed Google Workspace inboxes with super-admin access and SPF, DKIM and DMARC published. No aging and no warming — you run the 51 days yourself.',
     keyword: 'fresh google inboxes',
     subhead:
-      'Real licensed Google Workspace accounts, set up properly and handed over the same day. They have never sent an email, so Gmail and Outlook do not know them yet. You do the aging and the warming, and you pay a lot less for the mailbox.',
+      'Licensed Workspace accounts, set up properly and handed over today. No aging, no warming — you run the 51 days, and pay less for the mailbox.',
     pricingKey: 'google-fresh',
     inlineTool: 'warmup-tax',
     ships: [
@@ -473,7 +473,7 @@ export const products = [
       'Brand new licensed Microsoft 365 mailboxes with Exchange admin access and authentication published. No aging and no warming — the cheapest way to build capacity ahead of time.',
     keyword: 'fresh microsoft 365 inboxes',
     subhead:
-      'Paid Microsoft 365 mailboxes with the Exchange admin login and SPF, DKIM and DMARC already published. They have no sending history, so you run the warming. It is the cheapest inbox we sell, and the slowest to become useful.',
+      'Paid Microsoft 365 mailboxes with admin access and records set up. No warming done: the cheapest inbox we sell, and the slowest to become useful.',
     pricingKey: 'microsoft-fresh',
     inlineTool: 'inbox-planner',
     ships: [
@@ -550,7 +550,7 @@ export const products = [
       'A dedicated Azure tenant with 100 Exchange Online mailboxes, delivered with no aging and no warming. The cheapest sending capacity there is, and the hardest to bring online.',
     keyword: 'fresh azure inboxes',
     subhead:
-      'Your own Azure account holding 100 mailboxes, handed over with the admin login and the records already set up. No aging, no warming, no domain. Warming a hundred mailboxes is a real job, and most of this page is about whether you should take it on.',
+      'Your own Azure account with 100 mailboxes, set up but not warmed. Warming a hundred is a real job — this page is about whether you should.',
     pricingKey: 'azure-fresh',
     inlineTool: 'inbox-rotation-planner',
     waMessage: 'Hi — I am interested in a fresh Azure tenant (100 mailboxes, unwarmed). Could you send me the price?',
@@ -632,7 +632,7 @@ export const products = [
       'Fresh .com domains registered clean and handed over the same day. No prior use, no blocklist history, no warming. $12 per domain, one-time.',
     keyword: 'fresh domains for cold email',
     subhead:
-      'A .com registered new, with nothing behind it. No previous owner, no old spam, nothing to inherit. It also has no reputation at all, so it needs 30 days of sitting still and then 21 days of warming before you send anything cold from it.',
+      'A .com registered new, with nothing behind it. No previous owner, no old spam — and no reputation either, so you run the 51 days.',
     pricingKey: 'domain-fresh',
     inlineTool: 'record-generator',
     ships: [

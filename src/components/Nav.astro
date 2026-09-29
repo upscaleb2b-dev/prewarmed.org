@@ -179,7 +179,8 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
   .mega-cta { display: flex; align-items: center; gap: 16px; margin-left: auto; font-size: 14px; }
   .has-menu:hover .menu, .has-menu:hover .mega, .has-menu:focus-within .menu, .has-menu:focus-within .mega { display: flex; }
   .mega { flex-direction: column; }
-  .nav-cta { display: flex; gap: 10px; }
+  .nav-cta { display: flex; gap: 10px; align-items: center; }
+  .nav-cta .btn { white-space: nowrap; }
   /* At 390px the brand, the CTA and the burger do not fit at desktop sizing;
      without this the header pushes the whole page into horizontal scroll. */
   @media (max-width: 520px) {
