@@ -83,26 +83,40 @@ const href = (t) => (t.host === 'prewarmed.org' ? t.url : toolUrl(t, { page: 'fo
 
       <div class="ft-cols">
         <div>
-          <p class="eyebrow">Products</p>
-          <a href="/prewarmed-inboxes/">Prewarmed inboxes</a>
-          {products.map((p) => <a href={`/${p.slug}/`}>{p.eyebrow}</a>)}
+          <p class="eyebrow">Prewarmed</p>
+          <a href="/prewarmed-google-inboxes/">Google Workspace</a>
+          <a href="/prewarmed-microsoft-365-inboxes/">Microsoft 365</a>
+          <a href="/prewarmed-outlook-inboxes/">Outlook</a>
+          <a href="/prewarmed-azure-inboxes/">Azure tenants</a>
+          <a href="/prewarmed-entra-inboxes/">Entra tenants</a>
+          <a href="/prewarmed-domains/">Domains</a>
+          <a href="/prewarmed-inboxes/">All inboxes →</a>
+        </div>
+        <div>
+          <p class="eyebrow">Fresh</p>
+          <a href="/fresh-google-inboxes/">Google Workspace</a>
+          <a href="/fresh-microsoft-365-inboxes/">Microsoft 365</a>
+          <a href="/fresh-azure-inboxes/">Azure tenants</a>
+          <a href="/fresh-domains/">Domains</a>
+          <a href="/prewarmed-vs-fresh-inboxes/">Prewarmed vs fresh</a>
         </div>
         <div>
           <p class="eyebrow">Guides</p>
-          <a href="/prewarmed-vs-fresh-inboxes/">Prewarmed vs fresh</a>
           <a href="/best-prewarmed-inboxes/">How to choose</a>
           <a href="/google/">Google Workspace</a>
           <a href="/microsoft/">Microsoft &amp; Azure</a>
           <a href="/providers/">Providers</a>
           <a href="/calculator/">Calculator</a>
+          <a href="/how-it-works/">How it works</a>
+          <a href="/pricing/">Pricing</a>
           <a href="/methodology/">Methodology</a>
         </div>
         <div>
           <p class="eyebrow">Compare</p>
-          <a href="/compare/google-vs-microsoft-vs-azure/">Google vs Microsoft vs Azure</a>
-          <a href="/compare/azure-tenant-vs-microsoft-365/">Azure tenant vs M365 packs</a>
-          <a href="/pricing/">Pricing</a>
-          <a href="/how-it-works/">How it works</a>
+          <a href="/compare/google-vs-microsoft-vs-azure/">Google vs Microsoft</a>
+          <a href="/compare/azure-tenant-vs-microsoft-365/">Tenant vs packs</a>
+          <a href="/tools/">Free tools</a>
+          <a href="/leads/">Free leads</a>
         </div>
         <div>
           <p class="eyebrow">Company</p>
@@ -111,9 +125,6 @@ const href = (t) => (t.host === 'prewarmed.org' ? t.url : toolUrl(t, { page: 'fo
           <a href={wi('/', { page: 'footer', placement: 'company' })} target="_blank" rel="noopener">Warm Inboxes <span class="ext" aria-hidden="true">↗</span></a>
           <a href={ub('/', { page: 'footer', placement: 'company' })} target="_blank" rel="noopener">DFY Cold Email <span class="ext" aria-hidden="true">↗</span></a>
           <a href={wi('/affiliate', { page: 'footer', placement: 'company' })} target="_blank" rel="noopener">Affiliate <span class="ext" aria-hidden="true">↗</span></a>
-        </div>
-        <div>
-          <p class="eyebrow">Legal</p>
           <a href="/privacy/">Privacy</a>
           <a href="/terms/">Terms</a>
           <a href="/refund-policy/">Refund policy</a>
@@ -154,9 +165,11 @@ const href = (t) => (t.host === 'prewarmed.org' ? t.url : toolUrl(t, { page: 'fo
   .ft-top { display: grid; grid-template-columns: minmax(230px, 300px) 1fr; gap: 40px; padding-top: 34px; }
   @media (max-width: 900px) { .ft-top { grid-template-columns: 1fr; gap: 32px; } }
   .brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; margin: 0 0 12px; }
-  .ft-cols { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 28px; }
+  .ft-cols { display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px 24px; align-items: start; }
+  @media (max-width: 1080px) { .ft-cols { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 620px) { .ft-cols { grid-template-columns: repeat(2, 1fr); } }
   .ft-cols .eyebrow { margin: 0 0 12px; }
-  .ft-cols a { display: block; font-size: 14.5px; color: var(--text-2); padding: 4px 0; }
+  .ft-cols a { display: block; font-size: 14.5px; color: var(--text-2); padding: 5px 0; line-height: 1.35; }
   .ft-cols a:hover { color: var(--accent); text-decoration: none; }
   .ext { font-size: 11px; color: var(--text-muted); }
   .ft-legal { margin: 36px 0 0; padding-top: 22px; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); line-height: 1.6; }
