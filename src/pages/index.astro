@@ -7,6 +7,7 @@ import { products } from '../data/products.js';
 import { site, wi } from '../data/site.js';
 import pricing from '../data/pricing.json';
 import tools from '../data/tools.json';
+import Handoff from '../components/Handoff.astro';
 
 const liveTools = tools.tools.filter((t) => t.live).length;
 const faqs = [
@@ -39,6 +40,7 @@ const schema = {
         <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'hero' })}>Get inboxes</a>
         <a class="btn btn-ghost btn-lg" href="/tools/">{liveTools} free tools</a>
       </div>
+      <Handoff />
 
       <div class="tl" role="img" aria-label="The 2026 Prewarmed Standard: 30 days aging, then 21 days warming, handover at day 51">
         <p class="tl-title">The 2026 Prewarmed Standard for Maximum Deliverability</p>
@@ -122,6 +124,7 @@ const schema = {
     <div class="wrap">
       <h2>Your next campaign can start today.</h2>
       <a class="btn btn-primary btn-lg cta-gap" href={wi('/', { page: 'home', placement: 'footer-cta' })}>Get inboxes</a>
+      <Handoff align="center" />
     </div>
   </section>
 </Base>

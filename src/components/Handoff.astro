@@ -1,0 +1,27 @@
+---
+/**
+ * One line under an outbound primary CTA.
+ *
+ * Every "Get inboxes" button leaves for warminboxes.com. Without a word of
+ * warning that is a cold jump to a differently-branded site mid-purchase,
+ * which is exactly where people stop. Naming the destination and the reason
+ * before the click costs nothing and removes the surprise.
+ *
+ * align="center" matches the centred closing CTA sections.
+ */
+const { align = 'start' } = Astro.props;
+---
+<p class="handoff" data-align={align}>
+  Orders are placed on <strong>Warm Inboxes</strong>, run by the same team as this site.
+</p>
+
+<style>
+  .handoff {
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+  .handoff strong { color: var(--text-2); font-weight: 600; }
+  .handoff[data-align='center'] { text-align: center; }
+</style>

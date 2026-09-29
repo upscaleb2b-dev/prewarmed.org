@@ -5,7 +5,7 @@ import { site } from '../data/site.js';
 <Simple schema={{ '@type': 'ContactPage', name: 'Contact prewarmed.org', url: 'https://prewarmed.org/contact/' }} title="Contact — prewarmed.org" description="Talk to someone who runs this infrastructure daily about domains, inboxes and sending setup. Replies within one business day."
   eyebrow="Contact" h1="Talk to an operator"
   lede="Tell us the volume you need and what broke last time. Replies within one business day.">
-  <form class="f" method="POST" action={site.leadEndpoint || "/thanks/"} name="lead" data-endpoint={site.leadEndpoint} data-to={site.correctionsEmail}>
+  <form class="f" method="POST" action={site.leadEndpoint || "/contact/"} name="lead" data-endpoint={site.leadEndpoint} data-to={site.correctionsEmail}>
     <input type="text" name="company_website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
     <div class="row">
       <label>Name<input name="name" required autocomplete="name" /></label>
@@ -22,6 +22,19 @@ import { site } from '../data/site.js';
     <button class="btn btn-primary btn-lg" type="submit">Send</button>
     <p class="micro muted">No newsletter, no sequence. One reply from a person.</p>
   </form>
+  <div class="fallback" id="fallback" hidden>
+    <p><strong>Nothing has been sent yet.</strong> This form has no inbox behind it right now, so it cannot deliver your message on its own. Your details are below — send them to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a> and you will get the same reply.</p>
+    <textarea id="fbtext" rows="8" readonly></textarea>
+    <div class="fbrow">
+      <button class="btn btn-primary" type="button" id="fbcopy">Copy message</button>
+      <a class="btn btn-ghost" id="fbmail" href="#">Open in your email app</a>
+    </div>
+  </div>
+
+  <noscript>
+    <p class="alt"><strong>This form needs JavaScript.</strong> Email <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a> with the volume you need and what broke last time.</p>
+  </noscript>
+
   <p class="alt">Would rather just email? <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>.</p>
 </Simple>
 
@@ -49,10 +62,25 @@ import { site } from '../data/site.js';
           return;
         }
       }
-      // No backend configured: compose the message rather than lose the lead.
+      // No backend configured. A mailto: opens nothing in most desktop Chrome
+      // and much of mobile web, so redirecting to /thanks/ — which promises a
+      // reply — would tell people their message was sent when it was not.
+      // Show them what to send instead, and never claim delivery we cannot do.
       const body = Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\n');
-      window.location.href = `mailto:${form.dataset.to}?subject=${encodeURIComponent('Inbox enquiry — ' + (data.name || ''))}&body=${encodeURIComponent(body)}`;
-      setTimeout(done, 800);
+      const subject = 'Inbox enquiry — ' + (data.name || '');
+      const panel = document.getElementById('fallback');
+      panel.querySelector('#fbtext').value = body;
+      panel.querySelector('#fbmail').href =
+        `mailto:${form.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      panel.hidden = false;
+      btn.disabled = false; btn.textContent = 'Send';
+      panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const copy = panel.querySelector('#fbcopy');
+      copy.onclick = async () => {
+        try { await navigator.clipboard.writeText(body); } catch { panel.querySelector('#fbtext').select(); document.execCommand('copy'); }
+        copy.textContent = 'Copied';
+        setTimeout(() => { copy.textContent = 'Copy message'; }, 2000);
+      };
     });
   })();
 </script>
@@ -67,4 +95,9 @@ import { site } from '../data/site.js';
   .micro { font-size: 13px; margin: 0; }
   .alt { font-size: 15px; color: var(--text-2); margin-top: 26px; }
   button { justify-self: start; }
+  .fallback { max-width: 620px; margin-top: 26px; padding: 20px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg-elev); }
+  .fallback p { margin: 0 0 14px; font-size: 15px; color: var(--text-2); }
+  .fallback textarea { width: 100%; font-family: var(--font-mono, monospace); font-size: 13px; background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); border-radius: 6px; padding: 11px 13px; resize: vertical; }
+  .fbrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+  .fbrow .btn { min-height: 44px; display: inline-flex; align-items: center; }
 </style>

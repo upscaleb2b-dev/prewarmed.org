@@ -16,6 +16,7 @@
  */
 import { wi } from '../data/site.js';
 import pricing from '../data/pricing.json';
+import Handoff from './Handoff.astro';
 
 const P = pricing.products;
 const mid = (r) => (r[0] + r[1]) / 2;
@@ -72,6 +73,7 @@ const cfg = {
 
       <div class="cta">
         <a class="btn btn-primary btn-lg" id="cc-cta" href={wi('/', { page: 'cost-calculator', placement: 'result' })}>Get prewarmed inboxes</a>
+        <Handoff />
         <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a>
       </div>
       <p class="foot">Assumes {cfg.perDay} cold emails per inbox per day, three inboxes to a domain, and <strong>no warming-tool fee at all</strong> — which flatters the fresh column. Fresh also buys its own domains at ${cfg.domainOnce}; prewarmed includes them.</p>

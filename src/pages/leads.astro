@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Faq from '../components/Faq.astro';
 import leads from '../data/leads.json';
 import { wi } from '../data/site.js';
+import Handoff from '../components/Handoff.astro';
 
 const M = (n) => (n >= 1_000_000 ? `${(n / 1_000_000).toFixed(1)}M` : n.toLocaleString('en-US'));
 const totalM = (leads.totalLeads / 1_000_000).toFixed(0);
@@ -95,6 +96,7 @@ const schema = {
       <h2>The list is free. The domain is what it costs you.</h2>
       <p class="lede" style="margin:14px auto 26px">A free list costs you nothing. The domain you burn sending to it badly is the expensive part. Our inboxes arrive on a domain that has already done its 51 days.</p>
       <a class="btn btn-primary btn-lg" href={wi('/', { page: 'leads', placement: 'footer-cta' })}>Get inboxes</a>
+      <Handoff align="center" />
     </div>
   </section>
 </Base>
