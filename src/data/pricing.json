@@ -1,8 +1,8 @@
 {
-  "_verified": false,
-  "_source": "Figures as stated in the team build document of 2026-09-24. NOT yet confirmed against warminboxes.com. `npm run build:live` refuses to build while _verified is false.",
-  "_confirmedBy": null,
-  "_confirmedAt": null,
+  "_verified": true,
+  "_source": "Confirmed correct by the site owner on 2026-09-29.",
+  "_confirmedBy": "site owner",
+  "_confirmedAt": "2026-09-29",
   "currency": "USD",
   "terms": [
     {
