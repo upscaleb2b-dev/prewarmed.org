@@ -22,12 +22,15 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
 
     <nav class="links" aria-label="Main">
       {nav.map((item) => (
-        <div class={item.children || item.mega ? 'has-menu' : ''}>
+        <div class={[
+          (item.children || item.mega || item.leads) && 'has-menu',
+          (item.mega || item.leads) && 'has-mega',
+        ].filter(Boolean).join(' ')}>
           <a href={item.href}
              target={item.external ? '_blank' : undefined}
              rel={item.external ? 'noopener' : undefined}
              aria-current={!item.external && path.startsWith(item.href) && item.href !== '/' ? 'page' : undefined}>
-            {item.label}{item.external && <span class="ext" aria-hidden="true">↗</span>}{(item.children || item.mega) && <span class="caret" aria-hidden="true">▾</span>}
+            {item.label}{item.external && <span class="ext" aria-hidden="true">↗</span>}{(item.children || item.mega || item.leads) && <span class="caret" aria-hidden="true">▾</span>}
           </a>
 
           {item.children && (
@@ -85,25 +88,78 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
 
     <div class="nav-cta">
       <a class="btn btn-primary" href={wi('/', { page: 'nav', placement: 'header' })}>Get inboxes</a>
+      <button class="burger" type="button" aria-expanded="false" aria-controls="m-nav" aria-label="Open menu">
+        <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
+      </button>
     </div>
   </div>
+
 </header>
+
+  <div class="m-nav" id="m-nav" hidden>
+    <div class="wrap">
+      {nav.map((item) => (
+        <div class="m-grp">
+          <a class="m-top" href={item.href}
+             target={item.external ? '_blank' : undefined}
+             rel={item.external ? 'noopener' : undefined}>
+            {item.label}{item.external && <span class="ext" aria-hidden="true">↗</span>}
+          </a>
+          {item.children && (
+            <div class="m-sub">{item.children.map((c) => <a href={c.href}>{c.label}</a>)}</div>
+          )}
+          {item.mega && <div class="m-sub"><a href="/tools/">All {live.length} free tools</a></div>}
+          {item.leads && <div class="m-sub"><a href="/leads/">{leads.totalLists} lists · {leadsM}M+ contacts</a></div>}
+        </div>
+      ))}
+      <a class="btn btn-primary m-cta" href={wi('/', { page: 'nav', placement: 'mobile-menu' })}>Get inboxes</a>
+    </div>
+  </div>
+
+
+<script is:inline>
+  (() => {
+    const btn = document.querySelector('.burger');
+    const panel = document.getElementById('m-nav');
+    if (!btn || !panel) return;
+    const set = (open) => {
+      btn.setAttribute('aria-expanded', String(open));
+      btn.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+      panel.hidden = !open;
+      document.body.style.overflow = open ? 'hidden' : '';
+    };
+    btn.addEventListener('click', () => set(panel.hidden));
+    panel.addEventListener('click', (e) => { if (e.target.closest('a')) set(false); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) { set(false); btn.focus(); } });
+    // A resize past the breakpoint must not leave the body scroll-locked.
+    matchMedia('(min-width: 1121px)').addEventListener('change', (e) => e.matches && set(false));
+  })();
+</script>
 
 <style>
   .nav { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
-  .nav-inner { display: flex; align-items: center; gap: 28px; min-height: 64px; }
+  .nav-inner { display: flex; align-items: center; gap: 28px; min-height: 64px; position: relative; }
   .brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; color: var(--text); }
   .brand:hover { text-decoration: none; }
   .links { display: flex; gap: 4px; margin-right: auto; }
   .links > div { position: relative; }
-  .links > div > a { display: inline-flex; align-items: center; gap: 5px; padding: 9px 12px; border-radius: 6px; font-size: 15px; font-weight: 500; color: var(--text-2); }
+  /* Wide panels measure from the header's gutter so they cannot overflow the
+     viewport; the narrow dropdowns stay pinned to their own nav item. */
+  .links > div.has-mega { position: static; }
+  .links > div > a { display: inline-flex; align-items: center; gap: 5px; padding: 9px 12px; border-radius: 6px; font-size: 15px; font-weight: 500; color: var(--text-2); white-space: nowrap; }
+  /* Seven items, a brand and a CTA do not fit at full spacing on a 1280
+     laptop; without this the labels wrap to two lines. */
+  @media (max-width: 1400px) {
+    .nav-inner { gap: 18px; }
+    .links > div > a { padding: 9px 9px; font-size: 14.5px; }
+  }
   .links > div > a:hover, .links > div > a[aria-current] { color: var(--text); background: var(--bg-elev); text-decoration: none; }
   .caret { font-size: 10px; color: var(--text-muted); }
   .menu, .mega { position: absolute; top: calc(100% + 6px); left: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 10px; display: none; box-shadow: 0 12px 32px rgba(0,0,0,.45); }
   .menu { min-width: 220px; flex-direction: column; }
   .menu a { display: block; padding: 9px 12px; border-radius: 6px; font-size: 15px; color: var(--text-2); }
   .menu a:hover { background: var(--bg-elev-2); color: var(--text); text-decoration: none; }
-  .mega { width: min(920px, calc(100vw - 48px)); padding: 22px; }
+  .mega { left: 24px; width: min(920px, calc(100vw - 48px)); max-width: 100%; padding: 22px; }
   .leads-mega { width: min(720px, calc(100vw - 48px)); }
   .leads-head { display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; padding-bottom: 16px; margin-bottom: 16px; border-bottom: 1px solid var(--border); }
   .leads-head .eyebrow { margin: 0 0 6px; }
@@ -124,8 +180,48 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
   .has-menu:hover .menu, .has-menu:hover .mega, .has-menu:focus-within .menu, .has-menu:focus-within .mega { display: flex; }
   .mega { flex-direction: column; }
   .nav-cta { display: flex; gap: 10px; }
-  @media (max-width: 1080px) {
+  /* At 390px the brand, the CTA and the burger do not fit at desktop sizing;
+     without this the header pushes the whole page into horizontal scroll. */
+  @media (max-width: 520px) {
+    .nav-inner { gap: 12px; }
+    .brand { font-size: 16px; }
+    .nav-cta { gap: 8px; }
+    .nav-cta .btn { padding-inline: 12px; font-size: 13.5px; white-space: nowrap; }
+  }
+  /* 360px (iPhone SE and small Android) needs a tighter header gutter than the
+     rest of the page, or the brand, the CTA and the burger do not fit. */
+  @media (max-width: 400px) {
+    .nav-inner { padding-inline: 16px; gap: 10px; }
+    .brand { font-size: 15px; }
+    .brand :global(svg) { width: 18px; height: 18px; }
+    .nav-cta .btn { padding-inline: 10px; }
+    .burger { width: 36px; height: 36px; }
+  }
+  /* Below 360px the brand, the CTA and the burger cannot all fit. Horizontal
+     page scroll is the worse defect, so the header CTA goes: the mobile menu
+     carries one and the hero CTA is on screen already. */
+  @media (max-width: 359px) {
+    .nav-cta .btn { display: none; }
+  }
+
+  .burger { flex: 0 0 auto; display: none; width: 40px; height: 40px; align-items: center; justify-content: center; flex-direction: column; gap: 4px; background: none; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; padding: 0; }
+  .burger span { display: block; width: 17px; height: 1.5px; background: var(--text); border-radius: 2px; }
+  .burger[aria-expanded='true'] { border-color: var(--accent); }
+
+  .m-nav { display: none; }
+
+  @media (max-width: 1120px) {
     .links { display: none; }
     .nav-inner { justify-content: space-between; }
+    .burger { display: flex; }
+    /* Below this width the desktop links are hidden, so without this panel
+       the site has no navigation at all. */
+    .m-nav { display: block; position: fixed; inset: 65px 0 0; z-index: 60; background: var(--bg); border-top: 1px solid var(--border); overflow-y: auto; padding: 22px 0 40px; }
+    .m-nav[hidden] { display: none; }
+    .m-grp { border-bottom: 1px solid var(--border); padding: 4px 0 12px; }
+    .m-top { display: block; padding: 12px 0 6px; font-size: 17px; font-weight: 500; color: var(--text); }
+    .m-sub { display: flex; flex-wrap: wrap; gap: 6px 18px; padding-bottom: 6px; }
+    .m-sub a { font-size: 14.5px; color: var(--text-2); padding: 4px 0; }
+    .m-cta { margin-top: 24px; width: 100%; justify-content: center; }
   }
 </style>
