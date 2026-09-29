@@ -68,18 +68,19 @@ The live project is a **Worker serving static assets**, not a Pages project —
 `Workers & Pages → prewarmed-org`. Its config is `wrangler.jsonc`, which points
 at `dist/` and needs no Worker script.
 
-In the dashboard, under **Settings → Builds**, all three must be set:
+`wrangler.jsonc` carries a `build.command`, so wrangler builds the site itself
+before deploying. The dashboard's **Build command** field can stay empty.
 
 | Field | Value |
 |---|---|
-| Build command | `npm run build` |
+| Build command | `npm run build`, or empty — the repo handles it |
 | Deploy command | `npx wrangler deploy` |
 | Branch control | the branch being shipped |
 
-**Build command is the one that breaks silently.** Left as `None`, wrangler
-deploys whatever `dist/` it finds — which on a clean checkout is nothing — and
-the last good deploy keeps serving. The symptom is an old site with green
-builds.
+This used to be a trap. With Build command as `None` and no build hook, nothing
+produced `dist/` and the deploy failed on a missing assets directory — and
+before `wrangler.jsonc` existed it failed silently, leaving the previous
+deploy serving while builds looked fine.
 
 Verify a config change locally before pushing it:
 

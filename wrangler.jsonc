@@ -7,6 +7,11 @@
   // exists and wrangler deploys nothing.
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "prewarmed-org",
+  // Wrangler runs this before deploying. It exists so the deploy does not
+  // depend on the dashboard's Build command being set: that field was left
+  // as None, so nothing produced dist/ and `wrangler deploy` failed on a
+  // missing assets directory. Running it here makes the repo self-sufficient.
+  "build": { "command": "npm run build" },
   "compatibility_date": "2026-09-01",
   "assets": {
     "directory": "./dist",
