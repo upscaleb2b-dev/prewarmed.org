@@ -103,10 +103,6 @@ const schema = {
 
         <div class="plats" id="plats"></div>
 
-        {!cfg.verified && (
-          <p class="unver mono">Prices unverified — confirm against warminboxes.com before relying on these figures.</p>
-        )}
-
         <div class="endcap">
           <p>Whichever way it came out, the order happens at Warm Inboxes.</p>
           <a class="btn btn-primary btn-lg" href={wi('/', { page: 'calculator', placement: 'result' })}>Get inboxes at Warm Inboxes →</a>
@@ -231,7 +227,6 @@ const schema = {
   .mo { font-size: 14px; color: var(--text-muted); font-weight: 400; }
   .sub { font-size: 13px; color: var(--text-muted); margin: 0 0 3px; }
   .sub.when { color: var(--text-2); margin-top: 8px; }
-  .unver { font-size: 12px; color: var(--warning); background: var(--warning-soft); border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent); border-radius: 6px; padding: 8px 12px; margin: 18px 0 0; }
   .endcap { margin-top: 26px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .endcap p { margin: 0; color: var(--text-2); font-size: 15.5px; }
 </style>

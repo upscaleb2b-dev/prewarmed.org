@@ -64,7 +64,6 @@ const schema = {
   <section class="section">
     <div class="wrap">
       <h2>Pick your provider</h2>
-      <p class="lede" style="margin-top:12px">Match the platform to your list, not to your preference.</p>
       <div class="grid g3" style="margin-top:28px">
         {products.filter((p) => ['prewarmed-google-inboxes','prewarmed-microsoft-365-inboxes','prewarmed-azure-inboxes'].includes(p.slug)).map((p) => (
           <a class="card pick" href={`/${p.slug}/`}>

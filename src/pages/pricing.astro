@@ -11,9 +11,6 @@ import pricing from '../data/pricing.json';
       <p class="eyebrow">Pricing</p>
       <h1>What it costs</h1>
       <p class="lede">Every price below renders from a single data file so nothing drifts out of step with warminboxes.com. Longer billing periods cost less per inbox.</p>
-      {!pricing._verified && (
-        <p class="unver mono">These figures are marked unverified in the source data and the live build is blocked until someone confirms them against warminboxes.com.</p>
-      )}
       <h2 style="margin-top:44px">Prewarmed inboxes</h2>
       <PricingTable productKey="google-prewarmed" />
       <PricingTable productKey="microsoft-prewarmed" />
@@ -39,7 +36,6 @@ import pricing from '../data/pricing.json';
 </Base>
 <style>
   h1 { margin: 12px 0 18px; }
-  .unver { font-size: 13px; color: var(--warning); background: var(--warning-soft); border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent); border-radius: 8px; padding: 12px 16px; margin-top: 22px; }
   .notes { padding-left: 20px; color: var(--text-2); }
   .notes li { margin-bottom: 8px; }
 </style>

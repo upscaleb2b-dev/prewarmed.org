@@ -98,7 +98,6 @@ const schema = {
           </tbody>
         </table>
       </div>
-      {!pricing._verified && <p class="unver mono">Prices unverified — confirm against warminboxes.com before relying on these figures.</p>}
       <p>A tenant is the cheaper line item by a long way, and it asks something in return: all {tenant.inboxesPerTenant} mailboxes share one reputation, so a single unverified list can damage every one of them at the same time. Under about 1,000 sends a day the saving is not worth that, and you should buy packs. Above it, buy a tenant and run it properly — verified lists only, mailboxes started in batches, bounce rate checked daily for the first fortnight.</p>
       <p>The full risk model is on the <a href="/prewarmed-azure-inboxes/">Azure tenant page</a>, and the two are compared directly in <a href="/compare/azure-tenant-vs-microsoft-365/">Azure tenant vs Microsoft 365 packs</a>.</p>
 
@@ -127,6 +126,5 @@ const schema = {
   .steps h3 { font-size: 17.5px; margin: 4px 0 10px; }
   .steps p { font-size: 15.5px; margin: 0 0 10px; }
   .ex { background: var(--bg-elev); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0; padding: 10px 14px; color: var(--text) !important; font-size: 15px; display: inline-block; }
-  .unver { font-size: 12px; color: var(--warning); background: var(--warning-soft); border: 1px solid color-mix(in srgb, var(--warning) 35%, transparent); border-radius: 6px; padding: 8px 12px; margin: 14px 0 0; }
   .cta-row { margin-top: 40px; }
 </style>
