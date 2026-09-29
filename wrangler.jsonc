@@ -1,0 +1,17 @@
+{
+  // This project deploys as a Worker serving static assets (Cloudflare's
+  // current static-hosting model), not as a Pages project. There is no Worker
+  // script: `assets.directory` alone makes it a pure static site.
+  //
+  // The dashboard must have Build command = `npm run build`, or dist/ never
+  // exists and wrangler deploys nothing.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "prewarmed-org",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // Astro is configured trailingSlash: 'always' and emits dir/index.html.
+    "html_handling": "force-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

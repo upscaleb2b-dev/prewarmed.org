@@ -55,25 +55,37 @@ The build is a plain static `dist/`, so it runs on either host. Both configs
 are kept in the repo because a redirect added to one and not the other fails
 silently on the host that cannot see it.
 
-| | Vercel | Cloudflare Pages |
+| | Vercel | Cloudflare (Workers static assets) |
 |---|---|---|
-| Config | `vercel.json` | `public/_redirects`, `public/_headers` |
+| Config | `vercel.json` | `wrangler.jsonc`, `public/_redirects`, `public/_headers` |
 | Build command | `npm run build` | `npm run build` |
-| Output directory | `dist` | `dist` |
-| Node version | repo default | set `NODE_VERSION=22` in Pages env vars |
+| Output directory | `dist` | `dist` (via `wrangler.jsonc`) |
+| Node version | repo default | `.nvmrc` (22) |
 
-### Cloudflare Pages, first time
+### Cloudflare, first time
 
-1. Pages → **Create** → **Connect to Git** → `upscaleb2b-dev/prewarmed.org`.
-2. Production branch: whichever branch is being shipped.
-3. Build command `npm run build`, output directory `dist`.
-4. Add environment variable `NODE_VERSION` = `22`.
-5. Custom domain `prewarmed.org`. **This replaces the existing redirect** that
-   currently sends prewarmed.org to warminboxes.com — that rule has to be
-   removed in DNS/Rules or it wins and the site never appears.
+The live project is a **Worker serving static assets**, not a Pages project —
+`Workers & Pages → prewarmed-org`. Its config is `wrangler.jsonc`, which points
+at `dist/` and needs no Worker script.
 
-Connecting the Git repo means Cloudflare builds on every push. No API token
-is needed for this, and none should be pasted into a chat or committed here.
+In the dashboard, under **Settings → Builds**, all three must be set:
+
+| Field | Value |
+|---|---|
+| Build command | `npm run build` |
+| Deploy command | `npx wrangler deploy` |
+| Branch control | the branch being shipped |
+
+**Build command is the one that breaks silently.** Left as `None`, wrangler
+deploys whatever `dist/` it finds — which on a clean checkout is nothing — and
+the last good deploy keeps serving. The symptom is an old site with green
+builds.
+
+Verify a config change locally before pushing it:
+
+```
+npm run build && npx wrangler deploy --dry-run
+```
 
 ### Before the domain goes live
 
