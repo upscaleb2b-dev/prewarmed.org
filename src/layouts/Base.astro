@@ -82,6 +82,17 @@ const graph = {
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+    {(site.analytics.ga4 || site.analytics.adsId) && (
+      <>
+        <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.analytics.ga4 || site.analytics.adsId}`}></script>
+        <script is:inline set:html={`
+          window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
+          gtag('js',new Date());
+          ${site.analytics.ga4 ? `gtag('config','${site.analytics.ga4}');` : ''}
+          ${site.analytics.adsId ? `gtag('config','${site.analytics.adsId}');` : ''}
+        `} />
+      </>
+    )}
   </head>
   <body data-palette={palette}>
     <a class="skip" href="#main">Skip to content</a>

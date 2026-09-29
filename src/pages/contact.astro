@@ -5,7 +5,7 @@ import { site } from '../data/site.js';
 <Simple schema={{ '@type': 'ContactPage', name: 'Contact prewarmed.org', url: 'https://prewarmed.org/contact/' }} title="Contact — prewarmed.org" description="Talk to someone who runs this infrastructure daily about domains, inboxes and sending setup. Replies within one business day."
   eyebrow="Contact" h1="Talk to an operator"
   lede="Tell us the volume you need and what broke last time. Replies within one business day.">
-  <form class="f" method="POST" action="/api/lead" name="lead">
+  <form class="f" method="POST" action={site.leadEndpoint || "/thanks/"} name="lead" data-endpoint={site.leadEndpoint} data-to={site.correctionsEmail}>
     <input type="text" name="company_website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
     <div class="row">
       <label>Name<input name="name" required autocomplete="name" /></label>
@@ -22,8 +22,40 @@ import { site } from '../data/site.js';
     <button class="btn btn-primary btn-lg" type="submit">Send</button>
     <p class="micro muted">No newsletter, no sequence. One reply from a person.</p>
   </form>
-  <p class="note"><strong>To wire before launch:</strong> point the form at your CRM or a Slack webhook, add Turnstile, and fire the <code>lead_submit</code> conversion on <code>/thanks/</code>. A WhatsApp link belongs here too once you supply the number.</p>
+  <p class="alt">Would rather just email? <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>.</p>
 </Simple>
+
+<script is:inline>
+  (() => {
+    const form = document.querySelector('form.f');
+    if (!form) return;
+    const btn = form.querySelector('button[type=submit]');
+    form.addEventListener('submit', async (e) => {
+      if (form.company_website.value) return e.preventDefault();   // honeypot
+      const endpoint = form.dataset.endpoint;
+      e.preventDefault();
+      const data = Object.fromEntries(new FormData(form).entries());
+      delete data.company_website;
+      btn.disabled = true; btn.textContent = 'Sending…';
+      const done = () => { window.dataLayer && window.dataLayer.push({ event: 'lead_submit' }); location.href = '/thanks/'; };
+      if (endpoint) {
+        try {
+          const r = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
+          if (!r.ok) throw new Error(r.status);
+          return done();
+        } catch {
+          btn.disabled = false; btn.textContent = 'Send';
+          alert('That did not send. Email ' + form.dataset.to + ' and we will pick it up.');
+          return;
+        }
+      }
+      // No backend configured: compose the message rather than lose the lead.
+      const body = Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\n');
+      window.location.href = `mailto:${form.dataset.to}?subject=${encodeURIComponent('Inbox enquiry — ' + (data.name || ''))}&body=${encodeURIComponent(body)}`;
+      setTimeout(done, 800);
+    });
+  })();
+</script>
 <style>
   .f { display: grid; gap: 18px; max-width: 620px; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
@@ -33,5 +65,6 @@ import { site } from '../data/site.js';
   textarea { resize: vertical; }
   .hp { position: absolute; left: -9999px; }
   .micro { font-size: 13px; margin: 0; }
+  .alt { font-size: 15px; color: var(--text-2); margin-top: 26px; }
   button { justify-self: start; }
 </style>

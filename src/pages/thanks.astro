@@ -1,7 +1,7 @@
 ---
 import Simple from '../layouts/Simple.astro';
 import tools from '../data/tools.json';
-import { toolUrl } from '../data/site.js';
+import { toolUrl, site } from '../data/site.js';
 const picks = tools.tools.filter((t) => t.live && ['blacklist-checker','dmarc-checker','spf-checker','deliverability-checker','header-analyzer','dns-checker'].includes(t.id));
 ---
 <Simple title="Thanks — prewarmed.org" description="We have your message." eyebrow="Thanks" h1="Got it." noindex={true}
@@ -12,3 +12,10 @@ const picks = tools.tools.filter((t) => t.live && ['blacklist-checker','dmarc-ch
     ))}
   </div>
 </Simple>
+
+<script is:inline define:vars={{ adsId: site.analytics.adsId, label: site.analytics.adsLabel }}>
+  // The lead conversion fires here, on the page a submitted form lands on.
+  // Does nothing until an Ads ID and label are set in src/data/site.js.
+  if (window.gtag && adsId && label) gtag('event', 'conversion', { send_to: `${adsId}/${label}` });
+  if (window.gtag) gtag('event', 'generate_lead');
+</script>

@@ -167,7 +167,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
 <style>
   .nav { position: sticky; top: 0; z-index: 40; background: color-mix(in srgb, var(--bg) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); }
   .nav-inner { display: flex; align-items: center; gap: 28px; min-height: 64px; position: relative; }
-  .brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; color: var(--text); }
+  .brand { display: inline-flex; align-items: center; gap: 8px; padding-block: 10px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; color: var(--text); }
   .brand:hover { text-decoration: none; }
   .links { display: flex; gap: 4px; margin-right: auto; }
   .links > div { position: relative; }
@@ -240,7 +240,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
     .nav-cta .btn { display: none; }
   }
 
-  .burger { flex: 0 0 auto; display: none; width: 40px; height: 40px; align-items: center; justify-content: center; flex-direction: column; gap: 4px; background: none; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; padding: 0; }
+  .burger { flex: 0 0 auto; display: none; width: 44px; height: 44px; align-items: center; justify-content: center; flex-direction: column; gap: 4px; background: none; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; padding: 0; }
   .burger span { display: block; width: 17px; height: 1.5px; background: var(--text); border-radius: 2px; }
   .burger[aria-expanded='true'] { border-color: var(--accent); }
 

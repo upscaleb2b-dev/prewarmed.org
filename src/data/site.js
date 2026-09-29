@@ -8,6 +8,20 @@ export const site = {
   agencyUrl: 'https://upscaleb2b.com',
   whatsapp: '', // TODO: wa.me link
   correctionsEmail: 'hello@prewarmed.org',
+  // Where the contact form posts. Empty means there is no backend, and the
+  // form falls back to composing an email instead of silently failing.
+  // Set this to a CRM/webhook/Formspree URL and the form posts JSON to it.
+  leadEndpoint: '',
+  /**
+   * Measurement. Nothing renders while these are empty, so the site ships no
+   * third-party script until someone deliberately turns one on. Running paid
+   * traffic without at least ga4 or adsId set means buying clicks blind.
+   */
+  analytics: {
+    ga4: '',        // 'G-XXXXXXXXXX'
+    adsId: '',      // 'AW-XXXXXXXXX'
+    adsLabel: '',   // conversion label for the lead action
+  },
   // One line, every page footer. Ads policy and buyer trust both need it.
   disclosure:
     'prewarmed.org is operated by the team behind Warm Inboxes (warminboxes.com) and Upscale B2B (upscaleb2b.com). Orders are fulfilled by Warm Inboxes.',

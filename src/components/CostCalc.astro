@@ -176,10 +176,12 @@ const cfg = {
   .tabs { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
   .tab { background: var(--bg-elev); border: 1px solid var(--border); color: var(--text-2); border-radius: 999px; padding: 8px 16px; font-size: 14px; font-weight: 500; cursor: pointer; font-family: inherit; }
   .tab.on { border-color: var(--accent); color: var(--accent); background: var(--accent-soft); }
+
   .slide { margin-top: 26px; display: grid; grid-template-columns: 1fr auto; gap: 8px 12px; align-items: baseline; }
   .slide label { font-size: 13.5px; color: var(--text-2); font-weight: 500; }
   .slide output { font-size: 16px; color: var(--text); font-weight: 500; }
   .slide input { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); height: 22px; }
+  @media (max-width: 860px) { .tab { padding: 14px 18px; } .slide input { height: 44px; } }
   .dens { margin-top: 20px; }
   .dens-l { display: block; font-size: 13.5px; color: var(--text-2); font-weight: 500; margin-bottom: 8px; }
   .dens-btns { display: flex; gap: 8px; flex-wrap: wrap; }

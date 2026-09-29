@@ -1,8 +1,46 @@
 ---
 import Simple from '../layouts/Simple.astro';
 import { site } from '../data/site.js';
+const updated = '29 September 2026';
 ---
-<Simple schema={{ '@type': 'WebPage', name: 'Privacy', url: 'https://prewarmed.org/privacy/' }} title="Privacy — prewarmed.org" description="What prewarmed.org collects, why it is collected, how long it is kept, and who it is shared with. Written for readers, not lawyers." eyebrow="Legal" h1="Privacy">
-  <p class="note"><strong>Placeholder.</strong> Google Ads requires a visible privacy policy, terms and a refund policy before approval, and the refund terms must match what Warm Inboxes actually does. This page needs real content from the founders before launch, not boilerplate.</p>
-  <p>{site.disclosure}</p>
+<Simple schema={{ '@type': 'WebPage', name: 'Privacy', url: 'https://prewarmed.org/privacy/' }}
+  title="Privacy — prewarmed.org"
+  description="What prewarmed.org collects, why it is collected, how long it is kept, and who it is shared with. Written for readers, not lawyers."
+  eyebrow="Legal" h1="Privacy">
+  <p class="muted">Last updated {updated}.</p>
+
+  <p>{site.disclosure} This policy covers prewarmed.org. Anything you do on warminboxes.com or upscaleb2b.com is covered by the policy on those sites.</p>
+
+  <h2>What we collect</h2>
+  <p><strong>What you send us.</strong> If you use the contact form we receive the name, work email, provider, inbox count, sequencer and message you type into it. Nothing else on this site asks you for personal information, and there are no accounts to create.</p>
+  <p><strong>Request logs.</strong> This site is served through Cloudflare, which records the usual request data — IP address, user agent, the page requested and the time — in order to serve the page and to absorb attacks. We do not build profiles from it.</p>
+  <p><strong>Measurement, if it is switched on.</strong> We may run Google Analytics and Google Ads conversion measurement. When those are active they set cookies and report page views and form submissions to Google. If they are not active, this site loads no third-party scripts at all, and you can confirm that by viewing the page source.</p>
+  <p><strong>What we do not collect.</strong> No account data, no payment details (orders are placed and paid on warminboxes.com), no session recording, no fingerprinting, and no data brokers.</p>
+
+  <h2>The free tools and lead lists</h2>
+  <p>Most of the tools linked from this site run on warminboxes.com and open in a new tab. Anything you paste into them — a domain, a header, a CSV — is handled by that site under its own policy, not this one. The two calculators that run here do their arithmetic in your browser and send nothing anywhere.</p>
+
+  <h2>Why we hold it, and for how long</h2>
+  <p>Contact form submissions exist so a person can reply to you and, if you order, so the order can be fulfilled. We keep them while the conversation is live and for as long afterwards as we need them for our records, then delete them. Request logs are retained on Cloudflare's normal schedule. Analytics data, where active, follows Google's retention settings.</p>
+  <p>If you are in the UK or EU, our basis for handling your enquiry is legitimate interest in answering it, or taking steps at your request before entering a contract.</p>
+
+  <h2>Who else sees it</h2>
+  <ul>
+    <li><strong>Warm Inboxes</strong> — orders from this site are fulfilled there, so an enquiry that becomes an order is shared with them.</li>
+    <li><strong>Cloudflare</strong> — serves and protects the site.</li>
+    <li><strong>Google</strong> — only if analytics or Ads measurement is active, and only the events described above.</li>
+  </ul>
+  <p>We do not sell personal data, and we do not share your enquiry with anyone else.</p>
+
+  <h2>Cookies</h2>
+  <p>This site sets no cookies of its own. Cloudflare may set cookies required for security. Google Analytics and Ads set cookies when active. There is nothing to opt into here because there is nothing optional being set by us.</p>
+
+  <h2>Your rights</h2>
+  <p>You can ask what we hold about you, ask for it to be corrected, or ask for it to be deleted. Write to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a> and we will act on it. If you are in the UK or EU you also have the right to complain to your data protection authority.</p>
+
+  <h2>Changes</h2>
+  <p>If this policy changes materially, the date at the top changes and the change is described rather than quietly applied.</p>
+
+  <h2>Contact</h2>
+  <p>Questions about this policy, or about anything we hold: <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>. Registered entity details are available on request to the same address.</p>
 </Simple>
