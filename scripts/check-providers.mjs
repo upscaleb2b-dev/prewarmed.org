@@ -32,8 +32,7 @@ const msg = [
   '',
 ].join('\n');
 
-if (live) {
-  console.error(`\x1b[31m✗ refusing to build live.\x1b[0m${msg}`);
-  process.exit(1);
-}
-console.warn(`\x1b[33m⚠ preview build with unchecked providers.\x1b[0m${msg}`);
+// Unchecked providers are no longer rendered on /providers/, so nothing
+// unverified reaches a visitor and there is nothing to block. This now
+// reports what is outstanding without failing the build.
+console.warn(`\x1b[33m⚠ ${unverified.length} provider(s) still to check (not shown on the site).\x1b[0m${live ? msg : ''}`);

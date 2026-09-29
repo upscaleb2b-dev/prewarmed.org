@@ -12,11 +12,11 @@ export const products = [
     h1: 'Prewarmed Google inboxes, ready to send today',
     title: 'Prewarmed Google Inboxes for Cold Email — Official Workspace, Same Day',
     description:
-      'Official Google Workspace inboxes, warmed on an aged .com, with super-admin access and DNS configured before handover. Delivered same day.',
+      'Official Google Workspace inboxes, warmed on an aged .com, with DNS configured before handover. Delivered same day.',
     keyword: 'prewarmed google inboxes',
-    card: 'Real Google Workspace accounts with the admin login. Same day.',
+    card: 'Real Google Workspace accounts on an aged domain. Same day.',
     subhead:
-      'Licensed Workspace accounts on a domain aged 30 days and warmed 21. Super-admin login and email records set up before you get it.',
+      'Licensed Workspace accounts on a domain aged 30 days and warmed 21, with the email records set up before you get it.',
     pricingKey: 'google-prewarmed',
     inlineTool: 'deliverability-checker',
     specs: [
@@ -25,7 +25,6 @@ export const products = [
       ['Warming', '21 days of real emails sent and received'],
       ['Domain', 'Prewarmed .com or .co, included'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
-      ['Your login', 'Super Admin'],
       ['Suggested volume', '15 cold emails per inbox per day'],
       ['You get it', 'Same day, business days'],
     ],
@@ -44,10 +43,10 @@ export const products = [
         ],
       },
       {
-        h: 'What super-admin access actually gets you',
+        h: 'Why three inboxes to a domain',
         p: [
-          'Whether you get the admin login is the one question that separates a real account from a rented seat on somebody else\'s. With it you can add addresses, change signatures, connect the mailbox to your sending tool properly, and export or delete the account whenever you want. Without it, you are renting, and the day you stop paying, everything stays with the seller.',
-          'Ask anyone you buy from this before you pay. If the answer is anything other than a straight yes, the inboxes are not really yours.',
+          'Three is the number that keeps a failure small. Everything on a domain shares its reputation, so when a domain stops landing, every inbox on it goes at the same time. More inboxes per domain is cheaper per inbox and concentrates the damage into one event.',
+          'Spread across more domains at three each and a bad week costs you three inboxes rather than thirty. That shape is why the domain is included rather than charged for: paying per domain pushes people toward the concentration you want to avoid.',
         ],
       },
       {
@@ -59,7 +58,7 @@ export const products = [
       },
     ],
     faqs: [
-      ['Are these real Google Workspace accounts?', 'Yes. Licensed Workspace accounts on a tenant you receive Super Admin access to, not SMTP relays and not shared seats.'],
+      ['Are these real Google Workspace accounts?', 'Yes. Licensed Google Workspace accounts on a domain we age and warm, not SMTP relays and not shared seats.'],
       ['How many inboxes per domain?', 'Three. More is cheaper per inbox and concentrates risk: when the domain goes, everything on it goes with it.'],
       ['Can I connect these to Smartlead or Instantly?', 'Yes, over OAuth or app password. Set the per-inbox daily cap to your ramp figure rather than the platform default before the first send.'],
       ['What if Google suspends an account?', 'Ask about the replacement policy and get the exact terms in writing before ordering. Suspensions happen to every provider; what differs is how fast the replacement ships.'],
@@ -75,11 +74,11 @@ export const products = [
     h1: 'Prewarmed Microsoft 365 inboxes for Outlook-heavy lists',
     title: 'Prewarmed Microsoft 365 Inboxes for Cold Email — Outlook Ready, Same Day',
     description:
-      'Licensed Microsoft 365 mailboxes, warmed on an aged .com, with Exchange admin access and authentication configured. Delivered same day.',
+      'Licensed Microsoft 365 mailboxes, warmed on an aged .com, with authentication configured. Delivered same day.',
     keyword: 'prewarmed microsoft 365 inboxes',
     card: 'Licensed Microsoft mailboxes, best for Outlook-heavy lists.',
     subhead:
-      'Paid Microsoft 365 mailboxes on a domain aged 30 days and warmed 21. Exchange admin login and email records set up before you get it.',
+      'Paid Microsoft 365 mailboxes on a domain aged 30 days and warmed 21, with the email records set up before you get it.',
     pricingKey: 'microsoft-prewarmed',
     inlineTool: 'scl-analyzer',
     specs: [
@@ -88,7 +87,6 @@ export const products = [
       ['Warming', '21 days of real emails sent and received'],
       ['Domain', 'Prewarmed .com or .co, included'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
-      ['Your login', 'Exchange admin'],
       ['Suggested volume', '15 cold emails per inbox per day'],
       ['You get it', 'Same day, business days'],
     ],
@@ -122,7 +120,6 @@ export const products = [
     ],
     faqs: [
       ['Is this the same as the Azure tenant product?', 'No. These are individual paid mailboxes sold in packs. An Azure tenant is one account holding 100 mailboxes at a much lower cost per inbox, but all 100 share one reputation. See the comparison.'],
-      ['Do I get admin access?', 'Yes, Exchange admin on the tenant.'],
       ['Will these work with my sequencer?', 'Yes. Use OAuth where available. Set per-inbox daily caps to your ramp figure, not the platform default.'],
       ['Why send from Microsoft at all?', 'Because a meaningful share of B2B recipients are on Microsoft, and placement into those mailboxes is better from Microsoft infrastructure.'],
       ['How is DMARC configured?', 'Published before handover. Read the reports for a fortnight before moving policy to enforcement.'],
@@ -149,7 +146,6 @@ export const products = [
       ['Domain age when you get it', '30 days minimum'],
       ['Warming', '21 days of real emails sent and received'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
-      ['Your login', 'Exchange admin'],
       ['Suggested volume', '15 cold emails per inbox per day'],
       ['You get it', 'Same day, business days'],
     ],
@@ -163,7 +159,7 @@ export const products = [
         h: 'Outlook, Outlook.com, Microsoft 365: which one you are buying',
         p: [
           'Outlook means three different things, and which one you buy decides whether your campaign works. Outlook the app is just software for reading email. Outlook.com is Microsoft\'s free personal email. Microsoft 365 is the paid business product, and that is the one that matters here.',
-          'For cold email you want the third one. A free personal account cannot use your own domain properly, has no admin controls, and will not hold up once you send at any real volume. If someone offers you cheap Outlook inboxes, find out which of the three they mean before you pay.',
+          'For cold email you want the third one. A free personal account cannot use your own domain properly and will not hold up once you send at any real volume. If someone offers you cheap Outlook inboxes, find out which of the three they mean before you pay.',
         ],
       },
       {
@@ -194,14 +190,14 @@ export const products = [
     keyword: 'prewarmed azure inboxes',
     card: '100 mailboxes in one account. For high volume.',
     subhead:
-      'Your own Azure account holding 100 warmed mailboxes under one admin login. Volume sending, at a fraction of the cost per inbox.',
+      'Your own Azure account holding 100 warmed mailboxes. Volume sending, at a fraction of the cost per inbox.',
     pricingKey: 'azure-tenant',
     inlineTool: 'inbox-rotation-planner',
     specs: [
       ['Product', 'Dedicated Azure tenant'],
       ['Mailboxes', '100 per tenant'],
       ['Mailbox type', 'Exchange Online, the business version'],
-      ['What you get', 'Global Admin login, account ID, mailbox list'],
+      ['What you get', 'Account ID and the full mailbox list'],
       ['Email records', 'Set up before you get it'],
       ['Suggested volume', '10 to 15 cold emails per mailbox per day'],
       ['Total capacity', '1,000 to 1,500 cold emails a day, comfortably'],
@@ -216,8 +212,8 @@ export const products = [
       {
         h: 'What a tenant is, and why the cost per inbox collapses',
         p: [
-          'A tenant is your own Microsoft account, the kind a whole company would have. Instead of buying mailboxes three at a time, you get one account holding 100 mailboxes with a single admin login. Microsoft charges for it differently, which is why the cost per inbox drops by about ten times rather than by a few percent.',
-          'You get the Global Admin login, the account ID, a spreadsheet of all 100 mailboxes and their passwords, and the email records already set up.',
+          'A tenant is your own Microsoft account, the kind a whole company would have. Instead of buying mailboxes three at a time, you get one account holding 100 mailboxes. Microsoft charges for it differently, which is why the cost per inbox drops by about ten times rather than by a few percent.',
+          'You get the account ID, a spreadsheet of all 100 mailboxes and their passwords, and the email records already set up.',
         ],
       },
       {
@@ -237,8 +233,7 @@ export const products = [
       },
     ],
     faqs: [
-      ['What is an Azure tenant for cold email?', 'Your own Microsoft cloud directory containing 100 Exchange Online mailboxes under one admin, delivered prewarmed with DNS configured.'],
-      ['Do I get Global Admin?', 'Yes, plus the tenant ID and a CSV of all mailbox credentials.'],
+      ['What is an Azure tenant for cold email?', 'Your own Microsoft cloud directory containing 100 Exchange Online mailboxes, delivered prewarmed with DNS configured.'],
       ['How is this different from Microsoft 365 packs?', 'A pack is three paid mailboxes, and a problem on one domain stays there. A tenant is a hundred mailboxes that all share one reputation, at a far lower cost per inbox.'],
       ['Can I bring my own domains into the tenant?', 'Yes, though a domain you add yourself starts at zero reputation and needs its own aging and warming.'],
       ['How many sends a day can a tenant carry?', 'At our recommended 10 to 15 per mailbox, comfortably 1,000 to 1,500 a day. Higher is possible and increases risk across the whole pool.'],
@@ -262,22 +257,21 @@ export const products = [
     specs: [
       ['Identity layer', 'Microsoft Entra ID, formerly Azure AD'],
       ['Mailboxes', '100 Exchange Online per tenant'],
-      ['Access', 'Global Admin in the Entra admin centre'],
       ['Adding mailboxes', 'Upload a spreadsheet, get the accounts'],
       ['Email records', 'Set up before you get it'],
       ['Suggested volume', '10 to 15 cold emails per mailbox per day'],
       ['You get it', 'Same day, business days'],
     ],
     whoFor: [
-      ['Technical buyers using current Microsoft vocabulary', 'Your admin centre says Entra. Most vendors still say Azure AD. Same directory.'],
-      ['Teams standing up identity alongside mail', 'If you are managing users, conditional access and MFA, the Entra admin centre is where you will live.'],
-      ['Anyone comparing quotes', 'Sellers quoting Azure AD and sellers quoting Entra are quoting the same thing. Compare on mailbox count, admin access and warming, not on the name.'],
+      ['Technical buyers using current Microsoft vocabulary', 'Microsoft calls it Entra now. Most vendors still say Azure AD. Same directory.'],
+      ['Teams already running on Microsoft', 'If your own company runs on Microsoft, the vocabulary here matches what you already use.'],
+      ['Anyone comparing quotes', 'Sellers quoting Azure AD and sellers quoting Entra are quoting the same thing. Compare on mailbox count, aging and warming, not on the name.'],
     ],
     body: [
       {
         h: 'Azure AD became Entra ID. What that means for sending: nothing',
         p: [
-          'Microsoft renamed Azure Active Directory to Entra ID. It is the same product with a new name and a redesigned admin screen. Nothing about how your email lands changed.',
+          'Microsoft renamed Azure Active Directory to Entra ID. It is the same product with a new name and a redesigned interface. Nothing about how your email lands changed.',
           'We keep separate pages because people search for both names and should land on a page that uses the words they typed. If you came here looking for Azure, that page covers the same product with more detail on sending volume.',
         ],
       },
@@ -297,9 +291,8 @@ export const products = [
       },
     ],
     faqs: [
-      ['Is Entra ID different from Azure AD?', 'Only in name and admin interface. Same directory, same licensing, no deliverability difference.'],
+      ['Is Entra ID different from Azure AD?', 'Only in name and interface. Same directory, same licensing, no deliverability difference.'],
       ['Should I buy the Entra page or the Azure page?', 'Same product. Buy whichever page you understood better.'],
-      ['Do I get Global Admin in the Entra admin centre?', 'Yes.'],
       ['Will conditional access block my sequencer?', 'Not as delivered. Tenants arrive configured for sequencer authentication. If you alter the policy, expect to re-test the connection.'],
       ['Can I add users beyond the hundred?', 'Yes, subject to licensing. New mailboxes start at zero reputation.'],
     ],
@@ -392,9 +385,9 @@ export const products = [
     family: 'fresh',
     eyebrow: 'Fresh Google inboxes',
     h1: 'Fresh Google Workspace inboxes',
-    title: 'Fresh Google Workspace Inboxes for Cold Email — Unwarmed, Admin Access Included',
+    title: 'Fresh Google Workspace Inboxes for Cold Email — Licensed, Unwarmed, Same Day',
     description:
-      'Brand new licensed Google Workspace inboxes with super-admin access and SPF, DKIM and DMARC published. No aging and no warming — you run the 51 days yourself.',
+      'Brand new licensed Google Workspace inboxes with SPF, DKIM and DMARC published. No aging and no warming — you run the 51 days yourself.',
     keyword: 'fresh google inboxes',
     subhead:
       'Licensed Workspace accounts, set up properly and handed over today. No aging, no warming — you run the 51 days, and pay less for the mailbox.',
@@ -402,7 +395,6 @@ export const products = [
     inlineTool: 'warmup-tax',
     ships: [
       'Licensed Google Workspace accounts, **brand new**',
-      'Super Admin login transferred to you',
       'SPF, DKIM, DMARC and MX published for you',
       '**No aging and no warming** — that part is yours',
       'Delivered same day',
@@ -413,7 +405,6 @@ export const products = [
       ['Warming', 'None. You run it'],
       ['Domain', 'Yours, or add a fresh .com for $12'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
-      ['Your login', 'Super Admin'],
       ['Ready to send cold email', 'About 51 days from today'],
       ['You get it', 'Same day, business days'],
     ],
@@ -427,7 +418,7 @@ export const products = [
         h: 'What fresh actually means here',
         p: [
           'Fresh means the mailbox is real and licensed but has no history. It has never sent or received anything, so as far as Gmail and Outlook are concerned it does not exist yet. That is not a fault. Every inbox that ever worked started in exactly this state.',
-          'What you are buying is the part that is annoying rather than slow: a licensed Workspace account, the super-admin login, and SPF, DKIM, DMARC and MX published correctly the first time. Those records are where most people quietly go wrong, and getting them wrong costs you the domain, not just a week.',
+          'What you are buying is the part that is annoying rather than slow: a licensed Workspace account with SPF, DKIM, DMARC and MX published correctly the first time. Those records are where most people quietly go wrong, and getting them wrong costs you the domain, not just a week.',
         ],
       },
       {
@@ -456,10 +447,9 @@ export const products = [
       },
     ],
     faqs: [
-      ['Are these real Google Workspace accounts?', 'Yes, licensed Workspace accounts on a tenant you get Super Admin access to. The only difference from our prewarmed inboxes is that these have no sending history.'],
+      ['Are these real Google Workspace accounts?', 'Yes, licensed Google Workspace accounts. The only difference from our prewarmed inboxes is that these have no sending history.'],
       ['When can I send cold email from them?', 'If the domain is brand new, about 51 days: 30 days of aging, then 21 days of warming. If the domain is already old and has been sending normal email, roughly 21 days.'],
       ['Is a domain included?', 'No. Fresh inboxes go on a domain you already own, or you can add a fresh .com for $12. The free prewarmed domain comes with prewarmed inbox packs, not with these.'],
-      ['Do I get admin access?', 'Yes, Super Admin. Ask this of every vendor: without it, the inboxes are not yours and stay with the seller the day you stop paying.'],
       ['Do you warm them for me if I change my mind?', 'At that point you want the prewarmed product, which is the same mailbox with the 51 days already done and the domain included.'],
       ['What warming tool should I use?', 'Most sequencers include one. What matters more than which tool you pick is that you let it run the full period and keep the daily number low afterwards.'],
     ],
@@ -471,17 +461,16 @@ export const products = [
     family: 'fresh',
     eyebrow: 'Fresh Microsoft 365 inboxes',
     h1: 'Fresh Microsoft 365 inboxes you warm yourself',
-    title: 'Fresh Microsoft 365 Inboxes for Cold Email — Licensed, Unwarmed, Admin Access',
+    title: 'Fresh Microsoft 365 Inboxes for Cold Email — Licensed, Unwarmed, Same Day',
     description:
-      'Brand new licensed Microsoft 365 mailboxes with Exchange admin access and authentication published. No aging and no warming — the cheapest way to build capacity ahead of time.',
+      'Brand new licensed Microsoft 365 mailboxes with authentication published. No aging and no warming — the cheapest way to build capacity ahead of time.',
     keyword: 'fresh microsoft 365 inboxes',
     subhead:
-      'Paid Microsoft 365 mailboxes with admin access and records set up. No warming done: the cheapest inbox we sell, and the slowest to become useful.',
+      'Paid Microsoft 365 mailboxes with the records set up. No warming done: the cheapest inbox we sell, and the slowest to become useful.',
     pricingKey: 'microsoft-fresh',
     inlineTool: 'inbox-planner',
     ships: [
       'Licensed Microsoft 365 mailboxes, **brand new**',
-      'Exchange admin login transferred to you',
       'SPF, DKIM, DMARC and MX published for you',
       '**No aging and no warming** — that part is yours',
       'Delivered same day',
@@ -492,7 +481,6 @@ export const products = [
       ['Warming', 'None. You run it'],
       ['Domain', 'Yours, or add a fresh .com for $12'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
-      ['Your login', 'Exchange admin'],
       ['Ready to send cold email', 'About 51 days from today'],
       ['You get it', 'Same day, business days'],
     ],
@@ -533,7 +521,7 @@ export const products = [
       },
     ],
     faqs: [
-      ['Are these the same mailboxes as your prewarmed Microsoft 365 inboxes?', 'The same product with no sending history. Same licence, same Exchange admin access, same records. What is missing is the 51 days and the included domain.'],
+      ['Are these the same mailboxes as your prewarmed Microsoft 365 inboxes?', 'The same product with no sending history. Same licence, same records. What is missing is the 51 days and the included domain.'],
       ['When can I send cold email from them?', 'About 51 days if the domain is new: 30 days of aging then 21 of warming. Roughly 21 days if the domain is already old and has been sending normal business email.'],
       ['Are these Outlook.com accounts?', 'No. Licensed Microsoft 365 mailboxes with Exchange Online on a domain you control. Free personal accounts are not sending infrastructure.'],
       ['Is a domain included?', 'No. Use your own, or add a fresh .com for $12. The free prewarmed domain comes with prewarmed packs.'],
@@ -548,7 +536,7 @@ export const products = [
     alt: { lead: 'Need to send this week?', slug: 'prewarmed-azure-inboxes', label: 'A prewarmed Azure tenant arrives with all 100 mailboxes already warmed' },
     eyebrow: 'Fresh Azure tenants',
     h1: 'Fresh Azure tenants: 100 mailboxes you warm yourself',
-    title: 'Fresh Azure Inboxes — 100-Mailbox Tenants, Unwarmed, Admin Access Included',
+    title: 'Fresh Azure Inboxes — 100-Mailbox Tenants, Unwarmed, Same Day',
     description:
       'A dedicated Azure tenant with 100 Exchange Online mailboxes, delivered with no aging and no warming. The cheapest sending capacity there is, and the hardest to bring online.',
     keyword: 'fresh azure inboxes',
@@ -559,7 +547,7 @@ export const products = [
     waMessage: 'Hi — I am interested in a fresh Azure tenant (100 mailboxes, unwarmed). Could you send me the price?',
     ships: [
       'A dedicated Azure tenant, **100 mailboxes**',
-      'Global Admin login, tenant ID and the mailbox list',
+      'Tenant ID and the full mailbox list',
       'SPF, DKIM, DMARC and MX published for you',
       '**No aging and no warming** — that part is yours',
       'Delivered same day',
@@ -570,7 +558,7 @@ export const products = [
       ['Warming', 'None. You run it'],
       ['Domain', 'Yours, or add a fresh .com for $12'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
-      ['What you get', 'Global Admin login, tenant ID, mailbox list'],
+      ['What you get', 'Tenant ID and the full mailbox list'],
       ['Ready to send cold email', 'About 51 days from today'],
       ['You get it', 'Same day, business days'],
     ],
@@ -614,10 +602,9 @@ export const products = [
       },
     ],
     faqs: [
-      ['What is an Azure tenant for cold email?', 'Your own Microsoft cloud directory containing 100 Exchange Online mailboxes under one admin login. Buying a tenant rather than mailboxes three at a time is what drops the cost per inbox by about ten times.'],
+      ['What is an Azure tenant for cold email?', 'Your own Microsoft cloud directory containing 100 Exchange Online mailboxes. Buying a tenant rather than mailboxes three at a time is what drops the cost per inbox by about ten times.'],
       ['When can I send cold email from it?', 'About 51 days if the domain is new: 30 days of aging, then 21 of warming. Roughly 21 days if the domain is already old and has been sending normal business email.'],
       ['Is a domain included?', 'No. Fresh products go on a domain you already own, or you can add a fresh .com for $12. The free prewarmed domain comes with prewarmed packs and prewarmed tenants.'],
-      ['Do I get Global Admin?', 'Yes, plus the tenant ID and a spreadsheet of all 100 mailboxes and their passwords.'],
       ['What does it cost to warm 100 mailboxes?', 'That depends on your warming tool, and it is the number that should decide this purchase. Most tools charge per mailbox per month. Multiply by a hundred, then by two months, before you order.'],
       ['Should I buy this if I have never run a tenant?', 'Honestly, no. Start with the prewarmed tenant, learn how it behaves, and buy fresh ones once you know what the first two months take.'],
       ['How is it priced?', 'Per tenant. The figure is not published on this page yet — message us and we will send you the current one.'],

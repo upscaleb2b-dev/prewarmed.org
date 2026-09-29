@@ -10,11 +10,11 @@ const pages = ['prewarmed-microsoft-365-inboxes', 'prewarmed-outlook-inboxes', '
 const pre = pricing.products['microsoft-prewarmed'];
 const tenant = pricing.products['azure-tenant'];
 const faqs = [
-  ['What is the difference between Microsoft 365, Outlook and Azure inboxes?', 'Microsoft 365 and Outlook are the same thing under two names: licensed Exchange Online mailboxes sold in packs. An Azure tenant is your own directory holding 100 mailboxes under one admin, at a far lower cost per inbox and with one shared reputation.'],
-  ['Are these Outlook.com accounts?', 'No. Free personal accounts cannot use your own domain properly and have no admin controls. What you want is licensed Microsoft 365 with Exchange Online on a domain you control.'],
+  ['What is the difference between Microsoft 365, Outlook and Azure inboxes?', 'Microsoft 365 and Outlook are the same thing under two names: licensed Exchange Online mailboxes sold in packs. An Azure tenant is your own directory holding 100 mailboxes, at a far lower cost per inbox and with one shared reputation.'],
+  ['Are these Outlook.com accounts?', 'No. Free personal accounts cannot use your own domain properly and will not hold up at volume. What you want is licensed Microsoft 365 with Exchange Online on a domain you control.'],
   ['Why does Microsoft tell me more than Google does?', 'Microsoft writes a filtering score and related notes into the hidden part of the message. Paste it into a header analyser and you get the reason your mail was filtered. Gmail gives you nothing comparable.'],
   ['Packs or an Azure tenant?', 'Under about 1,000 cold emails a day, packs. A failure stays contained to three inboxes. Above that a tenant is dramatically cheaper, and all 100 mailboxes share one reputation, so it rewards discipline and punishes a bad list fast.'],
-  ['Is Entra different from Azure AD?', 'Only the name and the admin screen. Microsoft renamed Azure Active Directory to Entra ID. Nothing about how your email lands changed.'],
+  ['Is Entra different from Azure AD?', 'Only the name and the interface. Microsoft renamed Azure Active Directory to Entra ID. Nothing about how your email lands changed.'],
 ];
 const schema = {
   '@context': 'https://schema.org',
@@ -37,7 +37,7 @@ const schema = {
 
       <h2>Three names, two products</h2>
       <p><strong>Microsoft 365</strong> and <strong>Outlook</strong> inboxes are the same thing. Buyers search both, sellers quote both, and the mailbox underneath is a licensed Exchange Online account either way. Outlook the application is just software for reading mail, and Outlook.com is the free personal service, which is not sending infrastructure.</p>
-      <p><strong>Azure</strong> — and <strong>Entra</strong>, which is the same directory under Microsoft's newer name — is the different product. Instead of buying mailboxes three at a time you get your own tenant holding {tenant.inboxesPerTenant} of them under one admin login. Microsoft licenses that differently, which is why the cost per inbox drops by roughly ten times rather than a few percent.</p>
+      <p><strong>Azure</strong> — and <strong>Entra</strong>, which is the same directory under Microsoft's newer name — is the different product. Instead of buying mailboxes three at a time you get your own tenant holding {tenant.inboxesPerTenant} of them. Microsoft licenses that differently, which is why the cost per inbox drops by roughly ten times rather than a few percent.</p>
 
       <h2>The advantage nobody mentions</h2>
       <p>When Microsoft filters a message to junk, it writes a score and a few related notes into the message headers. Paste those into a header analyser and you get the actual reason — your copy, the sending server, or a record failing a check. Gmail tells you nothing of the kind.</p>
@@ -64,7 +64,7 @@ const schema = {
       </div>
 
       <h2>Before you buy from anyone</h2>
-      <p>Ask how many days the domain aged before its first send, how many days it sent real mail before handover, whether the Exchange admin login is transferred to you, and what the replacement terms are in writing. The full version is in the <a href="/best-prewarmed-inboxes/">buyer's guide</a>.</p>
+      <p>Ask how many days the domain aged before its first send, how many days it sent real mail before handover, and what the replacement terms are in writing. The full version is in the <a href="/best-prewarmed-inboxes/">buyer's guide</a>.</p>
 
       <Faq faqs={faqs} />
 

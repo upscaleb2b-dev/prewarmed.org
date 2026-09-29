@@ -23,7 +23,6 @@
 export const criteria = [
   ['Domain aging', 'Days the domain sits with its records published before the first send. Under 30 and the domain is exposed to an early blocklisting that is very hard to reverse.'],
   ['Warming', 'Days of real sending and receiving before you get it. Age without traffic builds no reputation, and a lot of what is sold as prewarmed is aged only.'],
-  ['Admin access', 'Whether the login that owns the mailboxes is transferred to you. Without it you are renting, and everything stays with the seller the day you stop paying.'],
   ['Domain included', 'Whether the domain costs extra. Paying per domain pushes buyers toward more inboxes on fewer domains, which is the wrong shape.'],
   ['Replacement terms', 'What happens when a domain stops landing, in writing, before you order. Every provider has failures; they differ in how fast they replace.'],
   ['Platforms', 'Google Workspace, Microsoft 365 and Azure tenants behave differently. A provider selling only one cannot match you to your list.'],
@@ -38,10 +37,9 @@ export const providers = [
     checkedOn: '2026-09-16',
     checkedBy: 'owner-supplied site export',
     summary:
-      'The provider this site is operated by. Prewarmed inboxes on domains aged 30 days and warmed 21, with the domain included and admin access transferred.',
+      'The provider this site is operated by. Prewarmed inboxes on domains aged 30 days and warmed 21, with the domain included.',
     agingDays: 30,
     warmingDays: 21,
-    adminAccess: 'full',
     domainIncluded: true,
     replacement: 'Ask for the terms in writing before ordering, from us as much as anyone.',
     platforms: ['Google Workspace', 'Microsoft 365', 'Azure / Entra tenants'],
@@ -58,7 +56,6 @@ export const providers = [
   summary: null,
   agingDays: null,
   warmingDays: null,
-  adminAccess: null,
   domainIncluded: null,
   replacement: null,
   platforms: null,

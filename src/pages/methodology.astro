@@ -14,7 +14,7 @@ import { criteria, unverified } from '../data/providers.js';
   <p>Warm Inboxes is one of the providers this site writes about. Every ranking page here will rank a company we own, and no amount of careful wording changes that. So rather than pretend to a neutrality we do not have, we do three things: publish the criteria before the conclusions, publish the figures that produce them, and never make a claim about a competitor that we have not checked against that competitor's own material.</p>
   <p>If a comparison here favours us on a criterion you think is the wrong criterion, the criterion is the thing to argue with. That is why they are listed before anything is scored.</p>
 
-  <h2>The six criteria</h2>
+  <h2>The criteria</h2>
   <p>These are the things that decide whether an inbox works, in the order they tend to matter. They are not weighted into a single score, because a single score hides exactly the trade-off a buyer needs to see.</p>
   <dl class="crit">
     {criteria.map(([h, b]) => (
@@ -36,10 +36,6 @@ import { criteria, unverified } from '../data/providers.js';
     <li>Write a review of a product nobody here has used, or attribute a quote to a person who did not say it.</li>
     <li>Claim independence. This site is operated by a seller and says so on every page.</li>
   </ul>
-
-  {unverified.length > 0 && (
-    <p class="note"><strong>Current state:</strong> {unverified.length} of the providers listed in the directory have not been checked yet. Their entries show no figures at all rather than placeholder ones, and the live build is blocked until each has a checked date against it.</p>
-  )}
 
   <h2>Why 30 days and 21 days</h2>
   <p>The two numbers this site is built around deserve their own justification. Thirty days of aging exists because a domain that starts sending in its first few days is added to the major blocklists almost immediately, and a listing that early is the hardest kind to reverse. Age is one of the very few signals a sender cannot fake or accelerate.</p>

@@ -4,7 +4,7 @@ import Faq from '../components/Faq.astro';
 import { wi, site } from '../data/site.js';
 import { criteria } from '../data/providers.js';
 const faqs = [
-  ['Which prewarmed inbox provider is best?', 'It depends on which of six things you need most: aging, warming, admin access, an included domain, replacement terms and platform coverage. This page ranks the criteria rather than the companies, because we sell one of the companies.'],
+  ['Which prewarmed inbox provider is best?', 'It depends on which of these you need most: aging, warming, an included domain, replacement terms and platform coverage. This page ranks the criteria rather than the companies, because we sell one of the companies.'],
   ['When should I not buy prewarmed inboxes?', 'When your launch is more than about two months out and you already run warming yourself. Prewarmed buys time and removes setup work. If you have the time and the setup is not a problem for you, you are paying for something you do not need.'],
   ['Is prewarmed just a rebranded aged domain?', 'From some sellers, yes. Aged means old. Prewarmed means aged and then used to send and receive real mail under published authentication. Ask how many days of each, and treat a vague answer as a no.'],
   ['Are the warmup networks real traffic?', 'Warming pools are accounts mailing each other. That is not the same as a customer conversation, and nobody should claim otherwise. What it does do is establish a normal sending pattern before you start, which is what the receiving side is checking for.'],
@@ -28,16 +28,15 @@ const schema = {
       <p class="lede">This page ranks criteria, not companies. We are one of the companies, and a ranking from a seller is worth what you would expect.</p>
       <p class="disclosure">{site.disclosure} The method is on <a href="/methodology/">the methodology page</a>, and the directory of who sells what is at <a href="/providers/">providers</a>.</p>
 
-      <h2>The four questions that settle it</h2>
-      <p>Most of the difference between providers collapses into four answers. Ask them before price comes up, and ask them of every seller in the conversation.</p>
+      <h2>The questions that settle it</h2>
+      <p>Most of the difference between providers collapses into a few answers. Ask them before price comes up, and ask them of every seller in the conversation.</p>
       <ol class="asks">
         <li><strong>How many days was the domain registered before its first send?</strong><span>Under 30 and you are buying a domain that is exposed to an early blocklisting, which is the hardest kind to reverse. This is the step most often skipped, because waiting costs the seller stock turnover.</span></li>
         <li><strong>How many days did it send and receive real mail before I get it?</strong><span>Age alone builds no reputation. A domain registered in 2011 that has never sent anything is an unknown sender. If the answer is a number of days, good. If it is "it's aged", they have answered a different question.</span></li>
-        <li><strong>Do I get the admin login?</strong><span>This is the one that separates a real account from a seat on someone else's. With it you can add addresses, connect your sending tool properly, and take the account with you. Without it, the day you stop paying, everything stays with them.</span></li>
         <li><strong>What are the replacement terms, in writing, before I order?</strong><span>Every provider has domains that stop landing. What differs is what happens next and how fast. A seller who will not put it in writing beforehand will not be better about it afterwards.</span></li>
       </ol>
 
-      <h2>The six criteria, in the order they matter</h2>
+      <h2>The criteria, in the order they matter</h2>
       <dl class="crit">
         {criteria.map(([h, b], i) => (
           <div><dt><span class="n mono">{i + 1}</span>{h}</dt><dd>{b}</dd></div>
@@ -67,7 +66,7 @@ const schema = {
 
       <section class="ours">
         <h2>What we ship, for comparison</h2>
-        <p>So you can run the four questions on us: domains aged 30 days before first send, then 21 days of real sending and receiving; full admin access transferred; the domain included at no cost; Google Workspace, Microsoft 365 and Azure tenants; delivered same day. Replacement terms are available in writing before you order, and you should ask for them.</p>
+        <p>So you can run the questions on us: domains aged 30 days before first send, then 21 days of real sending and receiving; the domain included at no cost; Google Workspace, Microsoft 365 and Azure tenants; delivered same day. Replacement terms are available in writing before you order, and you should ask for them.</p>
         <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'best-prewarmed-inboxes', placement: 'body' })}>Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out what you need →</a></p>
       </section>
 

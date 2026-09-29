@@ -44,7 +44,6 @@ const ships = p.ships ?? [
   'Domain aged **30 days** before first send',
   'Then warmed **21 days** on real traffic',
   'SPF, DKIM, DMARC and MX configured',
-  'Admin access transferred to you',
   'Delivered same day',
 ];
 const parts = (t) => t.split('**').map((chunk, i) => ({ chunk, bold: i % 2 === 1 }));

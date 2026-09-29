@@ -8,7 +8,7 @@ import pricing from '../data/pricing.json';
 const pages = ['prewarmed-google-inboxes', 'fresh-google-inboxes', 'prewarmed-domains'].map((s) => bySlug[s]).filter(Boolean);
 const pre = pricing.products['google-prewarmed'];
 const faqs = [
-  ['Are prewarmed Google inboxes real Workspace accounts?', 'They should be licensed Google Workspace accounts on a tenant you receive Super Admin access to. If a seller cannot confirm that, you are being offered a relay or a shared seat, which is a different product.'],
+  ['Are prewarmed Google inboxes real Workspace accounts?', 'They should be licensed Google Workspace accounts on a domain that has been aged and warmed. If a seller cannot confirm that, you are being offered a relay or a shared seat, which is a different product.'],
   ['How many cold emails a day per Google inbox?', 'We run 15, with three inboxes to a domain. Google publishes a much higher daily cap, but that number is where they stop you, not advice on what is safe.'],
   ['Should I use Google or Microsoft?', 'Whichever matches your list. Most business lists are Google-weighted, which makes Google the default. A list concentrated in large enterprises, finance or government usually is not.'],
   ['Will Google suspend accounts used for cold email?', 'It can, and every provider deals with it. Get the replacement terms in writing before you order rather than after the first suspension.'],
@@ -62,7 +62,7 @@ const schema = {
       </div>
 
       <h2>Before you buy from anyone</h2>
-      <p>Ask how many days the domain was registered before its first send, how many days it sent real mail before handover, whether you get the Super Admin login, and what the replacement terms are in writing. Those four answers separate a real product from a repackaged one. The full version is in the <a href="/best-prewarmed-inboxes/">buyer's guide</a>.</p>
+      <p>Ask how many days the domain was registered before its first send, how many days it sent real mail before handover, and what the replacement terms are in writing. Those answers separate a real product from a repackaged one. The full version is in the <a href="/best-prewarmed-inboxes/">buyer's guide</a>.</p>
 
       <Faq faqs={faqs} />
 
