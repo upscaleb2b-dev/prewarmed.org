@@ -8,6 +8,11 @@ export const site = {
   agencyUrl: 'https://upscaleb2b.com',
   whatsapp: '', // TODO: wa.me link
   correctionsEmail: 'hello@prewarmed.org',
+  // Registered operating entity. Named on the legal pages and in the
+  // Organization schema: Google Ads advertiser verification asks for it, and
+  // a site that will not say who it trades as is one people bounce from.
+  entity: 'Upscale Systems LLC',
+  phone: '', // TODO: same number as warminboxes.com
   // Where the contact form posts. Empty means there is no backend, and the
   // form falls back to composing an email instead of silently failing.
   // Set this to a CRM/webhook/Formspree URL and the form posts JSON to it.
