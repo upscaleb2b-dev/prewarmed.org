@@ -10,7 +10,7 @@ export const products = [
     family: 'prewarmed',
     eyebrow: 'Prewarmed Google inboxes',
     h1: 'Prewarmed Google inboxes, ready to send today',
-    title: 'Prewarmed Google Inboxes for Cold Email — Official Workspace, Same Day',
+    title: 'Prewarmed Google Workspace Inboxes for Cold Email',
     description:
       'Official Google Workspace inboxes, warmed on an aged .com, with DNS configured before handover. Delivered same day.',
     keyword: 'prewarmed google inboxes',
@@ -72,9 +72,9 @@ export const products = [
     family: 'prewarmed',
     eyebrow: 'Prewarmed Microsoft 365 inboxes',
     h1: 'Prewarmed Microsoft 365 inboxes for Outlook-heavy lists',
-    title: 'Prewarmed Microsoft 365 Inboxes for Cold Email — Outlook Ready, Same Day',
+    title: 'Prewarmed Microsoft 365 Inboxes for Cold Email',
     description:
-      'Licensed Microsoft 365 mailboxes, warmed on an aged .com, with authentication configured. Delivered same day.',
+      'Licensed Microsoft 365 mailboxes for cold email, warmed on an aged .com with authentication configured. Delivered same day by Warm Inboxes.',
     keyword: 'prewarmed microsoft 365 inboxes',
     card: 'Licensed Microsoft mailboxes, best for Outlook-heavy lists.',
     subhead:
@@ -132,7 +132,7 @@ export const products = [
     family: 'prewarmed',
     eyebrow: 'Prewarmed Outlook inboxes',
     h1: 'Prewarmed Outlook inboxes for cold email',
-    title: 'Prewarmed Outlook Inboxes for Cold Email — Licensed, Warmed, Same Day',
+    title: 'Prewarmed Outlook Inboxes for Cold Email, Same Day',
     description:
       'Prewarmed Outlook inboxes on licensed Microsoft 365 mailboxes, on an aged domain with authentication configured. Delivered same day.',
     keyword: 'prewarmed outlook inboxes',
@@ -184,7 +184,7 @@ export const products = [
     alt: { lead: 'Start date more than two months out?', slug: 'fresh-azure-inboxes', label: 'A fresh Azure tenant costs less and you run the warming' },
     eyebrow: 'Prewarmed Azure tenants',
     h1: 'Prewarmed Azure inboxes: 100 per tenant, ready to send',
-    title: 'Prewarmed Azure Inboxes — 100-Inbox Tenants, Volume Cold Email Infrastructure',
+    title: 'Prewarmed Azure Inboxes: 100-Mailbox Tenants',
     description:
       'A dedicated prewarmed Azure tenant with 100 Exchange Online mailboxes. Volume infrastructure for agencies and high-send teams.',
     keyword: 'prewarmed azure inboxes',
@@ -246,7 +246,7 @@ export const products = [
     family: 'prewarmed',
     eyebrow: 'Prewarmed Entra tenants',
     h1: 'Prewarmed Entra inboxes (Microsoft Entra ID tenants)',
-    title: 'Prewarmed Entra Inboxes — Microsoft Entra ID Tenants for Cold Email',
+    title: 'Prewarmed Entra Inboxes: Microsoft Entra ID Tenants',
     description:
       'Prewarmed Microsoft Entra ID tenants with 100 Exchange Online mailboxes. What changed from Azure AD, and why it does not affect sending.',
     keyword: 'prewarmed entra inboxes',
@@ -304,7 +304,7 @@ export const products = [
     family: 'prewarmed',
     eyebrow: 'Prewarmed domains',
     h1: 'Prewarmed domains with sending history, not just age',
-    title: 'Prewarmed Domains for Cold Email — Aged 30 Days, Warmed 21, DNS Set',
+    title: 'Prewarmed Domains: Aged 30 Days, Warmed 21',
     description:
       'Prewarmed .com domains aged 30 days and warmed 21 more, with SPF, DKIM, DMARC and MX configured. Included free with every inbox pack.',
     keyword: 'prewarmed domains',
@@ -385,7 +385,7 @@ export const products = [
     family: 'fresh',
     eyebrow: 'Fresh Google inboxes',
     h1: 'Fresh Google Workspace inboxes',
-    title: 'Fresh Google Workspace Inboxes for Cold Email — Licensed, Unwarmed, Same Day',
+    title: 'Fresh Google Workspace Inboxes for Cold Email',
     description:
       'Brand new licensed Google Workspace inboxes with SPF, DKIM and DMARC published. No aging and no warming — you run the 51 days yourself.',
     keyword: 'fresh google inboxes',
@@ -461,7 +461,7 @@ export const products = [
     family: 'fresh',
     eyebrow: 'Fresh Microsoft 365 inboxes',
     h1: 'Fresh Microsoft 365 inboxes you warm yourself',
-    title: 'Fresh Microsoft 365 Inboxes for Cold Email — Licensed, Unwarmed, Same Day',
+    title: 'Fresh Microsoft 365 Inboxes for Cold Email',
     description:
       'Brand new licensed Microsoft 365 mailboxes with authentication published. No aging and no warming — the cheapest way to build capacity ahead of time.',
     keyword: 'fresh microsoft 365 inboxes',
@@ -536,9 +536,9 @@ export const products = [
     alt: { lead: 'Need to send this week?', slug: 'prewarmed-azure-inboxes', label: 'A prewarmed Azure tenant arrives with all 100 mailboxes already warmed' },
     eyebrow: 'Fresh Azure tenants',
     h1: 'Fresh Azure tenants: 100 mailboxes you warm yourself',
-    title: 'Fresh Azure Inboxes — 100-Mailbox Tenants, Unwarmed, Same Day',
+    title: 'Fresh Azure Inboxes: 100-Mailbox Tenants, Unwarmed',
     description:
-      'A dedicated Azure tenant with 100 Exchange Online mailboxes, delivered with no aging and no warming. The cheapest sending capacity there is, and the hardest to bring online.',
+      'A dedicated Azure tenant with 100 Exchange Online mailboxes, delivered unwarmed. The cheapest sending capacity there is, and the hardest to bring online.',
     keyword: 'fresh azure inboxes',
     subhead:
       'Your own Azure account with 100 mailboxes, set up but not warmed. Warming a hundred is a real job — this page is about whether you should.',
@@ -617,7 +617,7 @@ export const products = [
     family: 'fresh',
     eyebrow: 'Fresh domains',
     h1: 'Fresh .com domains, registered clean and handed over',
-    title: 'Fresh .com Domains for Cold Email — $12, Registered Clean, No History',
+    title: 'Fresh .com Domains for Cold Email — $12 Each',
     description:
       'Fresh .com domains registered clean and handed over the same day. No prior use, no blocklist history, no warming. $12 per domain, one-time.',
     keyword: 'fresh domains for cold email',

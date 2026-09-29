@@ -1,8 +1,8 @@
 ---
 import Base from './Base.astro';
-const { title, description, h1, eyebrow, lede, noindex = false } = Astro.props;
+const { title, description, h1, eyebrow, lede, noindex = false, schema = null } = Astro.props;
 ---
-<Base title={title} description={description} noindex={noindex}>
+<Base title={title} description={description} noindex={noindex} schema={schema}>
   <section class="section">
     <div class="wrap simple">
       {eyebrow && <p class="eyebrow">{eyebrow}</p>}

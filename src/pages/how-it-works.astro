@@ -3,6 +3,15 @@ import Simple from '../layouts/Simple.astro';
 import { wi } from '../data/site.js';
 ---
 <Simple
+  schema={{ '@type': 'HowTo', name: 'How a domain is aged and warmed before cold email',
+    description: 'The 51 days before a prewarmed domain is handed over: 30 days of aging, then 21 days of warming.',
+    totalTime: 'P51D',
+    step: [
+      { '@type': 'HowToStep', name: 'Register and publish records', text: 'The domain is registered and SPF, DKIM, DMARC and MX are published, then nothing is sent from it.' },
+      { '@type': 'HowToStep', name: 'Age for 30 days', text: 'The domain sits with its records in place. Age is the one signal a sender cannot fake or accelerate.' },
+      { '@type': 'HowToStep', name: 'Warm for 21 days', text: 'Real email is sent and received on a rising volume so the domain builds a track record.' },
+      { '@type': 'HowToStep', name: 'Hand over', text: 'The domain and inboxes are delivered, ready for cold email on day 51.' },
+    ] }}
   title="How Prewarming Works — 30 Days Aged, 21 Days Warmed"
   description="What happens in the 51 days before a prewarmed domain reaches you: aging, authentication, mailbox creation, warming, placement testing and handover."
   eyebrow="How it works"

@@ -4,7 +4,8 @@ import PricingTable from '../components/PricingTable.astro';
 import { wi, wa } from '../data/site.js';
 import pricing from '../data/pricing.json';
 ---
-<Base title="Prewarmed Inbox & Domain Pricing — Google, Microsoft 365, Azure"
+<Base schema={{ '@type': 'CollectionPage', name: 'Prewarmed inbox and domain pricing', url: 'https://prewarmed.org/pricing/' }}
+      title="Prewarmed Inbox & Domain Pricing"
       description="Pricing for prewarmed Google Workspace, Microsoft 365 and Azure tenant inboxes, plus fresh inboxes and standalone prewarmed domains.">
   <section class="section">
     <div class="wrap" style="max-width:900px">

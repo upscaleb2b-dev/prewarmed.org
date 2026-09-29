@@ -20,14 +20,12 @@ const faqs = [
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
-    { '@type': 'Organization', name: 'prewarmed.org', url: 'https://prewarmed.org/',
-      parentOrganization: { '@type': 'Organization', name: 'Warm Inboxes', url: 'https://warminboxes.com/' } },
     { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
   ],
 };
 ---
 <Base
-  title="Prewarmed Inboxes & Domains for Cold Email | Google, Microsoft 365, Azure"
+  title="Prewarmed Inboxes & Domains for Cold Email | prewarmed.org"
   description="Prewarmed inboxes on Google Workspace, Microsoft 365 or Azure, on a domain aged 30 days and warmed 21 more. DNS configured, delivered same day."
   schema={schema}>
 

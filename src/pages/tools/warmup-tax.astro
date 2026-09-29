@@ -3,6 +3,9 @@ import Base from '../../layouts/Base.astro';
 import { wi } from '../../data/site.js';
 ---
 <Base
+  schema={{ '@type': 'WebApplication', name: 'Warmup Tax Calculator', applicationCategory: 'BusinessApplication',
+    operatingSystem: 'Any', url: 'https://prewarmed.org/tools/warmup-tax/',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' } }}
   title="Warmup Tax Calculator — What Running Your Own 51 Days Costs"
   description="Warming is not a one-time cost. Work out what a 30-day aging plus 21-day warming cycle costs your fleet every year, in sending capacity and emails not sent.">
   <section class="section">

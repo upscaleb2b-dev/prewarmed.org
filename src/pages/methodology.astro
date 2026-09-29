@@ -3,8 +3,8 @@ import Simple from '../layouts/Simple.astro';
 import { site } from '../data/site.js';
 import { criteria, unverified } from '../data/providers.js';
 ---
-<Simple title="Methodology — How prewarmed.org Judges Inbox Providers"
-  description="The criteria this site judges prewarmed inbox providers on, where the numbers come from, what we will not claim, and how we handle the fact that we sell the thing we write about."
+<Simple schema={{ '@type': 'WebPage', name: 'Methodology', url: 'https://prewarmed.org/methodology/', publisher: { '@id': 'https://prewarmed.org/#org' } }} title="Methodology — How prewarmed.org Judges Inbox Providers"
+  description="The criteria this site judges prewarmed inbox providers on, where the numbers come from, and how we handle selling what we write about."
   eyebrow="Methodology" h1="How we judge, and what we will not claim"
   lede="We sell prewarmed inboxes. That does not make a comparison worthless, but it does mean the method has to be checkable.">
 

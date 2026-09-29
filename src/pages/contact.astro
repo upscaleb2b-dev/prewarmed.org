@@ -2,7 +2,7 @@
 import Simple from '../layouts/Simple.astro';
 import { site } from '../data/site.js';
 ---
-<Simple title="Contact — prewarmed.org" description="Talk to an operator about domains, inboxes and sending setup."
+<Simple schema={{ '@type': 'ContactPage', name: 'Contact prewarmed.org', url: 'https://prewarmed.org/contact/' }} title="Contact — prewarmed.org" description="Talk to someone who runs this infrastructure daily about domains, inboxes and sending setup. Replies within one business day."
   eyebrow="Contact" h1="Talk to an operator"
   lede="Tell us the volume you need and what broke last time. Replies within one business day.">
   <form class="f" method="POST" action="/api/lead" name="lead">

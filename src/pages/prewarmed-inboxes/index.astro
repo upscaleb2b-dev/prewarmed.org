@@ -12,7 +12,9 @@ const faqs = [
   ['What if I do not need them for two months?', 'Then buy fresh inboxes and warm them yourself. They cost less because the 51 days have not been spent yet. They are the wrong buy the moment a start date is fixed and close.'],
 ];
 ---
-<Base title="Prewarmed Inboxes for Cold Email — Google, Microsoft 365, Azure, Entra"
+<Base schema={{ '@type': 'CollectionPage', name: 'Prewarmed inboxes for cold email', url: 'https://prewarmed.org/prewarmed-inboxes/',
+    mainEntity: { '@type': 'ItemList', itemListElement: inbox.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.eyebrow, url: `https://prewarmed.org/${p.slug}/` })) } }}
+      title="Prewarmed Inboxes for Cold Email — Every Option"
       description="Prewarmed inboxes on Google Workspace, Microsoft 365, Azure or Entra tenants. Aged 30 days, warmed 21, DNS configured, delivered same day.">
   <section class="section">
     <div class="wrap">
