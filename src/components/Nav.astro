@@ -119,6 +119,34 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
 
 <script is:inline>
   (() => {
+    // Desktop dropdowns. CSS :hover alone loses the menu whenever the cursor
+    // crosses the gap between the nav item and the panel, or travels
+    // diagonally toward a column that is not directly below the item. A short
+    // close delay forgives both, which is what the hand actually does.
+    const items = [...document.querySelectorAll('.links > div.has-menu')];
+    let closeTimer, switchTimer;
+    const openOnly = (el) => { items.forEach((x) => x.classList.toggle('open', x === el)); };
+    const closeAll = () => items.forEach((x) => x.classList.remove('open'));
+    const stop = () => { clearTimeout(closeTimer); clearTimeout(switchTimer); };
+    items.forEach((el) => {
+      el.addEventListener('mouseenter', () => {
+        stop();
+        // The wide panels start at the page gutter, so reaching a column on
+        // the left means crossing the triggers that sit between. Switching
+        // instantly would swap the menu out from under the cursor, so a
+        // different menu has to be dwelt on before it takes over.
+        const somethingOpen = items.some((x) => x.classList.contains('open'));
+        if (somethingOpen && !el.classList.contains('open')) switchTimer = setTimeout(() => openOnly(el), 160);
+        else openOnly(el);
+      });
+      el.addEventListener('mouseleave', () => { stop(); closeTimer = setTimeout(closeAll, 260); });
+      el.addEventListener('focusin', () => { stop(); openOnly(el); });
+      el.addEventListener('focusout', (e) => { if (!el.contains(e.relatedTarget)) el.classList.remove('open'); });
+    });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') { stop(); closeAll(); } });
+  })();
+
+  (() => {
     const btn = document.querySelector('.burger');
     const panel = document.getElementById('m-nav');
     if (!btn || !panel) return;
@@ -155,6 +183,11 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
   }
   .links > div > a:hover, .links > div > a[aria-current] { color: var(--text); background: var(--bg-elev); text-decoration: none; }
   .caret { font-size: 10px; color: var(--text-muted); }
+  /* The panels sit 6px (17px for the wide ones) below the item they hang off.
+     That gap is not part of any hovered element, so the cursor crossing it
+     dropped :hover and the menu vanished before it could be reached. This
+     bridges the gap with an invisible extension of the panel itself. */
+  .menu::before, .mega::before { content: ''; position: absolute; left: 0; right: 0; top: -20px; height: 20px; }
   .menu, .mega { position: absolute; top: calc(100% + 6px); left: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 10px; display: none; box-shadow: 0 12px 32px rgba(0,0,0,.45); }
   .menu { min-width: 220px; flex-direction: column; }
   .menu a { display: block; padding: 9px 12px; border-radius: 6px; font-size: 15px; color: var(--text-2); }
@@ -177,7 +210,9 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
   .mega-promo { margin-top: 18px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .mega-promo p { margin: 0; font-size: 14.5px; color: var(--text-2); }
   .mega-cta { display: flex; align-items: center; gap: 16px; margin-left: auto; font-size: 14px; }
-  .has-menu:hover .menu, .has-menu:hover .mega, .has-menu:focus-within .menu, .has-menu:focus-within .mega { display: flex; }
+  .has-menu:hover .menu, .has-menu:hover .mega,
+  .has-menu:focus-within .menu, .has-menu:focus-within .mega,
+  .has-menu.open .menu, .has-menu.open .mega { display: flex; }
   .mega { flex-direction: column; }
   .nav-cta { display: flex; gap: 10px; align-items: center; }
   .nav-cta .btn { white-space: nowrap; }
