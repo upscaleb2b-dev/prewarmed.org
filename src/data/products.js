@@ -183,30 +183,31 @@ export const products = [
     family: 'prewarmed',
     alt: { lead: 'Start date more than two months out?', slug: 'fresh-azure-inboxes', label: 'A fresh Azure tenant costs less and you run the warming' },
     eyebrow: 'Prewarmed Azure tenants',
-    h1: 'Prewarmed Azure inboxes: 100 per tenant, ready to send',
+    h1: 'Prewarmed Azure inboxes: 25, 49 or 100 per tenant',
     title: 'Prewarmed Azure Inboxes: 100-Mailbox Tenants',
     description:
       'A dedicated prewarmed Azure tenant with 100 Exchange Online mailboxes. Volume infrastructure for agencies and high-send teams.',
     keyword: 'prewarmed azure inboxes',
     card: '100 mailboxes in one account. For high volume.',
     subhead:
-      'Your own Azure account holding 100 warmed mailboxes. Volume sending, at a fraction of the cost per inbox.',
+      'Your own Azure account, warmed and ready. One flat price per tenant — you choose whether to put 25, 49 or 100 mailboxes in it.',
     pricingKey: 'azure-tenant',
     inlineTool: 'inbox-rotation-planner',
     specs: [
       ['Product', 'Dedicated Azure tenant'],
-      ['Mailboxes', '100 per tenant'],
+      ['Mailboxes', '25, 49 or 100 per tenant — your choice'],
+      ['Cost per inbox', '$2.00, $1.02 or $0.50 depending on density'],
       ['Mailbox type', 'Exchange Online, the business version'],
       ['What you get', 'Account ID and the full mailbox list'],
       ['Email records', 'Set up before you get it'],
       ['Suggested volume', '10 to 15 cold emails per mailbox per day'],
-      ['Total capacity', '1,000 to 1,500 cold emails a day, comfortably'],
+      ['Total capacity', 'Up to 1,000-1,500 cold emails a day at 100 mailboxes'],
       ['You get it', 'Same day, business days'],
     ],
     whoFor: [
       ['Agencies running many clients', 'Per-inbox economics change entirely at tenant scale. The same budget buys an order of magnitude more sending surface.'],
       ['Teams sending 1,000+ a day', 'Spreading volume across 100 mailboxes at 10 to 15 each is a fundamentally safer shape than pushing 10 mailboxes at 100.'],
-      ['Operators who already know the risk model', 'All 100 mailboxes share one reputation. This product rewards discipline and punishes a bad list faster than packs do.'],
+      ['Operators who want to price their own risk', 'The tenant costs the same whether you fill it with 25 mailboxes or 100. Density is the dial between cost per inbox and how much one bad week can reach.'],
     ],
     body: [
       {
@@ -225,7 +226,7 @@ export const products = [
       },
       {
         h: 'The risk you are taking on, stated plainly',
-        warn: 'All 100 mailboxes share one reputation. A single unchecked list can damage every one of them at the same time. Clean your list first, start the mailboxes in batches rather than all at once, and never point a new tenant at data you have not verified.',
+        warn: 'Every mailbox in a tenant shares one reputation, so a single unchecked list can damage all of them at once. That is why density is a choice: 25 mailboxes to a tenant costs four times as much per inbox and contains the damage to a quarter as many. Clean your list first either way.',
         p: [
           'If you buy in packs and a domain stops working, you lose three inboxes. With a tenant, something serious can affect all 100 at once. That is the trade you make for the lower price, and anyone selling you a tenant without mentioning it is not doing you a favour.',
           'So run it carefully. Only send to verified lists, start about twenty mailboxes at a time rather than all hundred, and check your bounce rate every day for the first two weeks. Teams who do this keep tenants running for a long time. Teams who treat them as cheap inboxes do not.',
@@ -234,7 +235,7 @@ export const products = [
     ],
     faqs: [
       ['What is an Azure tenant for cold email?', 'Your own Microsoft cloud directory containing 100 Exchange Online mailboxes, delivered prewarmed with DNS configured.'],
-      ['How is this different from Microsoft 365 packs?', 'A pack is three paid mailboxes, and a problem on one domain stays there. A tenant is a hundred mailboxes that all share one reputation, at a far lower cost per inbox.'],
+      ['How is this different from Microsoft 365 packs?', 'A pack is three mailboxes and a problem stays on that domain. A tenant is one flat price holding 25, 49 or 100 mailboxes that share a reputation. At 25 it is $2.00 an inbox with contained risk; at 100 it is $0.50 with all of it in one place.'],
       ['Can I bring my own domains into the tenant?', 'Yes, though a domain you add yourself starts at zero reputation and needs its own aging and warming.'],
       ['How many sends a day can a tenant carry?', 'At our recommended 10 to 15 per mailbox, comfortably 1,000 to 1,500 a day. Higher is possible and increases risk across the whole pool.'],
       ['What happens if the tenant gets flagged?', 'Get the replacement terms in writing before ordering. Tenant-level events are rarer than domain burns but larger when they happen.'],
@@ -554,7 +555,7 @@ export const products = [
     ],
     specs: [
       ['Product', 'Dedicated Azure tenant'],
-      ['Mailboxes', '100 Exchange Online'],
+      ['Mailboxes', '25, 49 or 100 Exchange Online — your choice'],
       ['Warming', 'None. You run it'],
       ['Domain', 'Yours, or add a fresh .com for $12'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
@@ -578,7 +579,7 @@ export const products = [
       },
       {
         h: 'One reputation, and nothing to fall back on',
-        warn: 'All 100 mailboxes share one reputation, and on a fresh tenant none of them have any yet. There is no history to absorb a mistake. A single unverified list in the first month can finish the whole tenant before it has ever landed anything.',
+        warn: 'Every mailbox in a tenant shares one reputation, and on a fresh tenant none of them have any yet. There is no history to absorb a mistake, which is the strongest argument for filling a first tenant with 25 mailboxes rather than 100: the price is the same and a bad first month costs you a quarter as much.',
         p: [
           'When you buy in packs of three and something goes wrong, you lose three inboxes. Here you can lose a hundred at once. That is the trade you make for the cost per inbox, and it is the same trade the prewarmed tenant asks you to make.',
           'The difference is that a prewarmed tenant has already sent and received real mail for three weeks and survived it. A fresh one has proved nothing. You are taking on the concentrated risk and the unproven start at the same time, which is why this is the most advanced thing on the site rather than just the cheapest.',

@@ -50,7 +50,7 @@ const schema = {
       <p>It also means authentication has to be right from the first day rather than fixed later. Every domain we hand over arrives with SPF, DKIM, DMARC and MX published and checked, because three weeks of warming on a broken record is three weeks that did nothing.</p>
 
       <h2>Packs or a tenant</h2>
-      <p>This is the only real decision on the Microsoft side, and it is about risk rather than price. Packs of three keep a failure contained: a domain goes, you lose three inboxes. A tenant is far cheaper per inbox and all {tenant.inboxesPerTenant} mailboxes share one reputation, so a single unverified list can damage every one of them at once.</p>
+      <p>This is the only real decision on the Microsoft side, and it is about risk rather than price. Packs of three keep a failure contained: a domain goes, you lose three inboxes. A tenant is one flat price, and you choose how many mailboxes go in it — 25, 49 or 100. That is ${(tenant.perTenant.quarterly / 25).toFixed(2)}, ${(tenant.perTenant.quarterly / 49).toFixed(2)} or ${(tenant.perTenant.quarterly / 100).toFixed(2)} an inbox, and it is also how much of your fleet one unverified list can reach.</p>
       <p>Under about 1,000 cold emails a day, buy packs — the saving is not worth the concentration. Above it, buy a tenant and run it properly: verified lists only, mailboxes started in batches of about twenty rather than all at once, and bounce rate checked daily for the first fortnight. The two are compared directly in <a href="/compare/azure-tenant-vs-microsoft-365/">Azure tenant vs Microsoft 365 packs</a>.</p>
 
       <div class="grid g3 pages">

@@ -40,7 +40,7 @@ const cfg = {
       per: P['azure-tenant'].inboxesPerTenant,
       prewarmed: P['azure-tenant'].perTenant.quarterly,
       fresh: null, // azure-fresh has no published figure yet
-      note: 'Far cheaper per inbox, and all 100 mailboxes share one reputation. Above about 1,000 sends a day.',
+      note: 'One flat price per tenant holding 25, 49 or 100 mailboxes. Density is the dial between cost per inbox and how much one bad list reaches.',
     },
   },
 };
@@ -212,21 +212,21 @@ const schema = {
   .v-open { background: var(--bg-elev); border-left: 3px solid var(--success, var(--accent)); color: var(--text); }
   .v-shut { background: var(--warning-soft); border-left: 3px solid var(--warning); color: var(--text); }
   .plats { display: grid; gap: 18px; margin-top: 22px; }
-  .plat { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 22px 24px; }
-  .plat-h { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
-  .plat h3 { font-size: 18px; margin: 0; }
-  .units { font-size: 13.5px; color: var(--accent); }
-  .plat .note { font-size: 14px; color: var(--text-muted); margin: 8px 0 18px; }
-  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .plats :global(.plat) { background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 22px 24px; }
+  .plats :global(.plat-h) { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .plats :global(.plat h3) { font-size: 18px; margin: 0; }
+  .plats :global(.units) { font-size: 13.5px; color: var(--accent); }
+  .plats :global(.plat .note) { font-size: 14px; color: var(--text-muted); margin: 8px 0 18px; }
+  .plats :global(.two) { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   @media (max-width: 620px) { .two { grid-template-columns: 1fr; } }
-  .opt { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
-  .opt.win { border-color: var(--accent); }
-  .opt.out { opacity: .5; }
-  .tag { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 10px; }
-  .big { font-size: 26px; color: var(--text); font-weight: 500; margin: 0 0 6px; letter-spacing: -.02em; }
-  .mo { font-size: 14px; color: var(--text-muted); font-weight: 400; }
-  .sub { font-size: 13px; color: var(--text-muted); margin: 0 0 3px; }
-  .sub.when { color: var(--text-2); margin-top: 8px; }
+  .plats :global(.opt) { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
+  .plats :global(.opt.win) { border-color: var(--accent); }
+  .plats :global(.opt.out) { opacity: .5; }
+  .plats :global(.tag) { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 10px; }
+  .plats :global(.big) { font-size: 26px; color: var(--text); font-weight: 500; margin: 0 0 6px; letter-spacing: -.02em; }
+  .plats :global(.mo) { font-size: 14px; color: var(--text-muted); font-weight: 400; }
+  .plats :global(.sub) { font-size: 13px; color: var(--text-muted); margin: 0 0 3px; }
+  .plats :global(.sub.when) { color: var(--text-2); margin-top: 8px; }
   .endcap { margin-top: 26px; display: flex; align-items: center; gap: 20px; flex-wrap: wrap; }
   .endcap p { margin: 0; color: var(--text-2); font-size: 15.5px; }
 </style>

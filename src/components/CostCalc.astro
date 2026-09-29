@@ -30,6 +30,7 @@ const cfg = {
     { id: 'microsoft', label: 'Microsoft 365', shape: 'pack', pre: P['microsoft-prewarmed'].perUnit.quarterly,
       fresh: mid(P['microsoft-fresh'].perUnitRange.quarterly), slug: 'prewarmed-microsoft-365-inboxes' },
     { id: 'azure', label: 'Azure tenant', shape: 'tenant', per: P['azure-tenant'].inboxesPerTenant,
+      densities: P['azure-tenant'].densities,
       pre: P['azure-tenant'].perTenant.quarterly, fresh: null, slug: 'prewarmed-azure-inboxes' },
   ],
 };
@@ -50,7 +51,12 @@ const cfg = {
       <div class="slide">
         <label for="cc-n">Inboxes you need</label>
         <output id="cc-nout" class="mono">15 inboxes</output>
-        <input id="cc-n" type="range" min="3" max="300" step="3" value="15" />
+        <input id="cc-n" type="range" min="3" max="300" step="1" value="15" />
+      </div>
+
+      <div class="dens" id="cc-dens" hidden>
+        <span class="dens-l">Mailboxes per tenant</span>
+        <div class="dens-btns" id="cc-dens-btns"></div>
       </div>
 
       <div class="cards">
@@ -80,6 +86,7 @@ const cfg = {
   const money = (n) => '$' + (n >= 100 ? Math.round(n).toLocaleString('en-US') : n.toFixed(2));
   const num = (n) => Math.round(n).toLocaleString('en-US');
   let active = C.platforms[0];
+  let density = 100;
 
   function render() {
     const n = +$('cc-n').value;
@@ -92,7 +99,7 @@ const cfg = {
 
     const months = C.windowDays / 30;
     const preCost = active.shape === 'tenant'
-      ? Math.ceil(n / active.per) * active.pre * months
+      ? Math.ceil(n / density) * active.pre * months
       : n * active.pre * months;
 
     $('cc-blocked').textContent = num(blocked);
@@ -104,7 +111,7 @@ const cfg = {
       const packK = (n * C.platforms[0].pre * months) / preEmails * 1000;
       const preK = (preCost / preEmails) * 1000;
       const pct = Math.round((1 - preK / packK) * 100);
-      const tenants = Math.ceil(n / active.per);
+      const tenants = Math.ceil(n / density);
       $('cc-fresh').textContent = money(packK);
       $('cc-fresh-l').textContent = 'The same ' + n + ' mailboxes bought as packs of three, per 1,000 sent';
       $('cc-pre').textContent = money(preK);
@@ -112,7 +119,7 @@ const cfg = {
       $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
       $('cc-delta-l').textContent = 'Cheaper per email than packs — with every mailbox sharing one reputation';
       $('cc-say').innerHTML =
-        `${tenants} prewarmed ${tenants === 1 ? 'tenant carries' : 'tenants carry'} ${n} mailboxes for <strong>${money(preCost)}</strong> over 90 days — <strong>${money(preK)} per thousand</strong> against ${money(packK)} on packs. It buys that with concentration: all ${active.per} mailboxes in a tenant share one reputation, so a single unverified list can damage every one at once. Under about 1,000 sends a day, buy packs.`;
+        `At ${density} mailboxes to a tenant, ${n} inboxes need ${tenants} ${tenants === 1 ? 'tenant' : 'tenants'} and cost <strong>${money(preCost)}</strong> over 90 days — <strong>${money(preK)} per thousand</strong> against ${money(packK)} on packs. The tenant price is flat, so density is the dial: every mailbox in a tenant shares one reputation, and at ${density} a bad list reaches ${density} of them at once. Fewer per tenant costs more each and contains the damage.`;
     } else {
       const domains = Math.ceil(n / 3);
       const freshCost = n * active.fresh * months + domains * C.domainOnce;
@@ -131,13 +138,28 @@ const cfg = {
     $('cc-more').href = '/' + active.slug + '/';
   }
 
+  const densWrap = $('cc-dens');
+  function buildDensity() {
+    const show = Array.isArray(active.densities);
+    densWrap.hidden = !show;
+    if (!show) { density = 100; return; }
+    if (!active.densities.some((d) => d.inboxes === density)) density = active.densities[active.densities.length - 1].inboxes;
+    $('cc-dens-btns').innerHTML = active.densities.map((d) =>
+      `<button type="button" class="db${d.inboxes === density ? ' on' : ''}" data-d="${d.inboxes}">${d.inboxes}<span>$${(active.pre / d.inboxes).toFixed(2)}/inbox · ${d.risk.toLowerCase()}</span></button>`).join('');
+    $('cc-dens-btns').querySelectorAll('.db').forEach((b) => b.addEventListener('click', () => {
+      density = +b.dataset.d; buildDensity(); render();
+    }));
+  }
+
   root.querySelectorAll('.tab').forEach((b) => b.addEventListener('click', () => {
     root.querySelectorAll('.tab').forEach((x) => { x.classList.remove('on'); x.setAttribute('aria-selected', 'false'); });
     b.classList.add('on'); b.setAttribute('aria-selected', 'true');
     active = C.platforms.find((p) => p.id === b.dataset.p);
+    buildDensity();
     render();
   }));
   $('cc-n').addEventListener('input', render);
+  buildDensity();
   render();
 })();
 </script>
@@ -155,6 +177,13 @@ const cfg = {
   .slide label { font-size: 13.5px; color: var(--text-2); font-weight: 500; }
   .slide output { font-size: 16px; color: var(--text); font-weight: 500; }
   .slide input { grid-column: 1 / -1; width: 100%; accent-color: var(--accent); height: 22px; }
+  .dens { margin-top: 20px; }
+  .dens-l { display: block; font-size: 13.5px; color: var(--text-2); font-weight: 500; margin-bottom: 8px; }
+  .dens-btns { display: flex; gap: 8px; flex-wrap: wrap; }
+  .dens-btns :global(.db) { flex: 1 1 140px; background: var(--bg-elev); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; cursor: pointer; font-family: inherit; color: var(--text); font-size: 17px; font-weight: 500; text-align: left; }
+  .dens-btns :global(.db span) { display: block; font-size: 11.5px; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
+  .dens-btns :global(.db.on) { border-color: var(--accent); background: var(--accent-soft); color: var(--accent); }
+  .dens-btns :global(.db.on span) { color: var(--text-2); }
   .cards { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-top: 22px; }
   @media (max-width: 560px) { .cards { grid-template-columns: 1fr; } }
   .c { background: var(--bg-elev); border: 1px solid var(--border); border-radius: 10px; padding: 16px 18px; }

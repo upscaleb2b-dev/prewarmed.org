@@ -49,6 +49,20 @@
       "label": "Prewarmed Azure tenant",
       "unit": "tenant",
       "inboxesPerTenant": 100,
+      "densities": [
+        {
+          "inboxes": 25,
+          "risk": "Lowest risk"
+        },
+        {
+          "inboxes": 49,
+          "risk": "Balanced"
+        },
+        {
+          "inboxes": 100,
+          "risk": "Lowest cost per inbox"
+        }
+      ],
       "domainIncluded": true,
       "perTenant": {
         "monthly": 69,
