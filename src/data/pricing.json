@@ -167,6 +167,13 @@
       "price": null,
       "contact": "whatsapp",
       "note": "Sourced individually against your requirement. History checked before anything is handed over. Priced per domain."
+    },
+    "warmup-tool": {
+      "label": "Warmup tool subscription",
+      "unit": "month",
+      "flat": true,
+      "price": 97,
+      "note": "Flat monthly subscription, the tier most teams run (unlimited-warmup plans sit around here). Tools that meter per mailbox cost more at volume and less on a handful of inboxes."
     }
   },
   "policy": {

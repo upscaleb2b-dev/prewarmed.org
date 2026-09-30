@@ -10,9 +10,13 @@
  * months in which no cold email leaves the building. Cost per thousand emails
  * ACTUALLY SENT inverts the comparison, and survives someone checking it.
  *
- * It also deliberately assumes a warming-tool fee of zero, which flatters
- * fresh. The conclusion holds anyway, and an assumption that favours the other
- * side is the only kind worth publishing.
+ * The fresh column now carries a warming-tool subscription, because fresh
+ * inboxes cannot warm themselves and that bill is real. Two choices keep it
+ * conservative rather than self-serving: it is charged as a flat monthly fee
+ * (tools that meter per mailbox cost far more at volume), and only for the
+ * WARMING WINDOW, not the whole 90 days, although most teams leave it running.
+ * Both choices favour the fresh column, which is the only kind of assumption
+ * worth publishing when you sell the other one.
  */
 import { wi } from '../data/site.js';
 import pricing from '../data/pricing.json';
@@ -25,6 +29,7 @@ const cfg = {
   readyDays: 51,
   windowDays: 90,
   domainOnce: P['domain-fresh'].price,
+  warmupMonthly: P['warmup-tool'].price,
   platforms: [
     { id: 'google', label: 'Google Workspace', shape: 'pack', pre: P['google-prewarmed'].perUnit.quarterly,
       fresh: mid(P['google-fresh'].perUnitRange.quarterly), slug: 'prewarmed-google-inboxes' },
@@ -73,10 +78,10 @@ const cfg = {
 
       <div class="cta">
         <a class="btn btn-primary btn-lg" id="cc-cta" href={wi('/', { page: 'cost-calculator', placement: 'result' })}>Get prewarmed inboxes</a>
-        <Handoff />
         <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a>
       </div>
-      <p class="foot">Assumes {cfg.perDay} cold emails per inbox per day, three inboxes to a domain, and <strong>no warming-tool fee at all</strong> — which flatters the fresh column. Fresh also buys its own domains at ${cfg.domainOnce}; prewarmed includes them.</p>
+      <Handoff />
+      <p class="foot">Assumes {cfg.perDay} cold emails per inbox per day and three inboxes to a domain. Fresh carries a <strong>${cfg.warmupMonthly} a month</strong> warming tool, charged as a flat fee for the {cfg.readyDays} warming days only — most teams leave it running longer, and tools that charge per mailbox cost more than this at volume. Fresh also buys its own domains at ${cfg.domainOnce}; prewarmed includes them and needs no warming tool.</p>
     </div>
   </div>
 </section>
@@ -102,6 +107,8 @@ const cfg = {
     const freshEmails = n * C.perDay * sendDays;
 
     const months = C.windowDays / 30;
+    // Fresh has to warm itself. Charged for the warming window only.
+    const warmup = C.warmupMonthly * (C.readyDays / 30);
     const preCost = active.shape === 'tenant'
       ? Math.ceil(n / density) * active.pre * months
       : n * active.pre * months;
@@ -113,7 +120,7 @@ const cfg = {
       // is not available here. The comparison that IS real at this volume is a
       // tenant against the same mailboxes bought as packs.
       const tenants = Math.ceil(n / density);
-      const freshCost = tenants * active.fresh * months + tenants * C.domainOnce;
+      const freshCost = tenants * active.fresh * months + tenants * C.domainOnce + warmup;
       const preK = (preCost / preEmails) * 1000;
       const freshK = (freshCost / freshEmails) * 1000;
       const pct = Math.round((1 - preK / freshK) * 100);
@@ -124,10 +131,10 @@ const cfg = {
       $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
       $('cc-delta-l').textContent = 'Cheaper per email delivered — at a quarterly commit both cost the same per tenant';
       $('cc-say').innerHTML =
-        `Both tenants cost <strong>${money(active.fresh)}</strong> each on a three-month commit, so at ${density} mailboxes to a tenant your ${n} inboxes cost <strong>${money(preCost)}</strong> either way — except the prewarmed one sends for all 90 days and the fresh one for ${C.windowDays - C.readyDays}. That is <strong>${money(preK)} per thousand against ${money(freshK)}</strong>. Paying the same money to wait ${C.readyDays} days is the whole decision.`;
+        `Both tenants cost <strong>${money(active.fresh)}</strong> each on a three-month commit, so at ${density} mailboxes to a tenant your ${n} inboxes cost <strong>${money(preCost)}</strong> either way — except the prewarmed one sends for all 90 days and the fresh one for ${C.windowDays - C.readyDays}. That is <strong>${money(preK)} per thousand against ${money(freshK)}</strong>, once the fresh side pays <strong>${money(warmup)}</strong> to warm itself. Paying the same money to wait ${C.readyDays} days is the whole decision.`;
     } else {
       const domains = Math.ceil(n / 3);
-      const freshCost = n * active.fresh * months + domains * C.domainOnce;
+      const freshCost = n * active.fresh * months + domains * C.domainOnce + warmup;
       const preK = (preCost / preEmails) * 1000;
       const freshK = (freshCost / freshEmails) * 1000;
       const pct = Math.round((1 - preK / freshK) * 100);
@@ -138,7 +145,7 @@ const cfg = {
       $('cc-delta-l').textContent = 'Cheaper per email delivered, because nothing is spent waiting';
       $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
       $('cc-say').innerHTML =
-        `Over 90 days, ${n} fresh ${active.label} inboxes cost <strong>${money(freshCost)}</strong> and deliver ${num(freshEmails)} cold emails, because the first ${C.readyDays} days are spent aging and warming. The same ${n} prewarmed inboxes cost <strong>${money(preCost)}</strong> and deliver ${num(preEmails)}, sending from the day they arrive — <strong>${money(preK)} per thousand against ${money(freshK)}</strong>.`;
+        `Over 90 days, ${n} fresh ${active.label} inboxes cost <strong>${money(freshCost)}</strong> — mailboxes, domains and <strong>${money(warmup)}</strong> of warming tool — and deliver ${num(freshEmails)} cold emails, because the first ${C.readyDays} days are spent aging and warming. The same ${n} prewarmed inboxes cost <strong>${money(preCost)}</strong> and deliver ${num(preEmails)}, sending from the day they arrive — <strong>${money(preK)} per thousand against ${money(freshK)}</strong>.`;
     }
     $('cc-more').href = '/' + active.slug + '/';
   }
