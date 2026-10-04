@@ -73,7 +73,7 @@ const schema = {
       <div class="grid g3" style="margin-top:28px">
         {products.filter((p) => ['prewarmed-google-inboxes','prewarmed-microsoft-365-inboxes','prewarmed-azure-inboxes'].includes(p.slug)).map((p) => (
           <a class="card pick" href={`/${p.slug}/`}>
-            <h3><ProviderMark provider={p.slug.includes('google') ? 'google' : 'microsoft'} />{p.eyebrow}</h3>
+            <h3><ProviderMark provider={p.slug.includes('google') ? 'google' : p.slug.includes('azure') ? 'azure' : 'microsoft'} />{p.eyebrow}</h3>
             <p class="muted">{p.card ?? p.description}</p>
             <span class="more">View →</span>
           </a>

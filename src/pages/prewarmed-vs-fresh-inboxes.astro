@@ -38,7 +38,7 @@ const schema = {
             <tr><td>SPF, DKIM, DMARC and MX</td><td class="yes">Set before handover</td><td class="yes">Set before handover</td></tr>
             <tr><td>Warming tool</td><td class="yes">None needed</td><td class="no">Extra, per mailbox per month</td></tr>
             <tr><td>Placement tested before you get it</td><td class="yes">Yes</td><td class="no">No</td></tr>
-            <tr><td>Per inbox per month</td><td>${g.perUnit.quarterly}</td><td class="yes">${gf.perUnitRange.quarterly[0].toFixed(2)}–${gf.perUnitRange.quarterly[1].toFixed(2)}</td></tr>
+            <tr><td>Per inbox per month</td><td>${g.perUnit.quarterly}</td><td class="yes">${gf.perUnit.monthly.toFixed(2)}, monthly only</td></tr>
           </tbody>
         </table>
       </div>

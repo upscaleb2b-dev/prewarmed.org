@@ -23,7 +23,7 @@ const cfg = {
       shape: 'packs',
       packSize: P['google-prewarmed'].packSize,
       prewarmed: P['google-prewarmed'].perUnit.quarterly,
-      fresh: P['google-fresh'].perUnitRange.quarterly,
+      fresh: P['google-fresh'].perUnit.monthly,
       note: 'Best when most of the people you email are on Gmail or Google Workspace, which is most business lists.',
     },
     microsoft: {
@@ -31,7 +31,7 @@ const cfg = {
       shape: 'packs',
       packSize: P['microsoft-prewarmed'].packSize,
       prewarmed: P['microsoft-prewarmed'].perUnit.quarterly,
-      fresh: P['microsoft-fresh'].perUnitRange.quarterly,
+      fresh: P['microsoft-fresh'].perUnit.monthly,
       note: 'Best when your list is Microsoft-heavy, and the only platform that tells you why a message was filtered.',
     },
     azure: {
@@ -39,7 +39,7 @@ const cfg = {
       shape: 'tenant',
       per: P['azure-tenant'].inboxesPerTenant,
       prewarmed: P['azure-tenant'].perTenant.quarterly,
-      fresh: P['azure-fresh'].perTenant.quarterly, freshPerTenant: true,
+      fresh: P['azure-fresh'].perTenant.monthly, freshPerTenant: true,
       note: 'One flat price per tenant holding 25, 49 or 100 mailboxes. Density is the dial between cost per inbox and how much one bad list reaches.',
     },
   },
@@ -165,9 +165,8 @@ const schema = {
           <p class="sub">${units} tenant${units === 1 ? '' : 's'} at ${money(p.fresh)}, plus ${money(units * C.domainFresh)} once for domains</p>
           <p class="sub when">Ready to send in ${days} days</p>`;
       } else {
-        const lo = inboxes * p.fresh[0] + inboxes * warmCost;
-        const hi = inboxes * p.fresh[1] + inboxes * warmCost;
-        freshBlock = `<p class="big mono">${money(lo)}${hi > lo ? '–' + money(hi) : ''}<span class="mo">/mo</span></p>
+        const fc = inboxes * p.fresh + inboxes * warmCost;
+        freshBlock = `<p class="big mono">${money(fc)}<span class="mo">/mo</span></p>
           <p class="sub">plus ${money(domains * C.domainFresh)} once for ${domains} domain${domains === 1 ? '' : 's'}${warmCost > 0 ? `, warming tool included above` : ''}</p>
           <p class="sub when">Ready to send in ${days} days</p>`;
       }

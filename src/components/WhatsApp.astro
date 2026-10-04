@@ -1,0 +1,21 @@
+---
+/**
+ * WhatsApp button. wa() falls back to /contact/ if site.whatsapp is ever
+ * cleared, so this never ships as a dead link.
+ */
+import { wa } from '../data/site.js';
+const { message = '', label = 'Chat on WhatsApp', variant = 'ghost' } = Astro.props;
+---
+<a class={`wa btn btn-${variant}`} href={wa(message)} target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
+    <path fill="currentColor" d="M17.47 14.38c-.3-.15-1.75-.86-2.02-.96-.27-.1-.47-.15-.67.15-.2.3-.77.96-.95 1.16-.17.2-.35.22-.65.08-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.48-1.75-1.65-2.05-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.17.2-.3.3-.5.1-.2.05-.37-.02-.52-.08-.15-.67-1.6-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.8.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.22 3.08c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.69.63.71.22 1.36.19 1.87.12.57-.09 1.75-.72 2-1.41.25-.69.25-1.28.17-1.4-.07-.13-.27-.2-.57-.35M12.04 21.5h-.01a9.5 9.5 0 0 1-4.84-1.33l-.35-.2-3.6.94.96-3.5-.23-.36a9.47 9.47 0 0 1-1.45-5.06c0-5.24 4.27-9.5 9.52-9.5a9.46 9.46 0 0 1 6.72 2.79 9.43 9.43 0 0 1 2.79 6.72c0 5.24-4.27 9.5-9.51 9.5M20.52 3.48A11.4 11.4 0 0 0 12.04 0C5.72 0 .58 5.14.58 11.46c0 2.02.53 3.99 1.53 5.73L.48 24l6.95-1.82a11.4 11.4 0 0 0 5.6 1.43h.01c6.32 0 11.46-5.14 11.46-11.46 0-3.06-1.19-5.94-3.36-8.11" />
+  </svg>
+  <span>{label}</span>
+</a>
+
+<style>
+  .wa { display: inline-flex; align-items: center; gap: 9px; min-height: 44px; }
+  .wa svg { flex: none; color: #25D366; }
+  /* On the solid orange button the brand green goes muddy; inherit instead. */
+  .wa.btn-primary svg { color: currentColor; }
+</style>

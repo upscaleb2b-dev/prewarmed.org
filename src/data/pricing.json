@@ -80,19 +80,9 @@
       "unit": "inbox",
       "packSize": 3,
       "domainIncluded": false,
-      "perUnitRange": {
-        "monthly": [
-          3.0,
-          3.5
-        ],
-        "two-month": [
-          3.0,
-          3.5
-        ],
-        "quarterly": [
-          3.0,
-          3.5
-        ]
+      "monthlyOnly": true,
+      "perUnit": {
+        "monthly": 3.0
       }
     },
     "microsoft-fresh": {
@@ -100,19 +90,9 @@
       "unit": "inbox",
       "packSize": 3,
       "domainIncluded": false,
-      "perUnitRange": {
-        "monthly": [
-          2.0,
-          3.0
-        ],
-        "two-month": [
-          2.0,
-          3.0
-        ],
-        "quarterly": [
-          2.0,
-          3.0
-        ]
+      "monthlyOnly": true,
+      "perUnit": {
+        "monthly": 3.0
       }
     },
     "azure-fresh": {
@@ -135,16 +115,13 @@
       ],
       "domainIncluded": false,
       "perTenant": {
-        "monthly": 50,
-        "two-month": 50,
-        "quarterly": 50
+        "monthly": 50
       },
       "perInbox": {
-        "monthly": 0.5,
-        "two-month": 0.5,
-        "quarterly": 0.5
+        "monthly": 0.5
       },
-      "note": "Flat per tenant, unwarmed. No aging, no warming, no domain."
+      "note": "Flat per tenant, unwarmed. No aging, no warming, no domain.",
+      "monthlyOnly": true
     },
     "domain-fresh": {
       "label": "Fresh .com domain",
@@ -185,6 +162,7 @@
   "policy": {
     "refunds": "No refunds. State this plainly on /refund-policy/ — hiding it is both an Ads disapproval risk and a chargeback risk.",
     "nonComFrom": 4.5,
-    "delivery": "Same day on business days"
+    "delivery": "Same day on business days",
+    "priceMatch": "If another provider quotes you less for the same thing, send us the quote and we will match it."
   }
 }

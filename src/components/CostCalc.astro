@@ -23,7 +23,6 @@ import pricing from '../data/pricing.json';
 import Handoff from './Handoff.astro';
 
 const P = pricing.products;
-const mid = (r) => (r[0] + r[1]) / 2;
 const cfg = {
   perDay: 15,
   readyDays: 51,
@@ -32,14 +31,14 @@ const cfg = {
   warmupMonthly: P['warmup-tool'].price,
   platforms: [
     { id: 'google', label: 'Google Workspace', shape: 'pack', pre: P['google-prewarmed'].perUnit.quarterly,
-      fresh: mid(P['google-fresh'].perUnitRange.quarterly), slug: 'prewarmed-google-inboxes' },
+      fresh: P['google-fresh'].perUnit.monthly, slug: 'prewarmed-google-inboxes' },
     { id: 'microsoft', label: 'Microsoft 365', shape: 'pack', pre: P['microsoft-prewarmed'].perUnit.quarterly,
-      fresh: mid(P['microsoft-fresh'].perUnitRange.quarterly), slug: 'prewarmed-microsoft-365-inboxes' },
+      fresh: P['microsoft-fresh'].perUnit.monthly, slug: 'prewarmed-microsoft-365-inboxes' },
     { id: 'azure', label: 'Azure tenant', shape: 'tenant', per: P['azure-tenant'].inboxesPerTenant,
       densities: P['azure-tenant'].densities,
       pre: P['azure-tenant'].perTenant.quarterly,
       preMonthly: P['azure-tenant'].perTenant.monthly,
-      fresh: P['azure-fresh'].perTenant.quarterly, freshPerTenant: true, slug: 'prewarmed-azure-inboxes' },
+      fresh: P['azure-fresh'].perTenant.monthly, freshPerTenant: true, slug: 'prewarmed-azure-inboxes' },
   ],
 };
 ---

@@ -5,12 +5,11 @@
  * Inline SVG rather than image files: the site ships no external assets on
  * these pages and a 20px logo is not worth a request or a layout shift.
  *
- * Only marks that can be rendered accurately are here. Google's geometry is
- * the Simple Icons path (CC0). Microsoft's four-square is an exact
- * construction — four equal squares on a 23-unit grid in the official brand
- * colours. Azure reuses the Microsoft mark because Azure is a Microsoft
- * product and no accurate Azure glyph was available to copy; inventing an
- * approximation of a trademark is worse than reusing the parent mark.
+ * Every mark is the authentic geometry, never an approximation: Google from
+ * the Simple Icons path, Microsoft's four-square as an exact construction on
+ * a 23-unit grid in the official brand colours, and Azure's gradient glyph
+ * from the Iconify logos set. Azure's gradients need ids, and two copies on
+ * one page would collide, so each instance namespaces its own.
  *
  * prewarmed.org is not affiliated with or endorsed by Google or Microsoft —
  * site.trademark says so in the footer, and these marks identify the product
@@ -18,9 +17,23 @@
  */
 const { provider, size = 20 } = Astro.props;
 const GOOGLE = 'M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z';
-const label = provider === 'google' ? 'Google' : 'Microsoft';
+const label = provider === 'google' ? 'Google' : provider === 'azure' ? 'Microsoft Azure' : 'Microsoft';
+// Unique per instance so repeated Azure marks cannot share gradient ids.
+const uid = Math.random().toString(36).slice(2, 9);
 ---
-{provider === 'google' ? (
+{provider === 'azure' ? (
+  <svg class="pm" height={size} width={Math.round(size * 256 / 242)} viewBox="0 0 256 242" role="img" aria-label={label} focusable="false">
+    <defs>
+      <linearGradient id={`az-a-${uid}`} x1="58.972%" x2="37.191%" y1="7.411%" y2="103.762%"><stop offset="0%" stop-color="#114a8b" /><stop offset="100%" stop-color="#0669bc" /></linearGradient>
+      <linearGradient id={`az-b-${uid}`} x1="59.719%" x2="52.691%" y1="52.313%" y2="54.864%"><stop offset="0%" stop-opacity=".3" /><stop offset="7.1%" stop-opacity=".2" /><stop offset="32.1%" stop-opacity=".1" /><stop offset="62.3%" stop-opacity=".05" /><stop offset="100%" stop-opacity="0" /></linearGradient>
+      <linearGradient id={`az-c-${uid}`} x1="37.279%" x2="62.473%" y1="4.6%" y2="99.979%"><stop offset="0%" stop-color="#3ccbf4" /><stop offset="100%" stop-color="#2892df" /></linearGradient>
+    </defs>
+    <path fill={`url(#az-a-${uid})`} d="M85.343.003h75.753L82.457 233a12.08 12.08 0 0 1-11.442 8.216H12.06A12.06 12.06 0 0 1 .633 225.303L73.898 8.219A12.08 12.08 0 0 1 85.343 0z" />
+    <path fill="#0078d4" d="M195.423 156.282H75.297a5.56 5.56 0 0 0-3.796 9.627l77.19 72.047a12.14 12.14 0 0 0 8.28 3.26h68.02z" />
+    <path fill={`url(#az-b-${uid})`} d="M85.343.003a11.98 11.98 0 0 0-11.471 8.376L.723 225.105a12.045 12.045 0 0 0 11.37 16.112h60.475a12.93 12.93 0 0 0 9.921-8.437l14.588-42.991l52.105 48.6a12.33 12.33 0 0 0 7.757 2.828h67.766l-29.721-84.935l-86.643.02L161.37.003z" />
+    <path fill={`url(#az-c-${uid})`} d="M182.098 8.207A12.06 12.06 0 0 0 170.67.003H86.245c5.175 0 9.773 3.301 11.428 8.204L170.94 225.3a12.062 12.062 0 0 1-11.428 15.92h84.429a12.062 12.062 0 0 0 11.425-15.92z" />
+  </svg>
+) : provider === 'google' ? (
   <svg class="pm" width={size} height={size} viewBox="0 0 24 24" role="img" aria-label={label} focusable="false">
     <path d={GOOGLE} fill="#4285F4" />
   </svg>
