@@ -33,6 +33,17 @@ export const site = {
      * gtag decorates outbound links to these hosts with _gl.
      */
     linkDomains: ['warminboxes.com', 'upscaleb2b.com'],
+    /**
+     * Extra GA4 properties configured alongside ga4 on every page.
+     *
+     * GA4 stitches a journey only inside ONE property, and the sale happens
+     * on warminboxes.com, so its property has to see this side too or the
+     * funnel is split in half with no way to join it. Firing both ids keeps
+     * ga4 above as the clean prewarmed.org-only property for content and SEO,
+     * while the Warm Inboxes property gets the whole path through to the
+     * order. Cross-domain must list both domains in that property as well.
+     */
+    ga4Extra: ['G-E7DJJB6E4D'],
   },
   // One line, every page footer. Ads policy and buyer trust both need it.
   disclosure:

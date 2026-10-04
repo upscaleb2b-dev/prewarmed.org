@@ -90,6 +90,7 @@ const graph = {
           window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
           gtag('js',new Date());
           ${site.analytics.ga4 ? `gtag('config','${site.analytics.ga4}',{linker:{domains:${JSON.stringify(site.analytics.linkDomains ?? [])}}});` : ''}
+          ${(site.analytics.ga4Extra ?? []).map((id) => `gtag('config','${id}',{linker:{domains:${JSON.stringify(site.analytics.linkDomains ?? [])}}});`).join('\n          ')}
           ${site.analytics.adsId ? `gtag('config','${site.analytics.adsId}');` : ''}
         `} />
         <script is:inline set:html={`
