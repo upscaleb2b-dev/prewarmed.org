@@ -8,6 +8,7 @@ import { site, wi } from '../data/site.js';
 import pricing from '../data/pricing.json';
 import tools from '../data/tools.json';
 import Handoff from '../components/Handoff.astro';
+import ProviderMark from '../components/ProviderMark.astro';
 
 const liveTools = tools.tools.filter((t) => t.live).length;
 const faqs = [
@@ -59,6 +60,10 @@ const schema = {
         <div class="card"><h3>21 days of warming</h3><p class="muted">Three weeks of real emails sent and replied to, so the domain has a track record.</p></div>
         <div class="card"><h3>Ready the same day</h3><p class="muted">You get the logins within hours. The 51 days of waiting already happened.</p></div>
       </div>
+      <div class="means-cta">
+        <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'what-prewarmed-means' })}>Get prewarmed inboxes</a>
+        <Handoff />
+      </div>
     </div>
   </section>
 
@@ -68,7 +73,7 @@ const schema = {
       <div class="grid g3" style="margin-top:28px">
         {products.filter((p) => ['prewarmed-google-inboxes','prewarmed-microsoft-365-inboxes','prewarmed-azure-inboxes'].includes(p.slug)).map((p) => (
           <a class="card pick" href={`/${p.slug}/`}>
-            <h3>{p.eyebrow}</h3>
+            <h3><ProviderMark provider={p.slug.includes('google') ? 'google' : 'microsoft'} />{p.eyebrow}</h3>
             <p class="muted">{p.card ?? p.description}</p>
             <span class="more">View →</span>
           </a>
@@ -95,7 +100,7 @@ const schema = {
           <tbody>
             <tr><td>How soon you can send</td><td class="yes">Same day</td><td>21 days on a domain you already use, 51 on a new one</td><td>51 days</td></tr>
             <tr><td>Domain age on day one</td><td class="yes">30 days +</td><td>Whatever yours already is</td><td>0 days</td></tr>
-            <tr><td>What you pay for the mailbox</td><td class="yes">Reseller rate</td><td class="yes">Reseller rate</td><td class="no">Retail list price</td></tr>
+            <tr><td>What you pay for the mailbox</td><td class="yes">Reseller rate</td><td class="yes">Reseller rate</td><td class="no">Retail list price (${pricing.products['retail-list'].price.toFixed(2)})</td></tr>
             <tr><td>Cost of a warmup tool</td><td class="yes">None</td><td class="no">From ${pricing.products['warmup-tool'].price} a month</td><td class="no">From ${pricing.products['warmup-tool'].price} a month</td></tr>
             <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No</td><td class="no">No</td></tr>
             <tr><td>SPF, DKIM and DMARC set up</td><td class="yes">Before handover</td><td class="yes">Before handover</td><td class="no">You</td></tr>
@@ -130,6 +135,11 @@ const schema = {
 </Base>
 
 <style>
+  .means-cta { margin-top: 30px; }
+  /* flex-start, not center: the Microsoft title wraps to two lines and the
+     mark should sit against the first one. */
+  .pick h3 { display: flex; align-items: flex-start; gap: 9px; }
+  .pick h3 :global(.pm) { margin-top: 2px; }
   .hero { padding-block: clamp(48px, 7vw, 84px) clamp(40px, 5vw, 64px); }
   .hero h1 { margin: 14px 0 22px; }
   .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 30px 0 0; }

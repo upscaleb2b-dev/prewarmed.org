@@ -1,0 +1,38 @@
+---
+/**
+ * Small provider mark for the product cards.
+ *
+ * Inline SVG rather than image files: the site ships no external assets on
+ * these pages and a 20px logo is not worth a request or a layout shift.
+ *
+ * Only marks that can be rendered accurately are here. Google's geometry is
+ * the Simple Icons path (CC0). Microsoft's four-square is an exact
+ * construction — four equal squares on a 23-unit grid in the official brand
+ * colours. Azure reuses the Microsoft mark because Azure is a Microsoft
+ * product and no accurate Azure glyph was available to copy; inventing an
+ * approximation of a trademark is worse than reusing the parent mark.
+ *
+ * prewarmed.org is not affiliated with or endorsed by Google or Microsoft —
+ * site.trademark says so in the footer, and these marks identify the product
+ * being sold rather than claiming any partnership.
+ */
+const { provider, size = 20 } = Astro.props;
+const GOOGLE = 'M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z';
+const label = provider === 'google' ? 'Google' : 'Microsoft';
+---
+{provider === 'google' ? (
+  <svg class="pm" width={size} height={size} viewBox="0 0 24 24" role="img" aria-label={label} focusable="false">
+    <path d={GOOGLE} fill="#4285F4" />
+  </svg>
+) : (
+  <svg class="pm" width={size} height={size} viewBox="0 0 23 23" role="img" aria-label={label} focusable="false">
+    <rect x="1"  y="1"  width="10" height="10" fill="#F25022" />
+    <rect x="12" y="1"  width="10" height="10" fill="#7FBA00" />
+    <rect x="1"  y="12" width="10" height="10" fill="#00A4EF" />
+    <rect x="12" y="12" width="10" height="10" fill="#FFB900" />
+  </svg>
+)}
+
+<style>
+  .pm { display: block; flex: none; }
+</style>
