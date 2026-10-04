@@ -1,0 +1,45 @@
+---
+/**
+ * Client reviews. Named people with roles, from warminboxes.com/reviews.
+ *
+ * A quote flagged `summary` is a review's title rather than a sentence the
+ * person said, so it renders without quotation marks — putting speech marks
+ * round "How Eleon Acquisition runs cold email" would be inventing a quote.
+ */
+import { testimonials, featured, totalReviews } from '../data/testimonials.js';
+import { wi } from '../data/site.js';
+const { limit = 6, heading = 'What operators running this infrastructure say', page = 'site', pick = 'featured' } = Astro.props;
+const list = (pick === 'featured' ? featured : testimonials).slice(0, limit);
+---
+<section class="tst">
+  <div class="wrap">
+    <h2>{heading}</h2>
+    <p class="sub">
+      {totalReviews} named video reviews are published on
+      <a href={wi('/reviews', { page, placement: 'testimonials' })} target="_blank" rel="noopener">the Warm Inboxes reviews page <span class="ext" aria-hidden="true">↗</span></a>,
+      who fulfil every order placed here.
+    </p>
+    <div class="tgrid">
+      {list.map((t) => (
+        <figure class="t">
+          <blockquote>{t.summary ? t.quote : `“${t.quote}”`}</blockquote>
+          <figcaption><b>{t.name}</b><span>{t.role}</span></figcaption>
+        </figure>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .tst { padding-block: 60px; }
+  .tst h2 { margin: 0 0 12px; }
+  .sub { color: var(--text-2); margin: 0 0 28px; max-width: 62ch; font-size: 16px; }
+  .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  @media (max-width: 900px) { .tgrid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .tgrid { grid-template-columns: 1fr; } }
+  .t { margin: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
+  .t blockquote { margin: 0; font-size: 16px; line-height: 1.55; color: var(--text); }
+  .t figcaption { margin-top: auto; font-size: 13.5px; line-height: 1.45; }
+  .t figcaption b { display: block; color: var(--text); font-weight: 600; }
+  .t figcaption span { color: var(--text-muted); }
+</style>

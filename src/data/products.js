@@ -56,6 +56,38 @@ export const products = [
           'We suggest 15 cold emails per inbox per day as a steady rate, with three inboxes on each domain. That is deliberately cautious. It is also the setup that keeps working, and staying alive is the only thing that matters when replacing a domain costs you a month of meetings.',
         ],
       },
+          {
+        h: 'What the first thirty days should actually look like',
+        p: [
+          'A prewarmed inbox arrives with reputation, not immunity. The domain has sent and received real mail for twenty-one days, so Gmail already has a file on it — but that file records a quiet, well-behaved sender. Open at two hundred a day and you have not used the reputation, you have contradicted it.',
+          'Week one: ten to fifteen a day per inbox, which on three inboxes is thirty to forty-five. Week two: hold. Week three: step up only if replies are coming and bounces stay under two per cent. Week four onward: fifteen a day per inbox, indefinitely. That is not a ramp toward a bigger number. Fifteen is the number.',
+          'The teams who burn prewarmed domains almost never do it through volume alone. They do it by pairing a sudden volume jump with a list they have not verified, which produces a bounce spike on a domain with three weeks of history and no tolerance built up yet.',
+        ],
+      },
+      {
+        h: 'Connecting to your sequencer without undoing the warming',
+        p: [
+          'Every sequencer ships with defaults set for a mature domain, and every one of them will happily send far more than fifteen a day from a brand new connection. Change the per-inbox daily cap before the first send, not after the first week.',
+          'Turn the sequencer\'s own warmup off on these inboxes. It is built to create sending history where none exists, and there already is history here — history built on real traffic rather than on a pool of accounts emailing each other. Running a warmup network on top of it adds the exact fingerprint the twenty-one days were spent avoiding.',
+          'Set a minimum gap between sends, enable the sequencer\'s bounce protection, and connect over OAuth where the tool supports it. An app password works and is sometimes the only option, but OAuth survives security-policy changes that quietly break app passwords mid-campaign.',
+        ],
+      },
+      {
+        h: 'What to check in week one',
+        p: [
+          'Three things, in order, and all three are free. First, confirm the records resolve from outside your network rather than trusting the handover note — a record that was right at handover can be broken by a nameserver change you made afterwards.',
+          'Second, check the domain against the major blocklists before volume goes up, not after replies dry up. A listing acquired in week one is cheap to fix and expensive to discover in week four.',
+          'Third, send one message to an address you control on a different platform and read the full headers. You are looking for SPF, DKIM and DMARC all passing, and for which folder it landed in. If anything there is wrong, it is wrong for every message you are about to send.',
+        ],
+      },
+      {
+        h: 'When prewarmed is the wrong buy',
+        p: [
+          'If your campaign is not starting for six weeks, you are paying a premium for time you are not going to use. Fresh inboxes cost about a third as much and you run the warming yourself in the window you were going to wait through anyway.',
+          'If your list is mostly Microsoft-hosted, the premium is going to the wrong platform. Check before you order rather than after.',
+          'And if the last three campaigns failed on copy or targeting, infrastructure is not the constraint. Better inboxes deliver a message nobody wanted to read, faster. We would rather say that now than sell you the wrong thing twice.',
+        ],
+      },
     ],
     faqs: [
       ['Are these real Google Workspace accounts?', 'Yes. Licensed Google Workspace accounts on a domain we age and warm, not SMTP relays and not shared seats.'],
@@ -115,6 +147,36 @@ export const products = [
         p: [
           'Microsoft has been shutting off the older, simpler way of logging in. Connect your sending tool using the modern method where it offers one. If your tool only supports the old way, check it still works before you build a campaign around it.',
           'Every domain arrives with DMARC already set up. On a domain you only use for cold email, nothing else should ever be sending from it, which makes the strictest setting both safe and correct once the reports confirm it.',
+        ],
+      },
+          {
+        h: 'Why Outlook tells you more than Gmail ever will',
+        p: [
+          'This is the underrated reason to send from Microsoft, and almost nobody buying infrastructure factors it in. When Outlook filters or rejects a message, it writes the reason into the bounce itself as a diagnostic code. You get a specific, actionable string back.',
+          'Gmail does not do this. A message that lands in spam at Gmail looks identical, from the sender\'s side, to one that landed in the inbox. You find out from your reply rate, three weeks later, by inference.',
+          'On a Microsoft-heavy list that difference compounds. You find out a domain is in trouble within hours instead of after a fortnight of sending into a folder nobody opens, and the fix arrives while the campaign is still worth saving.',
+        ],
+      },
+      {
+        h: 'Who is actually on Microsoft, and why it matters more than preference',
+        p: [
+          'Enterprise, finance, manufacturing, healthcare, government and most companies above a few hundred staff skew heavily to Microsoft 365. The larger and older the company, the more likely it is. Startups and agencies skew Google.',
+          'Matching the sending platform to the receiving platform is worth real placement, because both providers extend more trust to mail that originates inside their own ecosystem. It is not a guarantee and nobody honest will tell you it is, but it is the single largest lever available to you before you have written a word of copy.',
+          'So the order of operations is: check what your list is on, then buy. Not the reverse. A Microsoft-heavy list sent from Google inboxes is the most common and most expensive misconfiguration in cold email, and it takes a few minutes to rule out.',
+        ],
+      },
+      {
+        h: 'Tenancy, and the question to ask every provider',
+        p: [
+          'Ask whoever you buy from, including us, whether your mailboxes sit in their organisation or one of their own. Where several clients share one Microsoft organisation, reputation events travel. A sender you have never met, in a tenant you cannot see, can damage placement for everything in it — and you will spend a week auditing your own list and copy before you think to ask about theirs.',
+          'The answer should be specific and it should be in writing. "Yes, isolated" with no detail is not an answer. Nor is a provider who treats the question as hostile; it is the single most informative thing you can ask them.',
+        ],
+      },
+      {
+        h: 'Ramp, and the two numbers that decide whether this holds',
+        p: [
+          'Fifteen cold emails per inbox per day, three inboxes to a domain. Hold that for the first fortnight even though these arrived warmed, then keep holding it, because fifteen is the steady state rather than a starting point.',
+          'The two numbers to watch are bounce rate and reply rate, and they fail in opposite directions. Bounces above about two per cent mean your list, not your infrastructure, and no amount of warming survives a bad list. A reply rate that falls while bounces stay flat usually means placement has moved to a folder — on Microsoft, the diagnostic codes will tell you which, and that is the whole argument for this platform.',
         ],
       },
     ],
@@ -230,6 +292,38 @@ export const products = [
         p: [
           'If you buy in packs and a domain stops working, you lose three inboxes. With a tenant, something serious can affect all 100 at once. That is the trade you make for the lower price, and anyone selling you a tenant without mentioning it is not doing you a favour.',
           'So run it carefully. Only send to verified lists, start about twenty mailboxes at a time rather than all hundred, and check your bounce rate every day for the first two weeks. Teams who do this keep tenants running for a long time. Teams who treat them as cheap inboxes do not.',
+        ],
+      },
+          {
+        h: 'What an isolated tenant actually buys you',
+        p: [
+          'A tenant is your own Microsoft Entra organisation. Nobody else\'s mailboxes are in it, which removes the failure mode where another provider\'s client damages your placement from somewhere you cannot see or audit.',
+          'It also changes what a bad week costs. On shared infrastructure you are exposed to decisions made by senders you will never meet. On your own tenant the only sending reputation that touches your mailboxes is the reputation you created, which means every problem is one you can diagnose and fix rather than one you can only escalate.',
+          'The trade is that you now own the whole surface. There is nobody else\'s good behaviour propping you up either, so the ramp discipline matters more here than anywhere else on this site.',
+        ],
+      },
+      {
+        h: 'Density is the dial, and most people set it wrong',
+        p: [
+          'The tenant is a flat price whether you put twenty-five mailboxes in it or a hundred. That makes density a pure risk decision rather than a cost one, and it is the single most consequential choice on this page.',
+          'A hundred mailboxes on one tenant gives the lowest cost per inbox on this site. It also means one reputation event touches a hundred mailboxes at once. Twenty-five costs four times as much per inbox and contains the damage to a quarter of the footprint.',
+          'The honest rule: if this is your only infrastructure, buy density low and pay for the insurance. If this is additional capacity sitting alongside Google or Microsoft inboxes you already run, density high is the efficient choice, because a tenant-level event is survivable when it is not all you have.',
+        ],
+      },
+      {
+        h: 'The arithmetic nobody runs before ordering',
+        p: [
+          'At a hundred mailboxes and fifteen sends each, one tenant carries fifteen hundred cold emails a day. That is more capacity than most teams reading this will use, bought for the price of a few Google inboxes.',
+          'The number to work out before you order is not the monthly cost, it is the cost of the worst week. Multiply your density by fifteen to get daily capacity at risk, then ask whether losing that overnight stops the business. If the answer is yes, your density is too high regardless of what the per-inbox figure says.',
+          'This is also why a tenant is the strongest second platform rather than the obvious first one. A filtering change at Google cannot touch Entra-hosted mail, and the reverse is equally true.',
+        ],
+      },
+      {
+        h: 'Where a tenant is the wrong tool',
+        p: [
+          'If you need fewer than about twenty-five mailboxes, the per-inbox price stops being an advantage and you are buying administrative surface you do not need. Google or Microsoft 365 packs are simpler at that size.',
+          'If your list is overwhelmingly Gmail-hosted, the platform match argument runs against this and sending from Google is likely to place better, whatever the price difference says.',
+          'And if you want to be able to hand the whole thing to someone else in six months, a tenant is more to hand over than a set of mailboxes. Worth knowing before rather than after.',
         ],
       },
     ],

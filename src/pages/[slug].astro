@@ -4,9 +4,17 @@ import SpecStrip from '../components/SpecStrip.astro';
 import PricingTable from '../components/PricingTable.astro';
 import ToolCallout from '../components/ToolCallout.astro';
 import Faq from '../components/Faq.astro';
+import ProofStats from '../components/ProofStats.astro';
+import Testimonials from '../components/Testimonials.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import Handoff from '../components/Handoff.astro';
 import { products, bySlug } from '../data/products.js';
-import { site, wi, wa } from '../data/site.js';
+import { site, wi, wa, toolUrl } from '../data/site.js';
+import { failureModes } from '../data/proof.js';
+import tools from '../data/tools.json';
 import pricing from '../data/pricing.json';
+
+const toolById = (id) => tools.tools.find((t) => t.id === id && t.live);
 
 export function getStaticPaths() {
   return products.map((p) => ({ params: { slug: p.slug }, props: { p } }));
@@ -130,6 +138,8 @@ const schema = {
     </div>
   </section>
 
+  <ProofStats page={p.slug} />
+
   <section class="section">
     <div class="wrap">
       <h2>Who this is for</h2>
@@ -140,6 +150,20 @@ const schema = {
       </div>
     </div>
   </section>
+
+  {!askFirst && (
+    <section class="band">
+      <div class="wrap">
+        <p class="band-h">{p.eyebrow} ship the same day you order.</p>
+        <p class="band-p">The 51 days of aging and warming already happened. You get the logins, the records are set, and the first campaign can go out this afternoon.</p>
+        <div class="band-cta">
+          <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'mid-band' })} target="_blank" rel="noopener">Get {p.eyebrow} →</a>
+          <WhatsApp label="Ask a question first" message={`Hi — I am looking at ${p.eyebrow} on prewarmed.org. `} />
+        </div>
+        <Handoff />
+      </div>
+    </section>
+  )}
 
   <section class="section">
     <div class="wrap prose">
@@ -196,6 +220,28 @@ const schema = {
   )}
 
   <section class="section">
+    <div class="wrap">
+      <h2>Why the last setup broke</h2>
+      <p class="muted" style="max-width:64ch;margin-top:10px">Four places cold email infrastructure dies quietly. Three of the four you can check yourself, for free, before you order from anyone — including us.</p>
+      <div class="grid g2 fm">
+        {failureModes.map((f) => (
+          <div class="card">
+            <h3>{f.h}</h3>
+            <p class="muted">{f.p}</p>
+            {f.check && toolById(f.check) && (
+              <a class="fm-tool" href={toolUrl(toolById(f.check), { page: p.slug, placement: 'failure-mode' })} target="_blank" rel="noopener">
+                Check it with {toolById(f.check).name} <span class="ext" aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Testimonials page={p.slug} limit={6} heading="Operators running on this infrastructure" />
+
+  <section class="section">
     <div class="wrap"><Faq faqs={p.faqs} /></div>
   </section>
 
@@ -215,6 +261,17 @@ const schema = {
 </Base>
 
 <style>
+  /* Mid-page conversion band: the long body is where intent peaks, and the
+     next CTA was previously all the way down at Pricing. */
+  .band { padding-block: 46px; background: var(--accent-soft); border-block: 1px solid color-mix(in srgb, var(--accent) 28%, transparent); }
+  .band-h { margin: 0; font-size: clamp(21px, 2.4vw, 26px); font-weight: 600; color: var(--text); letter-spacing: -.01em; }
+  .band-p { margin: 10px 0 0; color: var(--text-2); max-width: 62ch; font-size: 16px; }
+  .band-cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  .fm { margin-top: 24px; gap: 16px; }
+  .fm .card { display: flex; flex-direction: column; }
+  .fm .card h3 { margin: 0 0 10px; }
+  .fm .card .muted { font-size: 15.5px; margin: 0; }
+  .fm-tool { display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--accent); }
   .crumb { font-size: 13.5px; color: var(--text-2); margin: 0 0 26px; }
   .hero-grid { display: grid; grid-template-columns: 1fr minmax(300px, 360px); gap: 48px; align-items: start; }
   @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 32px; } }

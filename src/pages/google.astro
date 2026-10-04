@@ -6,6 +6,8 @@ import { wi } from '../data/site.js';
 import { bySlug } from '../data/products.js';
 import pricing from '../data/pricing.json';
 import Handoff from '../components/Handoff.astro';
+import ProofStats from '../components/ProofStats.astro';
+import Testimonials from '../components/Testimonials.astro';
 const pages = ['prewarmed-google-inboxes', 'fresh-google-inboxes', 'prewarmed-domains'].map((s) => bySlug[s]).filter(Boolean);
 const pre = pricing.products['google-prewarmed'];
 const faqs = [
@@ -68,6 +70,7 @@ const schema = {
 
       <Faq faqs={faqs} />
 
+      <Testimonials page="google-hub" limit={3} heading="Operators sending from this infrastructure" />
       <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'google-hub', placement: 'footer-cta' })} target="_blank" rel="noopener">Get Google inboxes at Warm Inboxes</a></p>
     </div>
   </section>

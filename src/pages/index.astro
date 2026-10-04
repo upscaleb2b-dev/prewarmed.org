@@ -9,6 +9,8 @@ import pricing from '../data/pricing.json';
 import tools from '../data/tools.json';
 import Handoff from '../components/Handoff.astro';
 import ProviderMark from '../components/ProviderMark.astro';
+import ProofStats from '../components/ProofStats.astro';
+import Testimonials from '../components/Testimonials.astro';
 
 const liveTools = tools.tools.filter((t) => t.live).length;
 const faqs = [
@@ -111,6 +113,8 @@ const schema = {
     </div>
   </section>
 
+  <ProofStats page="home" />
+
   <CostCalc />
 
   <section class="section">
@@ -124,6 +128,8 @@ const schema = {
   <section class="section">
     <div class="wrap"><Faq faqs={faqs} heading="Questions" /></div>
   </section>
+
+  <Testimonials page="home" limit={6} />
 
   <section class="section final">
     <div class="wrap">
