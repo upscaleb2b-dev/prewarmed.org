@@ -24,9 +24,15 @@ export const site = {
    * traffic without at least ga4 or adsId set means buying clicks blind.
    */
   analytics: {
-    ga4: '',        // 'G-XXXXXXXXXX'
+    ga4: 'G-YNG4RRZ4YQ',
     adsId: '',      // 'AW-XXXXXXXXX'
     adsLabel: '',   // conversion label for the lead action
+    /**
+     * Cross-domain. The sale completes on warminboxes.com, so without these
+     * the handoff looks like a bounce here and a fresh direct visit there.
+     * gtag decorates outbound links to these hosts with _gl.
+     */
+    linkDomains: ['warminboxes.com', 'upscaleb2b.com'],
   },
   // One line, every page footer. Ads policy and buyer trust both need it.
   disclosure:

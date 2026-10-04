@@ -89,8 +89,40 @@ const graph = {
         <script is:inline set:html={`
           window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
           gtag('js',new Date());
-          ${site.analytics.ga4 ? `gtag('config','${site.analytics.ga4}');` : ''}
+          ${site.analytics.ga4 ? `gtag('config','${site.analytics.ga4}',{linker:{domains:${JSON.stringify(site.analytics.linkDomains ?? [])}}});` : ''}
           ${site.analytics.adsId ? `gtag('config','${site.analytics.adsId}');` : ''}
+        `} />
+        <script is:inline set:html={`
+          /* Ad click IDs do not survive the handoff on their own.
+             wi() builds outbound URLs at build time with UTMs only, so a
+             visitor arriving on ?gclid=... reaches warminboxes.com without it
+             and Google Ads can never tie the sale back to the click that paid
+             for it. Carry the click id across, in sessionStorage so it holds
+             through internal navigation. Click ids only — forwarding utm_*
+             would overwrite the ones wi() sets on purpose. */
+          (function(){
+            var KEYS=['gclid','gbraid','wbraid','msclkid'],STORE='pw_click',HOSTS=${JSON.stringify(site.analytics.linkDomains ?? [])};
+            var ids={};
+            try{ids=JSON.parse(sessionStorage.getItem(STORE)||'{}')}catch(e){}
+            var q=new URLSearchParams(location.search),found=false;
+            KEYS.forEach(function(k){var v=q.get(k);if(v){ids[k]=v;found=true}});
+            if(found){try{sessionStorage.setItem(STORE,JSON.stringify(ids))}catch(e){}}
+            var keys=Object.keys(ids);
+            if(!keys.length)return;
+            function decorate(a){
+              if(!a||!a.href)return;
+              try{
+                var u=new URL(a.href,location.href);
+                if(HOSTS.indexOf(u.hostname.replace(/^www\./,''))<0)return;
+                keys.forEach(function(k){if(!u.searchParams.has(k))u.searchParams.set(k,ids[k])});
+                a.href=u.toString();
+              }catch(e){}
+            }
+            function all(){[].forEach.call(document.querySelectorAll('a[href]'),decorate)}
+            document.readyState==='loading'?document.addEventListener('DOMContentLoaded',all):all();
+            /* Links written after load (calculator results) get it on the way out. */
+            document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(a)decorate(a)},true);
+          })();
         `} />
       </>
     )}
