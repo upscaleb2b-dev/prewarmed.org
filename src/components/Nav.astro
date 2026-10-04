@@ -87,7 +87,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
     </nav>
 
     <div class="nav-cta">
-      <a class="btn btn-primary" href={wi('/', { page: 'nav', placement: 'header' })}>Get inboxes</a>
+      <a class="btn btn-primary" href={wi('/', { page: 'nav', placement: 'header' })} target="_blank" rel="noopener">Get inboxes</a>
       <button class="burger" type="button" aria-expanded="false" aria-controls="m-nav" aria-label="Open menu">
         <span aria-hidden="true"></span><span aria-hidden="true"></span><span aria-hidden="true"></span>
       </button>
@@ -112,7 +112,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
           {item.leads && <div class="m-sub"><a href="/leads/">{leads.totalLists} lists · {leadsM}M+ contacts</a></div>}
         </div>
       ))}
-      <a class="btn btn-primary m-cta" href={wi('/', { page: 'nav', placement: 'mobile-menu' })}>Get inboxes</a>
+      <a class="btn btn-primary m-cta" href={wi('/', { page: 'nav', placement: 'mobile-menu' })} target="_blank" rel="noopener">Get inboxes</a>
     </div>
   </div>
 
