@@ -14,6 +14,36 @@ export const site = {
   // a site that will not say who it trades as is one people bounce from.
   entity: 'Upscale Systems LLC',
   phone: '+1 904 736 2539',
+
+  /**
+   * Alpha Foundation.
+   *
+   * prewarmed.org is a commercial service whose net proceeds fund the
+   * foundation's work, and /alpha-foundation/ is the disclosure that says so.
+   * Every fact below is published by the foundation itself; none of it is
+   * inferred, and the wording deliberately says "net proceeds" rather than
+   * "revenue", because licences, domains and fulfilment are paid before
+   * anything can be given away.
+   */
+  alpha: {
+    name: 'Alpha Foundation',
+    url: 'https://alpha-f.org',
+    email: 'founder@alpha-f.org',
+    charityId: '4274876-3',
+    address: {
+      street: 'Kot Ghulam Muhammad Khan, 372-E Gulburg Colony',
+      city: 'Kasur',
+      postal: '55050',
+      country: 'PK',
+    },
+  },
+  /**
+   * Front page override. True serves the Alpha Foundation page at / instead
+   * of the home page; everything else on the site stays exactly where it is
+   * and stays reachable. Set it to false to put the home page back. That is
+   * the whole revert, nothing else moves.
+   */
+  alphaMode: true,
   /**
    * Where the contact form posts.
    *

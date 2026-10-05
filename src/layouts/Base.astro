@@ -4,6 +4,7 @@ import '../styles/base.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Consent from '../components/Consent.astro';
+import Tracking from '../components/Tracking.astro';
 import ExpertBar from '../components/ExpertBar.astro';
 import { site } from '../data/site.js';
 
@@ -86,103 +87,7 @@ const graph = {
     />
     <script type="application/ld+json" set:html={JSON.stringify(graph)} />
 
-    {/*
-      Consent. This has to be the first script on the page: Google Consent
-      Mode only works if the defaults are set before gtag.js or GTM loads,
-      and Meta and X have no consent mode at all, so they are held back
-      entirely rather than loaded in a restricted state.
-
-      Who sees the banner is decided by time zone rather than by IP, because
-      an IP lookup would mean calling a third party before consent. The one
-      thing the banner exists to prevent. A Europe/* zone is treated as EEA or
-      UK: consent defaults to denied, nothing advertising loads, and the
-      banner asks. Everywhere else is granted on arrival, which is both the
-      ordinary practice and what keeps US ad measurement intact.
-    */}
-    <script is:inline set:html={`
-      (function(){
-        var KEY='pw_consent';
-        window.dataLayer=window.dataLayer||[];
-        function gtag(){dataLayer.push(arguments)}
-        window.gtag=gtag;
-        var stored=null; try{stored=localStorage.getItem(KEY)}catch(e){}
-        var tz=''; try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
-        var regulated=/^Europe\\//.test(tz)||/^Atlantic\\/(Canary|Madeira|Azores|Reykjavik|Faroe)$/.test(tz);
-        var state = stored || (regulated ? 'pending' : 'granted');
-        var v = state==='granted' ? 'granted' : 'denied';
-        gtag('consent','default',{
-          ad_storage:v, ad_user_data:v, ad_personalization:v, analytics_storage:v,
-          functionality_storage:'granted', security_storage:'granted'
-        });
-        window.__pwConsent={ state:state, regulated:regulated, key:KEY };
-      })();
-    `} />
-
-    {site.analytics.gtm && (
-      <script is:inline set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${site.analytics.gtm}');`} />
-    )}
-
-    {/* Meta and X ignore Consent Mode, so they only exist once consent is in. */}
-    {(site.analytics.metaPixel || site.analytics.xPixel) && (
-      <script is:inline set:html={`
-        (function(){
-          window.__pwLoadAdPixels=function(){
-            if(window.__pwAdPixelsLoaded)return; window.__pwAdPixelsLoaded=true;
-            ${site.analytics.metaPixel ? `
-            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init','${site.analytics.metaPixel}'); fbq('track','PageView');` : ''}
-            ${site.analytics.xPixel ? `
-            !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
-            twq('config','${site.analytics.xPixel}');` : ''}
-          };
-          if(window.__pwConsent && window.__pwConsent.state==='granted') window.__pwLoadAdPixels();
-        })();
-      `} />
-    )}
-    {(site.analytics.ga4 || site.analytics.adsId) && (
-      <>
-        <script async src={`https://www.googletagmanager.com/gtag/js?id=${site.analytics.ga4 || site.analytics.adsId}`}></script>
-        <script is:inline set:html={`
-          window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}
-          gtag('js',new Date());
-          ${site.analytics.ga4 ? `gtag('config','${site.analytics.ga4}',{linker:{domains:${JSON.stringify(site.analytics.linkDomains ?? [])}}});` : ''}
-          ${(site.analytics.ga4Extra ?? []).map((id) => `gtag('config','${id}',{linker:{domains:${JSON.stringify(site.analytics.linkDomains ?? [])}}});`).join('\n          ')}
-          ${site.analytics.adsId ? `gtag('config','${site.analytics.adsId}');` : ''}
-        `} />
-        <script is:inline set:html={`
-          /* Ad click IDs do not survive the handoff on their own.
-             wi() builds outbound URLs at build time with UTMs only, so a
-             visitor arriving on ?gclid=... reaches warminboxes.com without it
-             and Google Ads can never tie the sale back to the click that paid
-             for it. Carry the click id across, in sessionStorage so it holds
-             through internal navigation. Click ids only, forwarding utm_*
-             would overwrite the ones wi() sets on purpose. */
-          (function(){
-            var KEYS=['gclid','gbraid','wbraid','msclkid'],STORE='pw_click',HOSTS=${JSON.stringify(site.analytics.linkDomains ?? [])};
-            var ids={};
-            try{ids=JSON.parse(sessionStorage.getItem(STORE)||'{}')}catch(e){}
-            var q=new URLSearchParams(location.search),found=false;
-            KEYS.forEach(function(k){var v=q.get(k);if(v){ids[k]=v;found=true}});
-            if(found){try{sessionStorage.setItem(STORE,JSON.stringify(ids))}catch(e){}}
-            var keys=Object.keys(ids);
-            if(!keys.length)return;
-            function decorate(a){
-              if(!a||!a.href)return;
-              try{
-                var u=new URL(a.href,location.href);
-                if(HOSTS.indexOf(u.hostname.replace(/^www\./,''))<0)return;
-                keys.forEach(function(k){if(!u.searchParams.has(k))u.searchParams.set(k,ids[k])});
-                a.href=u.toString();
-              }catch(e){}
-            }
-            function all(){[].forEach.call(document.querySelectorAll('a[href]'),decorate)}
-            document.readyState==='loading'?document.addEventListener('DOMContentLoaded',all):all();
-            /* Links written after load (calculator results) get it on the way out. */
-            document.addEventListener('click',function(e){var a=e.target&&e.target.closest&&e.target.closest('a[href]');if(a)decorate(a)},true);
-          })();
-        `} />
-      </>
-    )}
+    <Tracking />
   </head>
   <body data-palette={palette}>
     {/*
