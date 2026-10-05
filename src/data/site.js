@@ -44,6 +44,24 @@ export const site = {
      * order. Cross-domain must list both domains in that property as well.
      */
     ga4Extra: ['G-E7DJJB6E4D'],
+    /**
+     * Tag Manager, Meta and X, all from the warminboxes.com build.
+     *
+     * Installed the standard way rather than the deferred way that site runs:
+     * it holds every tracker until first interaction or 12 seconds, which is
+     * good for page speed and is also the likeliest reason Google's tag
+     * checker reports "not detected" there. Ads are about to run here, so the
+     * checker has to pass.
+     *
+     * NOTE: if the GTM container itself fires a GA4 config tag for
+     * G-E7DJJB6E4D, that property counts every page view twice — once from
+     * GTM, once from the gtag config above. Check the container before
+     * trusting the numbers.
+     */
+    gtm: 'GTM-N4S35S8Z',
+    metaPixel: '590848983594765',
+    xPixel: 'r5gy0',
+    xLeadEvent: 'tw-r5gy0-r5gy1',
   },
   // One line, every page footer. Ads policy and buyer trust both need it.
   disclosure:
