@@ -24,7 +24,11 @@ import Handoff from './Handoff.astro';
 
 const P = pricing.products;
 const cfg = {
+  // Cold sends per inbox per day. A tenant is run quieter on purpose: when
+  // mailboxes are cheap enough to buy a hundred, the surplus is spent on a
+  // lower per-address rate rather than on more total volume.
   perDay: 15,
+  perDayTenant: 6,
   readyDays: 51,
   windowDays: 90,
   domainOnce: P['domain-fresh'].price,
@@ -80,7 +84,7 @@ const cfg = {
         <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a>
       </div>
       <Handoff />
-      <p class="foot">Assumes {cfg.perDay} cold emails per inbox per day and three inboxes to a domain. Fresh carries a <strong>${cfg.warmupMonthly} a month</strong> warming tool, charged as a flat fee for the {cfg.readyDays} warming days only — most teams leave it running longer, and tools that charge per mailbox cost more than this at volume. Fresh also buys its own domains at ${cfg.domainOnce}; prewarmed includes them and needs no warming tool.</p>
+      <p class="foot" id="cc-foot">Assumes {cfg.perDay} cold emails per inbox per day and three inboxes to a domain. Fresh carries a <strong>${cfg.warmupMonthly} a month</strong> warming tool, charged as a flat fee for the {cfg.readyDays} warming days only — most teams leave it running longer, and tools that charge per mailbox cost more than this at volume. Fresh also buys its own domains at ${cfg.domainOnce}; prewarmed includes them and needs no warming tool.</p>
     </div>
   </div>
 </section>
@@ -100,10 +104,11 @@ const cfg = {
     const n = +$('cc-n').value;
     $('cc-nout').textContent = n + ' inboxes';
 
+    const perDay = active.shape === 'tenant' ? C.perDayTenant : C.perDay;
     const sendDays = C.windowDays - C.readyDays;              // fresh sends only after day 51
-    const blocked = n * C.perDay * C.readyDays;
-    const preEmails = n * C.perDay * C.windowDays;
-    const freshEmails = n * C.perDay * sendDays;
+    const blocked = n * perDay * C.readyDays;
+    const preEmails = n * perDay * C.windowDays;
+    const freshEmails = n * perDay * sendDays;
 
     const months = C.windowDays / 30;
     // Fresh has to warm itself. Charged for the warming window only.
@@ -146,6 +151,11 @@ const cfg = {
       $('cc-say').innerHTML =
         `Over 90 days, ${n} fresh ${active.label} inboxes cost <strong>${money(freshCost)}</strong> — mailboxes, domains and <strong>${money(warmup)}</strong> of warming tool — and deliver ${num(freshEmails)} cold emails, because the first ${C.readyDays} days are spent aging and warming. The same ${n} prewarmed inboxes cost <strong>${money(preCost)}</strong> and deliver ${num(preEmails)}, sending from the day they arrive — <strong>${money(preK)} per thousand against ${money(freshK)}</strong>.`;
     }
+    const foot = $('cc-foot');
+    if (foot) foot.firstChild.nodeValue =
+      active.shape === 'tenant'
+        ? `Assumes ${perDay} cold emails per mailbox per day on a tenant, plus 2 warmup — lower per address than a pack, which is the point of tenant density. `
+        : `Assumes ${perDay} cold emails per inbox per day and three inboxes to a domain. `;
     $('cc-more').href = '/' + active.slug + '/';
   }
 
