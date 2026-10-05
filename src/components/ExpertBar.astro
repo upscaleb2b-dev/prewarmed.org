@@ -34,14 +34,17 @@ const msg = 'Hi — I have a deliverability question before I order:';
     gap: 10px;
     min-height: 44px;
     padding: 9px 24px;
-    background: var(--accent-soft);
+    /* Opaque. --accent-soft is rgba(...,0.12), so as a sticky background it
+       let page content read straight through the bar on scroll. Same tint,
+       mixed over --bg instead of over whatever happens to be behind it. */
+    background: color-mix(in srgb, var(--accent) 12%, var(--bg));
     border-bottom: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
     font-size: 14px;
     line-height: 1.4;
     color: var(--text-2);
     text-align: center;
   }
-  .xbar:hover { text-decoration: none; background: color-mix(in srgb, var(--accent) 16%, transparent); }
+  .xbar:hover { text-decoration: none; background: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
   .xmsg b { color: var(--text); font-weight: 600; }
   .xcta { color: var(--accent); font-weight: 600; white-space: nowrap; }
   /* Steady dot, not a pulse: an animated bar at the top of every page is a
