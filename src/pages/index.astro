@@ -101,12 +101,12 @@ const schema = {
         <table>
           <thead><tr><th></th><th>Prewarmed</th><th>Fresh inbox</th><th>Do it yourself</th></tr></thead>
           <tbody>
-            <tr><td>How soon you can send</td><td class="yes">Same day</td><td>21 days on a domain you already use, 51 on a new one</td><td>51 days</td></tr>
-            <tr><td>Domain age on day one</td><td class="yes">30 days +</td><td>Whatever yours already is</td><td>0 days</td></tr>
-            <tr><td>What you pay for the mailbox</td><td class="yes">Reseller rate</td><td class="yes">Reseller rate</td><td class="no">Retail list price (${pricing.products['retail-list'].price.toFixed(2)})</td></tr>
-            <tr><td>Cost of a warmup tool</td><td class="yes">None</td><td class="no">From ${pricing.products['warmup-tool'].price} a month</td><td class="no">From ${pricing.products['warmup-tool'].price} a month</td></tr>
-            <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No</td><td class="no">No</td></tr>
-            <tr><td>SPF, DKIM and DMARC set up</td><td class="yes">Before handover</td><td class="yes">Before handover</td><td class="no">You</td></tr>
+            <tr><th scope="row">How soon you can send</th><td class="yes">Same day</td><td>21 days on a domain you already use, 51 on a new one</td><td>51 days</td></tr>
+            <tr><th scope="row">Domain age on day one</th><td class="yes">30 days +</td><td>Whatever yours already is</td><td>0 days</td></tr>
+            <tr><th scope="row">What you pay for the mailbox</th><td class="yes">Reseller rate</td><td class="yes">Reseller rate</td><td class="no">Retail list price (${pricing.products['retail-list'].price.toFixed(2)})</td></tr>
+            <tr><th scope="row">Cost of a warmup tool</th><td class="yes">None</td><td class="no">From ${pricing.products['warmup-tool'].price} a month</td><td class="no">From ${pricing.products['warmup-tool'].price} a month</td></tr>
+            <tr><th scope="row">Domain included</th><td class="yes">Free</td><td class="no">No</td><td class="no">No</td></tr>
+            <tr><th scope="row">SPF, DKIM and DMARC set up</th><td class="yes">Before handover</td><td class="yes">Before handover</td><td class="no">You</td></tr>
           </tbody>
         </table>
       </div>
@@ -143,6 +143,8 @@ const schema = {
 
 <style>
   .means-cta { margin-top: 30px; }
+  /* Row headers for the comparison table: semantics without the column-head look. */
+  tbody th[scope="row"] { text-align: left; font-weight: 400; color: var(--text-2); text-transform: none; letter-spacing: normal; font-size: inherit; }
   /* flex-start, not center: the Microsoft title wraps to two lines and the
      mark should sit against the first one. */
   .pick h3 { display: flex; align-items: flex-start; gap: 9px; }
