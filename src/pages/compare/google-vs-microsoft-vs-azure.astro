@@ -1,10 +1,13 @@
 ---
 import Simple from '../../layouts/Simple.astro';
+import ToolCallout from '../../components/ToolCallout.astro';
 ---
 <Simple schema={{ '@type': 'WebPage', name: 'Google vs Microsoft 365 vs Azure for cold email', url: 'https://prewarmed.org/compare/google-vs-microsoft-vs-azure/' }} title="Google vs Microsoft 365 vs Azure for Cold Email"
   description="Which sending platform to buy for cold email, decided by where your recipients actually read their mail and how much risk sits in one place."
   eyebrow="Compare" h1="Google, Microsoft 365 or Azure"
   lede="Three genuinely different products. The right answer follows from your recipient mix, not from preference.">
+  <ToolCallout id="esp-segmenter" page="compare-platforms" />
+
   <div class="scroll-x" style="margin:28px 0">
     <table>
       <thead><tr><th></th><th>Google Workspace</th><th>Microsoft 365</th><th>Azure tenant</th></tr></thead>

@@ -172,6 +172,12 @@ const schema = {
           <h2>{s.h}</h2>
           {s.warn && <p class="warn">{s.warn}</p>}
           {s.p.map((t) => <p>{t}</p>)}
+          {s.tool && toolById(s.tool) && (
+            <a class="sec-tool" href={toolUrl(toolById(s.tool), { page: p.slug, placement: `section-${s.tool}` })} target="_blank" rel="noopener">
+              <b>{toolById(s.tool).name} <span class="ext" aria-hidden="true">↗</span></b>
+              <span>{toolById(s.tool).short}</span>
+            </a>
+          )}
         </div>
       ))}
       <ToolCallout id={p.inlineTool} page={p.slug} />
@@ -272,6 +278,14 @@ const schema = {
   .fm .card h3 { margin: 0 0 10px; }
   .fm .card .muted { font-size: 15.5px; margin: 0; }
   .fm-tool { display: inline-block; margin-top: 14px; font-size: 14px; font-weight: 500; color: var(--accent); }
+  /* In-prose tool link: the copy keeps telling people to check their list,
+     and the tool that does it was not linked from anywhere on the site. */
+  .sec-tool { display: block; margin-top: 18px; padding: 15px 18px; border: 1px solid var(--border-strong); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; background: var(--bg-elev); }
+  .sec-tool:hover { text-decoration: none; border-color: var(--accent); border-left-color: var(--accent); }
+  .sec-tool b { display: block; color: var(--accent); font-size: 15.5px; font-weight: 600; }
+  /* Direct child only: a bare `span` also matched the ↗ inside the title and
+     pushed it onto its own line. */
+  .sec-tool > span { display: block; margin-top: 4px; font-size: 14.5px; color: var(--text-2); line-height: 1.5; }
   .crumb { font-size: 13.5px; color: var(--text-2); margin: 0 0 26px; }
   .hero-grid { display: grid; grid-template-columns: 1fr minmax(300px, 360px); gap: 48px; align-items: start; }
   @media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 32px; } }

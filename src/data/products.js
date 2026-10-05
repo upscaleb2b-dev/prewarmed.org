@@ -36,6 +36,7 @@ export const products = [
     body: [
       {
         h: 'Why Google, and when not to',
+        tool: 'esp-segmenter',
         p: [
           'Email sent from Google lands in the inbox more reliably when the person receiving it is also on Google. For most business lists that is somewhere between half and two thirds of the people on it. If most of your list is on Gmail or Google Workspace, sending from Google is the easier path.',
           'There is one case where it is the wrong choice: a list made up mostly of people on Microsoft 365, which is common in large companies, finance and government. There, sending from Microsoft lands better, and it also tells you far more when something goes wrong, because Outlook writes the reason it filtered a message into the email itself. Gmail does not.',
@@ -159,6 +160,7 @@ export const products = [
       },
       {
         h: 'Who is actually on Microsoft, and why it matters more than preference',
+        tool: 'esp-segmenter',
         p: [
           'Enterprise, finance, manufacturing, healthcare, government and most companies above a few hundred staff skew heavily to Microsoft 365. The larger and older the company, the more likely it is. Startups and agencies skew Google.',
           'Matching the sending platform to the receiving platform is worth real placement, because both providers extend more trust to mail that originates inside their own ecosystem. It is not a guarantee and nobody honest will tell you it is, but it is the single largest lever available to you before you have written a word of copy.',
@@ -321,6 +323,7 @@ export const products = [
       },
       {
         h: 'Where a tenant is the wrong tool',
+        tool: 'esp-segmenter',
         p: [
           'If you need fewer than about twenty-five mailboxes, the per-inbox price stops being an advantage and you are buying administrative surface you do not need. Google or Microsoft 365 packs are simpler at that size.',
           'If your list is overwhelmingly Gmail-hosted, the platform match argument runs against this and sending from Google is likely to place better, whatever the price difference says.',
