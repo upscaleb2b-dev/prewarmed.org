@@ -108,7 +108,7 @@ const schema = {
           <div class="cta">
             {askFirst
               ? <a class="btn btn-primary btn-lg" href={wa(askMsg)}>Ask for a price on WhatsApp</a>
-              : <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'hero' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a>}
+              : <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'hero' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />}
             <a class="btn btn-ghost btn-lg" href="/pricing/">See pricing</a>
           </div>
           <p class="disclosure micro">{site.disclosure}</p>
@@ -125,7 +125,7 @@ const schema = {
           )}
           {askFirst
             ? <a class="btn btn-primary full" href={wa(askMsg)}>Ask for a price →</a>
-            : <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a>}
+            : <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />}
           <p class="micro muted">{pricing.policy.delivery}.</p>
         </aside>
       </div>
@@ -192,7 +192,7 @@ const schema = {
                 ? <a class="btn btn-ghost" href={wa(t.wa)}>Talk on WhatsApp →</a>
                 : t.to
                 ? <a class="btn btn-ghost" href={t.to}>{t.toLabel}</a>
-                : <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: `tier-${t.k}` })} target="_blank" rel="noopener">Order at Warm Inboxes →</a>}
+                : <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: `tier-${t.k}` })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />}
             </div>
           ))}
         </div>
@@ -205,7 +205,7 @@ const schema = {
               <p class="fnote">{pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>
             </div>
           )}
-          <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: 'pricing' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a>
+          <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: 'pricing' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />
         </>
       )}
     </div>

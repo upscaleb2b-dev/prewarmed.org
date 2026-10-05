@@ -8,6 +8,7 @@ import pricing from '../data/pricing.json';
 import Handoff from '../components/Handoff.astro';
 import ProofStats from '../components/ProofStats.astro';
 import Testimonials from '../components/Testimonials.astro';
+import WhatsApp from '../components/WhatsApp.astro';
 const pages = ['prewarmed-google-inboxes', 'fresh-google-inboxes', 'prewarmed-domains'].map((s) => bySlug[s]).filter(Boolean);
 const pre = pricing.products['google-prewarmed'];
 const faqs = [
@@ -34,7 +35,7 @@ const schema = {
       <p class="eyebrow">Google Workspace</p>
       <h1>Prewarmed Google Workspace inboxes</h1>
       <p class="lede">Licensed Workspace accounts on domains aged 30 days and warmed 21. From ${pre.perUnit.quarterly} an inbox, domain included, same day.</p>
-      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'google-hub', placement: 'hero' })} target="_blank" rel="noopener">Get Google inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a></p>
+      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'google-hub', placement: 'hero' })} target="_blank" rel="noopener">Get Google inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
       <Handoff />
 
       <h2>Why most cold email starts on Google</h2>
@@ -71,7 +72,7 @@ const schema = {
       <Faq faqs={faqs} />
 
       <Testimonials page="google-hub" limit={3} heading="Operators sending from this infrastructure" />
-      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'google-hub', placement: 'footer-cta' })} target="_blank" rel="noopener">Get Google inboxes at Warm Inboxes</a></p>
+      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'google-hub', placement: 'footer-cta' })} target="_blank" rel="noopener">Get Google inboxes at Warm Inboxes</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
     </div>
   </section>
 </Base>

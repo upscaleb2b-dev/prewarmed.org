@@ -2,6 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import { wi, site } from '../../data/site.js';
 import { providers, criteria, unverified } from '../../data/providers.js';
+import WhatsApp from '../../components/WhatsApp.astro';
 const checked = providers.filter((p) => p.verified);
 const pending = providers.filter((p) => !p.verified);
 const schema = {
@@ -71,7 +72,7 @@ const schema = {
       </ol>
       <p class="narrow">A provider that answers all four plainly is worth considering. One that talks around any of them has told you something.</p>
 
-      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'providers', placement: 'body' })} target="_blank" rel="noopener">See what Warm Inboxes ships</a> <a class="btn btn-ghost btn-lg" href="/best-prewarmed-inboxes/">How to choose →</a></p>
+      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'providers', placement: 'body' })} target="_blank" rel="noopener">See what Warm Inboxes ships</a> <a class="btn btn-ghost btn-lg" href="/best-prewarmed-inboxes/">How to choose →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
     </div>
   </section>
 </Base>

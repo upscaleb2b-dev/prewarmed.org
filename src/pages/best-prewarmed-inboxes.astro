@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Faq from '../components/Faq.astro';
 import { wi, site } from '../data/site.js';
 import { criteria } from '../data/providers.js';
+import WhatsApp from '../components/WhatsApp.astro';
 const faqs = [
   ['Which prewarmed inbox provider is best?', 'It depends on which of these you need most: aging, warming, an included domain, replacement terms and platform coverage. This page ranks the criteria rather than the companies, because we sell one of the companies.'],
   ['When should I not buy prewarmed inboxes?', 'When your launch is more than about two months out and you already run warming yourself. Prewarmed buys time and removes setup work. If you have the time and the setup is not a problem for you, you are paying for something you do not need.'],
@@ -67,7 +68,7 @@ const schema = {
       <section class="ours">
         <h2>What we ship, for comparison</h2>
         <p>So you can run the questions on us: domains aged 30 days before first send, then 21 days of real sending and receiving; the domain included at no cost; Google Workspace, Microsoft 365 and Azure tenants; delivered same day. On replacement: there is no automatic swap, and you should get that answer in writing from every seller you are weighing, including us.</p>
-        <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'best-prewarmed-inboxes', placement: 'body' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out what you need →</a></p>
+        <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'best-prewarmed-inboxes', placement: 'body' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out what you need →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
       </section>
 
       <Faq faqs={faqs} />

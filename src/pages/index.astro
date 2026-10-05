@@ -11,6 +11,7 @@ import Handoff from '../components/Handoff.astro';
 import ProviderMark from '../components/ProviderMark.astro';
 import ProofStats from '../components/ProofStats.astro';
 import Testimonials from '../components/Testimonials.astro';
+import WhatsApp from '../components/WhatsApp.astro';
 
 const liveTools = tools.tools.filter((t) => t.live).length;
 const faqs = [
@@ -41,7 +42,7 @@ const schema = {
       <p class="lede">Gmail and Outlook do not trust a new domain. We age and warm it 51 days so you can send today — Google Workspace, Microsoft 365 or Azure.</p>
       <div class="cta">
         <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'hero' })} target="_blank" rel="noopener">Get inboxes</a>
-        <a class="btn btn-ghost btn-lg" href="/tools/">{liveTools} free tools</a>
+        <a class="btn btn-ghost btn-lg" href="/tools/">{liveTools} free tools</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />
       </div>
       <Handoff />
 
@@ -63,7 +64,7 @@ const schema = {
         <div class="card"><h3>Skip the 21-day warmup wait</h3><p class="muted">The aging and warming already happened on our clock. You get the logins within hours and send today.</p></div>
       </div>
       <div class="means-cta">
-        <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'what-prewarmed-means' })} target="_blank" rel="noopener">Get prewarmed inboxes</a>
+        <a class="btn btn-primary btn-lg" href={wi('/', { page: 'home', placement: 'what-prewarmed-means' })} target="_blank" rel="noopener">Get prewarmed inboxes</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />
         <Handoff />
       </div>
     </div>
@@ -134,7 +135,7 @@ const schema = {
   <section class="section final">
     <div class="wrap">
       <h2>Your next campaign can start today.</h2>
-      <a class="btn btn-primary btn-lg cta-gap" href={wi('/', { page: 'home', placement: 'footer-cta' })} target="_blank" rel="noopener">Get inboxes</a>
+      <a class="btn btn-primary btn-lg cta-gap" href={wi('/', { page: 'home', placement: 'footer-cta' })} target="_blank" rel="noopener">Get inboxes</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />
       <Handoff align="center" />
     </div>
   </section>

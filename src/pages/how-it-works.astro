@@ -1,6 +1,7 @@
 ---
 import Simple from '../layouts/Simple.astro';
 import { wi } from '../data/site.js';
+import WhatsApp from '../components/WhatsApp.astro';
 ---
 <Simple
   schema={{ '@type': 'HowTo', name: 'How a domain is aged and warmed before cold email',
@@ -41,5 +42,5 @@ import { wi } from '../data/site.js';
   <p>Prewarmed does not mean indestructible. We suggest 15 cold emails per inbox per day, three inboxes on each domain, and only increasing that while your bounce rate stays low and your email keeps landing. The most common first-month mistake is sending more while bounces were already climbing.</p>
   <p>Prewarming buys you the 51 days. It does not fix a bad list. Point a clean domain at data you have not checked and it fails exactly the way the last one did, only faster.</p>
 
-  <p style="margin-top:34px"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'how-it-works', placement: 'body' })} target="_blank" rel="noopener">Get inboxes</a></p>
+  <p style="margin-top:34px"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'how-it-works', placement: 'body' })} target="_blank" rel="noopener">Get inboxes</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
 </Simple>

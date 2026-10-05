@@ -8,6 +8,7 @@ import pricing from '../data/pricing.json';
 import Handoff from '../components/Handoff.astro';
 import ProofStats from '../components/ProofStats.astro';
 import Testimonials from '../components/Testimonials.astro';
+import WhatsApp from '../components/WhatsApp.astro';
 const pages = ['prewarmed-microsoft-365-inboxes', 'prewarmed-outlook-inboxes', 'prewarmed-azure-inboxes', 'prewarmed-entra-inboxes', 'fresh-microsoft-365-inboxes', 'fresh-azure-inboxes']
   .map((s) => bySlug[s]).filter(Boolean);
 const pre = pricing.products['microsoft-prewarmed'];
@@ -36,7 +37,7 @@ const schema = {
       <p class="eyebrow">Microsoft 365 · Outlook · Azure</p>
       <h1>Prewarmed Microsoft inboxes</h1>
       <p class="lede">Licensed Exchange Online mailboxes, aged 30 days and warmed 21. From ${pre.perUnit.quarterly} an inbox in packs, or ${tenant.perTenant.quarterly} for a tenant of {tenant.inboxesPerTenant}.</p>
-      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'hero' })} target="_blank" rel="noopener">Get Microsoft inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a></p>
+      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'hero' })} target="_blank" rel="noopener">Get Microsoft inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
       <Handoff />
 
       <h2>Three names, two products</h2>
@@ -73,7 +74,7 @@ const schema = {
       <Faq faqs={faqs} />
 
       <Testimonials page="microsoft-hub" limit={3} heading="Operators sending from this infrastructure" />
-      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'footer-cta' })} target="_blank" rel="noopener">Get Microsoft inboxes at Warm Inboxes</a></p>
+      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'footer-cta' })} target="_blank" rel="noopener">Get Microsoft inboxes at Warm Inboxes</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
     </div>
   </section>
 </Base>

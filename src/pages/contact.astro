@@ -1,10 +1,21 @@
 ---
 import Simple from '../layouts/Simple.astro';
 import { site } from '../data/site.js';
+import WhatsApp from '../components/WhatsApp.astro';
 ---
 <Simple schema={{ '@type': 'ContactPage', name: 'Contact prewarmed.org', url: 'https://prewarmed.org/contact/' }} title="Contact — prewarmed.org" description="Talk to someone who runs this infrastructure daily about domains, inboxes and sending setup. Replies within one business day."
   eyebrow="Contact" h1="Talk to an operator"
   lede="Tell us the volume you need and what broke last time. Replies within one business day.">
+  <div class="fastlane">
+    <div>
+      <p class="fl-h">Want an answer now?</p>
+      <p class="fl-p">WhatsApp reaches the operators running this infrastructure, 24/7. It is faster than the form and you can send screenshots.</p>
+    </div>
+    <WhatsApp variant="primary" label="Message us on WhatsApp" message="Hi — I have a question about prewarmed inboxes:" />
+  </div>
+
+  <p class="or"><span>or send the details</span></p>
+
   <form class="f" method="POST" action={site.leadEndpoint || "/contact/"} name="lead"
         data-endpoint={site.leadEndpoint} data-to={site.correctionsEmail}
         data-source={site.leadSource} data-xevent={site.analytics.xLeadEvent}>
@@ -133,6 +144,15 @@ import { site } from '../data/site.js';
   })();
 </script>
 <style>
+  .fastlane { max-width: 620px; display: flex; flex-wrap: wrap; align-items: center; gap: 18px; justify-content: space-between;
+    padding: 20px 22px; margin-bottom: 26px; border: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+    border-radius: var(--r-card); background: var(--accent-soft); }
+  .fl-h { margin: 0 0 6px; font-size: 17px; font-weight: 600; color: var(--text); }
+  .fl-p { margin: 0; font-size: 14.5px; color: var(--text-2); max-width: 44ch; line-height: 1.5; }
+  .or { max-width: 620px; margin: 0 0 22px; text-align: center; position: relative; font-size: 13px;
+    letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); }
+  .or::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1px solid var(--border); }
+  .or span { position: relative; background: var(--bg); padding: 0 14px; }
   .f { display: grid; gap: 18px; max-width: 620px; }
   .row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   @media (max-width: 560px) { .row { grid-template-columns: 1fr; } }
