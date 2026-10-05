@@ -107,7 +107,7 @@ export const site = {
   },
   // One line, every page footer. Ads policy and buyer trust both need it.
   disclosure:
-    'prewarmed.org is operated by the team behind Warm Inboxes (warminboxes.com) and Upscale B2B (upscaleb2b.com). Orders are fulfilled by Warm Inboxes.',
+    'prewarmed.org is operated by the team behind Warm Inboxes (warminboxes.com), Upscale B2B (upscaleb2b.com) and Alpha Forge. Orders are fulfilled by Warm Inboxes.',
   trademark:
     'Google Workspace, Microsoft 365, Azure and Entra are trademarks of their respective owners. prewarmed.org is not affiliated with or endorsed by Google or Microsoft.',
 };
