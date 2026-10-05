@@ -32,6 +32,7 @@ const priceLabel =
   billing === 'included' ? { big: 'Free', sub: 'with any inbox pack' }
   : billing === 'custom' ? { big: 'Custom', sub: `quoted per ${price.unit}` }
   : billing === 'one-time' ? { big: `$${price.price}`, sub: `per ${price.unit}, one-time` }
+  : billing === 'yearly' ? { big: `$${price.price}`, sub: `per ${price.unit} per year` }
   : range ? { big: `$${range[0].toFixed(2)}–$${range[1].toFixed(2)}`, sub: `/${unitWord}/mo` }
   : per !== null ? { big: `$${per}`, sub: `/${unitWord}/mo` }
   : null;
@@ -62,7 +63,7 @@ const crumb = p.slug === 'fresh-domains'
 
 const offerPrice =
   billing === 'included' ? 0
-  : billing === 'one-time' ? price?.price
+  : billing === 'one-time' || billing === 'yearly' ? price?.price
   : range ? range[0]
   : per;
 

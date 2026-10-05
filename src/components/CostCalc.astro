@@ -32,7 +32,11 @@ const cfg = {
   perDayTenant: 2,
   readyDays: 51,
   windowDays: 90,
-  domainOnce: P['domain-fresh'].price,
+  // A fresh domain is bought by the year, so charging a whole year against a
+  // 90-day window overstates what fresh costs in that window — and it would
+  // overstate it in our favour, which is the one direction this calculator
+  // is not allowed to lean. Pro-rated to the window instead.
+  domainYear: P['domain-fresh'].price,
   warmupMonthly: P['warmup-tool'].price,
   platforms: [
     { id: 'google', label: 'Google Workspace', shape: 'pack', pre: P['google-prewarmed'].perUnit.quarterly,
@@ -85,7 +89,7 @@ const cfg = {
         <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />
       </div>
       <Handoff />
-      <p class="foot" id="cc-foot">Assumes {cfg.perDay} cold emails per inbox per day and three inboxes to a domain. Fresh carries a <strong>${cfg.warmupMonthly} a month</strong> warming tool, charged as a flat fee for the {cfg.readyDays} warming days only — most teams leave it running longer, and tools that charge per mailbox cost more than this at volume. Fresh also buys its own domains at ${cfg.domainOnce}; prewarmed includes them and needs no warming tool.</p>
+      <p class="foot" id="cc-foot">Assumes {cfg.perDay} cold emails per inbox per day and three inboxes to a domain. Fresh carries a <strong>${cfg.warmupMonthly} a month</strong> warming tool, charged as a flat fee for the {cfg.readyDays} warming days only — most teams leave it running longer, and tools that charge per mailbox cost more than this at volume. Fresh also buys its own domains at ${cfg.domainYear} a year, charged here for the {cfg.windowDays} days only; prewarmed includes them and needs no warming tool.</p>
     </div>
   </div>
 </section>
@@ -114,6 +118,7 @@ const cfg = {
     const months = C.windowDays / 30;
     // Fresh has to warm itself. Charged for the warming window only.
     const warmup = C.warmupMonthly * (C.readyDays / 30);
+    const domainCost = C.domainYear * (C.windowDays / 365);
     const preCost = active.shape === 'tenant'
       ? Math.ceil(n / density) * active.pre * months
       : n * active.pre * months;
@@ -125,7 +130,7 @@ const cfg = {
       // is not available here. The comparison that IS real at this volume is a
       // tenant against the same mailboxes bought as packs.
       const tenants = Math.ceil(n / density);
-      const freshCost = tenants * active.fresh * months + tenants * C.domainOnce + warmup;
+      const freshCost = tenants * active.fresh * months + tenants * domainCost + warmup;
       const preK = (preCost / preEmails) * 1000;
       const freshK = (freshCost / freshEmails) * 1000;
       const pct = Math.round((1 - preK / freshK) * 100);
@@ -139,7 +144,7 @@ const cfg = {
         `Both tenants cost <strong>${money(active.fresh)}</strong> each on a three-month commit, so at ${density} mailboxes to a tenant your ${n} inboxes cost <strong>${money(preCost)}</strong> either way — except the prewarmed one sends for all 90 days and the fresh one for ${C.windowDays - C.readyDays}. That is <strong>${money(preK)} per thousand against ${money(freshK)}</strong>, once the fresh side pays <strong>${money(warmup)}</strong> to warm itself. Paying the same money to wait ${C.readyDays} days is the whole decision.`;
     } else {
       const domains = Math.ceil(n / 3);
-      const freshCost = n * active.fresh * months + domains * C.domainOnce + warmup;
+      const freshCost = n * active.fresh * months + domains * domainCost + warmup;
       const preK = (preCost / preEmails) * 1000;
       const freshK = (freshCost / freshEmails) * 1000;
       const pct = Math.round((1 - preK / freshK) * 100);

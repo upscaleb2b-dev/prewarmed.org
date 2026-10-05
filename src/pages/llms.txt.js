@@ -38,7 +38,7 @@ Current pricing (confirmed ${pricing._confirmedAt}, ${pricing.currency}):
 - Prewarmed Azure tenant: $${P['azure-tenant'].perTenant.quarterly} per tenant, holding ${P['azure-tenant'].densities.map((d) => d.inboxes).join(', ')} mailboxes by choice — $${(P['azure-tenant'].perTenant.quarterly / 25).toFixed(2)}, $${(P['azure-tenant'].perTenant.quarterly / 49).toFixed(2)} or $${(P['azure-tenant'].perTenant.quarterly / 100).toFixed(2)} an inbox.
 - Fresh Google Workspace: $${P['google-fresh'].perUnit.monthly} per inbox per month, monthly only. Fresh Microsoft 365: $${P['microsoft-fresh'].perUnit.monthly}, monthly only.
 - Fresh Azure tenant: $${P['azure-fresh'].perTenant.monthly} per tenant, monthly only, flat, unwarmed and without a domain. A prewarmed tenant is $${P['azure-tenant'].perTenant.monthly} monthly or $${P['azure-tenant'].perTenant.quarterly} on a three-month commit, so at a quarterly commit the warmed tenant costs the same as the fresh one.
-- Fresh .com domain: $${P['domain-fresh'].price} one-time. Prewarmed domain: free with any inbox pack.
+- Fresh .com domain: $${P['domain-fresh'].price} per year. Prewarmed domain: free with any inbox pack.
 
 ## Prewarmed products
 

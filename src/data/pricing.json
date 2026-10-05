@@ -126,9 +126,9 @@
     "domain-fresh": {
       "label": "Fresh .com domain",
       "unit": "domain",
-      "billing": "one-time",
+      "billing": "yearly",
       "price": 12,
-      "note": "Registered clean and handed over. No aging, no warming, no sending history."
+      "note": "Registered clean and handed over. No aging, no warming, no sending history. Renews yearly."
     },
     "domain-prewarmed": {
       "label": "Prewarmed domain",
