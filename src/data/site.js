@@ -125,15 +125,17 @@ export function wa(message = '') {
 }
 
 export const nav = [
+  /**
+   * Four entries on purpose. Outlook, Entra and the Microsoft 365 variants
+   * all have their own pages and are linked from the footer, the hubs and
+   * each product's related list — they earn search traffic without having to
+   * sit in a dropdown that a buyer has to read before choosing.
+   */
   { label: 'Inboxes', href: '/prewarmed-inboxes/', children: [
     { label: 'Prewarmed Google Inboxes', href: '/prewarmed-google-inboxes/' },
-    { label: 'Prewarmed Microsoft 365 Inboxes', href: '/prewarmed-microsoft-365-inboxes/' },
-    { label: 'Prewarmed Outlook Inboxes', href: '/prewarmed-outlook-inboxes/' },
-    { label: 'Prewarmed Azure Tenants', href: '/prewarmed-azure-inboxes/' },
-    { label: 'Prewarmed Entra Tenants', href: '/prewarmed-entra-inboxes/' },
+    { label: 'Prewarmed Azure Inboxes', href: '/prewarmed-azure-inboxes/' },
     { label: 'Fresh Google Inboxes', href: '/fresh-google-inboxes/' },
-    { label: 'Fresh Microsoft 365 Inboxes', href: '/fresh-microsoft-365-inboxes/' },
-    { label: 'Fresh Azure Tenants', href: '/fresh-azure-inboxes/' },
+    { label: 'Fresh Azure Inboxes', href: '/fresh-azure-inboxes/' },
   ]},
   { label: 'Domains', href: '/prewarmed-domains/', children: [
     { label: 'Prewarmed Domains', href: '/prewarmed-domains/' },
