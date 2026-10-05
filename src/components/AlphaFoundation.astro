@@ -208,11 +208,6 @@ const graph = {
 <footer class="site">
   <div class="wrap cols">
     <div>
-      <strong>PreWarmed.org</strong>
-      <p>Commercial email infrastructure and deliverability services.</p>
-      <p>{site.disclosure} All of PreWarmed's net proceeds go to {a.name}, a charitable organization (Charity ID {a.charityId}). Purchases are not donations.</p>
-    </div>
-    <div>
       <h3>{a.name}</h3>
       <p>Charity ID: {a.charityId}<br />{a.address.city}, Pakistan<br /><a href={`mailto:${a.email}`}>{a.email}</a><br /><a href={`${a.url}/`} target="_blank" rel="noopener">{a.url.replace('https://', '')}</a></p>
     </div>
@@ -230,7 +225,6 @@ const graph = {
       </ul>
     </nav>
   </div>
-  <div class="wrap"><small>&copy; 2026 prewarmed.org, operated by {site.entity}. Google Workspace, Microsoft 365, Azure and Entra are trademarks of their respective owners. prewarmed.org is not affiliated with or endorsed by Google or Microsoft.</small></div>
 </footer>
 <Consent />
 </body>
@@ -342,11 +336,10 @@ table.qa th,table.qa td{text-align:left;vertical-align:top;padding:.75rem .5rem;
 table.qa th{width:38%;color:var(--ink);font-weight:600}
 
 footer.site{background:var(--surface);border-top:1px solid var(--rule);padding:2rem 0;font-size:.92rem}
-footer.site .cols{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2rem}
+footer.site .cols{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
 @media (max-width:760px){footer.site .cols{grid-template-columns:1fr}}
 footer.site ul{list-style:none;margin:0;padding:0;display:grid;gap:.35rem}
 footer.site h3{font-family:"Public Sans",sans-serif;font-size:.95rem;margin-bottom:.5rem}
-footer.site small{color:var(--muted);display:block;margin-top:1.5rem}
 
 /* The consent banner's own classes, which live in the site stylesheet this
    page does not load. */
