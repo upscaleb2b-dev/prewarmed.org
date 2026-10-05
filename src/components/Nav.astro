@@ -118,6 +118,24 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
 
 
 <script is:inline>
+  /* The mobile panel fills everything below the header. That used to be a
+     hardcoded 65px, which only held while the header sat at the very top of
+     the viewport — the bar above it broke that. Measure instead, and keep it
+     current as the sticky header moves under the bar on scroll. */
+  (function () {
+    var nav = document.querySelector('.nav');
+    if (!nav) return;
+    var set = function () {
+      document.documentElement.style.setProperty(
+        '--hdr-bottom', Math.max(0, Math.round(nav.getBoundingClientRect().bottom)) + 'px');
+    };
+    set();
+    addEventListener('scroll', set, { passive: true });
+    addEventListener('resize', set, { passive: true });
+  })();
+</script>
+
+<script is:inline>
   (() => {
     // Desktop dropdowns. CSS :hover alone loses the menu whenever the cursor
     // crosses the gap between the nav item and the panel, or travels
@@ -252,7 +270,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
     .burger { display: flex; }
     /* Below this width the desktop links are hidden, so without this panel
        the site has no navigation at all. */
-    .m-nav { display: block; position: fixed; inset: 65px 0 0; z-index: 60; background: var(--bg); border-top: 1px solid var(--border); overflow-y: auto; padding: 22px 0 40px; }
+    .m-nav { display: block; position: fixed; inset: var(--hdr-bottom, 65px) 0 0; z-index: 60; background: var(--bg); border-top: 1px solid var(--border); overflow-y: auto; padding: 22px 0 40px; }
     .m-nav[hidden] { display: none; }
     .m-grp { border-bottom: 1px solid var(--border); padding: 4px 0 12px; }
     .m-top { display: block; padding: 12px 0 6px; font-size: 17px; font-weight: 500; color: var(--text); }

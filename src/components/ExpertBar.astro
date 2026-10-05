@@ -1,0 +1,48 @@
+---
+/**
+ * Top bar: the support channel, on every page.
+ *
+ * Warm Inboxes publishes 24/7 WhatsApp support from the operators who run
+ * the campaigns, and that is a stronger answer to "who do I ask before I
+ * spend money on this" than anything further down the page. It sits above
+ * the nav rather than floating, so it never covers content and never
+ * competes with the consent banner at the bottom.
+ *
+ * The whole bar is the link on mobile, where there is no room for a
+ * separate target.
+ */
+import { wa } from '../data/site.js';
+const msg = 'Hi — I have a deliverability question before I order:';
+---
+<a class="xbar" href={wa(msg)} target="_blank" rel="noopener">
+  <span class="xdot" aria-hidden="true"></span>
+  <span class="xmsg">Talk to our deliverability experts. On WhatsApp, <b>24/7</b>.</span>
+  <span class="xcta">Message us <span aria-hidden="true">→</span></span>
+</a>
+
+<style>
+  .xbar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 9px 24px;
+    background: var(--accent-soft);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+    font-size: 14px;
+    line-height: 1.4;
+    color: var(--text-2);
+    text-align: center;
+  }
+  .xbar:hover { text-decoration: none; background: color-mix(in srgb, var(--accent) 16%, transparent); }
+  .xmsg b { color: var(--text); font-weight: 600; }
+  .xcta { color: var(--accent); font-weight: 600; white-space: nowrap; }
+  /* Steady dot, not a pulse: an animated bar at the top of every page is a
+     distraction, and prefers-reduced-motion would have to turn it off anyway. */
+  .xdot { width: 7px; height: 7px; border-radius: 50%; background: #25D366; flex: none; }
+  @media (max-width: 620px) {
+    .xbar { padding-inline: 16px; gap: 8px; font-size: 13.5px; }
+    .xcta { display: none; }
+  }
+</style>

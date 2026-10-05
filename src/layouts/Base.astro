@@ -4,6 +4,7 @@ import '../styles/base.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
 import Consent from '../components/Consent.astro';
+import ExpertBar from '../components/ExpertBar.astro';
 import { site } from '../data/site.js';
 
 const {
@@ -192,6 +193,7 @@ const graph = {
       at someone who was never asked costs more.
     */}
     <a class="skip" href="#main">Skip to content</a>
+    <ExpertBar />
     <Nav />
     <main id="main">
       <slot />
