@@ -5,7 +5,9 @@ import { site } from '../data/site.js';
 <Simple schema={{ '@type': 'ContactPage', name: 'Contact prewarmed.org', url: 'https://prewarmed.org/contact/' }} title="Contact — prewarmed.org" description="Talk to someone who runs this infrastructure daily about domains, inboxes and sending setup. Replies within one business day."
   eyebrow="Contact" h1="Talk to an operator"
   lede="Tell us the volume you need and what broke last time. Replies within one business day.">
-  <form class="f" method="POST" action={site.leadEndpoint || "/contact/"} name="lead" data-endpoint={site.leadEndpoint} data-to={site.correctionsEmail}>
+  <form class="f" method="POST" action={site.leadEndpoint || "/contact/"} name="lead"
+        data-endpoint={site.leadEndpoint} data-to={site.correctionsEmail}
+        data-source={site.leadSource} data-xevent={site.analytics.xLeadEvent}>
     <input type="text" name="company_website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
     <div class="row">
       <label>Name<input name="name" required autocomplete="name" /></label>
@@ -20,6 +22,7 @@ import { site } from '../data/site.js';
     <label>Sequencer<input name="sequencer" placeholder="Smartlead, Instantly, Email Bison…" /></label>
     <label>What are you trying to do?<textarea name="message" rows="4" placeholder="Volume target, timeline, and what went wrong last time."></textarea></label>
     <button class="btn btn-primary btn-lg" type="submit">Send</button>
+    <p class="senderr" id="senderr" role="alert" hidden></p>
     <p class="micro muted">No newsletter, no sequence. One reply from a person.</p>
   </form>
   <div class="fallback" id="fallback" hidden>
@@ -50,22 +53,68 @@ import { site } from '../data/site.js';
       const data = Object.fromEntries(new FormData(form).entries());
       delete data.company_website;
       btn.disabled = true; btn.textContent = 'Sending…';
-      const done = () => { window.dataLayer && window.dataLayer.push({ event: 'lead_submit' }); location.href = '/thanks/'; };
+
+      const done = () => {
+        // One conversion per platform. The pixels are consent-gated, so each
+        // is checked rather than assumed: outside the UK and EEA all three
+        // exist, inside they exist only if the visitor accepted.
+        window.dataLayer && window.dataLayer.push({ event: 'lead_submit' });
+        if (window.gtag) window.gtag('event', 'generate_lead');
+        if (window.fbq) window.fbq('track', 'Lead');
+        if (window.twq && form.dataset.xevent) window.twq('event', form.dataset.xevent, {});
+        location.href = '/thanks/';
+      };
+
       if (endpoint) {
+        // The endpoint takes a fixed shape, so the form's own fields are
+        // folded into one enquiry string rather than posted raw — anything it
+        // does not recognise would be dropped, and the volume, timeline and
+        // what-broke-last-time answer is the entire value of the lead.
+        const name = (data.name || '').trim();
+        const sp = name.indexOf(' ');
+        const enquiry = [
+          data.provider && `Provider: ${data.provider}`,
+          data.inboxes && `Inboxes: ${data.inboxes}`,
+          data.sequencer && `Sequencer: ${data.sequencer}`,
+          data.message && `\n${data.message}`,
+        ].filter(Boolean).join('\n');
+
         try {
-          const r = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) });
-          if (!r.ok) throw new Error(r.status);
-          return done();
-        } catch {
+          const r = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              email: (data.email || '').trim(),
+              source: form.dataset.source,
+              firstName: sp > 0 ? name.slice(0, sp) : name || undefined,
+              lastName: sp > 0 ? name.slice(sp + 1) : undefined,
+              enquiry: enquiry || undefined,
+            }),
+          });
+          if (r.ok) return done();
+          // 4xx messages are written for a visitor to read; 5xx are not.
+          const j = await r.json().catch(() => ({}));
+          throw new Error(r.status < 500 && j.error ? j.error : '');
+        } catch (err) {
           btn.disabled = false; btn.textContent = 'Send';
-          alert('That did not send. Email ' + form.dataset.to + ' and we will pick it up.');
+          const why = err && err.message;
+          document.getElementById('senderr').textContent = why
+            ? why
+            : 'That did not send. Your message is below — send it to ' + form.dataset.to + ' and we will pick it up.';
+          document.getElementById('senderr').hidden = false;
+          if (!why) showFallback(data);
           return;
         }
       }
-      // No backend configured. A mailto: opens nothing in most desktop Chrome
-      // and much of mobile web, so redirecting to /thanks/ — which promises a
-      // reply — would tell people their message was sent when it was not.
-      // Show them what to send instead, and never claim delivery we cannot do.
+      // No endpoint configured at all. Never redirect to /thanks/, which
+      // promises a reply — show the visitor their message instead.
+      showFallback(data);
+      btn.disabled = false; btn.textContent = 'Send';
+    });
+
+    // Shown when there is no endpoint, or when one fails in a way the visitor
+    // cannot act on. Puts the message in front of them rather than losing it.
+    function showFallback(data) {
       const body = Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\n');
       const subject = 'Inbox enquiry — ' + (data.name || '');
       const panel = document.getElementById('fallback');
@@ -73,7 +122,6 @@ import { site } from '../data/site.js';
       panel.querySelector('#fbmail').href =
         `mailto:${form.dataset.to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       panel.hidden = false;
-      btn.disabled = false; btn.textContent = 'Send';
       panel.scrollIntoView({ behavior: 'smooth', block: 'center' });
       const copy = panel.querySelector('#fbcopy');
       copy.onclick = async () => {
@@ -81,7 +129,7 @@ import { site } from '../data/site.js';
         copy.textContent = 'Copied';
         setTimeout(() => { copy.textContent = 'Copy message'; }, 2000);
       };
-    });
+    }
   })();
 </script>
 <style>
@@ -93,6 +141,7 @@ import { site } from '../data/site.js';
   textarea { resize: vertical; }
   .hp { position: absolute; left: -9999px; }
   .micro { font-size: 13px; margin: 0; }
+  .senderr { margin: 0; font-size: 14.5px; color: #f85149; max-width: 62ch; line-height: 1.5; }
   .alt { font-size: 15px; color: var(--text-2); margin-top: 26px; }
   button { justify-self: start; }
   .fallback { max-width: 620px; margin-top: 26px; padding: 20px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg-elev); }

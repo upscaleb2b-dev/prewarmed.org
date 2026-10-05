@@ -14,10 +14,22 @@ export const site = {
   // a site that will not say who it trades as is one people bounce from.
   entity: 'Upscale Systems LLC',
   phone: '+1 904 736 2539',
-  // Where the contact form posts. Empty means there is no backend, and the
-  // form falls back to composing an email instead of silently failing.
-  // Set this to a CRM/webhook/Formspree URL and the form posts JSON to it.
-  leadEndpoint: '',
+  /**
+   * Where the contact form posts.
+   *
+   * Warm Inboxes' existing capture endpoint, cross-origin. It already sends
+   * Access-Control-Allow-Origin: * and already answers the preflight, so this
+   * site needs no backend of its own — which is the point. prewarmed.org
+   * stays a static asset with no server, no secrets and nothing to maintain,
+   * and there is exactly one copy of the GoHighLevel token, on one site.
+   *
+   * Empty this and the form falls back to showing the visitor their message
+   * to send by hand. It never claims delivery it cannot perform.
+   */
+  leadEndpoint: 'https://warminboxes.com/.netlify/functions/ghl-capture',
+  // Becomes a GHL tag. Namespaced so leads from here stay separable from
+  // warminboxes.com's own, and allow-listed at the endpoint.
+  leadSource: 'prewarmed:contact',
   /**
    * Measurement. Nothing renders while these are empty, so the site ships no
    * third-party script until someone deliberately turns one on. Running paid
