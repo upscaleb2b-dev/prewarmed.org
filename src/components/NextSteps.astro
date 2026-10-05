@@ -1,0 +1,77 @@
+---
+/**
+ * "Four things that decide whether this works."
+ *
+ * The page the buyer is reading has already made the infrastructure case.
+ * What is left is their side of it, and each step hands them the free thing
+ * of ours that does the job — which is more useful than telling them to go
+ * and audit what we sold them.
+ *
+ * One renderer for every page that shows this, so the copy and the links
+ * cannot drift apart as they get edited.
+ */
+import { wi, toolUrl } from '../data/site.js';
+import tools from '../data/tools.json';
+import leads from '../data/leads.json';
+
+const {
+  page,
+  heading = 'Four things that decide whether this works',
+  lede = 'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+  // Platform-specific: packs ramp at fifteen a day, a tenant at two per mailbox.
+  ramp = 'Ten to fifteen a day per inbox from the first send, and keep it there rather than climbing.',
+  split = 'Google-hosted recipients read better from Google, Microsoft-hosted from Microsoft. Segmenting the list and sending each half from matching infrastructure is the largest placement lever available before you have written a word of copy.',
+} = Astro.props;
+
+const tool = (id) => tools.tools.find((t) => t.id === id && t.live);
+const steps = [
+  { h: 'Ramp slowly, then stay there',
+    p: `${ramp} Volume should come from more inboxes, never from working each one harder.`,
+    href: '/calculator/', label: 'Work out how many inboxes you need' },
+  { h: 'Verify the list before it touches a mailbox',
+    p: 'Bounces are the fastest way to undo warming, and a list that sat in a spreadsheet for three months is mostly dead addresses. Verify it, dedupe it, and strip anyone you have already contacted. This single step saves more domains than anything else here.',
+    tool: 'email-verifier', label: 'Verify a list',
+    more: { href: '/leads/', label: `Or start from ${leads.totalLists} free lists` } },
+  { h: 'Split the list by platform and match the send',
+    p: split, tool: 'esp-segmenter', label: 'Split a list by ESP' },
+  { h: 'Write copy worth replying to',
+    p: 'Infrastructure gets you a fair hearing. It cannot make a bad message work, and at these volumes the message is doing most of the lifting. Draft it, then run it past a spam checker before the first send.',
+    wi: '/ai', label: 'Cold Email AI' },
+];
+---
+<div class="ns">
+  {heading && <h2>{heading}</h2>}
+  {lede && <p class="ns-lede">{lede}</p>}
+  <ol class="steps">
+    {steps.map((st) => {
+      const t = st.tool && tool(st.tool);
+      const href = t ? toolUrl(t, { page, placement: `step-${st.tool}` })
+        : st.wi ? wi(st.wi, { page, placement: 'step-ai' })
+        : st.href;
+      const ext = Boolean(t || st.wi);
+      return (
+        <li>
+          <h3>{st.h}</h3>
+          <p>{st.p}</p>
+          <span class="step-links">
+            <a href={href} {...(ext ? { target: '_blank', rel: 'noopener' } : {})}>
+              {st.label}{ext && <span class="ext" aria-hidden="true"> ↗</span>}
+            </a>
+            {st.more && <a href={st.more.href}>{st.more.label}</a>}
+          </span>
+        </li>
+      );
+    })}
+  </ol>
+</div>
+
+<style>
+  .ns-lede { color: var(--text-2); max-width: 68ch; margin: 10px 0 0; }
+  .steps { list-style: none; counter-reset: s; padding: 0; margin: 22px 0 0; display: grid; gap: 14px; }
+  .steps li { counter-increment: s; position: relative; padding: 16px 18px 16px 52px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-elev); }
+  .steps li::before { content: counter(s); position: absolute; left: 18px; top: 16px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 12.5px; font-weight: 700; display: grid; place-items: center; }
+  .steps h3 { margin: 0 0 6px; font-size: 16.5px; }
+  .steps p { margin: 0; font-size: 15px; color: var(--text-2); line-height: 1.55; }
+  .step-links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 10px; }
+  .steps a { font-size: 14.5px; font-weight: 600; color: var(--accent); }
+</style>

@@ -35,6 +35,13 @@ export const products = [
     ],
     body: [
       {
+        h: 'Four things that decide whether this works',
+        p: [
+          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+        ],
+        nextSteps: {},
+      },
+      {
         h: 'Why Google, and when not to',
         tool: 'esp-segmenter',
         p: [
@@ -71,39 +78,6 @@ export const products = [
           'Every sequencer ships with defaults set for a mature domain, and every one of them will happily send far more than fifteen a day from a brand new connection. Change the per-inbox daily cap before the first send, not after the first week.',
           'Turn the sequencer\'s own warmup off on these inboxes. It is built to create sending history where none exists, and there already is history here — history built on real traffic rather than on a pool of accounts emailing each other. Running a warmup network on top of it adds the exact fingerprint the twenty-one days were spent avoiding.',
           'Set a minimum gap between sends, enable the sequencer\'s bounce protection, and connect over OAuth where the tool supports it. An app password works and is sometimes the only option, but OAuth survives security-policy changes that quietly break app passwords mid-campaign.',
-        ],
-      },
-      {
-        h: 'Four things that decide whether this works',
-        p: [
-          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
-        ],
-        steps: [
-          {
-            h: 'Ramp slowly, then stay there',
-            p: 'Ten to fifteen a day per inbox from the first send, and keep it there rather than climbing. The domain arrives with a quiet, well-behaved history; sending like software contradicts it. Volume should come from more inboxes, never from working each one harder.',
-            href: '/calculator/',
-            label: 'Work out how many inboxes you need',
-          },
-          {
-            h: 'Verify the list before it touches a mailbox',
-            p: 'Bounces are the fastest way to undo warming, and a list that sat in a spreadsheet for three months is mostly dead addresses. Verify it, dedupe it, and strip anyone you have already contacted. This single step saves more domains than anything else here.',
-            tool: 'email-verifier',
-            label: 'Verify a list',
-            more: { href: '/leads/', label: 'Or start from 999 free lists' },
-          },
-          {
-            h: 'Split the list by platform and match the send',
-            p: 'Google-hosted recipients read better from Google, Microsoft-hosted from Microsoft. Segmenting the list and sending each half from matching infrastructure is the largest placement lever available before you have written a word of copy.',
-            tool: 'esp-segmenter',
-            label: 'Split a list by ESP',
-          },
-          {
-            h: 'Write copy worth replying to',
-            p: 'Infrastructure gets you a fair hearing. It cannot make a bad message work, and at fifteen sends a day the message is doing most of the lifting. Draft it, then run it past a spam checker before the first send.',
-            wi: '/ai',
-            label: 'Cold Email AI',
-          },
         ],
       },
       {
@@ -159,33 +133,7 @@ export const products = [
         p: [
           'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
         ],
-        steps: [
-          {
-            h: 'Ramp slowly, then stay there',
-            p: 'Fifteen a day per inbox from the first send, three inboxes to a domain, and keep it there rather than climbing. Volume should come from more inboxes, never from working each one harder.',
-            href: '/calculator/',
-            label: 'Work out how many inboxes you need',
-          },
-          {
-            h: 'Verify the list before it touches a mailbox',
-            p: 'Bounces are the fastest way to undo warming, and a list that sat in a spreadsheet for three months is mostly dead addresses. Verify it, dedupe it, and strip anyone you have already contacted. This single step saves more domains than anything else here.',
-            tool: 'email-verifier',
-            label: 'Verify a list',
-            more: { href: '/leads/', label: 'Or start from 999 free lists' },
-          },
-          {
-            h: 'Split the list by platform and match the send',
-            p: 'You bought Microsoft because the list skews Microsoft — confirm that before the first send rather than assuming it. Anything Google-hosted in there lands better from Google, and splitting the file takes minutes.',
-            tool: 'esp-segmenter',
-            label: 'Split a list by ESP',
-          },
-          {
-            h: 'Write copy worth replying to',
-            p: 'Infrastructure gets you a fair hearing. It cannot make a bad message work, and at these volumes the message is doing most of the lifting. Draft it, then run it past a spam checker before the first send.',
-            wi: '/ai',
-            label: 'Cold Email AI',
-          },
-        ],
+        nextSteps: {ramp: 'Fifteen a day per inbox from the first send, three inboxes to a domain, and keep it there rather than climbing.', split: 'You bought Microsoft because the list skews Microsoft — confirm that before the first send rather than assuming it. Anything Google-hosted in there lands better from Google, and splitting the file takes minutes.'},
       },
       {
         h: 'The diagnostic advantage nobody mentions',
@@ -278,6 +226,13 @@ export const products = [
     ],
     body: [
       {
+        h: 'Four things that decide whether this works',
+        p: [
+          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+        ],
+        nextSteps: {ramp: 'Fifteen a day per inbox from the first send, three inboxes to a domain, and keep it there rather than climbing.'},
+      },
+      {
         h: 'Outlook, Outlook.com, Microsoft 365: which one you are buying',
         p: [
           'Outlook means three different things, and which one you buy decides whether your campaign works. Outlook the app is just software for reading email. Outlook.com is Microsoft\'s free personal email. Microsoft 365 is the paid business product, and that is the one that matters here.',
@@ -337,33 +292,7 @@ export const products = [
         p: [
           'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
         ],
-        steps: [
-          {
-            h: 'Ramp slowly, then stay there',
-            p: 'Two cold emails per mailbox per day. That is the whole shape of a tenant: a hundred quiet addresses rather than ten busy ones. Volume should come from more inboxes, never from working each one harder.',
-            href: '/calculator/',
-            label: 'Work out how many inboxes you need',
-          },
-          {
-            h: 'Verify the list before it touches a mailbox',
-            p: 'Bounces are the fastest way to undo warming, and a list that sat in a spreadsheet for three months is mostly dead addresses. Verify it, dedupe it, and strip anyone you have already contacted. This single step saves more domains than anything else here.',
-            tool: 'email-verifier',
-            label: 'Verify a list',
-            more: { href: '/leads/', label: 'Or start from 999 free lists' },
-          },
-          {
-            h: 'Split the list by platform and match the send',
-            p: 'An Entra tenant sends from Microsoft, so the Microsoft-hosted half of your list is the half this is best at. Split the file and point the rest at Google infrastructure.',
-            tool: 'esp-segmenter',
-            label: 'Split a list by ESP',
-          },
-          {
-            h: 'Write copy worth replying to',
-            p: 'Infrastructure gets you a fair hearing. It cannot make a bad message work, and at these volumes the message is doing most of the lifting. Draft it, then run it past a spam checker before the first send.',
-            wi: '/ai',
-            label: 'Cold Email AI',
-          },
-        ],
+        nextSteps: {ramp: 'Two cold emails per mailbox per day. That is the whole shape of a tenant: a hundred quiet addresses rather than ten busy ones.', split: 'An Entra tenant sends from Microsoft, so the Microsoft-hosted half of your list is the half this is best at. Split the file and point the rest at Google infrastructure.'},
       },
       {
         h: 'What a tenant is, and why the cost per inbox collapses',
@@ -458,6 +387,13 @@ export const products = [
       ['Anyone comparing quotes', 'Sellers quoting Azure AD and sellers quoting Entra are quoting the same thing. Compare on mailbox count, aging and warming, not on the name.'],
     ],
     body: [
+      {
+        h: 'Four things that decide whether this works',
+        p: [
+          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+        ],
+        nextSteps: {ramp: 'Two cold emails per mailbox per day. That is the whole shape of a tenant: a hundred quiet addresses rather than ten busy ones.', split: 'An Entra tenant sends from Microsoft, so the Microsoft-hosted half of your list is the half this is best at. Split the file and point the rest at Google infrastructure.'},
+      },
       {
         h: 'Azure AD became Entra ID. What that means for sending: nothing',
         p: [
@@ -605,6 +541,13 @@ export const products = [
     ],
     body: [
       {
+        h: 'Four things that decide whether this works',
+        p: [
+          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+        ],
+        nextSteps: {ramp: 'Once the warming is done, ten to fifteen a day per inbox — the ramp you just spent three weeks on is wasted if you jump straight past it.'},
+      },
+      {
         h: 'What fresh actually means here',
         p: [
           'Fresh means the mailbox is real and licensed but has no history. It has never sent or received anything, so as far as Gmail and Outlook are concerned it does not exist yet. That is not a fault. Every inbox that ever worked started in exactly this state.',
@@ -680,6 +623,13 @@ export const products = [
       ['Agencies stocking up between launches', 'Buy the quiet month, warm through it, and have working Microsoft inboxes on the shelf when the next client signs.'],
     ],
     body: [
+      {
+        h: 'Four things that decide whether this works',
+        p: [
+          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+        ],
+        nextSteps: {ramp: 'Once the warming is done, fifteen a day per inbox, three inboxes to a domain.'},
+      },
       {
         h: 'Microsoft is harder on new senders, and that changes the schedule',
         p: [
@@ -758,6 +708,13 @@ export const products = [
       ['Anyone who has priced the warming and still wants it', 'Warming tools charge per mailbox. A hundred mailboxes for the better part of two months is the number that decides this, and most people never work it out.'],
     ],
     body: [
+      {
+        h: 'Four things that decide whether this works',
+        p: [
+          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+        ],
+        nextSteps: {ramp: 'Two cold emails per mailbox per day once warmed. That is the whole shape of a tenant: a hundred quiet addresses rather than ten busy ones.', split: 'An Entra tenant sends from Microsoft, so the Microsoft-hosted half of your list is the half this is best at. Split the file and point the rest at Google infrastructure.'},
+      },
       {
         h: 'Warming a hundred mailboxes is not warming three, a hundred times over',
         p: [

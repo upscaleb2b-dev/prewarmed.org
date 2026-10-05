@@ -9,6 +9,7 @@ import Handoff from '../components/Handoff.astro';
 import ProofStats from '../components/ProofStats.astro';
 import Testimonials from '../components/Testimonials.astro';
 import WhatsApp from '../components/WhatsApp.astro';
+import NextSteps from '../components/NextSteps.astro';
 const pages = ['prewarmed-google-inboxes', 'fresh-google-inboxes', 'prewarmed-domains'].map((s) => bySlug[s]).filter(Boolean);
 const pre = pricing.products['google-prewarmed'];
 const faqs = [
@@ -71,6 +72,8 @@ const schema = {
       <p>Ask how many days the domain was registered before its first send, how many days it sent real mail before handover, and what the replacement terms are in writing. Those answers separate a real product from a repackaged one. The full version is in the <a href="/best-prewarmed-inboxes/">buyer's guide</a>.</p>
 
       <Faq faqs={faqs} />
+
+      <NextSteps page="google-hub" />
 
       <Testimonials page="google-hub" limit={3} heading="Operators sending from this infrastructure" />
       <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'google-hub', placement: 'footer-cta' })} target="_blank" rel="noopener">Get Google inboxes at Warm Inboxes</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>

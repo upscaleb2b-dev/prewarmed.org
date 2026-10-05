@@ -235,6 +235,10 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
   .mega-cta { display: flex; align-items: center; gap: 16px; margin-left: auto; font-size: 14px; }
   .has-menu:hover .menu, .has-menu:hover .mega,
   .has-menu:focus-within .menu, .has-menu:focus-within .mega,
+  /* The dropdown labels are full product names now, so the panel sizes to
+     them rather than wrapping every second one onto a second line. */
+  .menu { min-width: 248px; }
+  .menu a { white-space: nowrap; }
   .has-menu.open .menu, .has-menu.open .mega { display: flex; }
   .mega { flex-direction: column; }
   .nav-cta { display: flex; gap: 10px; align-items: center; }

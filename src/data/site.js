@@ -126,18 +126,18 @@ export function wa(message = '') {
 
 export const nav = [
   { label: 'Inboxes', href: '/prewarmed-inboxes/', children: [
-    { label: 'Google Workspace', href: '/prewarmed-google-inboxes/' },
-    { label: 'Microsoft 365', href: '/prewarmed-microsoft-365-inboxes/' },
-    { label: 'Outlook', href: '/prewarmed-outlook-inboxes/' },
-    { label: 'Azure tenants', href: '/prewarmed-azure-inboxes/' },
-    { label: 'Entra tenants', href: '/prewarmed-entra-inboxes/' },
-    { label: 'Fresh Google', href: '/fresh-google-inboxes/' },
-    { label: 'Fresh Microsoft 365', href: '/fresh-microsoft-365-inboxes/' },
-    { label: 'Fresh Azure tenants', href: '/fresh-azure-inboxes/' },
+    { label: 'Prewarmed Google Inboxes', href: '/prewarmed-google-inboxes/' },
+    { label: 'Prewarmed Microsoft 365 Inboxes', href: '/prewarmed-microsoft-365-inboxes/' },
+    { label: 'Prewarmed Outlook Inboxes', href: '/prewarmed-outlook-inboxes/' },
+    { label: 'Prewarmed Azure Tenants', href: '/prewarmed-azure-inboxes/' },
+    { label: 'Prewarmed Entra Tenants', href: '/prewarmed-entra-inboxes/' },
+    { label: 'Fresh Google Inboxes', href: '/fresh-google-inboxes/' },
+    { label: 'Fresh Microsoft 365 Inboxes', href: '/fresh-microsoft-365-inboxes/' },
+    { label: 'Fresh Azure Tenants', href: '/fresh-azure-inboxes/' },
   ]},
   { label: 'Domains', href: '/prewarmed-domains/', children: [
-    { label: 'Prewarmed domains', href: '/prewarmed-domains/' },
-    { label: 'Fresh domains', href: '/fresh-domains/' },
+    { label: 'Prewarmed Domains', href: '/prewarmed-domains/' },
+    { label: 'Fresh Domains', href: '/fresh-domains/' },
   ]},
   { label: 'Free tools', href: '/tools/', mega: true },
   { label: 'Free leads', href: '/leads/', leads: true },
