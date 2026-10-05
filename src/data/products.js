@@ -262,13 +262,13 @@ export const products = [
       ['Mailbox type', 'Exchange Online, the business version'],
       ['What you get', 'Account ID and the full mailbox list'],
       ['Email records', 'Set up before you get it'],
-      ['Suggested volume', '6 cold emails per mailbox per day, plus 2 warmup'],
-      ['Total capacity', 'Up to 600 cold emails a day at 100 mailboxes'],
+      ['Suggested volume', '2 cold emails per mailbox per day'],
+      ['Total capacity', 'Up to 200 cold emails a day at 100 mailboxes'],
       ['You get it', 'Same day, business days'],
     ],
     whoFor: [
       ['Agencies running many clients', 'Per-inbox economics change entirely at tenant scale. The same budget buys an order of magnitude more sending surface.'],
-      ['Teams sending 500+ a day', 'Spreading volume across 100 mailboxes at six each is a fundamentally safer shape than pushing ten mailboxes at sixty.'],
+      ['Teams who want volume without volume per address', 'Spreading sending across 100 mailboxes at two each is a fundamentally safer shape than pushing ten mailboxes at twenty.'],
       ['Operators who want to price their own risk', 'The tenant costs the same whether you fill it with 25 mailboxes or 100. Density is the dial between cost per inbox and how much one bad week can reach.'],
     ],
     body: [
@@ -282,9 +282,9 @@ export const products = [
       {
         h: 'The volume shape that makes this work',
         p: [
-          'The reason to buy a tenant is not that it is cheap. It is that you can send the same number of emails from far more addresses, at a rate per address that does not look like software. We run six cold emails per mailbox per day here, alongside two warmup sends, and six hundred a day across a hundred mailboxes is a hundred people writing a handful of emails each.',
-          'Six is deliberately lower than the fifteen we suggest on a Google or Microsoft pack, and that is the point of the shape rather than a limitation of the platform. When mailboxes are cheap enough to buy a hundred of, the right move is to spend that surplus on a quieter per-address rate instead of on more total volume.',
-          'Gmail and Outlook judge each sending address on its own behaviour, not your campaign\'s. Six a day from a hundred addresses and sixty a day from ten are the same volume and nothing like the same risk. Tenant pricing is what makes the first one affordable.',
+          'The reason to buy a tenant is not that it is cheap. It is that you can send from far more addresses, at a rate per address that does not look like software. We run two cold emails per mailbox per day here. Two hundred a day across a hundred mailboxes is a hundred people sending a couple of emails each, which is simply what a company looks like.',
+          'Two is far lower than the fifteen we suggest on a Google or Microsoft pack, and that is the point of the shape rather than a limitation of the platform. When mailboxes are cheap enough to buy a hundred of, the right move is to spend that surplus on a quieter per-address rate instead of on more total volume. Volume comes from the number of addresses, not from working each one harder.',
+          'Gmail and Outlook judge each sending address on its own behaviour, not your campaign\'s. Two a day from a hundred addresses and twenty a day from ten are the same volume and nothing like the same risk. Tenant pricing is what makes the first one affordable.',
         ],
       },
       {
@@ -314,8 +314,8 @@ export const products = [
       {
         h: 'The arithmetic nobody runs before ordering',
         p: [
-          'At a hundred mailboxes and six cold sends each, one tenant carries six hundred cold emails a day. That is more capacity than most teams reading this will use, bought for the price of a few Google inboxes, and it is reached without any single address sending enough to stand out.',
-          'The number to work out before you order is not the monthly cost, it is the cost of the worst week. Multiply your density by six to get the daily capacity at risk, then ask whether losing that overnight stops the business. If the answer is yes, your density is too high regardless of what the per-inbox figure says.',
+          'At a hundred mailboxes and two cold sends each, one tenant carries two hundred cold emails a day, bought for the price of a few Google inboxes, and it gets there without any single address sending enough to stand out. Want four hundred, buy a second tenant rather than doubling the rate on this one.',
+          'The number to work out before you order is not the monthly cost, it is the cost of the worst week. Multiply your density by two to get the daily capacity at risk, then ask whether losing that overnight stops the business. If the answer is yes, your density is too high regardless of what the per-inbox figure says.',
           'This is also why a tenant is the strongest second platform rather than the obvious first one. A filtering change at Google cannot touch Entra-hosted mail, and the reverse is equally true.',
         ],
       },
@@ -332,7 +332,7 @@ export const products = [
       ['What is an Azure tenant for cold email?', 'Your own Microsoft cloud directory containing 100 Exchange Online mailboxes, delivered prewarmed with DNS configured.'],
       ['How is this different from Microsoft 365 packs?', 'A pack is three mailboxes and a problem stays on that domain. A tenant is one flat price holding 25, 49 or 100 mailboxes that share a reputation. At 25 it is $2.00 an inbox with contained risk; at 100 it is $0.50 with all of it in one place.'],
       ['Can I bring my own domains into the tenant?', 'Yes, though a domain you add yourself starts at zero reputation and needs its own aging and warming.'],
-      ['How many sends a day can a tenant carry?', 'At our recommended six cold per mailbox, 600 a day on a full tenant, alongside two warmup sends each. Higher per mailbox is possible and raises risk across the whole pool, which is the one thing a shared reputation does not forgive.'],
+      ['How many sends a day can a tenant carry?', 'At our recommended two cold per mailbox, 200 a day on a full tenant. Higher per mailbox is possible and raises risk across the whole pool, which is the one thing a shared reputation does not forgive. More volume should come from more mailboxes, not a higher rate on each.'],
       ['What happens if the tenant gets flagged?', 'Get the replacement terms in writing before ordering. Tenant-level events are rarer than domain burns but larger when they happen.'],
     ],
     related: ['prewarmed-entra-inboxes', 'prewarmed-microsoft-365-inboxes', 'prewarmed-google-inboxes'],
@@ -355,7 +355,7 @@ export const products = [
       ['Mailboxes', '100 Exchange Online per tenant'],
       ['Adding mailboxes', 'Upload a spreadsheet, get the accounts'],
       ['Email records', 'Set up before you get it'],
-      ['Suggested volume', '6 cold emails per mailbox per day, plus 2 warmup'],
+      ['Suggested volume', '2 cold emails per mailbox per day'],
       ['You get it', 'Same day, business days'],
     ],
     whoFor: [

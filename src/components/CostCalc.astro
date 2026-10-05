@@ -28,7 +28,7 @@ const cfg = {
   // mailboxes are cheap enough to buy a hundred, the surplus is spent on a
   // lower per-address rate rather than on more total volume.
   perDay: 15,
-  perDayTenant: 6,
+  perDayTenant: 2,
   readyDays: 51,
   windowDays: 90,
   domainOnce: P['domain-fresh'].price,
@@ -154,7 +154,7 @@ const cfg = {
     const foot = $('cc-foot');
     if (foot) foot.firstChild.nodeValue =
       active.shape === 'tenant'
-        ? `Assumes ${perDay} cold emails per mailbox per day on a tenant, plus 2 warmup — lower per address than a pack, which is the point of tenant density. `
+        ? `Assumes ${perDay} cold emails per mailbox per day on a tenant — far lower per address than a pack, which is the point of tenant density. `
         : `Assumes ${perDay} cold emails per inbox per day and three inboxes to a domain. `;
     $('cc-more').href = '/' + active.slug + '/';
   }
