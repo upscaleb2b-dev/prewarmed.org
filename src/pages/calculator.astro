@@ -63,7 +63,7 @@ const schema = {
     <div class="wrap calcw">
       <p class="eyebrow">Free tool</p>
       <h1>Prewarmed or fresh? Put your numbers in.</h1>
-      <p class="lede">How much infrastructure your volume needs, on each of the three platforms, priced both ways — and whether your launch date leaves room to warm it yourself.</p>
+      <p class="lede">How much infrastructure your volume needs, on each of the three platforms, priced both ways, and whether your launch date leaves room to warm it yourself.</p>
 
       <div class="calc" data-cfg={JSON.stringify(cfg)}>
         <div class="fields">
@@ -79,7 +79,7 @@ const schema = {
           <div class="field">
             <label for="domainstate">The domain you would warm</label>
             <select id="domainstate">
-              <option value="51">Brand new — needs 30 days aging first</option>
+              <option value="51">Brand new: needs 30 days aging first</option>
               <option value="21">Already old and sending normal email</option>
             </select>
           </div>
@@ -100,25 +100,25 @@ const schema = {
           </div>
         </div>
 
-        <p class="verdict" id="verdict">—</p>
+        <p class="verdict" id="verdict">…</p>
 
         <div class="plats" id="plats"></div>
 
         <div class="endcap">
           <p>Whichever way it came out, the order happens at Warm Inboxes.</p>
-          <a class="btn btn-primary btn-lg" href={wi('/', { page: 'calculator', placement: 'result' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />
+          <a class="btn btn-primary btn-lg" href={wi('/', { page: 'calculator', placement: 'result' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes →</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" />
         </div>
       </div>
 
       <h2>How it decides</h2>
       <p>Two things move the answer, and only one of them is money.</p>
       <p><strong>Volume</strong> sets how many inboxes you need: your daily target divided by 15, plus a fifth held back for replacements, then three inboxes to a domain. That part is the same whichever way you buy.</p>
-      <p><strong>Your start date</strong> sets whether fresh is available to you at all. A brand new domain needs 30 days of sitting still and then 21 days of warming before the first cold email — 51 days. On a domain that is already old and sending normal business email, you owe the 21 days only. If your launch is inside that window, the cheaper line item is not an option, it is a missed month.</p>
+      <p><strong>Your start date</strong> sets whether fresh is available to you at all. A brand new domain needs 30 days of sitting still and then 21 days of warming before the first cold email, 51 days in all. On a domain that is already old and sending normal business email, you owe the 21 days only. If your launch is inside that window, the cheaper line item is not an option, it is a missed month.</p>
       <p>When both are available, the calculator prices them against each other, including the warming tool you would pay for and the domain you would buy. The prewarmed price includes the domain; the fresh price does not.</p>
       <p>What it cannot price is the risk that your first attempt at warming does not work. That is a real cost and it falls entirely on the fresh column.</p>
 
       <h2>What it does not do</h2>
-      <p>This tool answers one question: prewarmed or fresh, at your volume, on your timeline. For pure sizing — how many inboxes and domains for a target, with a ramp plan — Warm Inboxes already has <a href={wi('/calculator', { page: 'calculator', placement: 'handoff' })} target="_blank" rel="noopener">a calculator</a> and we have not rebuilt it. The arithmetic behind both is written out on <a href="/tools/stack-calculator/">the sizing page</a>.</p>
+      <p>This tool answers one question: prewarmed or fresh, at your volume, on your timeline. For pure sizing, meaning how many inboxes and domains for a target with a ramp plan, Warm Inboxes already has <a href={wi('/calculator', { page: 'calculator', placement: 'handoff' })} target="_blank" rel="noopener">a calculator</a> and we have not rebuilt it. The arithmetic behind both is written out on <a href="/tools/stack-calculator/">the sizing page</a>.</p>
       <p>To price the waiting on its own, use the <a href="/tools/warmup-tax/">warmup tax calculator</a>. To read the argument rather than the numbers, see <a href="/prewarmed-vs-fresh-inboxes/">prewarmed vs fresh inboxes</a>.</p>
     </div>
   </section>
@@ -183,7 +183,7 @@ const schema = {
             <p class="sub when">Ready to send today</p>
           </div>
           <div class="opt ${freshFits ? '' : 'out'}">
-            <p class="tag">Fresh${freshFits ? '' : ' — too late'}</p>
+            <p class="tag">Fresh${freshFits ? '' : ' (too late)'}</p>
             ${freshBlock}
           </div>
         </div>

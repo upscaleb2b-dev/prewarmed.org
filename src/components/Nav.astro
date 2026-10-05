@@ -120,7 +120,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
 <script is:inline>
   /* The mobile panel fills everything below the header. That used to be a
      hardcoded 65px, which only held while the header sat at the very top of
-     the viewport — the bar above it broke that. Measure instead, and keep it
+     the viewport. The bar above it broke that. Measure instead, and keep it
      current as the sticky header moves under the bar on scroll. */
   (function () {
     var nav = document.querySelector('.nav');

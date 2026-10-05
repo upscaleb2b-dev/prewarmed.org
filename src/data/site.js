@@ -19,7 +19,7 @@ export const site = {
    *
    * Warm Inboxes' existing capture endpoint, cross-origin. It already sends
    * Access-Control-Allow-Origin: * and already answers the preflight, so this
-   * site needs no backend of its own — which is the point. prewarmed.org
+   * site needs no backend of its own, which is the point. prewarmed.org
    * stays a static asset with no server, no secrets and nothing to maintain,
    * and there is exactly one copy of the GoHighLevel token, on one site.
    *
@@ -66,7 +66,7 @@ export const site = {
      * checker has to pass.
      *
      * NOTE: if the GTM container itself fires a GA4 config tag for
-     * G-E7DJJB6E4D, that property counts every page view twice — once from
+     * G-E7DJJB6E4D, that property counts every page view twice, once from
      * GTM, once from the gtag config above. Check the container before
      * trusting the numbers.
      */
@@ -82,7 +82,7 @@ export const site = {
     'Google Workspace, Microsoft 365, Azure and Entra are trademarks of their respective owners. prewarmed.org is not affiliated with or endorsed by Google or Microsoft.',
 };
 
-/** Outbound link builder. Brand anchors only — never keyword-rich anchor text. */
+/** Outbound link builder. Brand anchors only, never keyword-rich anchor text. */
 export function wi(path = '/', { page = 'site', placement = 'body' } = {}) {
   const u = new URL(path, 'https://warminboxes.com');
   u.searchParams.set('utm_source', 'prewarmed.org');
@@ -128,7 +128,7 @@ export const nav = [
   /**
    * Four entries on purpose. Outlook, Entra and the Microsoft 365 variants
    * all have their own pages and are linked from the footer, the hubs and
-   * each product's related list — they earn search traffic without having to
+   * each product's related list, they earn search traffic without having to
    * sit in a dropdown that a buyer has to read before choosing.
    */
   { label: 'Inboxes', href: '/prewarmed-inboxes/', children: [

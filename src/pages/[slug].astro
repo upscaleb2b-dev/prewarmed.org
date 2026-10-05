@@ -43,7 +43,7 @@ const termed = !!(price?.perUnit || price?.perTenant || price?.perUnitRange);
 /** No published figure means the primary CTA has to start a conversation.
  *  The pricing section still carries a tracked Warm Inboxes link. */
 const askFirst = price?.contact === 'whatsapp';
-const askMsg = p.waMessage ?? `Hi — I am interested in ${p.eyebrow.toLowerCase()}. Could you send me the price?`;
+const askMsg = p.waMessage ?? `Hi, I am interested in ${p.eyebrow.toLowerCase()}. Could you send me the price?`;
 
 /**
  * The order panel's checklist. Prewarmed products share one; fresh products
@@ -110,7 +110,7 @@ const schema = {
           <div class="cta">
             {askFirst
               ? <a class="btn btn-primary btn-lg" href={wa(askMsg)}>Ask for a price on WhatsApp</a>
-              : <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'hero' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />}
+              : <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'hero' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" />}
             <a class="btn btn-ghost btn-lg" href="/pricing/">See pricing</a>
           </div>
           <p class="disclosure micro">{site.disclosure}</p>
@@ -127,7 +127,7 @@ const schema = {
           )}
           {askFirst
             ? <a class="btn btn-primary full" href={wa(askMsg)}>Ask for a price →</a>
-            : <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />}
+            : <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" />}
           <p class="micro muted">{pricing.policy.delivery}.</p>
         </aside>
       </div>
@@ -160,7 +160,7 @@ const schema = {
         <p class="band-p">The 51 days of aging and warming already happened. You get the logins, the records are set, and the first campaign can go out this afternoon.</p>
         <div class="band-cta">
           <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'mid-band' })} target="_blank" rel="noopener">Get {p.eyebrow} →</a>
-          <WhatsApp label="Ask a question first" message={`Hi — I am looking at ${p.eyebrow} on prewarmed.org. `} />
+          <WhatsApp label="Ask a question first" message={`Hi, I am looking at ${p.eyebrow} on prewarmed.org. `} />
         </div>
         <Handoff />
       </div>
@@ -201,7 +201,7 @@ const schema = {
                 ? <a class="btn btn-ghost" href={wa(t.wa)}>Talk on WhatsApp →</a>
                 : t.to
                 ? <a class="btn btn-ghost" href={t.to}>{t.toLabel}</a>
-                : <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: `tier-${t.k}` })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />}
+                : <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: `tier-${t.k}` })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" />}
             </div>
           ))}
         </div>
@@ -214,7 +214,7 @@ const schema = {
               <p class="fnote">{pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>
             </div>
           )}
-          <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: 'pricing' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />
+          <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: 'pricing' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" />
         </>
       )}
     </div>
@@ -231,7 +231,7 @@ const schema = {
   <section class="section">
     <div class="wrap">
       <h2>Why the last setup broke</h2>
-      <p class="muted" style="max-width:64ch;margin-top:10px">Four places cold email infrastructure dies quietly. Three of the four you can check yourself, for free, before you order from anyone — including us.</p>
+      <p class="muted" style="max-width:64ch;margin-top:10px">Four places cold email infrastructure dies quietly. Three of the four you can check yourself, for free, before you order from anyone, including us.</p>
       <div class="grid g2 fm">
         {failureModes.map((f) => (
           <div class="card">

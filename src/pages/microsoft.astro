@@ -38,15 +38,15 @@ const schema = {
       <p class="eyebrow">Microsoft 365 · Outlook · Azure</p>
       <h1>Prewarmed Microsoft inboxes</h1>
       <p class="lede">Licensed Exchange Online mailboxes, aged 30 days and warmed 21. From ${pre.perUnit.quarterly} an inbox in packs, or ${tenant.perTenant.quarterly} for a tenant of {tenant.inboxesPerTenant}.</p>
-      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'hero' })} target="_blank" rel="noopener">Get Microsoft inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
+      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'hero' })} target="_blank" rel="noopener">Get Microsoft inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" /></p>
       <Handoff />
 
       <h2>Three names, two products</h2>
       <p><strong>Microsoft 365</strong> and <strong>Outlook</strong> inboxes are the same thing. Buyers search both, sellers quote both, and the mailbox underneath is a licensed Exchange Online account either way. Outlook the application is just software for reading mail, and Outlook.com is the free personal service, which is not sending infrastructure.</p>
-      <p><strong>Azure</strong> — and <strong>Entra</strong>, which is the same directory under Microsoft's newer name — is the different product. Instead of buying mailboxes three at a time you get your own tenant holding {tenant.inboxesPerTenant} of them. Microsoft licenses that differently, which is why the cost per inbox drops by roughly ten times rather than a few percent.</p>
+      <p><strong>Azure</strong> (and <strong>Entra</strong>, which is the same directory under Microsoft's newer name) is the different product. Instead of buying mailboxes three at a time you get your own tenant holding {tenant.inboxesPerTenant} of them. Microsoft licenses that differently, which is why the cost per inbox drops by roughly ten times rather than a few percent.</p>
 
       <h2>The advantage nobody mentions</h2>
-      <p>When Microsoft filters a message to junk, it writes a score and a few related notes into the message headers. Paste those into a header analyser and you get the actual reason — your copy, the sending server, or a record failing a check. Gmail tells you nothing of the kind.</p>
+      <p>When Microsoft filters a message to junk, it writes a score and a few related notes into the message headers. Paste those into a header analyser and you get the actual reason. Your copy, the sending server, or a record failing a check. Gmail tells you nothing of the kind.</p>
       <p>That changes how fast you can fix things. On Google you watch reply rates fall and guess. On Microsoft you find out which of three problems you have, and one of them you can fix the same afternoon. It is a good reason to keep some volume on Microsoft even when your list is Google-weighted.</p>
       <ToolCallout id="esp-segmenter" page="microsoft-hub" />
 
@@ -57,8 +57,8 @@ const schema = {
       <p>It also means authentication has to be right from the first day rather than fixed later. Every domain we hand over arrives with SPF, DKIM, DMARC and MX published and checked, because three weeks of warming on a broken record is three weeks that did nothing.</p>
 
       <h2>Packs or a tenant</h2>
-      <p>This is the only real decision on the Microsoft side, and it is about risk rather than price. Packs of three keep a failure contained: a domain goes, you lose three inboxes. A tenant is one flat price, and you choose how many mailboxes go in it — 25, 49 or 100. That is ${(tenant.perTenant.quarterly / 25).toFixed(2)}, ${(tenant.perTenant.quarterly / 49).toFixed(2)} or ${(tenant.perTenant.quarterly / 100).toFixed(2)} an inbox, and it is also how much of your fleet one unverified list can reach.</p>
-      <p>Under about 1,000 cold emails a day, buy packs — the saving is not worth the concentration. Above it, buy a tenant and run it properly: verified lists only, mailboxes started in batches of about twenty rather than all at once, and bounce rate checked daily for the first fortnight. The two are compared directly in <a href="/compare/azure-tenant-vs-microsoft-365/">Azure tenant vs Microsoft 365 packs</a>.</p>
+      <p>This is the only real decision on the Microsoft side, and it is about risk rather than price. Packs of three keep a failure contained: a domain goes, you lose three inboxes. A tenant is one flat price, and you choose how many mailboxes go in it: 25, 49 or 100. That is ${(tenant.perTenant.quarterly / 25).toFixed(2)}, ${(tenant.perTenant.quarterly / 49).toFixed(2)} or ${(tenant.perTenant.quarterly / 100).toFixed(2)} an inbox, and it is also how much of your fleet one unverified list can reach.</p>
+      <p>Under about 1,000 cold emails a day, buy packs. The saving is not worth the concentration. Above it, buy a tenant and run it properly: verified lists only, mailboxes started in batches of about twenty rather than all at once, and bounce rate checked daily for the first fortnight. The two are compared directly in <a href="/compare/azure-tenant-vs-microsoft-365/">Azure tenant vs Microsoft 365 packs</a>.</p>
 
       <div class="grid g3 pages">
         {pages.map((p) => (
@@ -75,10 +75,10 @@ const schema = {
 
       <Faq faqs={faqs} />
 
-      <NextSteps page="microsoft-hub" ramp="Fifteen a day per inbox from the first send, three inboxes to a domain, and keep it there rather than climbing." split="You are buying Microsoft because the list skews Microsoft — confirm that before the first send rather than assuming it. Anything Google-hosted in there lands better from Google, and splitting the file takes minutes." />
+      <NextSteps page="microsoft-hub" ramp="Fifteen a day per inbox from the first send, three inboxes to a domain, and keep it there rather than climbing." split="You are buying Microsoft because the list skews Microsoft. Confirm that before the first send rather than assuming it. Anything Google-hosted in there lands better from Google, and splitting the file takes minutes." />
 
       <Testimonials page="microsoft-hub" limit={3} heading="Operators sending from this infrastructure" />
-      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'footer-cta' })} target="_blank" rel="noopener">Get Microsoft inboxes at Warm Inboxes</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
+      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'microsoft-hub', placement: 'footer-cta' })} target="_blank" rel="noopener">Get Microsoft inboxes at Warm Inboxes</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" /></p>
     </div>
   </section>
 </Base>

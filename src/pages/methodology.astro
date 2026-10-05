@@ -3,7 +3,7 @@ import Simple from '../layouts/Simple.astro';
 import { site } from '../data/site.js';
 import { criteria, unverified } from '../data/providers.js';
 ---
-<Simple schema={{ '@type': 'WebPage', name: 'Methodology', url: 'https://prewarmed.org/methodology/', publisher: { '@id': 'https://prewarmed.org/#org' } }} title="Methodology — How prewarmed.org Judges Inbox Providers"
+<Simple schema={{ '@type': 'WebPage', name: 'Methodology', url: 'https://prewarmed.org/methodology/', publisher: { '@id': 'https://prewarmed.org/#org' } }} title="Methodology: How prewarmed.org Judges Inbox Providers"
   description="The criteria this site judges prewarmed inbox providers on, where the numbers come from, and how we handle selling what we write about."
   eyebrow="Methodology" h1="How we judge, and what we will not claim"
   lede="We sell prewarmed inboxes. That does not make a comparison worthless, but it does mean the method has to be checkable.">
@@ -24,7 +24,7 @@ import { criteria, unverified } from '../data/providers.js';
 
   <h2>Where the numbers come from</h2>
   <ul>
-    <li><strong>Our own figures</strong> — aging and warming durations, sending rates, pack shapes — come from the infrastructure Warm Inboxes operates. They are what we run, not what we recommend to others and avoid ourselves.</li>
+    <li><strong>Our own figures</strong> (aging and warming durations, sending rates, pack shapes) come from the infrastructure Warm Inboxes operates. They are what we run, not what we recommend to others and avoid ourselves.</li>
     <li><strong>Prices</strong> come from a single data file that every page on this site reads. There is one price for a thing, and changing it changes it everywhere. The build refuses to publish while that file is marked unverified.</li>
     <li><strong>Competitor facts</strong> are recorded only from a company's own site or documentation, with the date they were checked. Where a field has not been checked, the page says so rather than guessing.</li>
   </ul>
@@ -43,7 +43,7 @@ import { criteria, unverified } from '../data/providers.js';
   <p>Both are cautious. Shorter periods work often enough that plenty of providers sell them. They fail in a way that costs you a month, which is why we do not.</p>
 
   <h2>Corrections</h2>
-  <p>If a figure here is wrong — ours or a competitor's — write to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>. We will correct it and note what changed rather than editing quietly.</p>
+  <p>If a figure here is wrong, ours or a competitor's, write to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>. We will correct it and note what changed rather than editing quietly.</p>
 </Simple>
 
 <style>

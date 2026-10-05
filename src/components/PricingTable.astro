@@ -2,7 +2,7 @@
 import pricing from '../data/pricing.json';
 const { productKey } = Astro.props;
 const p = pricing.products[productKey];
-// Fresh products are sold monthly only — the longer terms carried the same
+// Fresh products are sold monthly only, the longer terms carried the same
 // figure, so three identical rows just made the price look negotiable.
 const terms = p.monthlyOnly ? pricing.terms.filter((t) => t.id === 'monthly') : pricing.terms;
 const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
@@ -26,8 +26,8 @@ const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
           return (
             <tr class={t.best ? 'best' : ''}>
               <td>{t.label}{t.best && !p.monthlyOnly && <span class="tag">best value</span>}</td>
-              <td class="mono price">{range ? `${fmt(range[0])}–${fmt(range[1])}` : per !== null ? fmt(per) : '—'}</td>
-              {(p.unit === 'tenant' || p.packSize) && <td class="mono">{Array.isArray(second) ? `${fmt(second[0])}–${fmt(second[1])}` : second !== null ? `${fmt(second)}${p.unit === 'tenant' ? ' /inbox' : ''}` : '—'}</td>}
+              <td class="mono price">{range ? `${fmt(range[0])}–${fmt(range[1])}` : per !== null ? fmt(per) : '…'}</td>
+              {(p.unit === 'tenant' || p.packSize) && <td class="mono">{Array.isArray(second) ? `${fmt(second[0])}–${fmt(second[1])}` : second !== null ? `${fmt(second)}${p.unit === 'tenant' ? ' /inbox' : ''}` : '…'}</td>}
             </tr>
           );
         })}

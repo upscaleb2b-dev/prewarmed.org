@@ -3,7 +3,7 @@ import Simple from '../layouts/Simple.astro';
 import { site } from '../data/site.js';
 import WhatsApp from '../components/WhatsApp.astro';
 ---
-<Simple schema={{ '@type': 'ContactPage', name: 'Contact prewarmed.org', url: 'https://prewarmed.org/contact/' }} title="Contact — prewarmed.org" description="Talk to someone who runs this infrastructure daily about domains, inboxes and sending setup. Replies within one business day."
+<Simple schema={{ '@type': 'ContactPage', name: 'Contact prewarmed.org', url: 'https://prewarmed.org/contact/' }} title="Contact. Prewarmed.org" description="Talk to someone who runs this infrastructure daily about domains, inboxes and sending setup. Replies within one business day."
   eyebrow="Contact" h1="Talk to an operator"
   lede="Tell us the volume you need and what broke last time. Replies within one business day.">
   <div class="fastlane">
@@ -11,7 +11,7 @@ import WhatsApp from '../components/WhatsApp.astro';
       <p class="fl-h">Want an answer now?</p>
       <p class="fl-p">WhatsApp reaches the operators running this infrastructure, 24/7. It is faster than the form and you can send screenshots.</p>
     </div>
-    <WhatsApp variant="primary" label="Message us on WhatsApp" message="Hi — I have a question about prewarmed inboxes:" />
+    <WhatsApp variant="primary" label="Message us on WhatsApp" message="Hi, I have a question about prewarmed inboxes:" />
   </div>
 
   <p class="or"><span>or send the details</span></p>
@@ -37,7 +37,7 @@ import WhatsApp from '../components/WhatsApp.astro';
     <p class="micro muted">No newsletter, no sequence. One reply from a person.</p>
   </form>
   <div class="fallback" id="fallback" hidden>
-    <p><strong>Nothing has been sent yet.</strong> This form has no inbox behind it right now, so it cannot deliver your message on its own. Your details are below — send them to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a> and you will get the same reply.</p>
+    <p><strong>Nothing has been sent yet.</strong> This form has no inbox behind it right now, so it cannot deliver your message on its own. Your details are below. Send them to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a> and you will get the same reply.</p>
     <textarea id="fbtext" rows="8" readonly></textarea>
     <div class="fbrow">
       <button class="btn btn-primary" type="button" id="fbcopy">Copy message</button>
@@ -78,7 +78,7 @@ import WhatsApp from '../components/WhatsApp.astro';
 
       if (endpoint) {
         // The endpoint takes a fixed shape, so the form's own fields are
-        // folded into one enquiry string rather than posted raw — anything it
+        // folded into one enquiry string rather than posted raw, anything it
         // does not recognise would be dropped, and the volume, timeline and
         // what-broke-last-time answer is the entire value of the lead.
         const name = (data.name || '').trim();
@@ -111,14 +111,14 @@ import WhatsApp from '../components/WhatsApp.astro';
           const why = err && err.message;
           document.getElementById('senderr').textContent = why
             ? why
-            : 'That did not send. Your message is below — send it to ' + form.dataset.to + ' and we will pick it up.';
+            : 'That did not send. Your message is below. Send it to ' + form.dataset.to + ' and we will pick it up.';
           document.getElementById('senderr').hidden = false;
           if (!why) showFallback(data);
           return;
         }
       }
       // No endpoint configured at all. Never redirect to /thanks/, which
-      // promises a reply — show the visitor their message instead.
+      // promises a reply, show the visitor their message instead.
       showFallback(data);
       btn.disabled = false; btn.textContent = 'Send';
     });
@@ -127,7 +127,7 @@ import WhatsApp from '../components/WhatsApp.astro';
     // cannot act on. Puts the message in front of them rather than losing it.
     function showFallback(data) {
       const body = Object.entries(data).map(([k, v]) => `${k}: ${v}`).join('\n');
-      const subject = 'Inbox enquiry — ' + (data.name || '');
+      const subject = 'Inbox enquiry: ' + (data.name || '');
       const panel = document.getElementById('fallback');
       panel.querySelector('#fbtext').value = body;
       panel.querySelector('#fbmail').href =

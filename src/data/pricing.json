@@ -160,7 +160,7 @@
     }
   },
   "policy": {
-    "refunds": "No refunds. State this plainly on /refund-policy/ — hiding it is both an Ads disapproval risk and a chargeback risk.",
+    "refunds": "No refunds. State this plainly on /refund-policy/. Hiding it is both an Ads disapproval risk and a chargeback risk.",
     "nonComFrom": 4.5,
     "delivery": "Same day on business days",
     "priceMatch": "If another provider quotes you less for the same thing, send us the quote and we will match it."

@@ -14,7 +14,7 @@ const schema = {
   }],
 };
 ---
-<Base title="Prewarmed Inbox Providers — Directory and Criteria"
+<Base title="Prewarmed Inbox Providers: Directory and Criteria"
       description="Who sells prewarmed inboxes, judged on domain aging, warming, included domains, replacement terms and platforms."
       schema={schema}>
   <section class="section">
@@ -46,11 +46,11 @@ const schema = {
                   {p.ours && <span class="ours">ours</span>}
                   <span class="when">checked {p.checkedOn}</span>
                 </td>
-                <td class={p.agingDays >= 30 ? 'yes' : ''}>{p.agingDays !== null ? `${p.agingDays} days` : '—'}</td>
-                <td class={p.warmingDays >= 21 ? 'yes' : ''}>{p.warmingDays !== null ? `${p.warmingDays} days` : '—'}</td>
-                <td class={p.domainIncluded ? 'yes' : ''}>{p.domainIncluded === null ? '—' : p.domainIncluded ? 'included' : 'extra'}</td>
-                <td>{p.platforms ? p.platforms.join(', ') : '—'}</td>
-                <td>{p.delivery ?? '—'}</td>
+                <td class={p.agingDays >= 30 ? 'yes' : ''}>{p.agingDays !== null ? `${p.agingDays} days` : '…'}</td>
+                <td class={p.warmingDays >= 21 ? 'yes' : ''}>{p.warmingDays !== null ? `${p.warmingDays} days` : '…'}</td>
+                <td class={p.domainIncluded ? 'yes' : ''}>{p.domainIncluded === null ? '…' : p.domainIncluded ? 'included' : 'extra'}</td>
+                <td>{p.platforms ? p.platforms.join(', ') : '…'}</td>
+                <td>{p.delivery ?? '…'}</td>
               </tr>
             ))}
           </tbody>
@@ -72,7 +72,7 @@ const schema = {
       </ol>
       <p class="narrow">A provider that answers all four plainly is worth considering. One that talks around any of them has told you something.</p>
 
-      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'providers', placement: 'body' })} target="_blank" rel="noopener">See what Warm Inboxes ships</a> <a class="btn btn-ghost btn-lg" href="/best-prewarmed-inboxes/">How to choose →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
+      <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'providers', placement: 'body' })} target="_blank" rel="noopener">See what Warm Inboxes ships</a> <a class="btn btn-ghost btn-lg" href="/best-prewarmed-inboxes/">How to choose →</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" /></p>
     </div>
   </section>
 </Base>

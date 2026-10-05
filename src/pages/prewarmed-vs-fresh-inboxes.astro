@@ -18,7 +18,7 @@ const schema = {
   '@graph': [{ '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
 };
 ---
-<Base title="Prewarmed vs Fresh Inboxes — Which to Buy, and When"
+<Base title="Prewarmed vs Fresh Inboxes: Which to Buy, and When"
       description="The same mailbox sold at two points in its life. What the price gap actually buys, when fresh is the better purchase, and the arithmetic that decides it."
       schema={schema}>
   <section class="section">
@@ -35,7 +35,7 @@ const schema = {
           <tbody>
             <tr><td>Time to first send</td><td class="yes">Same day</td><td>21 days on a domain you already use, 51 on a new one</td></tr>
             <tr><td>Domain age at first send</td><td class="yes">30 days +</td><td>Whatever yours already is</td></tr>
-            <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No — about ${pricing.products['domain-fresh'].price} a year</td></tr>
+            <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No, about ${pricing.products['domain-fresh'].price} a year</td></tr>
             <tr><td>SPF, DKIM, DMARC and MX</td><td class="yes">Set before handover</td><td class="yes">Set before handover</td></tr>
             <tr><td>Warming tool</td><td class="yes">None needed</td><td class="no">Extra, per mailbox per month</td></tr>
             <tr><td>Placement tested before you get it</td><td class="yes">Yes</td><td class="no">No</td></tr>
@@ -52,7 +52,7 @@ const schema = {
       <p>Three things get left out of the cheaper number, and the third is the one that catches people.</p>
       <p><strong>The warming tool.</strong> Most charge per mailbox per month, and you pay it for the whole warming period. On three mailboxes it is a rounding error. On a hundred it is a real bill, and it can exceed the entire saving.</p>
       <p><strong>The domain.</strong> Prewarmed includes it. Fresh does not, so add the registration for every domain in the plan.</p>
-      <p><strong>The risk that your first attempt does not work.</strong> Warming is a schedule, and the most common way people ruin fresh inboxes is impatience — four days of warming, a decision that it looks fine, two hundred cold emails, and a dead domain within a fortnight. That cost falls entirely on the fresh column and no calculator can price it.</p>
+      <p><strong>The risk that your first attempt does not work.</strong> Warming is a schedule, and the most common way people ruin fresh inboxes is impatience: four days of warming, a decision that it looks fine, two hundred cold emails, and a dead domain within a fortnight. That cost falls entirely on the fresh column and no calculator can price it.</p>
 
       <h2>When fresh is the right call</h2>
       <p>All three of these have to be true:</p>
@@ -64,7 +64,7 @@ const schema = {
       <p>If any one of them is false, prewarmed is cheaper than it looks. And if you are somewhere in between, split it: buy prewarmed for what is live now and warm a fresh batch behind it for next quarter.</p>
 
       <h2>When fresh is the wrong call</h2>
-      <p>A client campaign that starts next week. A domain you have just burned and have not yet diagnosed. A team where warming would be somebody's fourth priority. In each of those the cheaper line item is the more expensive decision, and the gap is not the price difference — it is the month of meetings you do not get.</p>
+      <p>A client campaign that starts next week. A domain you have just burned and have not yet diagnosed. A team where warming would be somebody's fourth priority. In each of those the cheaper line item is the more expensive decision, and the gap is not the price difference. It is the month of meetings you do not get.</p>
 
       <h2>Work out which you are</h2>
       <p>The <a href="/calculator/">calculator</a> takes your daily send target and your launch date, sizes the infrastructure on each of the three platforms, prices both ways, and tells you whether fresh can reach your date at all. The <a href="/tools/warmup-tax/">warmup tax calculator</a> prices the waiting on its own.</p>
@@ -75,7 +75,7 @@ const schema = {
 
       <Faq faqs={faqs} />
 
-      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'prewarmed-vs-fresh', placement: 'footer-cta' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Run the numbers →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" /></p>
+      <p class="cta end"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'prewarmed-vs-fresh', placement: 'footer-cta' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Run the numbers →</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" /></p>
     </div>
   </section>
 </Base>

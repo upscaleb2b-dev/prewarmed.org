@@ -67,7 +67,7 @@ export const products = [
           {
         h: 'What the first thirty days should actually look like',
         p: [
-          'A prewarmed inbox arrives with reputation, not immunity. The domain has sent and received real mail for twenty-one days, so Gmail already has a file on it — but that file records a quiet, well-behaved sender. Open at two hundred a day and you have not used the reputation, you have contradicted it.',
+          'A prewarmed inbox arrives with reputation, not immunity. The domain has sent and received real mail for twenty-one days, so Gmail already has a file on it, but that file records a quiet, well-behaved sender. Open at two hundred a day and you have not used the reputation, you have contradicted it.',
           'Week one: ten to fifteen a day per inbox, which on three inboxes is thirty to forty-five. Week two: hold. Week three: step up only if replies are coming and bounces stay under two per cent. Week four onward: fifteen a day per inbox, indefinitely. That is not a ramp toward a bigger number. Fifteen is the number.',
           'The teams who burn prewarmed domains almost never do it through volume alone. They do it by pairing a sudden volume jump with a list they have not verified, which produces a bounce spike on a domain with three weeks of history and no tolerance built up yet.',
         ],
@@ -76,7 +76,7 @@ export const products = [
         h: 'Connecting to your sequencer without undoing the warming',
         p: [
           'Every sequencer ships with defaults set for a mature domain, and every one of them will happily send far more than fifteen a day from a brand new connection. Change the per-inbox daily cap before the first send, not after the first week.',
-          'Turn the sequencer\'s own warmup off on these inboxes. It is built to create sending history where none exists, and there already is history here — history built on real traffic rather than on a pool of accounts emailing each other. Running a warmup network on top of it adds the exact fingerprint the twenty-one days were spent avoiding.',
+          'Turn the sequencer\'s own warmup off on these inboxes. It is built to create sending history where none exists, and there already is history here: history built on real traffic rather than on a pool of accounts emailing each other. Running a warmup network on top of it adds the exact fingerprint the twenty-one days were spent avoiding.',
           'Set a minimum gap between sends, enable the sequencer\'s bounce protection, and connect over OAuth where the tool supports it. An app password works and is sometimes the only option, but OAuth survives security-policy changes that quietly break app passwords mid-campaign.',
         ],
       },
@@ -133,7 +133,7 @@ export const products = [
         p: [
           'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
         ],
-        nextSteps: {ramp: 'Fifteen a day per inbox from the first send, three inboxes to a domain, and keep it there rather than climbing.', split: 'You bought Microsoft because the list skews Microsoft — confirm that before the first send rather than assuming it. Anything Google-hosted in there lands better from Google, and splitting the file takes minutes.'},
+        nextSteps: {ramp: 'Fifteen a day per inbox from the first send, three inboxes to a domain, and keep it there rather than climbing.', split: 'You bought Microsoft because the list skews Microsoft. Confirm that before the first send rather than assuming it. Anything Google-hosted in there lands better from Google, and splitting the file takes minutes.'},
       },
       {
         h: 'The diagnostic advantage nobody mentions',
@@ -177,14 +177,14 @@ export const products = [
         h: 'Your mailboxes are not sharing a workspace',
         p: [
           'Every domain here sits in its own isolated workspace. That matters because where several clients share one Microsoft organisation, reputation events travel between them: a sender you have never met can cost you placement, and you would spend a week auditing your own list and copy before the real cause occurred to you.',
-          'Isolation removes that entirely. The only sending reputation touching your mailboxes is the one you built, which means every result you see — good or bad — is yours to read and yours to fix.',
+          'Isolation removes that entirely. The only sending reputation touching your mailboxes is the one you built, which means every result you see, good or bad, is yours to read and yours to fix.',
         ],
       },
       {
         h: 'Ramp, and the two numbers that decide whether this holds',
         p: [
           'Fifteen cold emails per inbox per day, three inboxes to a domain. Hold that for the first fortnight even though these arrived warmed, then keep holding it, because fifteen is the steady state rather than a starting point.',
-          'The two numbers to watch are bounce rate and reply rate, and they fail in opposite directions. Bounces above about two per cent mean your list, not your infrastructure, and no amount of warming survives a bad list. A reply rate that falls while bounces stay flat usually means placement has moved to a folder — on Microsoft, the diagnostic codes will tell you which, and that is the whole argument for this platform.',
+          'The two numbers to watch are bounce rate and reply rate, and they fail in opposite directions. Bounces above about two per cent mean your list, not your infrastructure, and no amount of warming survives a bad list. A reply rate that falls while bounces stay flat usually means placement has moved to a folder. On Microsoft the diagnostic codes will tell you which, and that is the whole argument for this platform.',
         ],
       },
     ],
@@ -267,12 +267,12 @@ export const products = [
     keyword: 'prewarmed azure inboxes',
     card: '100 mailboxes in one account. For high volume.',
     subhead:
-      'Your own Azure account, warmed and ready. One flat price per tenant — you choose whether to put 25, 49 or 100 mailboxes in it.',
+      'Your own Azure account, warmed and ready. One flat price per tenant. You choose whether to put 25, 49 or 100 mailboxes in it.',
     pricingKey: 'azure-tenant',
     inlineTool: 'inbox-rotation-planner',
     specs: [
       ['Product', 'Dedicated Azure tenant'],
-      ['Mailboxes', '25, 49 or 100 per tenant — your choice'],
+      ['Mailboxes', '25, 49 or 100 per tenant. Your choice'],
       ['Cost per inbox', '$2.00, $1.02 or $0.50 depending on density'],
       ['Mailbox type', 'Exchange Online, the business version'],
       ['What you get', 'Account ID and the full mailbox list'],
@@ -444,7 +444,7 @@ export const products = [
         to: '/fresh-domains/', toLabel: 'See fresh domains →' },
       { k: 'domain-aged', h: 'Aged .com', price: 'Custom, per domain',
         b: 'Sourced individually against your requirement, with registration and drop history checked before anything is handed over. Priced per domain because every one is different.',
-        wa: 'Hi — I am looking for aged .com domains. Here is what I need:' },
+        wa: 'Hi, I am looking for aged .com domains. Here is what I need:' },
     ],
     pricingKey: 'domain-prewarmed',
     inlineTool: 'blacklist-checker',
@@ -498,7 +498,7 @@ export const products = [
       ['What makes a domain prewarmed rather than aged?', 'Aged means old. Prewarmed means aged and then used to send and receive real mail under published authentication. Only the second builds reputation.'],
       ['Do I own the domain?', 'Confirm registrar access and nameserver control in writing before ordering, from us or anyone. Domains on a vendor nameserver are the vendor\'s.'],
       ['Can I point it at my main website?', 'Yes, forwarding is standard practice and makes the domain look like what it claims to be.'],
-      ['What happens if a domain burns?', 'Get the terms in writing before ordering, here as anywhere — there is no automatic swap. Recovery is slow and often does not stick, so plan on holding back spare capacity rather than on being replaced.'],
+      ['What happens if a domain burns?', 'Get the terms in writing before ordering, here as anywhere. There is no automatic swap. Recovery is slow and often does not stick, so plan on holding back spare capacity rather than on being replaced.'],
       ['Are non-.com domains available?', 'Yes, via support. TLD carries real reputation differences, so ask before assuming a cheaper TLD is equivalent.'],
       ['How much is an aged domain?', 'It depends entirely on the domain. Age, prior use, drop history and blocklist exposure all move the price, so aged domains are quoted individually rather than listed. Message us with what you need.'],
       ['What is the difference between fresh at $12 a year and prewarmed free?', 'The 51 days. A fresh .com is a clean registration you warm yourself. A prewarmed .com has already been aged 30 days and warmed 21, and comes with the inboxes.'],
@@ -513,16 +513,16 @@ export const products = [
     h1: 'Fresh Google Workspace inboxes',
     title: 'Fresh Google Workspace Inboxes for Cold Email',
     description:
-      'Brand new licensed Google Workspace inboxes with SPF, DKIM and DMARC published. No aging and no warming — you run the 51 days yourself.',
+      'Brand new licensed Google Workspace inboxes with SPF, DKIM and DMARC published. No aging and no warming. You run the 51 days yourself.',
     keyword: 'fresh google inboxes',
     subhead:
-      'Licensed Workspace accounts, set up properly and handed over today. No aging, no warming — you run the 51 days, and pay less for the mailbox.',
+      'Licensed Workspace accounts, set up properly and handed over today. No aging, no warming. You run the 51 days, and pay less for the mailbox.',
     pricingKey: 'google-fresh',
     inlineTool: 'warmup-tax',
     ships: [
       'Licensed Google Workspace accounts, **brand new**',
       'SPF, DKIM, DMARC and MX published for you',
-      '**No aging and no warming** — that part is yours',
+      '**No aging and no warming**: that part is yours',
       'Delivered same day',
     ],
     specs: [
@@ -545,7 +545,7 @@ export const products = [
         p: [
           'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
         ],
-        nextSteps: {ramp: 'Once the warming is done, ten to fifteen a day per inbox — the ramp you just spent three weeks on is wasted if you jump straight past it.'},
+        nextSteps: {ramp: 'Once the warming is done, ten to fifteen a day per inbox. The ramp you just spent three weeks on is wasted if you jump straight past it.'},
       },
       {
         h: 'What fresh actually means here',
@@ -596,7 +596,7 @@ export const products = [
     h1: 'Fresh Microsoft 365 inboxes you warm yourself',
     title: 'Fresh Microsoft 365 Inboxes for Cold Email',
     description:
-      'Brand new licensed Microsoft 365 mailboxes with authentication published. No aging and no warming — the cheapest way to build capacity ahead of time.',
+      'Brand new licensed Microsoft 365 mailboxes with authentication published. No aging and no warming. The cheapest way to build capacity ahead of time.',
     keyword: 'fresh microsoft 365 inboxes',
     subhead:
       'Paid Microsoft 365 mailboxes with the records set up. No warming done: the cheapest inbox we sell, and the slowest to become useful.',
@@ -605,7 +605,7 @@ export const products = [
     ships: [
       'Licensed Microsoft 365 mailboxes, **brand new**',
       'SPF, DKIM, DMARC and MX published for you',
-      '**No aging and no warming** — that part is yours',
+      '**No aging and no warming**: that part is yours',
       'Delivered same day',
     ],
     specs: [
@@ -681,19 +681,19 @@ export const products = [
       'A dedicated Azure tenant with 100 Exchange Online mailboxes, delivered unwarmed. The cheapest sending capacity there is, and the hardest to bring online.',
     keyword: 'fresh azure inboxes',
     subhead:
-      'Your own Azure account with 100 mailboxes, set up but not warmed. Warming a hundred is a real job — this page is about whether you should.',
+      'Your own Azure account with 100 mailboxes, set up but not warmed. Warming a hundred is a real job. This page is about whether you should.',
     pricingKey: 'azure-fresh',
     inlineTool: 'inbox-rotation-planner',
     ships: [
       'A dedicated Azure tenant, **100 mailboxes**',
       'Tenant ID and the full mailbox list',
       'SPF, DKIM, DMARC and MX published for you',
-      '**No aging and no warming** — that part is yours',
+      '**No aging and no warming**: that part is yours',
       'Delivered same day',
     ],
     specs: [
       ['Product', 'Dedicated Azure tenant'],
-      ['Mailboxes', '25, 49 or 100 Exchange Online — your choice'],
+      ['Mailboxes', '25, 49 or 100 Exchange Online. Your choice'],
       ['Warming', 'None. You run it'],
       ['Domain', 'Yours, or add a fresh .com for $12 a year'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
@@ -742,7 +742,7 @@ export const products = [
       {
         h: 'On a three-month commit, the warmed one is the same price',
         p: [
-          'This is the fact that should decide it. A fresh tenant is $50. A prewarmed tenant is $69 a month, or $50 on a three-month commit — so if you were going to keep the tenant for a quarter anyway, the warmed one costs you nothing extra and arrives having already done the 51 days. At that point buying fresh is paying the same money to wait.',
+          'This is the fact that should decide it. A fresh tenant is $50. A prewarmed tenant is $69 a month, or $50 on a three-month commit, so if you were going to keep the tenant for a quarter anyway, the warmed one costs you nothing extra and arrives having already done the 51 days. At that point buying fresh is paying the same money to wait.',
           'Fresh only wins on price if you genuinely need the tenant for a month or two. Below three months it is $50 against $69, and you are trading $19 a month for seven weeks of not sending.',
           'If you have never run a tenant, do not start with a fresh one. The prewarmed version exists because the first two months are where tenants die, and having someone else take that risk is most of what you are paying for.',
           'Buy fresh when all three of these are true: your start date is more than two months out, you already run warming infrastructure and know what it costs, and you have done a staged tenant startup before. If any one of them is false, the prewarmed tenant is cheaper than it looks.',
@@ -756,7 +756,7 @@ export const products = [
       ['Is a domain included?', 'No. Fresh products go on a domain you already own, or you can add a fresh .com for $12 a year. The free prewarmed domain comes with prewarmed packs and prewarmed tenants.'],
       ['What does it cost to warm 100 mailboxes?', 'That depends on your warming tool, and it is the number that should decide this purchase. Most tools charge per mailbox per month. Multiply by a hundred, then by two months, before you order.'],
       ['Should I buy this if I have never run a tenant?', 'Honestly, no. Start with the prewarmed tenant, learn how it behaves, and buy fresh ones once you know what the first two months take.'],
-      ['How is it priced?', '$50 per tenant, flat, whatever density you choose. A prewarmed tenant is $69 a month, or $50 on a three-month commit — which means at a quarterly commit the warmed one costs you the same as this.'],
+      ['How is it priced?', '$50 per tenant, flat, whatever density you choose. A prewarmed tenant is $69 a month, or $50 on a three-month commit, which means at a quarterly commit the warmed one costs you the same as this.'],
     ],
     related: ['prewarmed-azure-inboxes', 'fresh-microsoft-365-inboxes', 'fresh-domains'],
   },
@@ -766,19 +766,19 @@ export const products = [
     family: 'fresh',
     eyebrow: 'Fresh domains',
     h1: 'Fresh .com domains, registered clean and handed over',
-    title: 'Fresh .com Domains for Cold Email — $12 a Year',
+    title: 'Fresh .com Domains for Cold Email: $12 a Year',
     description:
       'Fresh .com domains registered clean and handed over the same day. No prior use, no blocklist history, no warming. $12 per domain per year.',
     keyword: 'fresh domains for cold email',
     subhead:
-      'A .com registered new, with nothing behind it. No previous owner, no old spam — and no reputation either, so you run the 51 days.',
+      'A .com registered new, with nothing behind it. No previous owner, no old spam, and no reputation either, so you run the 51 days.',
     pricingKey: 'domain-fresh',
     inlineTool: 'record-generator',
     ships: [
       'A **.com registered new** in your name',
       'Registrar and nameserver control handed to you',
       'No prior owner and no prior use',
-      '**No aging and no warming** — that part is yours',
+      '**No aging and no warming**: that part is yours',
       'Delivered same day',
     ],
     specs: [

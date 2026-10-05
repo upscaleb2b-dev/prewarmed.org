@@ -8,7 +8,7 @@
  * quotation marks.
  *
  * Orders are fulfilled by Warm Inboxes, so these are reviews of the thing
- * this site sells rather than of a third party — site.disclosure says so on
+ * this site sells rather than of a third party, site.disclosure says so on
  * every page that shows them.
  */
 export const reviewsUrl = '/reviews';

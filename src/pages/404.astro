@@ -2,14 +2,14 @@
 import Simple from '../layouts/Simple.astro';
 import { nav } from '../data/site.js';
 ---
-<Simple title="Page not found — prewarmed.org"
+<Simple title="Page not found. Prewarmed.org"
   description="That page does not exist on prewarmed.org."
   eyebrow="404" h1="That page does not exist"
   lede="The link is wrong, or the page moved. Here is everything on the site."
   noindex={true}>
   <ul>
     {nav.filter((i) => !i.external).map((i) => (
-      <li><a href={i.href}>{i.label}</a>{i.children && <> — {i.children.map((c, n) => <>{n > 0 && ', '}<a href={c.href}>{c.label}</a></>)}</>}</li>
+      <li><a href={i.href}>{i.label}</a>{i.children && <> · {i.children.map((c, n) => <>{n > 0 && ', '}<a href={c.href}>{c.label}</a></>)}</>}</li>
     ))}
     <li><a href="/prewarmed-vs-fresh-inboxes/">Prewarmed vs fresh</a>, <a href="/best-prewarmed-inboxes/">how to choose</a>, <a href="/providers/">providers</a>, <a href="/calculator/">calculator</a>, <a href="/methodology/">methodology</a></li>
   </ul>

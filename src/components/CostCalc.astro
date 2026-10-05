@@ -2,7 +2,7 @@
 /**
  * Home-page cost calculator.
  *
- * The obvious framing — "monthly savings vs fresh + a warmup tool" — does not
+ * The obvious framing, "monthly savings vs fresh + a warmup tool", does not
  * work honestly with our prices. Fresh Google is $3.00-3.50 an inbox against
  * $6 prewarmed, so a monthly-savings card would show fresh winning unless we
  * invented a large warming-tool fee. So it measures the thing that is actually
@@ -33,7 +33,7 @@ const cfg = {
   readyDays: 51,
   windowDays: 90,
   // A fresh domain is bought by the year, so charging a whole year against a
-  // 90-day window overstates what fresh costs in that window — and it would
+  // 90-day window overstates what fresh costs in that window, and it would
   // overstate it in our favour, which is the one direction this calculator
   // is not allowed to lean. Pro-rated to the window instead.
   domainYear: P['domain-fresh'].price,
@@ -76,20 +76,20 @@ const cfg = {
       </div>
 
       <div class="cards">
-        <div class="c"><p class="n mono" id="cc-blocked">—</p><p class="l">Cold emails you cannot send while a fresh domain ages and warms</p></div>
-        <div class="c"><p class="n mono" id="cc-fresh">—</p><p class="l" id="cc-fresh-l">Fresh: cost per 1,000 emails actually sent in your first 90 days</p></div>
-        <div class="c win"><p class="n mono" id="cc-pre">—</p><p class="l" id="cc-pre-l">Prewarmed: cost per 1,000 emails actually sent in the same 90 days</p></div>
-        <div class="c good"><p class="n mono" id="cc-delta">—</p><p class="l" id="cc-delta-l">Cheaper per email delivered, because nothing is spent waiting</p></div>
+        <div class="c"><p class="n mono" id="cc-blocked">…</p><p class="l">Cold emails you cannot send while a fresh domain ages and warms</p></div>
+        <div class="c"><p class="n mono" id="cc-fresh">…</p><p class="l" id="cc-fresh-l">Fresh: cost per 1,000 emails actually sent in your first 90 days</p></div>
+        <div class="c win"><p class="n mono" id="cc-pre">…</p><p class="l" id="cc-pre-l">Prewarmed: cost per 1,000 emails actually sent in the same 90 days</p></div>
+        <div class="c good"><p class="n mono" id="cc-delta">…</p><p class="l" id="cc-delta-l">Cheaper per email delivered, because nothing is spent waiting</p></div>
       </div>
 
-      <p class="say" id="cc-say">—</p>
+      <p class="say" id="cc-say">…</p>
 
       <div class="cta">
         <a class="btn btn-primary btn-lg" id="cc-cta" href={wi('/', { page: 'cost-calculator', placement: 'result' })} target="_blank" rel="noopener">Get prewarmed inboxes</a>
-        <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a> <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />
+        <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a> <WhatsApp message="Hi, I have a question about prewarmed inboxes:" />
       </div>
       <Handoff />
-      <p class="foot" id="cc-foot">Assumes {cfg.perDay} cold emails per inbox per day and three inboxes to a domain. Fresh carries a <strong>${cfg.warmupMonthly} a month</strong> warming tool, charged as a flat fee for the {cfg.readyDays} warming days only — most teams leave it running longer, and tools that charge per mailbox cost more than this at volume. Fresh also buys its own domains at ${cfg.domainYear} a year, charged here for the {cfg.windowDays} days only; prewarmed includes them and needs no warming tool.</p>
+      <p class="foot" id="cc-foot">Assumes {cfg.perDay} cold emails per inbox per day and three inboxes to a domain. Fresh carries a <strong>${cfg.warmupMonthly} a month</strong> warming tool, charged as a flat fee for the {cfg.readyDays} warming days only. Most teams leave it running longer, and tools that charge per mailbox cost more than this at volume. Fresh also buys its own domains at ${cfg.domainYear} a year, charged here for the {cfg.windowDays} days only; prewarmed includes them and needs no warming tool.</p>
     </div>
   </div>
 </section>
@@ -139,9 +139,9 @@ const cfg = {
       $('cc-pre').textContent = money(preK);
       $('cc-pre-l').textContent = 'Prewarmed tenant, per 1,000 emails sent in the same 90 days';
       $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
-      $('cc-delta-l').textContent = 'Cheaper per email delivered — at a quarterly commit both cost the same per tenant';
+      $('cc-delta-l').textContent = 'Cheaper per email delivered, though at a quarterly commit both cost the same per tenant';
       $('cc-say').innerHTML =
-        `Both tenants cost <strong>${money(active.fresh)}</strong> each on a three-month commit, so at ${density} mailboxes to a tenant your ${n} inboxes cost <strong>${money(preCost)}</strong> either way — except the prewarmed one sends for all 90 days and the fresh one for ${C.windowDays - C.readyDays}. That is <strong>${money(preK)} per thousand against ${money(freshK)}</strong>, once the fresh side pays <strong>${money(warmup)}</strong> to warm itself. Paying the same money to wait ${C.readyDays} days is the whole decision.`;
+        `Both tenants cost <strong>${money(active.fresh)}</strong> each on a three-month commit, so at ${density} mailboxes to a tenant your ${n} inboxes cost <strong>${money(preCost)}</strong> either way, except the prewarmed one sends for all 90 days and the fresh one for ${C.windowDays - C.readyDays}. That is <strong>${money(preK)} per thousand against ${money(freshK)}</strong>, once the fresh side pays <strong>${money(warmup)}</strong> to warm itself. Paying the same money to wait ${C.readyDays} days is the whole decision.`;
     } else {
       const domains = Math.ceil(n / 3);
       const freshCost = n * active.fresh * months + domains * domainCost + warmup;
@@ -155,12 +155,12 @@ const cfg = {
       $('cc-delta-l').textContent = 'Cheaper per email delivered, because nothing is spent waiting';
       $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
       $('cc-say').innerHTML =
-        `Over 90 days, ${n} fresh ${active.label} inboxes cost <strong>${money(freshCost)}</strong> — mailboxes, domains and <strong>${money(warmup)}</strong> of warming tool — and deliver ${num(freshEmails)} cold emails, because the first ${C.readyDays} days are spent aging and warming. The same ${n} prewarmed inboxes cost <strong>${money(preCost)}</strong> and deliver ${num(preEmails)}, sending from the day they arrive — <strong>${money(preK)} per thousand against ${money(freshK)}</strong>.`;
+        `Over 90 days, ${n} fresh ${active.label} inboxes cost <strong>${money(freshCost)}</strong> for mailboxes, domains and <strong>${money(warmup)}</strong> of warming tool, and deliver ${num(freshEmails)} cold emails, because the first ${C.readyDays} days are spent aging and warming. The same ${n} prewarmed inboxes cost <strong>${money(preCost)}</strong> and deliver ${num(preEmails)}, sending from the day they arrive: <strong>${money(preK)} per thousand against ${money(freshK)}</strong>.`;
     }
     const foot = $('cc-foot');
     if (foot) foot.firstChild.nodeValue =
       active.shape === 'tenant'
-        ? `Assumes ${perDay} cold emails per mailbox per day on a tenant — far lower per address than a pack, which is the point of tenant density. `
+        ? `Assumes ${perDay} cold emails per mailbox per day on a tenant, far lower per address than a pack, which is the point of tenant density. `
         : `Assumes ${perDay} cold emails per inbox per day and three inboxes to a domain. `;
     $('cc-more').href = '/' + active.slug + '/';
   }

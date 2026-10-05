@@ -3,7 +3,7 @@
  *
  * Every figure below is published at warminboxes.com/offer. None of it is
  * estimated, rounded up or inferred here. Where a number is theirs rather
- * than an industry average, the copy says so — "the team that fulfils these
+ * than an industry average, the copy says so, "the team that fulfils these
  * orders sends this much" is a far stronger claim than an unattributed stat,
  * and it is the only kind this site is willing to print.
  *
