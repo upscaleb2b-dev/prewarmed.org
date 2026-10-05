@@ -1,14 +1,63 @@
 ---
-const { specs } = Astro.props;
+/**
+ * The spec sheet.
+ *
+ * Was a six-column auto-fit grid, which never divided evenly — products carry
+ * six to nine specs, so the last row was always part-empty, and because the
+ * grid drew its gaps as a background the empty cells rendered as a grey slab.
+ * Rows now carry their own borders, so a missing cell is just blank page.
+ *
+ * Label and value sit side by side and read down the page rather than being
+ * squeezed into narrow columns, and the value is no longer monospaced: that
+ * was costing legibility on sentences like "Yours to publish, or we set it up
+ * with inboxes" for no gain.
+ *
+ * It also ends in a CTA. It was the one block on the page a buyer reads with
+ * their mind made up and nothing to click.
+ */
+import { wi, wa } from '../data/site.js';
+import WhatsApp from './WhatsApp.astro';
+const { specs, slug, cta = 'Order at Warm Inboxes', askFirst = false } = Astro.props;
 ---
 <div class="specs">
-  {specs.map(([k, v]) => (
-    <div class="spec"><span class="k">{k}</span><span class="v mono">{v}</span></div>
-  ))}
+  <dl>
+    {specs.map(([k, v]) => (
+      <div class="spec">
+        <dt>{k}</dt>
+        <dd>{v}</dd>
+      </div>
+    ))}
+  </dl>
+  {slug && (
+    <div class="spec-cta">
+      {askFirst
+        ? <a class="btn btn-primary" href={wa(`Hi — I am looking at ${slug.replace(/-/g, ' ')} on prewarmed.org. `)} target="_blank" rel="noopener">Ask for a price</a>
+        : <a class="btn btn-primary" href={wi('/', { page: slug, placement: 'spec-sheet' })} target="_blank" rel="noopener">{cta} →</a>}
+      <WhatsApp message="Hi — I have a question about prewarmed inboxes:" />
+    </div>
+  )}
 </div>
+
 <style>
-  .specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; }
-  .spec { background: var(--bg-elev); padding: 14px 16px; }
-  .k { display: block; font-size: 11.5px; letter-spacing: .07em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 5px; }
-  .v { font-size: 14.5px; color: var(--text); font-weight: 500; }
+  .specs { border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; background: var(--bg-elev); }
+  dl { margin: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .spec {
+    display: grid;
+    grid-template-columns: minmax(130px, 38%) 1fr;
+    gap: 16px;
+    align-items: baseline;
+    padding: 13px 18px;
+    border-bottom: 1px solid var(--border);
+  }
+  /* Right-hand column needs a divider; the last row of each column does not. */
+  .spec:nth-child(odd) { border-right: 1px solid var(--border); }
+  dt { margin: 0; font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; line-height: 1.5; }
+  dd { margin: 0; font-size: 15.5px; color: var(--text); font-weight: 500; line-height: 1.5; }
+  .spec-cta { display: flex; flex-wrap: wrap; gap: 10px; padding: 16px 18px; background: var(--bg); }
+  @media (max-width: 760px) {
+    dl { grid-template-columns: 1fr; }
+    .spec:nth-child(odd) { border-right: none; }
+    .spec { grid-template-columns: minmax(110px, 40%) 1fr; gap: 12px; padding: 12px 16px; }
+    .spec-cta .btn { flex: 1; justify-content: center; }
+  }
 </style>
