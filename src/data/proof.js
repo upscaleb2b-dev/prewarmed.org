@@ -52,7 +52,7 @@ export const failureModes = [
   {
     h: 'Fake warmup signals',
     p: 'Cheap warmup tools cycle the same few hundred accounts between each other. Inbox providers fingerprinted those patterns years ago and discount the engagement entirely, so a domain can finish a full warmup cycle with no real reputation attached to it.',
-    check: 'blacklist-checker',
+    check: 'deliverability-checker',
   },
   {
     h: 'No recovery plan',

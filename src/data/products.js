@@ -447,7 +447,7 @@ export const products = [
         wa: 'Hi, I am looking for aged .com domains. Here is what I need:' },
     ],
     pricingKey: 'domain-prewarmed',
-    inlineTool: 'blacklist-checker',
+    inlineTool: 'deliverability-checker',
     specs: [
       ['Aging', '30 days minimum before first send'],
       ['Warming', '21 days of real send and receive'],

@@ -2,7 +2,7 @@
 import Simple from '../layouts/Simple.astro';
 import tools from '../data/tools.json';
 import { toolUrl, site } from '../data/site.js';
-const picks = tools.tools.filter((t) => t.live && ['blacklist-checker','dmarc-checker','spf-checker','deliverability-checker','header-analyzer','dns-checker'].includes(t.id));
+const picks = tools.tools.filter((t) => t.live && ['deliverability-checker','dmarc-checker','spf-checker','dns-checker','header-analyzer','google-domain-checker'].includes(t.id));
 ---
 <Simple title="Thanks. Prewarmed.org" description="We have your message." eyebrow="Thanks" h1="Got it." noindex={true}
   lede="One of us will reply within a business day. While you wait, these are worth running on your current setup.">

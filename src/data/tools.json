@@ -85,7 +85,7 @@
       "group": "diagnose",
       "host": "warminboxes.com",
       "url": "https://warminboxes.com/deliverability-checker",
-      "short": "Grade your domain A to F across SPF, DKIM, DMARC, MX, blacklists and domain age.",
+      "short": "Grade your domain A to F across SPF, DKIM, DMARC, MX and domain age.",
       "useWhen": "Opens fell off a cliff",
       "ifFails": "Under 80% placement? Adding volume to a damaged domain makes it worse.",
       "fixPage": "/prewarmed-inboxes/",
