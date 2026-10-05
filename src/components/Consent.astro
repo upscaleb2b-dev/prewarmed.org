@@ -1,0 +1,87 @@
+---
+/**
+ * Consent banner.
+ *
+ * Shown only to visitors the head script marked `regulated` — a Europe/*
+ * time zone, meaning EEA or UK. Everyone else arrives with consent granted
+ * and never sees this, which is ordinary practice and keeps US ad
+ * measurement intact.
+ *
+ * Rendered hidden and revealed by script, so it never flashes for the
+ * majority who will not see it, and so a cached page cannot show a banner to
+ * someone who already answered.
+ *
+ * Accept and Reject carry equal weight and equal styling. A banner where
+ * "Reject" is a grey link and "Accept" is the only button is not a choice,
+ * and under GDPR it is not consent either.
+ */
+import { site } from '../data/site.js';
+---
+<div id="consent" class="cb" role="dialog" aria-modal="false" aria-label="Cookie choices" hidden>
+  <div class="cb-in">
+    <p class="cb-t">
+      We use Google, Meta and X cookies to measure traffic and to build advertising audiences.
+      Nothing advertising has loaded yet. You can accept, or carry on without them — the site
+      works the same either way. <a href="/privacy/">What we collect</a>.
+    </p>
+    <div class="cb-b">
+      <button type="button" id="consent-no" class="btn btn-ghost">Reject</button>
+      <button type="button" id="consent-yes" class="btn btn-primary">Accept</button>
+    </div>
+  </div>
+</div>
+
+<script is:inline>
+  (function () {
+    var c = window.__pwConsent;
+    var el = document.getElementById('consent');
+    if (!el || !c) return;
+    if (c.state !== 'pending') return;          // already answered, or never asked
+    el.hidden = false;
+
+    function decide(granted) {
+      var v = granted ? 'granted' : 'denied';
+      try { localStorage.setItem(c.key, v); } catch (e) {}
+      if (window.gtag) {
+        window.gtag('consent', 'update', {
+          ad_storage: v, ad_user_data: v, ad_personalization: v, analytics_storage: v,
+        });
+      }
+      // Meta and X have no consent mode, so granting is what creates them.
+      if (granted && window.__pwLoadAdPixels) window.__pwLoadAdPixels();
+      window.__pwConsent.state = v;
+      el.hidden = true;
+    }
+
+    document.getElementById('consent-yes').addEventListener('click', function () { decide(true); });
+    document.getElementById('consent-no').addEventListener('click', function () { decide(false); });
+  })();
+</script>
+
+<style>
+  .cb {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 60;
+    background: var(--bg-elev);
+    border-top: 1px solid var(--border-strong);
+    padding: 16px 0 calc(16px + env(safe-area-inset-bottom));
+  }
+  .cb-in {
+    max-width: var(--wrap, 1180px);
+    margin-inline: auto;
+    padding-inline: 24px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .cb-t { margin: 0; font-size: 14.5px; line-height: 1.55; color: var(--text-2); max-width: 78ch; }
+  .cb-t a { color: var(--accent); }
+  .cb-b { display: flex; gap: 10px; margin-left: auto; flex: none; }
+  .cb-b .btn { min-height: 44px; padding-inline: 20px; }
+  @media (max-width: 760px) {
+    .cb-in { flex-direction: column; align-items: stretch; gap: 14px; }
+    .cb-b { margin-left: 0; }
+    .cb-b .btn { flex: 1; justify-content: center; }
+  }
+</style>

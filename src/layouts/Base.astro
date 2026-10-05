@@ -3,6 +3,7 @@ import '../styles/tokens.css';
 import '../styles/base.css';
 import Nav from '../components/Nav.astro';
 import Footer from '../components/Footer.astro';
+import Consent from '../components/Consent.astro';
 import { site } from '../data/site.js';
 
 const {
@@ -83,14 +84,59 @@ const graph = {
       href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
     />
     <script type="application/ld+json" set:html={JSON.stringify(graph)} />
+
+    {/*
+      Consent. This has to be the first script on the page: Google Consent
+      Mode only works if the defaults are set before gtag.js or GTM loads,
+      and Meta and X have no consent mode at all, so they are held back
+      entirely rather than loaded in a restricted state.
+
+      Who sees the banner is decided by time zone rather than by IP, because
+      an IP lookup would mean calling a third party before consent — the one
+      thing the banner exists to prevent. A Europe/* zone is treated as EEA or
+      UK: consent defaults to denied, nothing advertising loads, and the
+      banner asks. Everywhere else is granted on arrival, which is both the
+      ordinary practice and what keeps US ad measurement intact.
+    */}
+    <script is:inline set:html={`
+      (function(){
+        var KEY='pw_consent';
+        window.dataLayer=window.dataLayer||[];
+        function gtag(){dataLayer.push(arguments)}
+        window.gtag=gtag;
+        var stored=null; try{stored=localStorage.getItem(KEY)}catch(e){}
+        var tz=''; try{tz=Intl.DateTimeFormat().resolvedOptions().timeZone||''}catch(e){}
+        var regulated=/^Europe\\//.test(tz)||/^Atlantic\\/(Canary|Madeira|Azores|Reykjavik|Faroe)$/.test(tz);
+        var state = stored || (regulated ? 'pending' : 'granted');
+        var v = state==='granted' ? 'granted' : 'denied';
+        gtag('consent','default',{
+          ad_storage:v, ad_user_data:v, ad_personalization:v, analytics_storage:v,
+          functionality_storage:'granted', security_storage:'granted'
+        });
+        window.__pwConsent={ state:state, regulated:regulated, key:KEY };
+      })();
+    `} />
+
     {site.analytics.gtm && (
       <script is:inline set:html={`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','${site.analytics.gtm}');`} />
     )}
-    {site.analytics.metaPixel && (
-      <script is:inline set:html={`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${site.analytics.metaPixel}');fbq('track','PageView');`} />
-    )}
-    {site.analytics.xPixel && (
-      <script is:inline set:html={`!function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');twq('config','${site.analytics.xPixel}');`} />
+
+    {/* Meta and X ignore Consent Mode, so they only exist once consent is in. */}
+    {(site.analytics.metaPixel || site.analytics.xPixel) && (
+      <script is:inline set:html={`
+        (function(){
+          window.__pwLoadAdPixels=function(){
+            if(window.__pwAdPixelsLoaded)return; window.__pwAdPixelsLoaded=true;
+            ${site.analytics.metaPixel ? `
+            !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init','${site.analytics.metaPixel}'); fbq('track','PageView');` : ''}
+            ${site.analytics.xPixel ? `
+            !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
+            twq('config','${site.analytics.xPixel}');` : ''}
+          };
+          if(window.__pwConsent && window.__pwConsent.state==='granted') window.__pwLoadAdPixels();
+        })();
+      `} />
     )}
     {(site.analytics.ga4 || site.analytics.adsId) && (
       <>
@@ -138,17 +184,19 @@ const graph = {
     )}
   </head>
   <body data-palette={palette}>
-    {site.analytics.gtm && (
-      <noscript set:html={`<iframe src="https://www.googletagmanager.com/ns.html?id=${site.analytics.gtm}" height="0" width="0" style="display:none;visibility:hidden"></iframe>`} />
-    )}
-    {site.analytics.metaPixel && (
-      <noscript set:html={`<img height="1" width="1" alt="" style="display:none" src="https://www.facebook.com/tr?id=${site.analytics.metaPixel}&ev=PageView&noscript=1" />`} />
-    )}
+    {/*
+      The GTM and Meta <noscript> fallbacks are deliberately not here. Both
+      fire unconditionally, neither can read a consent signal, and a visitor
+      with JavaScript off cannot be shown a banner to answer one. Losing
+      no-script measurement costs almost nothing; firing an advertising pixel
+      at someone who was never asked costs more.
+    */}
     <a class="skip" href="#main">Skip to content</a>
     <Nav />
     <main id="main">
       <slot />
     </main>
     <Footer />
+    <Consent />
   </body>
 </html>
