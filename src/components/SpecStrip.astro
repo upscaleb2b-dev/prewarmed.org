@@ -31,9 +31,9 @@ const { specs, slug, cta = 'Order at Warm Inboxes', askFirst = false } = Astro.p
   {slug && (
     <div class="spec-cta">
       {askFirst
-        ? <a class="btn btn-primary" href={wa(`Hi, I am looking at ${slug.replace(/-/g, ' ')} on prewarmed.org. `)} target="_blank" rel="noopener">Ask for a price</a>
+        ? <a class="btn btn-primary" href={wa(`Hey, I need a price on ${slug.replace(/-/g, ' ')}`)} target="_blank" rel="noopener">Ask for a price</a>
         : <a class="btn btn-primary" href={wi('/', { page: slug, placement: 'spec-sheet' })} target="_blank" rel="noopener">{cta} →</a>}
-      <WhatsApp message="Hi, I have a question about prewarmed inboxes:" />
+      <WhatsApp />
     </div>
   )}
 </div>

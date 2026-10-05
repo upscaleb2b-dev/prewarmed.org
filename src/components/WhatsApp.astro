@@ -4,7 +4,9 @@
  * cleared, so this never ships as a dead link.
  */
 import { wa } from '../data/site.js';
-const { message = '', label = 'Chat on WhatsApp', variant = 'ghost' } = Astro.props;
+// The opener a buyer would actually type. Specific asks (a price match, an
+// aged-domain quote) pass their own; everything else uses this.
+const { message = 'Hey, I need some inboxes', label = 'Chat on WhatsApp', variant = 'ghost' } = Astro.props;
 ---
 <a class={`wa btn btn-${variant}`} href={wa(message)} target="_blank" rel="noopener">
   <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
