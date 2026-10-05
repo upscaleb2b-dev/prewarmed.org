@@ -172,6 +172,31 @@ const schema = {
           <h2>{s.h}</h2>
           {s.warn && <p class="warn">{s.warn}</p>}
           {s.p.map((t) => <p>{t}</p>)}
+          {s.steps && (
+            <ol class="steps">
+              {s.steps.map((st) => {
+                const t = st.tool && toolById(st.tool);
+                const href = t ? toolUrl(t, { page: p.slug, placement: `step-${st.tool}` })
+                  : st.wi ? wi(st.wi, { page: p.slug, placement: `step-${st.wi.replace(/\W/g, '') || 'home'}` })
+                  : st.href;
+                const ext = Boolean(t || st.wi);
+                return (
+                  <li>
+                    <h3>{st.h}</h3>
+                    <p>{st.p}</p>
+                    <span class="step-links">
+                      {href && (
+                        <a href={href} {...(ext ? { target: '_blank', rel: 'noopener' } : {})}>
+                          {st.label}{ext && <span class="ext" aria-hidden="true"> ↗</span>}
+                        </a>
+                      )}
+                      {st.more && <a href={st.more.href}>{st.more.label}</a>}
+                    </span>
+                  </li>
+                );
+              })}
+            </ol>
+          )}
           {s.tool && toolById(s.tool) && (
             <a class="sec-tool" href={toolUrl(toolById(s.tool), { page: p.slug, placement: `section-${s.tool}` })} target="_blank" rel="noopener">
               <b>{toolById(s.tool).name} <span class="ext" aria-hidden="true">↗</span></b>
@@ -285,6 +310,15 @@ const schema = {
   .sec-tool b { display: block; color: var(--accent); font-size: 15.5px; font-weight: 600; }
   /* Direct child only: a bare `span` also matched the ↗ inside the title and
      pushed it onto its own line. */
+  /* Do-this-next steps. Each one names the job, then the thing of ours that
+     does it — the page is more useful as a plan than as an audit. */
+  .steps { list-style: none; counter-reset: s; padding: 0; margin: 22px 0 0; display: grid; gap: 14px; }
+  .steps li { counter-increment: s; position: relative; padding: 16px 18px 16px 52px; border: 1px solid var(--border); border-radius: 10px; background: var(--bg-elev); }
+  .steps li::before { content: counter(s); position: absolute; left: 18px; top: 16px; width: 22px; height: 22px; border-radius: 50%; background: var(--accent-soft); color: var(--accent); font-size: 12.5px; font-weight: 700; display: grid; place-items: center; }
+  .steps h3 { margin: 0 0 6px; font-size: 16.5px; }
+  .steps p { margin: 0; font-size: 15px; color: var(--text-2); line-height: 1.55; }
+  .step-links { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 10px; }
+  .steps a { font-size: 14.5px; font-weight: 600; color: var(--accent); }
   .sec-tool > span { display: block; margin-top: 4px; font-size: 14.5px; color: var(--text-2); line-height: 1.5; }
   .crumb { font-size: 13.5px; color: var(--text-2); margin: 0 0 26px; }
   .hero-grid { display: grid; grid-template-columns: 1fr minmax(300px, 360px); gap: 48px; align-items: start; }

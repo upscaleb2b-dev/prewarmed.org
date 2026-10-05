@@ -74,11 +74,36 @@ export const products = [
         ],
       },
       {
-        h: 'What to check in week one',
+        h: 'Four things that decide whether this works',
         p: [
-          'Three things, in order, and all three are free. First, confirm the records resolve from outside your network rather than trusting the handover note — a record that was right at handover can be broken by a nameserver change you made afterwards.',
-          'Second, check the domain against the major blocklists before volume goes up, not after replies dry up. A listing acquired in week one is cheap to fix and expensive to discover in week four.',
-          'Third, send one message to an address you control on a different platform and read the full headers. You are looking for SPF, DKIM and DMARC all passing, and for which folder it landed in. If anything there is wrong, it is wrong for every message you are about to send.',
+          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+        ],
+        steps: [
+          {
+            h: 'Ramp slowly, then stay there',
+            p: 'Ten to fifteen a day per inbox from the first send, and keep it there rather than climbing. The domain arrives with a quiet, well-behaved history; sending like software contradicts it. Volume should come from more inboxes, never from working each one harder.',
+            href: '/calculator/',
+            label: 'Work out how many inboxes you need',
+          },
+          {
+            h: 'Verify the list before it touches a mailbox',
+            p: 'Bounces are the fastest way to undo warming, and a list that sat in a spreadsheet for three months is mostly dead addresses. Verify it, dedupe it, and strip anyone you have already contacted. This single step saves more domains than anything else here.',
+            tool: 'email-verifier',
+            label: 'Verify a list',
+            more: { href: '/leads/', label: 'Or start from 999 free lists' },
+          },
+          {
+            h: 'Split the list by platform and match the send',
+            p: 'Google-hosted recipients read better from Google, Microsoft-hosted from Microsoft. Segmenting the list and sending each half from matching infrastructure is the largest placement lever available before you have written a word of copy.',
+            tool: 'esp-segmenter',
+            label: 'Split a list by ESP',
+          },
+          {
+            h: 'Write copy worth replying to',
+            p: 'Infrastructure gets you a fair hearing. It cannot make a bad message work, and at fifteen sends a day the message is doing most of the lifting. Draft it, then run it past a spam checker before the first send.',
+            wi: '/ai',
+            label: 'Cold Email AI',
+          },
         ],
       },
       {
@@ -130,6 +155,39 @@ export const products = [
     ],
     body: [
       {
+        h: 'Four things that decide whether this works',
+        p: [
+          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+        ],
+        steps: [
+          {
+            h: 'Ramp slowly, then stay there',
+            p: 'Fifteen a day per inbox from the first send, three inboxes to a domain, and keep it there rather than climbing. Volume should come from more inboxes, never from working each one harder.',
+            href: '/calculator/',
+            label: 'Work out how many inboxes you need',
+          },
+          {
+            h: 'Verify the list before it touches a mailbox',
+            p: 'Bounces are the fastest way to undo warming, and a list that sat in a spreadsheet for three months is mostly dead addresses. Verify it, dedupe it, and strip anyone you have already contacted. This single step saves more domains than anything else here.',
+            tool: 'email-verifier',
+            label: 'Verify a list',
+            more: { href: '/leads/', label: 'Or start from 999 free lists' },
+          },
+          {
+            h: 'Split the list by platform and match the send',
+            p: 'You bought Microsoft because the list skews Microsoft — confirm that before the first send rather than assuming it. Anything Google-hosted in there lands better from Google, and splitting the file takes minutes.',
+            tool: 'esp-segmenter',
+            label: 'Split a list by ESP',
+          },
+          {
+            h: 'Write copy worth replying to',
+            p: 'Infrastructure gets you a fair hearing. It cannot make a bad message work, and at these volumes the message is doing most of the lifting. Draft it, then run it past a spam checker before the first send.',
+            wi: '/ai',
+            label: 'Cold Email AI',
+          },
+        ],
+      },
+      {
         h: 'The diagnostic advantage nobody mentions',
         p: [
           'When Microsoft sends a message to junk, it writes a score and a few related notes into the hidden part of the email. Paste that into a header analyser and you get the actual reason, not a guess. Gmail gives you nothing like it.',
@@ -168,10 +226,10 @@ export const products = [
         ],
       },
       {
-        h: 'Tenancy, and the question to ask every provider',
+        h: 'Your mailboxes are not sharing a workspace',
         p: [
-          'Ask whoever you buy from, including us, whether your mailboxes sit in their organisation or one of their own. Where several clients share one Microsoft organisation, reputation events travel. A sender you have never met, in a tenant you cannot see, can damage placement for everything in it — and you will spend a week auditing your own list and copy before you think to ask about theirs.',
-          'The answer should be specific and it should be in writing. "Yes, isolated" with no detail is not an answer. Nor is a provider who treats the question as hostile; it is the single most informative thing you can ask them.',
+          'Every domain here sits in its own isolated workspace. That matters because where several clients share one Microsoft organisation, reputation events travel between them: a sender you have never met can cost you placement, and you would spend a week auditing your own list and copy before the real cause occurred to you.',
+          'Isolation removes that entirely. The only sending reputation touching your mailboxes is the one you built, which means every result you see — good or bad — is yours to read and yours to fix.',
         ],
       },
       {
@@ -274,6 +332,39 @@ export const products = [
       ['Operators who want to price their own risk', 'The tenant costs the same whether you fill it with 25 mailboxes or 100. Density is the dial between cost per inbox and how much one bad week can reach.'],
     ],
     body: [
+      {
+        h: 'Four things that decide whether this works',
+        p: [
+          'The infrastructure is handled. What is left is the part you control, and it is the part that actually decides your reply rate. All four have a free tool behind them.',
+        ],
+        steps: [
+          {
+            h: 'Ramp slowly, then stay there',
+            p: 'Two cold emails per mailbox per day. That is the whole shape of a tenant: a hundred quiet addresses rather than ten busy ones. Volume should come from more inboxes, never from working each one harder.',
+            href: '/calculator/',
+            label: 'Work out how many inboxes you need',
+          },
+          {
+            h: 'Verify the list before it touches a mailbox',
+            p: 'Bounces are the fastest way to undo warming, and a list that sat in a spreadsheet for three months is mostly dead addresses. Verify it, dedupe it, and strip anyone you have already contacted. This single step saves more domains than anything else here.',
+            tool: 'email-verifier',
+            label: 'Verify a list',
+            more: { href: '/leads/', label: 'Or start from 999 free lists' },
+          },
+          {
+            h: 'Split the list by platform and match the send',
+            p: 'An Entra tenant sends from Microsoft, so the Microsoft-hosted half of your list is the half this is best at. Split the file and point the rest at Google infrastructure.',
+            tool: 'esp-segmenter',
+            label: 'Split a list by ESP',
+          },
+          {
+            h: 'Write copy worth replying to',
+            p: 'Infrastructure gets you a fair hearing. It cannot make a bad message work, and at these volumes the message is doing most of the lifting. Draft it, then run it past a spam checker before the first send.',
+            wi: '/ai',
+            label: 'Cold Email AI',
+          },
+        ],
+      },
       {
         h: 'What a tenant is, and why the cost per inbox collapses',
         p: [
