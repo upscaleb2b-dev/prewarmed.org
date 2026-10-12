@@ -163,7 +163,9 @@ import WhatsApp from '../components/WhatsApp.astro';
   button { justify-self: start; }
   .fallback { max-width: 620px; margin-top: 26px; padding: 20px; border: 1px solid var(--border-strong); border-radius: 10px; background: var(--bg-elev); }
   .fallback p { margin: 0 0 14px; font-size: 15px; color: var(--text-2); }
-  .fallback textarea { width: 100%; font-family: var(--font-mono, monospace); font-size: 13px; background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); border-radius: 6px; padding: 11px 13px; resize: vertical; }
+  /* 16px for the same iOS zoom reason as everywhere else: this one appears
+     only when the send failed, which is the worst moment to also zoom. */
+  .fallback textarea { width: 100%; font-family: var(--font-mono, monospace); font-size: 16px; background: var(--bg); color: var(--text); border: 1px solid var(--border-strong); border-radius: 6px; padding: 11px 13px; resize: vertical; }
   .fbrow { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
   .fbrow .btn { min-height: 44px; display: inline-flex; align-items: center; }
 </style>

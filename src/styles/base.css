@@ -58,7 +58,21 @@ table { width: 100%; border-collapse: collapse; font-size: 15px; }
 caption { text-align: left; color: var(--text-muted); font-size: 14px; padding-bottom: 10px; }
 th, td { text-align: left; padding: 13px 14px; border-bottom: 1px solid var(--border); vertical-align: top; }
 thead th { background: var(--bg-elev-2); font-family: var(--font-display); font-size: 13px; letter-spacing: .03em; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
-.scroll-x { overflow-x: auto; border: 1px solid var(--border); border-radius: var(--r-card); }
+.scroll-x {
+  overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: var(--r-card);
+  /* Scroll shadows. A table wider than a phone scrolls fine, but nothing on
+     screen says so, and a buyer who cannot see a column does not swipe for
+     it. The two `local` layers sit on the content and slide away at each
+     end; the two `scroll` layers are the shadows, so a shadow is only
+     visible on a side there is more table on. Pure CSS, no listener. */
+  background:
+    linear-gradient(to right, var(--bg-elev) 30%, transparent) left center / 36px 100% no-repeat local,
+    linear-gradient(to left, var(--bg-elev) 30%, transparent) right center / 36px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, .45), transparent) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, .45), transparent) right center / 16px 100% no-repeat scroll;
+}
 .scroll-x table { min-width: 620px; }
 .yes { color: var(--success); } .no { color: var(--text-muted); }
 

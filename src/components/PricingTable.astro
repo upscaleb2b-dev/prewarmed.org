@@ -42,4 +42,17 @@ const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
   .best td { background: var(--accent-soft); }
   .tag { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin-left: 8px; }
   .note { font-size: 13.5px; color: var(--text-muted); margin: 12px 0 0; }
+
+  /* The blanket .scroll-x rule holds every table to 620px so that wide
+     comparison grids scroll rather than crush. This one is two or three
+     narrow columns and fits a phone easily, and that rule was pushing the
+     price off the right edge on the page people open to see the price. They
+     would have had to swipe a table they had no reason to think was
+     swipeable. */
+  @media (max-width: 680px) {
+    .pt .scroll-x table { min-width: 0; }
+    .pt th, .pt td { padding: 11px 10px; }
+    .pt .price { font-size: 17px; }
+    .pt .tag { display: block; margin: 5px 0 0; }
+  }
 </style>
