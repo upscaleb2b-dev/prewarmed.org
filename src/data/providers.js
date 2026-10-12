@@ -16,7 +16,7 @@
  *   warmingDays    days of real send/receive traffic before handover
  *   adminAccess    'full' | 'partial' | 'none' | null
  *   domainIncluded true | false | null
- *   replacement    replacement terms available in writing before ordering
+ *   replacement    what happens when a domain burns: repair, swap, or a fresh batch
  *   platforms      which mailbox platforms they sell
  *   delivery       how fast you receive it
  */
@@ -24,7 +24,7 @@ export const criteria = [
   ['Domain aging', 'Days the domain sits with its records published before the first send. Under 30 and the domain is exposed to an early blocklisting that is very hard to reverse.'],
   ['Warming', 'Days of real sending and receiving before you get it. Age without traffic builds no reputation, and a lot of what is sold as prewarmed is aged only.'],
   ['Domain included', 'Whether the domain costs extra. Paying per domain pushes buyers toward more inboxes on fewer domains, which is the wrong shape.'],
-  ['Replacement terms', 'What happens when a domain stops landing, in writing, before you order. Every provider has failures; they differ in how fast they replace.'],
+  ['When a domain burns', 'What happens next. Every provider has domains that stop landing; they differ in how long you wait to send again. Repair takes weeks and rarely restores the reputation, so the figure that matters is how fast a fresh batch ships.'],
   ['Platforms', 'Google Workspace, Microsoft 365 and Azure tenants behave differently. A provider selling only one cannot match you to your list.'],
 ];
 
@@ -41,7 +41,7 @@ export const providers = [
     agingDays: 30,
     warmingDays: 21,
     domainIncluded: true,
-    replacement: 'No automatic swap. Ask for the terms in writing before ordering, from us as much as anyone.',
+    replacement: 'No repair and no swap. A damaged domain is retired and a fresh batch ships the same day, which beats waiting weeks on a repair that may not hold.',
     platforms: ['Google Workspace', 'Microsoft 365', 'Azure / Entra tenants'],
     delivery: 'Same day, business days',
     page: '/providers/warm-inboxes/',

@@ -5,7 +5,7 @@ import { wi, site } from '../data/site.js';
 import { criteria } from '../data/providers.js';
 import WhatsApp from '../components/WhatsApp.astro';
 const faqs = [
-  ['Which prewarmed inbox provider is best?', 'It depends on which of these you need most: aging, warming, an included domain, replacement terms and platform coverage. This page ranks the criteria rather than the companies, because we sell one of the companies.'],
+  ['Which prewarmed inbox provider is best?', 'It depends on which of these you need most: aging, warming, an included domain, how fast a fresh batch ships, and platform coverage. This page ranks the criteria rather than the companies, because we sell one of the companies.'],
   ['When should I not buy prewarmed inboxes?', 'When your launch is more than about two months out and you already run warming yourself. Prewarmed buys time and removes setup work. If you have the time and the setup is not a problem for you, you are paying for something you do not need.'],
   ['Is prewarmed just a rebranded aged domain?', 'From some sellers, yes. Aged means old. Prewarmed means aged and then used to send and receive real mail under published authentication. Ask how many days of each, and treat a vague answer as a no.'],
   ['Are the warmup networks real traffic?', 'Warming pools are accounts mailing each other. That is not the same as a customer conversation, and nobody should claim otherwise. What it does do is establish a normal sending pattern before you start, which is what the receiving side is checking for.'],
@@ -34,7 +34,7 @@ const schema = {
       <ol class="asks">
         <li><strong>How many days was the domain registered before its first send?</strong><span>Under 30 and you are buying a domain that is exposed to an early blocklisting, which is the hardest kind to reverse. This is the step most often skipped, because waiting costs the seller stock turnover.</span></li>
         <li><strong>How many days did it send and receive real mail before I get it?</strong><span>Age alone builds no reputation. A domain registered in 2011 that has never sent anything is an unknown sender. If the answer is a number of days, good. If it is "it's aged", they have answered a different question.</span></li>
-        <li><strong>What are the replacement terms, in writing, before I order?</strong><span>Every provider has domains that stop landing. What differs is what happens next and how fast. A seller who will not put it in writing beforehand will not be better about it afterwards.</span></li>
+        <li><strong>How fast can they ship a fresh batch?</strong><span>Every provider has domains that stop landing. What differs is how quickly you are sending again. Repairing a damaged domain takes weeks and often does not restore the reputation, so same-day fresh domains and inboxes are worth more than any repair promise.</span></li>
       </ol>
 
       <h2>The criteria, in the order they matter</h2>
@@ -67,7 +67,7 @@ const schema = {
 
       <section class="ours">
         <h2>What we ship, for comparison</h2>
-        <p>So you can run the questions on us: domains aged 30 days before first send, then 21 days of real sending and receiving; the domain included at no cost; Google Workspace, Microsoft 365 and Azure tenants; delivered same day. On replacement: there is no automatic swap, and you should get that answer in writing from every seller you are weighing, including us.</p>
+        <p>So you can run the questions on us: domains aged 30 days before first send, then 21 days of real sending and receiving; the domain included at no cost; Google Workspace, Microsoft 365 and Azure tenants; delivered same day. On replacement: we do not repair damaged domains or swap them, because repair takes weeks and rarely restores the reputation. A fresh batch ships the same day instead.</p>
         <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'best-prewarmed-inboxes', placement: 'body' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out what you need →</a> <WhatsApp /></p>
       </section>
 
