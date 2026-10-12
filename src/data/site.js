@@ -8,7 +8,10 @@ export const site = {
   agencyUrl: 'https://upscaleb2b.com',
   // Same number warminboxes.com publishes as 'Contact via WhatsApp'.
   whatsapp: 'https://wa.me/19047362539',
-  correctionsEmail: 'hello@prewarmed.org',
+  // The one inbox a person actually reads. Warm Inboxes support handles
+  // orders and everything on this site, so pointing here at a prewarmed.org
+  // address would only be a second place for mail to sit unanswered.
+  correctionsEmail: 'support@warminboxes.com',
   // Registered operating entity. Named on the legal pages and in the
   // Organization schema: Google Ads advertiser verification asks for it, and
   // a site that will not say who it trades as is one people bounce from.

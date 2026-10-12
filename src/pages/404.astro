@@ -1,6 +1,6 @@
 ---
 import Simple from '../layouts/Simple.astro';
-import { nav } from '../data/site.js';
+import { nav, site } from '../data/site.js';
 ---
 <Simple title="Page not found. Prewarmed.org"
   description="That page does not exist on prewarmed.org."
@@ -13,5 +13,5 @@ import { nav } from '../data/site.js';
     ))}
     <li><a href="/prewarmed-vs-fresh-inboxes/">Prewarmed vs fresh</a>, <a href="/best-prewarmed-inboxes/">how to choose</a>, <a href="/providers/">providers</a>, <a href="/calculator/">calculator</a>, <a href="/methodology/">methodology</a></li>
   </ul>
-  <p>If you followed a link from somewhere on this site, tell us at <a href="mailto:hello@prewarmed.org">hello@prewarmed.org</a> and we will fix it.</p>
+  <p>If you followed a link from somewhere on this site, tell us at <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a> and we will fix it.</p>
 </Simple>
