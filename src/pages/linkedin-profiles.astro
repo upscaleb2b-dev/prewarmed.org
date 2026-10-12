@@ -1,0 +1,80 @@
+---
+/**
+ * LinkedIn profiles. Not shipping yet.
+ *
+ * Deliberately thin on specifics: there is no price, no date and no
+ * inventory count here, because none of those are settled and a launch page
+ * that invents them is a page that has to be walked back. What it does carry
+ * is what the product is, who it is for, and a way to be first in the queue,
+ * which is the whole job of a page in front of a product that does not exist
+ * yet.
+ */
+import Simple from '../layouts/Simple.astro';
+import Faq from '../components/Faq.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+
+const waMsg = 'Hey, I want the aged LinkedIn profiles when they launch';
+
+const faqs = [
+  ['When does this launch?', 'Soon, and the queue goes first. Message us on WhatsApp and you will hear before it goes on the site.'],
+  ['Is this rented or bought?', 'Rented. You hold the profile for as long as you are using it, and we keep it healthy underneath you. There is no account changing hands.'],
+  ['Can the profile show my company?', 'Yes. The listed employer is set to you or to your client, so the person appears on the team doing the outreach rather than as an unexplained stranger.'],
+  ['Why not just make new profiles?', 'A profile created this week has no history, no connections and no activity, and LinkedIn treats it accordingly: restricted early, accepted rarely. Age and a normal footprint are the parts you cannot create on demand, which is the same reason domains get aged before they send.'],
+  ['How many can I run?', 'Depends on what you are doing. Tell us the volume and the market on WhatsApp and we will tell you what is sensible rather than what is maximal.'],
+  ['Does this replace cold email?', 'No, it sits beside it. The same prospect reached on two channels answers more often than the same prospect reached twice on one.'],
+];
+---
+<Simple
+  schema={{ '@type': 'WebPage', name: 'Aged LinkedIn profiles', url: 'https://prewarmed.org/linkedin-profiles/' }}
+  title="Aged, Verified and Warmed LinkedIn Profiles | prewarmed.org"
+  description="Aged, verified and warmed LinkedIn profiles for outreach, rented rather than sold. Set the listed company to yours or your client's so the profile runs as a member of the team. Launching soon."
+  eyebrow="Coming soon"
+  h1="Aged, verified and warmed LinkedIn profiles"
+  lede="Real profiles with real history, rented for as long as you need them, carrying your company name while they do outreach for you.">
+
+  <p class="note"><strong>This is not live yet.</strong> The page is here so you can get in the queue. Everyone on it hears before it goes on sale, and the first batch is finite.</p>
+
+  <div class="cta-row">
+    <WhatsApp variant="primary" label="Get on the list" message={waMsg} />
+    <a class="btn btn-ghost" href="/contact/">Or send the details</a>
+  </div>
+
+  <h2>Aged, verified, warmed</h2>
+  <p>Three separate things, and a profile needs all three before it is worth sending from.</p>
+  <ul>
+    <li><strong>Aged.</strong> The account has been around. It has a history that did not start the week you bought it.</li>
+    <li><strong>Verified.</strong> It reads as a real person rather than a throwaway, which is most of what decides whether a connection request gets accepted or reported.</li>
+    <li><strong>Warmed.</strong> Connections, activity and a normal footprint, built before any outreach goes out. A profile that does nothing for a year and then sends three hundred requests in a week is the pattern LinkedIn is looking for.</li>
+  </ul>
+
+  <h2>It runs as one of your people</h2>
+  <p>The listed employer is set to your company, or to your client's. From the other side the profile is someone on the team: a name, a role, a company that checks out. That is a different conversation from a stranger with no context, and it is the reason this works at all.</p>
+  <p>For an agency it means a profile per client without recruiting anyone, and without a client's own staff having their inbox filled with replies.</p>
+
+  <h2>Rented, not sold</h2>
+  <p>You hold the profile while you are using it and hand it back when you are not. We keep it healthy underneath you. Nothing is transferred, so there is no account to maintain, warm or lose once the campaign ends.</p>
+
+  <h2>Why a fresh profile does not work</h2>
+  <p>This is the same problem as a new domain, with a shorter fuse. A profile created this week has no history for LinkedIn to weigh, so it gets restricted early and accepted rarely, and the restriction usually arrives before the campaign has produced anything. Age and a normal footprint cannot be bought on the day you need them, which is exactly why we build them in advance.</p>
+
+  <h2>Be first</h2>
+  <p>Tell us the volume you want to run and the market you are selling into. You will hear when the first batch is ready, before it goes on the site.</p>
+  <div class="cta-row">
+    <WhatsApp variant="primary" label="Get on the list" message={waMsg} />
+    <a class="btn btn-ghost" href="/contact/">Send the details instead</a>
+  </div>
+
+  <h2>Questions</h2>
+  <Faq faqs={faqs} />
+
+  <p class="alt">In the meantime, the email side is live: <a href="/prewarmed-inboxes/">prewarmed inboxes</a>, <a href="/prewarmed-domains/">prewarmed domains</a>, and <a href="/tools/">33 free tools</a>.</p>
+</Simple>
+
+<style>
+  .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 24px 0 8px; }
+  .cta-row :global(.btn) { min-height: 44px; display: inline-flex; align-items: center; }
+  .alt { font-size: 15px; color: var(--text-2); margin-top: 34px; }
+  @media (max-width: 560px) {
+    .cta-row :global(.btn) { flex: 1 1 100%; justify-content: center; }
+  }
+</style>

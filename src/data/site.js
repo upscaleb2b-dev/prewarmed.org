@@ -151,6 +151,9 @@ export const nav = [
     { label: 'Prewarmed Domains', href: '/prewarmed-domains/' },
     { label: 'Fresh Domains', href: '/fresh-domains/' },
   ]},
+  // Not shipping yet, and in the nav on purpose: the page exists to collect
+  // the queue, and a launch page nobody can find collects nobody.
+  { label: 'LinkedIn', href: '/linkedin-profiles/' },
   { label: 'Free tools', href: '/tools/', mega: true },
   { label: 'Free leads', href: '/leads/', leads: true },
   { label: 'Pricing', href: '/pricing/' },
