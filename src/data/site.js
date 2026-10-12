@@ -72,8 +72,17 @@ export const site = {
      * trusting the numbers.
      */
     gtm: 'GTM-N4S35S8Z',
-    metaPixel: '590848983594765',
+    /**
+     * Meta. 1825568108268829 is the dataset that covers warminboxes.com and
+     * app.warminboxes.com, so a visitor who starts here and orders there is
+     * one journey rather than two strangers. The old 590848983594765 is
+     * retired: do not reintroduce it, nothing was ever read from it.
+     */
+    metaPixel: '1825568108268829',
     xPixel: 'r5gy0',
+    // OpenAI ads. Same pixel warminboxes.com runs, loaded on consent like the
+    // other two: it has no consent mode of its own either.
+    openaiPixel: 'KWLAA4TJp59qW7nXZQF1kw',
     xLeadEvent: 'tw-r5gy0-r5gy1',
   },
   // One line, every page footer. Ads policy and buyer trust both need it.

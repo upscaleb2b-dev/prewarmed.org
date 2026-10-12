@@ -46,7 +46,7 @@ import { site } from '../data/site.js';
 )}
 
 {/* Meta and X ignore Consent Mode, so they only exist once consent is in. */}
-{(site.analytics.metaPixel || site.analytics.xPixel) && (
+{(site.analytics.metaPixel || site.analytics.xPixel || site.analytics.openaiPixel) && (
   <script is:inline set:html={`
     (function(){
       window.__pwLoadAdPixels=function(){
@@ -57,6 +57,9 @@ import { site } from '../data/site.js';
         ${site.analytics.xPixel ? `
         !function(e,t,n,s,u,a){e.twq||(s=e.twq=function(){s.exe?s.exe.apply(s,arguments):s.queue.push(arguments);},s.version='1.1',s.queue=[],u=t.createElement(n),u.async=!0,u.src='https://static.ads-twitter.com/uwt.js',a=t.getElementsByTagName(n)[0],a.parentNode.insertBefore(u,a))}(window,document,'script');
         twq('config','${site.analytics.xPixel}');` : ''}
+        ${site.analytics.openaiPixel ? `
+        !function(w,d,s,u){if(w.oaiq)return;var q=function(){q.q.push(arguments)};q.q=[];w.oaiq=q;var j=d.createElement(s);j.async=1;j.src=u;var f=d.getElementsByTagName(s)[0];f.parentNode.insertBefore(j,f)}(window,document,"script","https://bzrcdn.openai.com/sdk/oaiq.min.js");
+        oaiq("init",{pixelId:"${site.analytics.openaiPixel}"});` : ''}
       };
       if(window.__pwConsent && window.__pwConsent.state==='granted') window.__pwLoadAdPixels();
     })();
@@ -106,3 +109,67 @@ import { site } from '../data/site.js';
     `} />
   </>
 )}
+
+{/*
+  The event map, shared with warminboxes.com.
+
+  Four conversions, each sent to every platform under the name that platform
+  knows it by, so one action is one conversion everywhere instead of four
+  differently-named things nobody can join up. Every send carries an eventID,
+  which is what lets Meta's browser copy and its Conversions API copy of the
+  same conversion deduplicate rather than count twice. Nothing server-side
+  runs here yet; the id costs nothing and means this side is already right
+  when it does.
+
+  Each platform call is wrapped on its own. One vendor's SDK throwing must
+  not take the other three down with it, and no analytics error is worth
+  losing somebody's lead over.
+
+  The pixels are consent-gated, so outside the UK and EEA all four exist and
+  inside they exist only once the visitor has accepted. Hence the typeof
+  checks rather than assuming.
+*/}
+<script is:inline set:html={`
+  (function(){
+    var MAP={
+      lead:        {meta:'Lead',              ga4:'generate_lead'},
+      contact:     {meta:'Contact',           ga4:'contact'},
+      checkout:    {meta:'InitiateCheckout',  ga4:'begin_checkout'},
+      application: {meta:'SubmitApplication', ga4:'submit_application'}
+    };
+    var XEVENT=${JSON.stringify(site.analytics.xLeadEvent || '')};
+    function eid(){
+      try{ if(crypto && crypto.randomUUID) return crypto.randomUUID() }catch(e){}
+      return 'pw-'+Date.now()+'-'+Math.random().toString(36).slice(2,10);
+    }
+    window.pwTrack=function(name,params){
+      var m=MAP[name]; if(!m) return;
+      var id=eid(); params=params||{};
+      try{ window.dataLayer&&window.dataLayer.push({event:'pw_'+name,eventID:id,pw:params}) }catch(e){}
+      try{ if(window.gtag) window.gtag('event',m.ga4,params) }catch(e){}
+      try{ if(window.fbq) window.fbq('track',m.meta,params,{eventID:id}) }catch(e){}
+      try{ if(window.oaiq) window.oaiq('track',m.meta,params) }catch(e){}
+      /* X takes configured conversion ids, not names, and we have one: the
+         lead. The other three have nothing to fire at there. */
+      try{ if(window.twq && XEVENT && name==='lead') window.twq('event',XEVENT,{}) }catch(e){}
+      return id;
+    };
+
+    /* The handoff. The order is placed on warminboxes.com, so the click that
+       leaves this site is the last thing this side can measure, and without
+       it every campaign here looks like it produced nothing. Delegated and
+       captured, so links written after load are covered too, and read off the
+       resolved URL rather than the attribute because wi() builds absolute
+       ones with UTMs already on them. */
+    document.addEventListener('click',function(e){
+      var a=e.target&&e.target.closest&&e.target.closest('a[href]'); if(!a) return;
+      var u; try{ u=new URL(a.href,location.href) }catch(err){ return }
+      var host=u.hostname.replace(/^www\\./,'');
+      var p={link_url:u.origin+u.pathname, placement:u.searchParams.get('utm_content')||'', from:location.pathname};
+      if(host==='wa.me'||host==='api.whatsapp.com') return void window.pwTrack('contact',p);
+      if(host==='warminboxes.com'||host==='app.warminboxes.com'){
+        return void window.pwTrack(/^\\/affiliate/.test(u.pathname)?'application':'checkout',p);
+      }
+    },true);
+  })();
+`} />

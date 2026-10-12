@@ -66,13 +66,10 @@ import WhatsApp from '../components/WhatsApp.astro';
       btn.disabled = true; btn.textContent = 'Sending…';
 
       const done = () => {
-        // One conversion per platform. The pixels are consent-gated, so each
-        // is checked rather than assumed: outside the UK and EEA all three
-        // exist, inside they exist only if the visitor accepted.
-        window.dataLayer && window.dataLayer.push({ event: 'lead_submit' });
-        if (window.gtag) window.gtag('event', 'generate_lead');
-        if (window.fbq) window.fbq('track', 'Lead');
-        if (window.twq && form.dataset.xevent) window.twq('event', form.dataset.xevent, {});
+        // One call, four platforms, one shared eventID. pwTrack is the same
+        // event map warminboxes.com uses, so a lead here and a lead there are
+        // the same conversion rather than two differently-named ones.
+        if (window.pwTrack) window.pwTrack('lead', { form: 'contact' });
         location.href = '/thanks/';
       };
 
