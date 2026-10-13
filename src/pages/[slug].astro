@@ -43,7 +43,6 @@ const termed = !!(price?.perUnit || price?.perTenant || price?.perUnitRange);
 /** No published figure means the primary CTA has to start a conversation.
  *  The pricing section still carries a tracked Warm Inboxes link. */
 const askFirst = price?.contact === 'whatsapp';
-const askMsg = p.waMessage ?? `Hi, I am interested in ${p.eyebrow.toLowerCase()}. Could you send me the price?`;
 
 /**
  * The order panel's checklist. Prewarmed products share one; fresh products
@@ -109,7 +108,7 @@ const schema = {
           <p class="lede">{p.subhead}</p>
           <div class="cta">
             {askFirst
-              ? <a class="btn btn-primary btn-lg" href={wa(askMsg)}>Ask for a price on WhatsApp</a>
+              ? <a class="btn btn-primary btn-lg" href={wa()}>Ask for a price on WhatsApp</a>
               : <a class="btn btn-primary btn-lg" href={wi('/', { page: p.slug, placement: 'hero' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <WhatsApp />}
             <a class="btn btn-ghost btn-lg" href="/pricing/">See pricing</a>
           </div>
@@ -126,7 +125,7 @@ const schema = {
             <p class="from">{billing === 'monthly' && !range && 'from '}<span class="mono big">{priceLabel.big}</span> <span class="muted">{priceLabel.sub}</span></p>
           )}
           {askFirst
-            ? <a class="btn btn-primary full" href={wa(askMsg)}>Ask for a price →</a>
+            ? <a class="btn btn-primary full" href={wa()}>Ask for a price →</a>
             : <a class="btn btn-primary full" href={wi('/', { page: p.slug, placement: 'order-panel' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp />}
           <p class="micro muted">{pricing.policy.delivery}.</p>
         </aside>
@@ -198,7 +197,7 @@ const schema = {
               <p class="tprice mono">{t.price}</p>
               <p class="tbody">{t.b}</p>
               {t.wa
-                ? <a class="btn btn-ghost" href={wa(t.wa)}>Talk on WhatsApp →</a>
+                ? <a class="btn btn-ghost" href={wa()}>Talk on WhatsApp →</a>
                 : t.to
                 ? <a class="btn btn-ghost" href={t.to}>{t.toLabel}</a>
                 : <a class="btn btn-primary" href={wi('/', { page: p.slug, placement: `tier-${t.k}` })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp />}

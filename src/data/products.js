@@ -444,7 +444,10 @@ export const products = [
         to: '/fresh-domains/', toLabel: 'See fresh domains →' },
       { k: 'domain-aged', h: 'Aged .com', price: 'Custom, per domain',
         b: 'Sourced individually against your requirement, with registration and drop history checked before anything is handed over. Priced per domain because every one is different.',
-        wa: 'Hi, I am looking for aged .com domains. Here is what I need:' },
+        // Quoted individually, so this tier sends people to WhatsApp rather
+        // than to a checkout. A flag, not a message: the opener is the same
+        // everywhere and lives in site.waMessage.
+        wa: true },
     ],
     pricingKey: 'domain-prewarmed',
     inlineTool: 'deliverability-checker',

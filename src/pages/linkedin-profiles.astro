@@ -13,7 +13,6 @@ import Simple from '../layouts/Simple.astro';
 import Faq from '../components/Faq.astro';
 import WhatsApp from '../components/WhatsApp.astro';
 
-const waMsg = 'Hey, I want the aged LinkedIn profiles when they launch';
 
 const faqs = [
   ['When does this launch?', 'Soon, and the queue goes first. Message us on WhatsApp and you will hear before it goes on the site.'],
@@ -35,7 +34,7 @@ const faqs = [
   <p class="note"><strong>This is not live yet.</strong> The page is here so you can get in the queue. Everyone on it hears before it goes on sale, and the first batch is finite.</p>
 
   <div class="cta-row">
-    <WhatsApp variant="primary" label="Get on the list" message={waMsg} />
+    <WhatsApp variant="primary" label="Get on the list" />
     <a class="btn btn-ghost" href="/contact/">Or send the details</a>
   </div>
 
@@ -60,7 +59,7 @@ const faqs = [
   <h2>Be first</h2>
   <p>Tell us the volume you want to run and the market you are selling into. You will hear when the first batch is ready, before it goes on the site.</p>
   <div class="cta-row">
-    <WhatsApp variant="primary" label="Get on the list" message={waMsg} />
+    <WhatsApp variant="primary" label="Get on the list" />
     <a class="btn btn-ghost" href="/contact/">Send the details instead</a>
   </div>
 

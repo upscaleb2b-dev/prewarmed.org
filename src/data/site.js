@@ -8,6 +8,10 @@ export const site = {
   agencyUrl: 'https://upscaleb2b.com',
   // Same number warminboxes.com publishes as 'Contact via WhatsApp'.
   whatsapp: 'https://wa.me/19047362539',
+  // The opener every WhatsApp button on the site prefills. One line, one
+  // place: a reply that says where the person came from is worth more than a
+  // per-page variant nobody reads before hitting send.
+  waMessage: 'Hey coming from prewarmed.org, need some inboxes',
   // The one inbox a person actually reads. Warm Inboxes support handles
   // orders and everything on this site, so pointing here at a prewarmed.org
   // address would only be a second place for mail to sit unanswered.
@@ -129,11 +133,15 @@ export function toolUrl(tool, { page = 'site', placement = 'body', domain = '' }
 /**
  * WhatsApp link. Falls back to /contact/ while site.whatsapp is empty, so a
  * missing number never ships as a dead link.
+ *
+ * It takes no message. Every button on the site opens the same opener, and
+ * the way to keep it that way is to leave callers nothing to pass: the text
+ * lives in site.waMessage and nowhere else.
  */
-export function wa(message = '') {
+export function wa() {
   if (!site.whatsapp) return '/contact/';
   const u = new URL(site.whatsapp);
-  if (message) u.searchParams.set('text', message);
+  u.searchParams.set('text', site.waMessage);
   return u.toString();
 }
 
