@@ -17,7 +17,7 @@ import { readdirSync, statSync, readFileSync } from 'node:fs';
 import { join, relative } from 'node:path';
 
 const DIST = 'dist';
-const HOSTS = /^https:\/\/(?:www\.)?(?:warminboxes|upscaleb2b)\.com/;
+const HOSTS = /^https:\/\/(?:www\.|app\.)?(?:warminboxes|upscaleb2b)\.com/;
 const ANCHOR = /<a\b[^>]*href="(https:\/\/[^"]+)"[^>]*>/g;
 
 const files = [];

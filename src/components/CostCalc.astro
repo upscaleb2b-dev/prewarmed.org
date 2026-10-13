@@ -18,7 +18,7 @@
  * Both choices favour the fresh column, which is the only kind of assumption
  * worth publishing when you sell the other one.
  */
-import { wi } from '../data/site.js';
+import { wi, order } from '../data/site.js';
 import pricing from '../data/pricing.json';
 import Handoff from './Handoff.astro';
 import WhatsApp from './WhatsApp.astro';
@@ -85,7 +85,7 @@ const cfg = {
       <p class="say" id="cc-say">…</p>
 
       <div class="cta">
-        <a class="btn btn-primary btn-lg" id="cc-cta" href={wi('/', { page: 'cost-calculator', placement: 'result' })} target="_blank" rel="noopener">Get prewarmed inboxes</a>
+        <a class="btn btn-primary btn-lg" id="cc-cta" href={order({ page: 'cost-calculator', placement: 'result' })} target="_blank" rel="noopener">Get prewarmed inboxes</a>
         <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a> <WhatsApp />
       </div>
       <Handoff />

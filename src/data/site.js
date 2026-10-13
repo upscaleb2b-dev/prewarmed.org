@@ -3,6 +3,8 @@ export const site = {
   tagline: 'Prewarmed inboxes and domains for cold email',
   operator: 'Warm Inboxes',
   operatorUrl: 'https://warminboxes.com',
+  // Where orders are actually placed. Every orange button on this site.
+  appUrl: 'https://app.warminboxes.com',
   // Sister property: done-for-you cold email campaigns, same team.
   agency: 'Upscale B2B',
   agencyUrl: 'https://upscaleb2b.com',
@@ -52,7 +54,7 @@ export const site = {
      * the handoff looks like a bounce here and a fresh direct visit there.
      * gtag decorates outbound links to these hosts with _gl.
      */
-    linkDomains: ['warminboxes.com', 'upscaleb2b.com'],
+    linkDomains: ['warminboxes.com', 'app.warminboxes.com', 'upscaleb2b.com'],
     /**
      * Extra GA4 properties configured alongside ga4 on every page.
      *
@@ -100,6 +102,28 @@ export const site = {
 };
 
 /** Outbound link builder. Brand anchors only, never keyword-rich anchor text. */
+/**
+ * The order link.
+ *
+ * Buying happens in the app, not on the marketing site, so every orange
+ * button on this site goes straight there rather than making a buyer land on
+ * a second homepage and find the button again. Same UTMs as wi(), so the two
+ * paths stay comparable in GA4, and app.warminboxes.com is in linkDomains so
+ * the session and the click id survive the hop.
+ *
+ * wi() still exists and still points at warminboxes.com: it is for links
+ * about the company (the footer, the terms page) and for its content pages,
+ * which are not checkout.
+ */
+export function order({ page = 'site', placement = 'body' } = {}) {
+  const u = new URL('/', site.appUrl);
+  u.searchParams.set('utm_source', 'prewarmed.org');
+  u.searchParams.set('utm_medium', 'referral');
+  u.searchParams.set('utm_campaign', page);
+  u.searchParams.set('utm_content', placement);
+  return u.toString();
+}
+
 export function wi(path = '/', { page = 'site', placement = 'body' } = {}) {
   const u = new URL(path, 'https://warminboxes.com');
   u.searchParams.set('utm_source', 'prewarmed.org');

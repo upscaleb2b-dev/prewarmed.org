@@ -1,7 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import Faq from '../components/Faq.astro';
-import { wi, site } from '../data/site.js';
+import { wi, site, order } from '../data/site.js';
 import { criteria } from '../data/providers.js';
 import WhatsApp from '../components/WhatsApp.astro';
 const faqs = [
@@ -68,7 +68,7 @@ const schema = {
       <section class="ours">
         <h2>What we ship, for comparison</h2>
         <p>So you can run the questions on us: domains aged 30 days before first send, then 21 days of real sending and receiving; the domain included at no cost; Google Workspace, Microsoft 365 and Azure tenants; delivered same day. On replacement: we do not repair damaged domains or swap them, because repair takes weeks and rarely restores the reputation. A fresh batch ships the same day instead.</p>
-        <p class="cta"><a class="btn btn-primary btn-lg" href={wi('/', { page: 'best-prewarmed-inboxes', placement: 'body' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out what you need →</a> <WhatsApp /></p>
+        <p class="cta"><a class="btn btn-primary btn-lg" href={order({ page: 'best-prewarmed-inboxes', placement: 'body' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out what you need →</a> <WhatsApp /></p>
       </section>
 
       <Faq faqs={faqs} />
