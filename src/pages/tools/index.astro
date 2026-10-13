@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Faq from '../../components/Faq.astro';
 import tools from '../../data/tools.json';
-import { toolUrl, wi, order } from '../../data/site.js';
+import { toolUrl, wi, wiUrl, order } from '../../data/site.js';
 import Handoff from '../../components/Handoff.astro';
 import WhatsApp from '../../components/WhatsApp.astro';
 
@@ -39,6 +39,11 @@ const schema = {
       <p class="eyebrow">Free tools</p>
       <h1>Diagnose before you buy.</h1>
       <p class="lede">{live.length} free tools, no signup. Each one tells you when to run it and what to do with the answer.</p>
+      <p class="cta-row">
+        <a class="btn btn-primary btn-lg" href={wiUrl(tools.hub, { page: 'tools-hub', placement: 'hero' })} target="_blank" rel="noopener">Open all {live.length} tools ↗</a>
+        <a class="btn btn-ghost btn-lg" href="#diagnose">Start with what is broken →</a>
+      </p>
+      <p class="src mono">Tools open on warminboxes.com. Free, no signup.</p>
     </div>
   </section>
 
@@ -47,7 +52,7 @@ const schema = {
     return items.length ? (
       <section class="section">
         <div class="wrap">
-          <h2>{g.label}</h2>
+          <h2 id={g.id}>{g.label}</h2>
           <p class="muted" style="margin-top:8px">{g.blurb}</p>
           <div class="grid g3" style="margin-top:26px">
             {items.map((t) => {
@@ -68,6 +73,12 @@ const schema = {
   })}
 
   <section class="section">
+    <div class="wrap">
+      <p class="all"><a class="btn btn-primary btn-lg" href={wiUrl(tools.hub, { page: 'tools-hub', placement: 'browse-all' })} target="_blank" rel="noopener">Open all {live.length} tools ↗</a></p>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap"><Faq faqs={faqs} /></div>
   </section>
 
@@ -82,6 +93,11 @@ const schema = {
 </Base>
 
 <style>
+  .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 10px; }
+  .cta-row .btn { min-height: 44px; display: inline-flex; align-items: center; }
+  .src { font-size: 13px; color: var(--text-muted); margin: 0; }
+  .all { margin: 0; }
+  @media (max-width: 560px) { .cta-row .btn { flex: 1 1 100%; justify-content: center; } }
   h1 { margin: 12px 0 18px; }
   .tool { display: block; }
   .tool:hover { text-decoration: none; border-color: var(--accent); }
