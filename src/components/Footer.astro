@@ -13,7 +13,7 @@ import { site, wi, ub, toolUrl, wa } from '../data/site.js';
 import tools from '../data/tools.json';
 import leads from '../data/leads.json';
 import { products } from '../data/products.js';
-import Flame from './Flame.astro';
+import Mark from './Mark.astro';
 
 const groups = [
   { id: 'diagnose', label: 'Diagnose' },
@@ -77,7 +77,7 @@ const href = (t) => (t.host === 'prewarmed.org' ? t.url : toolUrl(t, { page: 'fo
 
     <div class="ft-top">
       <div class="ft-brand">
-        <p class="brand"><Flame size={20} />prewarmed<span class="muted">.org</span></p>
+        <p class="brand"><Mark size={20} />prewarmed<span class="muted">.org</span></p>
         <p class="disclosure">{site.disclosure}</p>
       </div>
 

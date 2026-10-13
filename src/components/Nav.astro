@@ -2,7 +2,7 @@
 import { nav, site, wi, toolUrl } from '../data/site.js';
 import tools from '../data/tools.json';
 import leads from '../data/leads.json';
-import Flame from './Flame.astro';
+import Mark from './Mark.astro';
 
 const groups = [
   { id: 'diagnose', label: 'Diagnose' },
@@ -18,7 +18,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
 ---
 <header class="nav">
   <div class="wrap nav-inner">
-    <a class="brand" href="/"><Flame size={20} />prewarmed<span class="muted">.org</span></a>
+    <a class="brand" href="/"><Mark size={20} />prewarmed<span class="muted">.org</span></a>
 
     <nav class="links" aria-label="Main">
       {nav.map((item) => (

@@ -11,9 +11,9 @@
  *   npm i --no-save playwright && node scripts/make-og.mjs
  */
 import { readFileSync, writeFileSync } from 'node:fs';
-import { chromium } from 'playwright';
+const { chromium } = await import(process.env.CHROME ? 'playwright-core' : 'playwright');
 
-const flame = JSON.parse(readFileSync(new URL('../src/components/flame-path.json', import.meta.url)));
+const mark = JSON.parse(readFileSync(new URL('../src/components/mark-paths.json', import.meta.url)));
 const T = { bg: '#0b0c0f', elev: '#131519', border: '#262a33', text: '#f2f3f5', muted: '#8b929e', accent: '#ff6a1f', accent2: '#ffb347' };
 
 const page = `<!doctype html><html><head><meta charset="utf-8"><style>
@@ -37,7 +37,7 @@ const page = `<!doctype html><html><head><meta charset="utf-8"><style>
 </style></head><body>
   <div class="glow"></div>
   <div class="brand">
-    <svg width="34" height="34" viewBox="0 0 32 32"><path d="${flame.outer}" fill="${T.accent}"/><path d="${flame.inner}" fill="${T.accent2}"/></svg>
+    <svg width="34" height="34" viewBox="0 0 32 32"><path d="${mark.shield}" fill="none" stroke="${T.accent}" stroke-width="${mark.strokeWidth}" stroke-linejoin="round"/><g transform="${mark.emberTransform}"><path d="${mark.ember}" fill="${T.accent2}"/></g></svg>
     <span>prewarmed<span class="dim">.org</span></span>
   </div>
   <div>
@@ -48,7 +48,7 @@ const page = `<!doctype html><html><head><meta charset="utf-8"><style>
   <div class="feet"><span>Aging 30 days &nbsp;·&nbsp; Warming 21 days &nbsp;·&nbsp; Delivered same day</span><span>prewarmed.org</span></div>
 </body></html>`;
 
-const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || undefined });
+const browser = await chromium.launch({ args: ['--no-sandbox'], executablePath: process.env.CHROME || process.env.CHROMIUM_PATH || undefined });
 const p = await browser.newPage({ viewport: { width: 1200, height: 630 }, deviceScaleFactor: 1 });
 await p.setContent(page, { waitUntil: 'load' });
 const buf = await p.screenshot({ type: 'png' });

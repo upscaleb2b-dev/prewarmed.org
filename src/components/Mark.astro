@@ -1,0 +1,23 @@
+---
+/**
+ * The site mark: an ember inside a shield.
+ *
+ * Deliverability as protection, which is what a buyer is actually weighing,
+ * with the flame kept inside it so the five years of orange equity do not get
+ * thrown away.
+ *
+ * The shield is stroked rather than filled on purpose: a solid shield at
+ * 20px on a dark header is a blob, and the outline keeps an edge at every
+ * size. Both colours come from the palette tokens, so the mark follows the
+ * page rather than being pinned to orange.
+ */
+import m from './mark-paths.json';
+const { size = 18, title = '' } = Astro.props;
+---
+<svg class="mark" viewBox="0 0 32 32" width={size} height={size}
+     role={title ? 'img' : 'presentation'} aria-label={title || undefined}
+     aria-hidden={title ? undefined : 'true'}>
+  <path d={m.shield} fill="none" stroke="var(--accent)" stroke-width={m.strokeWidth} stroke-linejoin="round"></path>
+  <g transform={m.emberTransform}><path d={m.ember} fill="var(--accent-hover)"></path></g>
+</svg>
+<style>.mark { display: block; flex: 0 0 auto; }</style>
