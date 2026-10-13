@@ -19,4 +19,11 @@ const { label = 'Chat on WhatsApp', variant = 'ghost' } = Astro.props;
   .wa svg { flex: none; color: #25D366; }
   /* On the solid orange button the brand green goes muddy; inherit instead. */
   .wa.btn-primary svg { color: currentColor; }
+  /* On a phone this always lands on its own line under the primary CTA, and
+     at content width it reads as an afterthought sitting under a full-width
+     button. Full width: same footprint as whatever is above it, and a target
+     you can hit with a thumb without looking. */
+  @media (max-width: 560px) {
+    .wa { width: 100%; justify-content: center; }
+  }
 </style>

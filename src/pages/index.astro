@@ -82,6 +82,9 @@ const schema = {
           </a>
         ))}
       </div>
+      <p class="pick-help">
+        <WhatsApp label="Need help choosing a provider?" />
+      </p>
       <div class="fresh-strip">
         <p><strong>Not starting for two months?</strong> Each one has a fresh version: cheaper, and you run the 51 days.</p>
         <p class="fresh-links">
@@ -169,6 +172,9 @@ const schema = {
   .pick:hover { text-decoration: none; border-color: var(--accent); }
   .more { display: inline-block; margin-top: 14px; color: var(--accent); font-size: 14.5px; font-weight: 500; }
   .cta-gap { margin-top: 30px; }
+  /* Right under the three cards, where someone who cannot tell Google from
+     Azure for their list actually stalls. */
+  .pick-help { margin: 20px 0 0; }
   .fresh-strip { margin-top: 26px; border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; }
   .fresh-strip p { color: var(--text-2); font-size: 16px; margin: 0; max-width: 760px; }
   .fresh-strip strong { color: var(--text); }
