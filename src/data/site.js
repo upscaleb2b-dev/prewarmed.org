@@ -124,6 +124,23 @@ export function order({ page = 'site', placement = 'body' } = {}) {
   return u.toString();
 }
 
+/**
+ * A link to a specific page on warminboxes.com, UTM-tagged like the rest.
+ *
+ * wi() builds from a path; this takes a URL that already exists in the data
+ * files (the lead lists, the leads hub, the tools), so a section on this site
+ * can send someone to the same section over there rather than to a homepage
+ * they then have to navigate out of again.
+ */
+export function wiUrl(url, { page = 'site', placement = 'body' } = {}) {
+  const u = new URL(url);
+  u.searchParams.set('utm_source', 'prewarmed.org');
+  u.searchParams.set('utm_medium', 'referral');
+  u.searchParams.set('utm_campaign', page);
+  u.searchParams.set('utm_content', placement);
+  return u.toString();
+}
+
 export function wi(path = '/', { page = 'site', placement = 'body' } = {}) {
   const u = new URL(path, 'https://warminboxes.com');
   u.searchParams.set('utm_source', 'prewarmed.org');

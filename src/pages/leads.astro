@@ -49,13 +49,17 @@ const schema = {
         <div><b>{cats.length}</b><span>industries</span></div>
         <div><b>$0</b><span>no signup</span></div>
       </div>
-      <p class="src mono">Counts summed from the figures published on each list.</p>
+      <p class="cta-row">
+        <a class="btn btn-primary btn-lg" href={out(leads.hub, 'hero')} target="_blank" rel="noopener">Browse all {leads.totalLists} lists ↗</a>
+        <a class="btn btn-ghost btn-lg" href="#before">What to do before you send →</a>
+      </p>
+      <p class="src mono">Counts summed from the figures published on each list. Lists open on warminboxes.com.</p>
     </div>
   </section>
 
   <section class="section">
     <div class="wrap">
-      <h2>Before you send a single one of these</h2>
+      <h2 id="before">Before you send a single one of these</h2>
       <p class="lede" style="margin-top:12px">A free list is the most common way a good domain gets ruined. Four steps, in this order, and you need all four.</p>
       <ol class="steps">
         <li><strong>Check every address is real.</strong> Every time. Bounces are the quickest way for Gmail and Outlook to spot that you are emailing a bought list, and your bounce rate climbs before your emails stop landing.</li>
@@ -86,7 +90,7 @@ const schema = {
           </div>
         ))}
       </div>
-      <p class="all"><a class="btn btn-ghost btn-lg" href={out(leads.hub, 'browse-all')} target="_blank" rel="noopener">Browse all {leads.totalLists} lists ↗</a></p>
+      <p class="all"><a class="btn btn-primary btn-lg" href={out(leads.hub, 'browse-all')} target="_blank" rel="noopener">Browse all {leads.totalLists} lists ↗</a></p>
     </div>
   </section>
 
@@ -103,6 +107,9 @@ const schema = {
 </Base>
 
 <style>
+  .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 10px; }
+  .cta-row .btn { min-height: 44px; display: inline-flex; align-items: center; }
+  @media (max-width: 560px) { .cta-row .btn { flex: 1 1 100%; justify-content: center; } }
   h1 { margin: 12px 0 18px; }
   .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; margin-top: 34px; }
   .stats div { background: var(--bg-elev); padding: 18px 20px; }
