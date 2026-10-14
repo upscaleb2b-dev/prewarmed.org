@@ -73,8 +73,26 @@ import { site } from '../data/site.js';
       gtag('js',new Date());
       ${site.analytics.ga4 ? `gtag('config','${site.analytics.ga4}',{linker:{domains:${JSON.stringify(site.analytics.linkDomains ?? [])}}});` : ''}
       ${(site.analytics.ga4Extra ?? []).map((id) => `gtag('config','${id}',{linker:{domains:${JSON.stringify(site.analytics.linkDomains ?? [])}}});`).join('\n          ')}
-      ${site.analytics.adsId ? `gtag('config','${site.analytics.adsId}');` : ''}
     `} />
+    {/*
+      Google Ads, as the snippet Google generates, pasted verbatim at the
+      site owner's instruction. It brings its own copy of gtag.js: the page
+      already loads one above for GA4 and the same library serves every
+      config, so this is a second download and a second config of the same
+      id. Setting site.analytics.adsId alone did the same job without it.
+      Left as the snippet because that is what was asked for; the config
+      line it replaced is gone, so the id is configured once, not twice.
+    */}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17860457598"></script>
+    <script is:inline set:html={`
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'AW-17860457598');
+    `} />
+
     <script is:inline set:html={`
       /* Ad click IDs do not survive the handoff on their own.
          wi() builds outbound URLs at build time with UTMs only, so a
