@@ -147,9 +147,12 @@ import { site } from '../data/site.js';
       try{ if(crypto && crypto.randomUUID) return crypto.randomUUID() }catch(e){}
       return 'pw-'+Date.now()+'-'+Math.random().toString(36).slice(2,10);
     }
-    window.pwTrack=function(name,params){
+    window.pwTrack=function(name,params,forcedId){
       var m=MAP[name]; if(!m) return;
-      var id=eid(); params=params||{};
+      /* forcedId lets the handoff mint the id before it stamps it on the
+         outbound URL, so the id on this side and the id that lands on the
+         other side are the same string. */
+      var id=forcedId||eid(); params=params||{};
       try{ window.dataLayer&&window.dataLayer.push({event:'pw_'+name,eventID:id,pw:params}) }catch(e){}
       try{ if(window.gtag) window.gtag('event',m.ga4,params) }catch(e){}
       try{ if(window.fbq) window.fbq('track',m.meta,params,{eventID:id}) }catch(e){}
@@ -176,11 +179,35 @@ import { site } from '../data/site.js';
       var a=e.target&&e.target.closest&&e.target.closest('a[href]'); if(!a) return;
       var u; try{ u=new URL(a.href,location.href) }catch(err){ return }
       var host=u.hostname.replace(/^www\\./,'');
-      var p={link_url:u.origin+u.pathname, placement:u.searchParams.get('utm_content')||'', from:location.pathname};
-      if(host==='wa.me'||host==='api.whatsapp.com') return void window.pwTrack('contact',p);
-      if(host==='warminboxes.com'||host==='app.warminboxes.com'){
-        return void window.pwTrack(/^\\/affiliate/.test(u.pathname)?'application':'checkout',p);
+
+      if(host==='wa.me'||host==='api.whatsapp.com'){
+        return void window.pwTrack('contact',{pw_from:location.pathname});
       }
+      if(host!=='warminboxes.com' && host!=='app.warminboxes.com') return;
+
+      /* The handoff id. Minted here, stamped on the URL the visitor is about
+         to follow, and used as the event id on this side, so the same string
+         exists in this property and in the landing URL over there. That is
+         what makes the two halves joinable even when cross-domain linking
+         fails, which it does whenever a browser drops the _gl parameter.
+
+         set(), not append: a second click on the same link replaces the id
+         rather than stacking a second one on the query string. */
+      var hid=eid();
+      try{ u.searchParams.set('pw_hid',hid); a.href=u.toString(); }catch(err){}
+
+      /* pw_ prefixed because GA4 only reports a custom parameter once it is
+         registered as a custom dimension, and an unprefixed name like
+         "placement" or "from" is one collision away from something GA4 or a
+         GTM template already owns. */
+      var p={
+        pw_hid: hid,
+        pw_dest: host,
+        pw_placement: u.searchParams.get('utm_content') || '',
+        pw_campaign: u.searchParams.get('utm_campaign') || '',
+        pw_from: location.pathname
+      };
+      window.pwTrack(/^\\/affiliate/.test(u.pathname)?'application':'checkout',p,hid);
     },true);
   })();
 `} />
