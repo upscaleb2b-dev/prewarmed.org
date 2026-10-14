@@ -1,6 +1,9 @@
 ---
 import Simple from '../layouts/Simple.astro';
-import { wi, order } from '../data/site.js';
+import { wi, wiUrl, order, site } from '../data/site.js';
+import PricingTable from '../components/PricingTable.astro';
+import tools from '../data/tools.json';
+import pricing from '../data/pricing.json';
 import WhatsApp from '../components/WhatsApp.astro';
 ---
 <Simple
@@ -22,7 +25,7 @@ import WhatsApp from '../components/WhatsApp.astro';
   <h2>Days 0 to 30: aging</h2>
   <p>We register a clean .com, check it has not been abandoned and re-registered before or listed on a blacklist, and set up its SPF, DKIM and DMARC records. Then nothing sends from it for thirty days.</p>
   <p>That sounds like doing nothing, and it is the most important part. A domain that starts sending in its first few days gets added to the major blacklists almost straight away, and a listing that early is the hardest kind to remove. Age is one of the very few things Gmail and Outlook can check that a sender cannot fake or speed up.</p>
-  <p class="note">It is also the step most sellers skip, because waiting means slower stock turnover for them. When someone advertises a prewarmed domain delivered in 48 hours, this is the part that did not happen.</p>
+  <p class="note">It is also the step most sellers skip, because waiting means slower stock turnover for them. The 48 hours that matters is the 48 hours after the domain was <em>registered</em>: a domain that starts sending that fast was never aged. How quickly it reaches you after you order is a different clock, and says nothing either way, because the aging happened on our side before the order existed.</p>
 
   <h2>Days 30 to 51: warming</h2>
   <p>We create the mailboxes on Google Workspace, Microsoft 365 or an Azure account. The domain starts sending and receiving real email at low volume, increasing in steps based on how it is actually performing rather than on a fixed schedule.</p>
@@ -42,5 +45,132 @@ import WhatsApp from '../components/WhatsApp.astro';
   <p>Prewarmed does not mean indestructible. We suggest 15 cold emails per inbox per day, three inboxes on each domain, and only increasing that while your bounce rate stays low and your email keeps landing. The most common first-month mistake is sending more while bounces were already climbing.</p>
   <p>Prewarming buys you the 51 days. It does not fix a bad list. Point a clean domain at data you have not checked and it fails exactly the way the last one did, only faster.</p>
 
-  <p style="margin-top:34px"><a class="btn btn-primary btn-lg" href={order({ page: 'how-it-works', placement: 'body' })} target="_blank" rel="noopener">Get inboxes</a> <WhatsApp /></p>
+
+  <hr class="brk" />
+
+  <p class="eyebrow" style="margin-top:8px">The rest of it</p>
+  <h2 id="ordering">From signing up to your first send</h2>
+  <p>Everything above is what happens to the domain before you ever see it. This is what happens once you order, as Warm Inboxes publishes it, since they fulfil every order placed through this site.</p>
+  <ol class="flow">
+    <li><strong>Create your account.</strong> Sign up and pick a package: prewarmed or fresh, on Google Workspace, Microsoft 365 or Azure. No credit card to create the account.</li>
+    <li><strong>Check out.</strong> Choose your billing cycle and pay. Prewarmed bills monthly, every 2 months or quarterly. Fresh bills monthly, quarterly or yearly. Longer cycles cost less per inbox.</li>
+    <li><strong>They build.</strong> Every order is delivered within 48 to 72 hours of payment, prewarmed and fresh alike. SPF, DKIM, DMARC and forwarding are configured on the domains before you log in.</li>
+    <li><strong>Plug in and send.</strong> By default the inboxes are connected to your sending tool for you, Instantly, Smartlead, Email Bison, ManyReach or any other, so you just start sending. If you would rather connect them yourself, you get full admin access to the mailboxes and the credentials to plug in.</li>
+  </ol>
+
+  <h2 id="access">Handing over access</h2>
+  <p>To hand the setup over cleanly, pick one of two options on the day of delivery. Either disable 2FA on the receiving account, your sending tool or registrar, before delivery, or, if you would rather keep that account locked down, give restricted sub-account access to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>.</p>
+  <p>Say which you prefer in the app or on WhatsApp. If anything else is needed mid-build, such as a verification code or a DNS access token, you get a WhatsApp message. <strong>Orders where 2FA is still switched on take longer than 48 to 72 hours.</strong></p>
+
+  <h2 id="infrastructure">What the inboxes actually are</h2>
+  <p>Every inbox is an official Google Workspace, Microsoft 365 or Azure mailbox, not a shared relay and not a custom mail server. Sending reputation comes from Google's and Microsoft's own infrastructure, spread across US and EU IPs, so one blacklist does not stall the whole pipeline.</p>
+
+  <h3>Prewarmed</h3>
+  <p>Prewarmed inboxes arrive with weeks of sender history already built, so you launch the day the order is delivered instead of waiting out a warmup.</p>
+  <p>Every prewarmed package includes a free prewarmed .com or .co domain, registered through Warm Inboxes and part of the package. The domain is in the deal because reputation lives at the domain level: a brand new domain has no history, so a prewarmed mailbox on it would be no different from a fresh one. That is also why <strong>prewarmed inboxes cannot be moved onto a domain you already own.</strong> If you want to use your own domains, choose fresh.</p>
+  <p>Prewarmed Google and Microsoft inboxes are sold in ready to use packs of 3 per domain. Prewarmed Azure tenants hold 100 inboxes each. Lower cost prewarmed inboxes on non .com extensions start at $4.50 per inbox, through support.</p>
+
+  <h3>Fresh</h3>
+  <p>Fresh inboxes run on your own branded domains at a fraction of the prewarmed price per send, which is what makes them the way to scale once a campaign is booking meetings.</p>
+  <ul>
+    <li><strong>Your domain, your choice.</strong> Bring one you already own from any registrar, or buy a .com through Warm Inboxes: they list at $20 and are currently ${pricing.products['domain-fresh'].price}. Domains are registered for a full year, and a domain you own stays yours if you cancel.</li>
+    <li><strong>The domain is configured for you.</strong> SPF, DKIM, DMARC and mailbox provisioning, all done before delivery.</li>
+    <li><strong>Warm up for 21 days.</strong> A full 21 day warmup before fresh inboxes go into live campaigns.</li>
+    <li><strong>Renaming and swapping.</strong> A renamed inbox needs 5 to 7 days of re-warming before it goes back into live campaigns. A domain swap needs the full 21 days again, because reputation does not carry over from the old domain.</li>
+    <li><strong>URL forwarding</strong> takes about 30 minutes and you can set it up yourself in the app, or ask support to do it.</li>
+  </ul>
+  <p>Google Workspace inboxes sit three to a domain. Microsoft 365 and Azure tenants hold far more per domain, up to 100, which is why high volume Outlook campaigns usually run on fresh.</p>
+
+  <h2 id="volume">Safe daily volume, by platform</h2>
+  <p>The safe daily limit per inbox depends on the platform. These are the figures the <a href="/calculator/">infrastructure calculator</a> sizes fleets on.</p>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Platform</th><th>Cold emails per inbox per day</th></tr></thead>
+      <tbody>
+        <tr><td>Google Workspace</td><td class="mono">15</td></tr>
+        <tr><td>Microsoft 365</td><td class="mono">8</td></tr>
+        <tr><td>Azure, full tenant of 100</td><td class="mono">2</td></tr>
+        <tr><td>Azure, 50 per tenant</td><td class="mono">4</td></tr>
+        <tr><td>Azure, 25 per tenant</td><td class="mono">6</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>An Azure tenant is billed flat whatever is on it, so a lighter tenant sends more per inbox for the same money.</p>
+  <p><strong>Warmup keeps running.</strong> It runs at 30 emails per inbox per day alongside your cold sends, so you never switch it off.</p>
+
+  <h2 id="prices">Every price</h2>
+  <p>Per inbox per month, in USD. The same figures render on the <a href="/pricing/">pricing page</a> from one data file, so the two cannot drift apart.</p>
+  <h3>Prewarmed Google Workspace</h3>
+  <PricingTable productKey="google-prewarmed" />
+  <h3>Prewarmed Microsoft 365</h3>
+  <PricingTable productKey="microsoft-prewarmed" />
+  <h3>Prewarmed Azure tenant</h3>
+  <PricingTable productKey="azure-tenant" />
+  <p>Azure is billed per tenant, flat, whatever is on it. The per inbox figure is that fee at full capacity. Three prewarmed Google inboxes with a free domain cost $24 a month on monthly billing, or $18 a month on quarterly.</p>
+  <h3>Fresh, on your own domains</h3>
+  <p>Fresh Google Workspace is priced on order size as well as billing cycle, and fresh bills monthly, quarterly or yearly rather than on the prewarmed cycles.</p>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Fresh Google Workspace</th><th>Monthly</th><th>Quarterly</th><th>Yearly</th></tr></thead>
+      <tbody>
+        <tr><td>No minimum</td><td class="mono">$3.50</td><td class="mono">$3.25</td><td class="mono">$3.00</td></tr>
+        <tr><td>30 inboxes or more</td><td class="mono">$3.25</td><td class="mono">$3.00</td><td class="mono">$2.50</td></tr>
+        <tr><td>100 inboxes or more</td><td class="mono">$3.00</td><td class="mono">$2.50</td><td class="mono">$2.00</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="scroll-x" style="margin-top:14px">
+    <table>
+      <thead><tr><th>Fresh Microsoft and Azure</th><th>Monthly</th><th>Quarterly</th><th>Yearly</th></tr></thead>
+      <tbody>
+        <tr><td>Microsoft 365</td><td class="mono">$3.00</td><td class="mono">$2.50</td><td class="mono">$2.00</td></tr>
+        <tr><td>Azure tenant, 25 to 100 inboxes</td><td class="mono">$50/tenant</td><td class="mono">Same</td><td class="mono">Same</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The Azure tenant fee is the same whatever the billing cycle, because the tenant is the thing being billed. A .com bought through Warm Inboxes lists at $20 and is currently ${pricing.products['domain-fresh'].price}, one off.</p>
+
+  <h2 id="running">Running the estate: dashboard, API and MCP</h2>
+  <ul>
+    <li><strong>Dashboard.</strong> Order, renew and manage inboxes in the app.</li>
+    <li><strong>API.</strong> Automate the infrastructure from your own systems, which is what agencies and teams managing many clients use.</li>
+    <li><strong>MCP.</strong> Connect Warm Inboxes to AI assistants and agents through its MCP server, so they can work with your inboxes directly.</li>
+  </ul>
+  <p>If you are building on the API or MCP and want help getting started, message support on WhatsApp or email <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>.</p>
+
+  <h2 id="tools">The free tools</h2>
+  <p>All {tools.tools.filter((t) => t.live).length} are free and need no signup, so you can check DNS, authentication and blacklist status before you send. The ones people reach for first are the blacklist checker, the deliverability checker, which grades a domain A to F across SPF, DKIM, DMARC, MX, blacklists and domain age, and the burned inbox checker.</p>
+  <p><a class="btn btn-ghost" href="/tools/">Browse the tools →</a> <a class="btn btn-ghost" href={wiUrl(tools.hub, { page: 'how-it-works', placement: 'tools' })} target="_blank" rel="noopener">Open all {tools.tools.filter((t) => t.live).length} tools ↗</a></p>
+
+  <h2 id="support">Support and billing</h2>
+  <p>Support is 24/7 from the operators who run cold email themselves. No tickets and no chatbots.</p>
+  <ul>
+    <li><strong>WhatsApp:</strong> {site.phone}</li>
+    <li><strong>Email:</strong> <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a></li>
+  </ul>
+  <p>Billing runs 48 hours before your renewal date, from the United States. Charges appear on your statement as <strong>Upscale Systems / Warm Inboxes</strong>. There are no refunds, so ask before you buy rather than after. The <a href="/refund-policy/">refund policy</a> sets out what that covers and what it does not.</p>
+
+  <h2 id="start">Ready to start?</h2>
+  <p>Create an account, pick a package, and send from inboxes that are already configured.</p>
+  <p style="margin-top:20px"><a class="btn btn-primary btn-lg" href={order({ page: 'how-it-works', placement: 'body' })} target="_blank" rel="noopener">Get inboxes</a> <WhatsApp /></p>
 </Simple>
+
+<style>
+  /* The page is now two halves: what happens to the domain before you see it,
+     and what happens once you order. The rule marks the seam. */
+  .brk { border: 0; border-top: 1px solid var(--border); margin: 52px 0 0; }
+  /* Numbered because the order matters and each step waits on the one above. */
+  ol.flow { counter-reset: s; list-style: none; padding: 0; margin: 22px 0 0; }
+  ol.flow li {
+    counter-increment: s; position: relative; padding: 0 0 20px 46px;
+    border-left: 2px solid var(--border); margin-left: 14px; color: var(--text-2);
+  }
+  ol.flow li:last-child { border-left-color: transparent; padding-bottom: 0; }
+  ol.flow li::before {
+    content: counter(s); position: absolute; left: -15px; top: -2px;
+    width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center;
+    font-family: var(--font-display); font-size: 14px; font-weight: 600;
+    background: var(--bg); border: 1px solid var(--accent); color: var(--accent);
+  }
+  ol.flow strong { color: var(--text); }
+</style>
