@@ -138,6 +138,11 @@ import { site } from '../data/site.js';
       application: {meta:'SubmitApplication', ga4:'submit_application'}
     };
     var XEVENT=${JSON.stringify(site.analytics.xLeadEvent || '')};
+    /* Google Ads counts a conversion only against a send_to of
+       <conversion id>/<label>. Empty until both are set, and then it rides
+       on the lead rather than on page load: see the note below. */
+    var ADS=${JSON.stringify(site.analytics.adsId && site.analytics.adsLabel
+      ? `${site.analytics.adsId}/${site.analytics.adsLabel}` : '')};
     function eid(){
       try{ if(crypto && crypto.randomUUID) return crypto.randomUUID() }catch(e){}
       return 'pw-'+Date.now()+'-'+Math.random().toString(36).slice(2,10);
@@ -152,6 +157,12 @@ import { site } from '../data/site.js';
       /* X takes configured conversion ids, not names, and we have one: the
          lead. The other three have nothing to fire at there. */
       try{ if(window.twq && XEVENT && name==='lead') window.twq('event',XEVENT,{}) }catch(e){}
+      /* Google Ads, same one moment. The conversion action was created as a
+         page view, and its snippet fires on every page it is pasted into,
+         which would make every visit a conversion and teach the campaign to
+         buy the cheapest traffic it can find. It fires here instead, on the
+         action that is actually worth money. */
+      try{ if(window.gtag && ADS && name==='lead') window.gtag('event','conversion',{send_to:ADS}) }catch(e){}
       return id;
     };
 

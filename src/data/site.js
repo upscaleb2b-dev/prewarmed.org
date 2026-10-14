@@ -48,7 +48,7 @@ export const site = {
   analytics: {
     ga4: 'G-YNG4RRZ4YQ',
     adsId: 'AW-17860457598',
-    adsLabel: '',   // conversion label for the lead action
+    adsLabel: 'C2jOCKvsnd8bEP7ow8RC',   // conversion label, fired on the lead
     /**
      * Cross-domain. The sale completes on warminboxes.com, so without these
      * the handoff looks like a bounce here and a fresh direct visit there.
