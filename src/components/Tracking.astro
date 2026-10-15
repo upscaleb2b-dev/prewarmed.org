@@ -91,6 +91,7 @@ import { site } from '../data/site.js';
       gtag('js', new Date());
 
       gtag('config', 'AW-17860457598');
+      ${site.analytics.adsPageViewLabel ? `gtag('event', 'conversion', {'send_to': '${site.analytics.adsId}/${site.analytics.adsPageViewLabel}'});` : ''}
     `} />
 
     <script is:inline set:html={`

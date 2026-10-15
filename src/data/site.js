@@ -48,7 +48,20 @@ export const site = {
   analytics: {
     ga4: 'G-YNG4RRZ4YQ',
     adsId: 'AW-17860457598',
-    adsLabel: 'C2jOCKvsnd8bEP7ow8RC',   // conversion label, fired on the lead
+    // Fired on the lead, which is the action worth money.
+    adsLabel: 'C2jOCKvsnd8bEP7ow8RC',
+    /**
+     * Fired on every page load, because the conversion action it belongs to
+     * was created in Ads as a Page view. Google validates a Page view action
+     * by finding its event snippet firing on page load; an action whose
+     * snippet only runs on a form submit reads as misconfigured forever,
+     * which is exactly what happened to the label above.
+     *
+     * The cost is real: every visit counts as a conversion. Mark this action
+     * Secondary in Ads so it verifies and reports but never becomes the
+     * bidding target.
+     */
+    adsPageViewLabel: 'R7iRCK67q50dEP7ow8RC',
     /**
      * Cross-domain. The sale completes on warminboxes.com, so without these
      * the handoff looks like a bounce here and a fresh direct visit there.
