@@ -51,11 +51,11 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
    afterthought. WhatsApp takes the size of whatever button it follows, and
    both share a minimum width so a short label does not shrink its half. */
 .btn-lg + .btn.wa { font-size: 17px; padding: 15px 28px; }
-.btn-lg, .btn:has(+ .btn.wa), .btn + .btn.wa { min-width: 230px; }
+.btn-primary.btn-lg, .btn:has(+ .btn.wa), .btn + .btn.wa { min-width: 230px; }
 .btn.full + .btn.wa { display: flex; width: 100%; margin-top: 10px; }
 @media (max-width: 560px) {
   /* On a phone the pair stacks: same width, same height, a gap between. */
-  .btn-lg { min-width: 0; }
+  .btn-primary.btn-lg { min-width: 0; }
   .btn:has(+ .btn.wa), .btn + .btn.wa { width: 100%; min-width: 0; }
   .btn + .btn.wa { margin-top: 10px; }
 }

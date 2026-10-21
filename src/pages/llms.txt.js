@@ -36,14 +36,14 @@ Key definitions used throughout this site:
 Current pricing (confirmed ${pricing._confirmedAt}, ${pricing.currency}):
 
 - Prewarmed Google Workspace and Microsoft 365: from $${P['google-prewarmed'].perUnit.quarterly} per inbox per month, sold in packs of ${P['google-prewarmed'].packSize}, prewarmed domain included.
-- Prewarmed Azure tenant: $${P['azure-tenant'].perTenant.quarterly} per tenant, holding ${P['azure-tenant'].densities.map((d) => d.inboxes).join(', ')} mailboxes by choice, $${(P['azure-tenant'].perTenant.quarterly / 25).toFixed(2)}, $${(P['azure-tenant'].perTenant.quarterly / 49).toFixed(2)} or $${(P['azure-tenant'].perTenant.quarterly / 100).toFixed(2)} an inbox.
+- Prewarmed Azure tenant: $${P['azure-tenant'].perTenant.quarterly} per tenant, holding ${P['azure-tenant'].inboxesPerTenant} mailboxes, always a full tenant, $${(P['azure-tenant'].perTenant.quarterly / P['azure-tenant'].inboxesPerTenant).toFixed(2)} an inbox on a quarterly commit.
 - Fresh Google Workspace, per inbox per month (monthly / quarterly / yearly): ${P['google-fresh'].tiers.map((t) => `${t.label.toLowerCase()} $${t.perUnit.monthly.toFixed(2)} / $${t.perUnit.quarterly.toFixed(2)} / $${t.perUnit.yearly.toFixed(2)}`).join('; ')}.
 - Fresh Microsoft 365, per inbox per month: $${P['microsoft-fresh'].perUnit.monthly.toFixed(2)} monthly, $${P['microsoft-fresh'].perUnit.quarterly.toFixed(2)} quarterly, $${P['microsoft-fresh'].perUnit.yearly.toFixed(2)} yearly.
 - Fresh Azure tenant: $${P['azure-fresh'].perTenant.monthly} per tenant, flat, on every billing cycle. A prewarmed tenant is $${P['azure-tenant'].perTenant.monthly} monthly or $${P['azure-tenant'].perTenant.quarterly} on a three-month commit.
 - Fresh inboxes and tenants are built on the buyer's own domain and warmed for 14 to 21 days before they send. Domains bought with the order list at $${P['domain-fresh'].listPrice} and are currently $${P['domain-fresh'].price}, one off; bring your own and there is no domain charge. Prewarmed domain: free with any inbox pack.
 - Delivery: ${pricing.policy.delivery.toLowerCase()}, prewarmed and fresh alike.
 - Azure tenants: guaranteed price and deliverability match against your current provider. Send what you pay and how your mail is landing on WhatsApp (${site.whatsapp}).
-- Safe daily pace per inbox: 15 on Google Workspace, 8 on Microsoft 365, 2 to 6 on Azure depending on tenant density.
+- Safe daily pace per inbox: 15 on Google Workspace, 8 on Microsoft 365, 2 per mailbox on a full Azure tenant of 100 (every prewarmed tenant), up to 6 on a lighter fresh tenant.
 
 ## Prewarmed products
 

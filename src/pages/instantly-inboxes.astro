@@ -10,7 +10,7 @@ const page = 'instantly-inboxes';
 
 const faqs = [
   ['Do these inboxes work with Instantly?', 'Yes. They are official Google Workspace, Microsoft 365 and Azure mailboxes, so Instantly connects to them the way it connects to any business mailbox, over OAuth by provider. Warm Inboxes is an Instantly Certified Expert.'],
-  ['What daily limit should I set in Instantly?', `${rate('google')} per inbox per day on Google Workspace, ${rate('microsoft')} on Microsoft 365, and ${rate('azure-100')} to ${rate('azure-25')} on Azure depending on how full the tenant is. The default is not tuned to these mailboxes.`],
+  ['What daily limit should I set in Instantly?', `${rate('google')} per inbox per day on Google Workspace, ${rate('microsoft')} on Microsoft 365, and ${rate('azure-100')} to ${rate('azure-25')} on Azure: 2 on a full tenant of 100, which every prewarmed tenant is, and up to 6 on a lighter fresh one. The default is not tuned to these mailboxes.`],
   ['Should I turn on Instantly warmup?', `You can leave it off. Warmup already runs at ${volume.warmupPerDay} emails per inbox per day underneath your campaigns. If you turn Instantly's on as well, count it inside the daily limit rather than on top of it.`],
   ['Why does my Microsoft inbox fail to connect over SMTP?', 'Authenticated SMTP is off by default on recent Microsoft tenants, at the tenant and again per mailbox, and it fails looking exactly like a wrong password. Enable SMTP AUTH for that mailbox, or connect over OAuth and skip the question.'],
   ['Can you connect them to Instantly for me?', 'Yes, if you want. Otherwise the credentials arrive in a form that shapes straight into Instantly\'s bulk CSV upload.'],
@@ -40,7 +40,7 @@ const faqs = [
 
   <h2>The daily limit to set on each inbox</h2>
   <VolumeTable />
-  <p>An Azure tenant is billed flat whatever is on it, so a lighter tenant sends more per inbox for the same money. These figures sit deliberately below what each platform will technically allow; the number that matters is the one an inbox can hold for months.</p>
+  <p>A fresh Azure tenant can carry 25 to 100 mailboxes for the same flat price, so a lighter one sends more per inbox. Prewarmed tenants are always a full hundred. These figures sit deliberately below what each platform will technically allow; the number that matters is the one an inbox can hold for months.</p>
 
   <h2>Leave Instantly's warmup off</h2>
   <p>Warmup does not stop when the inboxes arrive. It keeps running at {volume.warmupPerDay} emails per inbox per day underneath your campaigns for as long as you hold them. Instantly's own warmup on top is more mail from the same mailbox against the same daily budget, so leave it off, or count it inside the limit.</p>

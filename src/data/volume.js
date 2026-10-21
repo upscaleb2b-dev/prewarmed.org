@@ -9,8 +9,8 @@
  *
  * perContainer is how many inboxes share one reputation: three to a domain on
  * Google, up to 100 to a domain on Microsoft 365, and the tenant size on
- * Azure, which is billed flat whatever is on it. A lighter tenant therefore
- * sends more per inbox for the same money.
+ * Azure. A prewarmed tenant is always a full 100; a fresh tenant can carry
+ * 25 to 100 for the same flat price, so a lighter one sends more per inbox.
  */
 export const volume = {
   checkedOn: '2026-10-21',
@@ -20,8 +20,8 @@ export const volume = {
     { key: 'google', label: 'Google Workspace', perDay: 15, perContainer: 3, container: 'domain' },
     { key: 'microsoft', label: 'Microsoft 365', perDay: 8, perContainer: 100, container: 'domain' },
     { key: 'azure-100', label: 'Azure, full tenant of 100', perDay: 2, perContainer: 100, container: 'tenant' },
-    { key: 'azure-50', label: 'Azure, 50 per tenant', perDay: 4, perContainer: 50, container: 'tenant' },
-    { key: 'azure-25', label: 'Azure, 25 per tenant', perDay: 6, perContainer: 25, container: 'tenant' },
+    { key: 'azure-50', label: 'Fresh Azure, 50 per tenant', perDay: 4, perContainer: 50, container: 'tenant' },
+    { key: 'azure-25', label: 'Fresh Azure, 25 per tenant', perDay: 6, perContainer: 25, container: 'tenant' },
   ],
 };
 

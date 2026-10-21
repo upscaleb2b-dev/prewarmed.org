@@ -38,7 +38,6 @@ const cfg = {
       freshTiers: [{ min: 1, price: P['microsoft-fresh'].perUnit.quarterly }],
       slug: 'prewarmed-microsoft-365-inboxes' },
     { id: 'azure', label: 'Azure tenant', shape: 'tenant', per: P['azure-tenant'].inboxesPerTenant,
-      densities: P['azure-tenant'].densities,
       pre: P['azure-tenant'].perTenant.quarterly,
       fresh: P['azure-fresh'].perTenant.quarterly, slug: 'prewarmed-azure-inboxes' },
   ],

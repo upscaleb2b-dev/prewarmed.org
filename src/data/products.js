@@ -260,20 +260,20 @@ export const products = [
     family: 'prewarmed',
     alt: { lead: 'Start date three weeks or more out?', slug: 'fresh-azure-inboxes', label: 'A fresh Azure tenant costs less and is warmed for you before it sends' },
     eyebrow: 'Prewarmed Azure tenants',
-    h1: 'Prewarmed Azure inboxes: 25, 49 or 100 per tenant',
+    h1: 'Prewarmed Azure inboxes: 100 mailboxes per tenant',
     title: 'Prewarmed Azure Inboxes: 100-Mailbox Tenants',
     description:
       'A dedicated prewarmed Azure tenant with 100 Exchange Online mailboxes. Volume infrastructure for agencies and high-send teams.',
     keyword: 'prewarmed azure inboxes',
     card: '100 mailboxes in one account. For high volume.',
     subhead:
-      'Your own Azure account, warmed and ready. One flat price per tenant. You choose whether to put 25, 49 or 100 mailboxes in it.',
+      'Your own Azure account with 100 mailboxes, warmed and ready. One flat price per tenant, the lowest cost per inbox on this site.',
     pricingKey: 'azure-tenant',
     inlineTool: 'inbox-rotation-planner',
     specs: [
       ['Product', 'Dedicated Azure tenant'],
-      ['Mailboxes', '25, 49 or 100 per tenant. Your choice'],
-      ['Cost per inbox', '$2.00, $1.02 or $0.50 depending on density'],
+      ['Mailboxes', '100 per tenant'],
+      ['Cost per inbox', '$0.69 monthly, $0.60 on 2 months, $0.50 quarterly'],
       ['Mailbox type', 'Exchange Online, the business version'],
       ['What you get', 'Account ID and the full mailbox list'],
       ['Email records', 'Set up before you get it'],
@@ -284,7 +284,7 @@ export const products = [
     whoFor: [
       ['Agencies running many clients', 'Per-inbox economics change entirely at tenant scale. The same budget buys an order of magnitude more sending surface.'],
       ['Teams who want volume without volume per address', 'Spreading sending across 100 mailboxes at two each is a fundamentally safer shape than pushing ten mailboxes at twenty.'],
-      ['Operators who want to price their own risk', 'The tenant costs the same whether you fill it with 25 mailboxes or 100. Density is the dial between cost per inbox and how much one bad week can reach.'],
+      ['Operators who want the lowest cost per inbox', 'One flat price for a hundred warmed mailboxes is $0.50 an inbox on a quarterly commit, the cheapest sending capacity on this site.'],
     ],
     body: [
       {
@@ -311,7 +311,7 @@ export const products = [
       },
       {
         h: 'The risk you are taking on, stated plainly',
-        warn: 'Every mailbox in a tenant shares one reputation, so a single unchecked list can damage all of them at once. That is why density is a choice: 25 mailboxes to a tenant costs four times as much per inbox and contains the damage to a quarter as many. Clean your list first either way.',
+        warn: 'Every mailbox in a tenant shares one reputation, so a single unchecked list can damage all hundred at once. Verify every list before it touches the tenant.',
         p: [
           'If you buy in packs and a domain stops working, you lose three inboxes. With a tenant, something serious can affect all 100 at once. That is the trade you make for the lower price, and anyone selling you a tenant without mentioning it is not doing you a favour.',
           'So run it carefully. Only send to verified lists, start about twenty mailboxes at a time rather than all hundred, and check your bounce rate every day for the first two weeks. Teams who do this keep tenants running for a long time. Teams who treat them as cheap inboxes do not.',
@@ -326,18 +326,18 @@ export const products = [
         ],
       },
       {
-        h: 'Density is the dial, and most people set it wrong',
+        h: 'Always a full hundred, so run it like one',
         p: [
-          'The tenant is a flat price whether you put twenty-five mailboxes in it or a hundred. That makes density a pure risk decision rather than a cost one, and it is the single most consequential choice on this page.',
-          'A hundred mailboxes on one tenant gives the lowest cost per inbox on this site. It also means one reputation event touches a hundred mailboxes at once. Twenty-five costs four times as much per inbox and contains the damage to a quarter of the footprint.',
-          'The honest rule: if this is your only infrastructure, buy density low and pay for the insurance. If this is additional capacity sitting alongside Google or Microsoft inboxes you already run, density high is the efficient choice, because a tenant-level event is survivable when it is not all you have.',
+          'Every prewarmed tenant comes with a hundred mailboxes on it. That is what makes it the lowest cost per inbox on this site, and it also means one reputation event touches a hundred mailboxes at once.',
+          'You contain that by how you run it, not by how full it is: verified lists only, mailboxes brought online about twenty at a time, and a second tenant rather than a higher rate when you need more volume.',
+          'The honest rule: if this is additional capacity alongside Google or Microsoft inboxes you already run, a tenant is the efficient choice, because a tenant-level event is survivable when it is not all you have. If you want a lighter tenant, a fresh tenant on your own domain can carry 25 to 100 mailboxes.',
         ],
       },
       {
         h: 'The arithmetic nobody runs before ordering',
         p: [
           'At a hundred mailboxes and two cold sends each, one tenant carries two hundred cold emails a day, bought for the price of a few Google inboxes, and it gets there without any single address sending enough to stand out. Want four hundred, buy a second tenant rather than doubling the rate on this one.',
-          'The number to work out before you order is not the monthly cost, it is the cost of the worst week. Multiply your density by two to get the daily capacity at risk, then ask whether losing that overnight stops the business. If the answer is yes, your density is too high regardless of what the per-inbox figure says.',
+          'The number to work out before you order is not the monthly cost, it is the cost of the worst week. A full tenant at two a day is two hundred cold emails of daily capacity in one place. Ask whether losing that overnight stops the business. If it would, run the tenant alongside packs rather than instead of them.',
           'This is also why a tenant is the strongest second platform rather than the obvious first one. A filtering change at Google cannot touch Entra-hosted mail, and the reverse is equally true.',
         ],
       },
@@ -345,7 +345,7 @@ export const products = [
         h: 'Where a tenant is the wrong tool',
         tool: 'esp-segmenter',
         p: [
-          'If you need fewer than about twenty-five mailboxes, the per-inbox price stops being an advantage and you are buying administrative surface you do not need. Google or Microsoft 365 packs are simpler at that size.',
+          'If you need far fewer than a hundred mailboxes, the per-inbox price stops being an advantage and you are buying administrative surface you do not need. Google or Microsoft 365 packs are simpler at that size.',
           'If your list is overwhelmingly Gmail-hosted, the platform match argument runs against this and sending from Google is likely to place better, whatever the price difference says.',
           'And if you want to be able to hand the whole thing to someone else in six months, a tenant is more to hand over than a set of mailboxes. Worth knowing before rather than after.',
         ],
@@ -353,7 +353,7 @@ export const products = [
     ],
     faqs: [
       ['What is an Azure tenant for cold email?', 'Your own Microsoft cloud directory containing 100 Exchange Online mailboxes, delivered prewarmed with DNS configured.'],
-      ['How is this different from Microsoft 365 packs?', 'A pack is three mailboxes and a problem stays on that domain. A tenant is one flat price holding 25, 49 or 100 mailboxes that share a reputation. At 25 it is $2.00 an inbox with contained risk; at 100 it is $0.50 with all of it in one place.'],
+      ['How is this different from Microsoft 365 packs?', 'A pack is three mailboxes and a problem stays on that domain. A tenant is one flat price holding a hundred mailboxes that share a reputation: $0.50 an inbox on a quarterly commit, with all of the risk in one place.'],
       ['Can I bring my own domains into the tenant?', 'Yes, though a domain you add yourself starts at zero reputation and needs its own aging and warming.'],
       ['How many sends a day can a tenant carry?', 'At our recommended two cold per mailbox, 200 a day on a full tenant. Higher per mailbox is possible and raises risk across the whole pool, which is the one thing a shared reputation does not forgive. More volume should come from more mailboxes, not a higher rate on each.'],
       ['What happens if the tenant gets flagged?', 'Move to a fresh tenant. Tenant-level events are rarer than domain burns and larger when they happen, and a flagged pool is not worth rehabilitating: that takes weeks with no guarantee the reputation returns. A new tenant can be ordered the same day and arrives within 48 to 72 hours.'],
@@ -741,7 +741,7 @@ export const products = [
         h: 'Fresh or prewarmed tenant',
         p: [
           'A fresh tenant is $50 on every billing cycle. A prewarmed tenant is $69 monthly, $60 on two months, or $50 on a quarterly commit, and sends the day it lands.',
-          'So on a quarterly commit the prewarmed one costs the same and saves you the three weeks. Fresh wins when you want the tenant on your own domain, or want tenant pricing without a three-month commit and can wait for the warmup.',
+          'So on a quarterly commit the prewarmed one costs the same and saves you the three weeks. Fresh wins when you want the tenant on your own domain, want a lighter tenant (a prewarmed one is always a full hundred), or want tenant pricing without a three-month commit and can wait for the warmup.',
           'If you have never run a tenant, start with a prewarmed one, learn how it behaves, and add fresh tenants on your own domain once you know what the first weeks take.',
         ],
       },

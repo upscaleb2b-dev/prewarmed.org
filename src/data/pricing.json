@@ -67,20 +67,6 @@
       "label": "Prewarmed Azure tenant",
       "unit": "tenant",
       "inboxesPerTenant": 100,
-      "densities": [
-        {
-          "inboxes": 25,
-          "risk": "Lowest risk"
-        },
-        {
-          "inboxes": 49,
-          "risk": "Balanced"
-        },
-        {
-          "inboxes": 100,
-          "risk": "Lowest cost per inbox"
-        }
-      ],
       "domainIncluded": true,
       "perTenant": {
         "monthly": 69,
@@ -91,7 +77,8 @@
         "monthly": 0.69,
         "two-month": 0.6,
         "quarterly": 0.5
-      }
+      },
+      "note": "Always a full tenant of 100 mailboxes on one free prewarmed domain."
     },
     "google-fresh": {
       "label": "Fresh Google Workspace",
