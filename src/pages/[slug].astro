@@ -2,6 +2,7 @@
 import Base from '../layouts/Base.astro';
 import SpecStrip from '../components/SpecStrip.astro';
 import PricingTable from '../components/PricingTable.astro';
+import AzureMatch from '../components/AzureMatch.astro';
 import ToolCallout from '../components/ToolCallout.astro';
 import Faq from '../components/Faq.astro';
 import ProofStats from '../components/ProofStats.astro';
@@ -45,6 +46,8 @@ const termed = !!(price?.perUnit || price?.perTenant || price?.perUnitRange);
 /** No published figure means the primary CTA has to start a conversation.
  *  The pricing section still carries a tracked Warm Inboxes link. */
 const askFirst = price?.contact === 'whatsapp';
+/** Azure and Entra tenants, prewarmed or fresh, carry the price and deliverability match. */
+const azure = p.pricingKey === 'azure-tenant' || p.pricingKey === 'azure-fresh';
 
 /**
  * The order panel's checklist. Prewarmed products share one; fresh products
@@ -140,6 +143,8 @@ const schema = {
       </div>
     </div>
   </section>
+
+  {azure && <section class="section am-top" style="padding-top:0"><div class="wrap"><AzureMatch /></div></section>}
 
   <section class="section">
     <div class="wrap">

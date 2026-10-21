@@ -1,0 +1,25 @@
+---
+/**
+ * The Azure match offer: send your current provider's price and results on
+ * WhatsApp and Warm Inboxes matches both. From the Warm Inboxes price list
+ * (warminboxes.com/price.md): "will beat or match a current supplier on price
+ * and deliverability".
+ *
+ * WhatsApp only, on purpose: matching needs the quote and the numbers, and
+ * that is a conversation rather than a checkout.
+ */
+import WhatsApp from './WhatsApp.astro';
+---
+<div class="am">
+  <p class="am-tag">Azure guarantee</p>
+  <p class="am-h">Guaranteed price and deliverability match</p>
+  <p class="am-p">Already running Azure tenants somewhere else? Text us on WhatsApp with what you pay and how your mail is landing, and we will match both: your price, and the deliverability you get today.</p>
+  <WhatsApp variant="primary" label="Text us to match your Azure" />
+</div>
+
+<style>
+  .am { margin: 28px 0; padding: 22px 24px; border: 1px solid var(--accent); background: var(--accent-soft); border-radius: var(--r-card); text-align: left; }
+  .am-tag { margin: 0 0 6px; font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .am-h { margin: 0 0 8px; font-family: var(--font-display); font-weight: 600; font-size: 21px; color: var(--text); }
+  .am-p { margin: 0 0 16px; color: var(--text-2); max-width: 62ch; }
+</style>

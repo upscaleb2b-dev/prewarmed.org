@@ -42,6 +42,7 @@ Current pricing (confirmed ${pricing._confirmedAt}, ${pricing.currency}):
 - Fresh Azure tenant: $${P['azure-fresh'].perTenant.monthly} per tenant, flat, on every billing cycle. A prewarmed tenant is $${P['azure-tenant'].perTenant.monthly} monthly or $${P['azure-tenant'].perTenant.quarterly} on a three-month commit.
 - Fresh inboxes and tenants are built on the buyer's own domain and warmed for 14 to 21 days before they send. Domains bought with the order list at $${P['domain-fresh'].listPrice} and are currently $${P['domain-fresh'].price}, one off; bring your own and there is no domain charge. Prewarmed domain: free with any inbox pack.
 - Delivery: ${pricing.policy.delivery.toLowerCase()}, prewarmed and fresh alike.
+- Azure tenants: guaranteed price and deliverability match against your current provider. Send what you pay and how your mail is landing on WhatsApp (${site.whatsapp}).
 - Safe daily pace per inbox: 15 on Google Workspace, 8 on Microsoft 365, 2 to 6 on Azure depending on tenant density.
 
 ## Prewarmed products

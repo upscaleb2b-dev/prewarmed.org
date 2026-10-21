@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import PricingTable from '../components/PricingTable.astro';
+import AzureMatch from '../components/AzureMatch.astro';
 import { wi, wa, order } from '../data/site.js';
 import pricing from '../data/pricing.json';
 import WhatsApp from '../components/WhatsApp.astro';
@@ -19,6 +20,7 @@ import WhatsApp from '../components/WhatsApp.astro';
       <h2 style="margin-top:44px">Azure tenants</h2>
       <p class="muted">One flat price per tenant, holding 25, 49 or 100 mailboxes at $2.00, $1.02 or $0.50 an inbox. Fewer mailboxes costs more each and contains the damage. See the <a href="/prewarmed-azure-inboxes/">Azure page</a> for the risk model before buying.</p>
       <PricingTable productKey="azure-tenant" />
+      <AzureMatch />
       <h2 style="margin-top:44px">Fresh inboxes</h2>
       <p class="muted">Built on your own domain, then warmed by Warm Inboxes for 14 to 21 days before you send. Billed monthly, quarterly or yearly, and cheaper on longer cycles. See <a href="/fresh-google-inboxes/">fresh Google inboxes</a> and <a href="/fresh-microsoft-365-inboxes/">fresh Microsoft 365 inboxes</a>.</p>
       <PricingTable productKey="google-fresh" />
