@@ -10,7 +10,7 @@ const external = tool.host !== 'prewarmed.org';
 ---
 <aside class="tc">
   <p class="eyebrow">Free tool{external && ' · runs on warminboxes.com'}</p>
-  <h3>{headline ?? tool.name}</h3>
+  <p class="ttl">{headline ?? tool.name}</p>
   <p class="body">{body ?? tool.short}</p>
   <p class="act">
     <a class="btn btn-primary" href={href} target={external ? '_blank' : undefined} rel={external ? 'noopener' : undefined}>
@@ -25,7 +25,9 @@ const external = tool.host !== 'prewarmed.org';
 <style>
   .tc { border: 1px solid var(--border); border-left: 3px solid var(--accent); background: var(--bg-elev); border-radius: var(--r-card); padding: 24px 26px; margin-block: 32px; }
   .tc .eyebrow { margin: 0 0 8px; }
-  .tc h3 { margin: 0 0 8px; font-size: 21px; }
+  /* A paragraph, not an h3: this is an aside, and as a heading it skipped a
+     level wherever it sat directly under a page h1. Styled as one. */
+  .tc .ttl { margin: 0 0 8px; font-size: 21px; font-family: var(--font-display); font-weight: 600; color: var(--text); line-height: 1.25; letter-spacing: -.01em; }
   .tc .body { color: var(--text-2); max-width: 60ch; margin: 0 0 18px; font-size: 16px; }
   .tc .act { margin: 0; }
   .tc .fix { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--border); font-size: 14.5px; color: var(--text-muted); }

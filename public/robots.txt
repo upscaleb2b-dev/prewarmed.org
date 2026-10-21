@@ -6,6 +6,17 @@ Allow: /
 # Thin utility page with no search intent.
 Disallow: /thanks/
 
+# Google Ads checks every landing page with its own crawlers, and they ignore
+# the User-agent: * group above entirely, so nothing written there applies to
+# them either way. Named here so that stays true deliberately rather than by
+# accident: an ad whose landing page AdsBot cannot fetch is disapproved as
+# "destination not working", and that is invisible from the site itself.
+User-agent: AdsBot-Google
+Allow: /
+
+User-agent: AdsBot-Google-Mobile
+Allow: /
+
 # Named explicitly because some hosts block these by default and because an
 # ambiguous robots.txt is the cheapest way to be left out of an answer engine.
 User-agent: GPTBot

@@ -8,7 +8,7 @@ const picks = tools.tools.filter((t) => t.live && ['deliverability-checker','dma
   lede="One of us will reply within a business day. While you wait, these are worth running on your current setup.">
   <div class="grid g3" style="margin-top:10px">
     {picks.map((t) => (
-      <a class="card" href={toolUrl(t, { page: 'thanks', placement: 'grid' })} target="_blank" rel="noopener"><h3 style="font-size:16px">{t.name} ↗</h3><p class="muted" style="font-size:14px;margin:8px 0 0">{t.short}</p></a>
+      <a class="card" href={toolUrl(t, { page: 'thanks', placement: 'grid' })} target="_blank" rel="noopener"><p style="font-size:16px;font-weight:600;color:var(--text);margin:0">{t.name} ↗</p><p class="muted" style="font-size:14px;margin:8px 0 0">{t.short}</p></a>
     ))}
   </div>
 </Simple>
