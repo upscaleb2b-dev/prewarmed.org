@@ -37,7 +37,7 @@ const priceLabel =
   : billing === 'one-time' ? { big: `$${price.price}`, sub: `per ${price.unit}, one-time` }
   : billing === 'yearly' ? { big: `$${price.price}`, sub: `per ${price.unit} per year` }
   : range ? { big: `$${range[0].toFixed(2)}–$${range[1].toFixed(2)}`, sub: `/${unitWord}/mo` }
-  : per !== null ? { big: `$${per}`, sub: `/${unitWord}/mo` }
+  : per !== null ? { big: `$${Number.isInteger(per) ? per : per.toFixed(2)}`, sub: `/${unitWord}/mo` }
   : null;
 const hasTiers = Array.isArray(p.tiers) && p.tiers.length > 0;
 /** Only products billed per term belong in the term table. A one-off $12
@@ -172,7 +172,7 @@ import WiProof from '../components/WiProof.astro';
         <p class="band-h">{band.h}</p>
         <p class="band-p">{band.p}</p>
         <div class="band-cta">
-          <a class="btn btn-primary btn-lg" href={order({ page: p.slug, placement: 'mid-band' })} target="_blank" rel="noopener">Get {p.eyebrow} →</a>
+          <a class="btn btn-primary btn-lg" href={order({ page: p.slug, placement: 'mid-band' })} target="_blank" rel="noopener">Get inboxes →</a>
           <WhatsApp label="Ask a question first" />
         </div>
         <Handoff />
