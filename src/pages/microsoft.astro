@@ -29,6 +29,7 @@ const schema = {
     { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
   ],
 };
+import WiProof from '../components/WiProof.astro';
 ---
 <Base title="Prewarmed Microsoft 365, Outlook and Azure Inboxes"
       description="Prewarmed Exchange Online mailboxes in packs, or a dedicated Azure tenant of 100. Which shape to buy, and why Microsoft tells you more."
@@ -75,6 +76,7 @@ const schema = {
       <h2>Before you buy from anyone</h2>
       <p>Ask how many days the domain aged before its first send, how many days it sent real mail before handover, and how fast they can ship a fresh batch when one burns. The full version is in the <a href="/best-prewarmed-inboxes/">buyer's guide</a>.</p>
 
+      <WiProof kind="placement" page="microsoft-hub" />
       <Faq faqs={faqs} />
 
       <NextSteps page="microsoft-hub" ramp="Eight a day per Microsoft 365 inbox from the first send, three inboxes to a domain, and keep it there rather than climbing." split="You are buying Microsoft because the list skews Microsoft. Confirm that before the first send rather than assuming it. Anything Google-hosted in there lands better from Google, and splitting the file takes minutes." />

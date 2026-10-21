@@ -27,6 +27,7 @@ const schema = {
     { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
   ],
 };
+import WiProof from '../components/WiProof.astro';
 ---
 <Base title="Prewarmed Google Workspace Inboxes: The Complete Guide"
       description="How prewarmed Google Workspace inboxes work, what Gmail checks, how many you need at your volume, and when to buy fresh instead."
@@ -72,6 +73,7 @@ const schema = {
       <h2>Before you buy from anyone</h2>
       <p>Ask how many days the domain was registered before its first send, how many days it sent real mail before handover, and how fast they can ship a fresh batch when one burns. Those answers separate a real product from a repackaged one. The full version is in the <a href="/best-prewarmed-inboxes/">buyer's guide</a>.</p>
 
+      <WiProof kind="placement" page="google-hub" />
       <Faq faqs={faqs} />
 
       <NextSteps page="google-hub" />

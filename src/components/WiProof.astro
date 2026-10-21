@@ -1,0 +1,46 @@
+---
+/**
+ * One callout, two destinations on warminboxes.com:
+ *
+ *   kind="placement"  prewarmed pages -> the inbox placement log, the
+ *                     published seed-test results behind "prewarmed"
+ *   kind="hub"        fresh and general inbox pages -> the deliverability
+ *                     hub, the playbooks for keeping new inboxes landing
+ *
+ * Copy follows what those pages say about themselves and carries no figures,
+ * so it cannot drift from the log as it grows month by month.
+ */
+import { wiUrl } from '../data/site.js';
+
+const { kind = 'hub', page = 'site' } = Astro.props;
+const C = {
+  placement: {
+    url: 'https://warminboxes.com/research/inbox-placement-log',
+    tag: 'Inbox placement log',
+    h: 'Every prewarmed batch is seed-tested before it ships',
+    p: 'Warm Inboxes seed-tests each new batch of prewarmed inboxes and deploys only what clears 95% inbox placement. The month-by-month results, by sending and receiving provider, are published in full.',
+    cta: 'See the inbox placement log',
+  },
+  hub: {
+    url: 'https://warminboxes.com/deliverability-hub',
+    tag: 'Deliverability hub',
+    h: 'Keep them landing once they send',
+    p: 'Operator playbooks and original research measured on live sending infrastructure: warmup, pace, authentication, bounces and placement. Free, no signup.',
+    cta: 'Open the deliverability hub',
+  },
+}[kind];
+---
+<aside class="wp">
+  <p class="wp-tag">{C.tag}</p>
+  <p class="wp-h">{C.h}</p>
+  <p class="wp-p">{C.p}</p>
+  <a class="btn btn-ghost" href={wiUrl(C.url, { page, placement: `proof-${kind}` })} target="_blank" rel="noopener">{C.cta} ↗</a>
+</aside>
+
+<style>
+  .wp { margin: 28px 0; padding: 22px 24px; border: 1px solid var(--border); background: var(--bg-elev); border-radius: var(--r-card); text-align: left; }
+  .wp-tag { margin: 0 0 6px; font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .wp-h { margin: 0 0 8px; font-family: var(--font-display); font-weight: 600; font-size: 20px; color: var(--text); }
+  .wp-p { margin: 0 0 16px; color: var(--text-2); max-width: 64ch; }
+  .wp .btn { min-height: 44px; display: inline-flex; align-items: center; }
+</style>

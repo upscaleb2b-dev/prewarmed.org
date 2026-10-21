@@ -13,6 +13,7 @@ const faqs = [
   ['Is the domain included?', 'Yes, free with every pack, already aged 30 days and warmed 21 more.'],
   ['What if I do not need them for three weeks?', 'Then fresh inboxes are worth a look. They are built on your own domain and warmed for you for 14 to 21 days before they send, at a lower price per inbox. They are the wrong buy the moment a start date is fixed and close.'],
 ];
+import WiProof from '../../components/WiProof.astro';
 ---
 <Base schema={{ '@type': 'CollectionPage', name: 'Prewarmed inboxes for cold email', url: 'https://prewarmed.org/prewarmed-inboxes/',
     mainEntity: { '@type': 'ItemList', itemListElement: inbox.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.eyebrow, url: `https://prewarmed.org/${p.slug}/` })) } }}
@@ -41,6 +42,7 @@ const faqs = [
       </div>
     </div>
   </section>
+  <section class="section" style="padding-top:0"><div class="wrap"><WiProof kind="placement" page="prewarmed-inboxes" /></div></section>
   <section class="section alt">
     <div class="wrap">
       <p class="eyebrow">Not in a hurry?</p>
@@ -55,6 +57,7 @@ const faqs = [
           </a>
         ))}
       </div>
+      <WiProof kind="hub" page="prewarmed-inboxes" />
     </div>
   </section>
   <section class="section"><div class="wrap"><Faq faqs={faqs} /></div></section>

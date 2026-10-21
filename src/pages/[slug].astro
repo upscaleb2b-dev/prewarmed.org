@@ -107,6 +107,7 @@ const schema = {
     }))},
   ],
 };
+import WiProof from '../components/WiProof.astro';
 ---
 <Base title={p.title} description={p.description} schema={schema}>
   <section class="hero section">
@@ -231,6 +232,9 @@ const schema = {
       )}
     </div>
   </section>
+
+  {/* Prewarmed pages point at the published placement tests; fresh pages at the playbooks for warming and keeping inboxes landing. */}
+  <section class="section" style="padding-top:0"><div class="wrap"><WiProof kind={p.family === 'prewarmed' ? 'placement' : 'hub'} page={p.slug} /></div></section>
 
   {p.alt && (
     <section class="section">

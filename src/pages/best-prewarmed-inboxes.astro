@@ -17,6 +17,7 @@ const schema = {
     { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
   ],
 };
+import WiProof from '../components/WiProof.astro';
 ---
 <Base title="Best Prewarmed Inboxes: How to Choose, and When Not to Buy"
       description="The criteria that separate a real prewarmed inbox from a repackaged aged domain, the questions to ask any seller, and when not to buy."
@@ -71,6 +72,7 @@ const schema = {
         <p class="cta"><a class="btn btn-primary btn-lg" href={order({ page: 'best-prewarmed-inboxes', placement: 'body' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out what you need →</a> <WhatsApp /></p>
       </section>
 
+      <WiProof kind="placement" page="best-prewarmed-inboxes" />
       <Faq faqs={faqs} />
     </div>
   </section>
