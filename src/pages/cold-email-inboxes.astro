@@ -1,0 +1,62 @@
+---
+import Intent from '../layouts/Intent.astro';
+import VolumeTable from '../components/VolumeTable.astro';
+import SizingTable from '../components/SizingTable.astro';
+import PricingTable from '../components/PricingTable.astro';
+import { volume } from '../data/volume.js';
+import { tool } from '../data/intents.js';
+
+const faqs = [
+  ['What is a cold email inbox?', 'An ordinary business mailbox, on Google Workspace or Microsoft 365, that sends from a domain kept separate from your company\'s main one. It is there so the complaints and bounces that come with outreach never touch the domain your invoices and support mail go out on.'],
+  ['How many cold emails can one inbox send a day?', `About ${volume.rows[0].perDay} on Google Workspace and ${volume.rows[1].perDay} on Microsoft 365, spread across the working day. Azure inboxes send fewer each and make up for it in number. Total volume comes from more inboxes, not from pushing each one harder.`],
+  ['Google or Microsoft?', 'Match the list. If most of your prospects use Gmail or Google Workspace, Google inboxes are the most forgiving route to them. If they sit on Outlook and Microsoft 365, which is common in finance, insurance and manufacturing, Microsoft inboxes reach them better. At volume most senders run both.'],
+  ['Do they come with a domain?', 'Prewarmed inboxes come in packs of three on a free prewarmed .com or .co domain. Fresh inboxes go on your own branded domains, either ones you already own or ones you buy with the order.'],
+  ['Who has the admin?', 'You do. Every inbox is a real mailbox on a licensed tenant with you as admin, so you can rotate a password or revoke a token without asking anyone.'],
+  ['Do I need to run warmup myself?', `No. Warmup keeps running at ${volume.warmupPerDay} emails per inbox per day underneath your campaigns for as long as you hold the inboxes. Leave your sequencer's own warmup off, or count it inside the daily limit.`],
+];
+---
+<Intent slug="cold-email-inboxes" faqs={faqs} related={[['/prewarmed-inboxes/', 'All prewarmed inboxes'], ['/calculator/', 'Calculator'], ['/how-it-works/', 'How it works']]}>
+  <h2>What a cold email inbox is for</h2>
+  <p>A cold email inbox is a normal Google Workspace or Microsoft 365 mailbox that sends outreach from a domain set aside for it. The separation is the point. Cold outreach collects unsubscribes, the odd complaint and bounces from stale addresses, and none of that should share a reputation with the domain your company does business on. When a sending domain wears out, you retire it. Your main domain never notices.</p>
+  <p>That is also why cold email runs on many inboxes rather than a few. Each one sends a modest number a day, the daily total comes from the count, and losing one costs a sliver of your volume rather than the whole campaign.</p>
+
+  <h2>Three platforms, and when each one fits</h2>
+  <ul>
+    <li><strong>Google Workspace.</strong> The forgiving default, and the most direct route into Gmail and Google-hosted inboxes. Highest pace per inbox, so the fewest inboxes for a given volume. <a href="/prewarmed-google-inboxes/">Prewarmed Google inboxes</a>.</li>
+    <li><strong>Microsoft 365.</strong> The better route into Outlook-hosted prospects, which dominate in finance, insurance, manufacturing and larger enterprises. Up to 100 inboxes on a domain. <a href="/prewarmed-microsoft-365-inboxes/">Prewarmed Microsoft 365 inboxes</a>.</li>
+    <li><strong>Azure tenants.</strong> Microsoft reach at the lowest cost per inbox, billed per tenant whatever is on it. Each inbox sends little, so the tenant does the work in numbers. <a href="/prewarmed-azure-inboxes/">Prewarmed Azure tenants</a>.</li>
+  </ul>
+  <p>Not sure which way your list leans? Run it through the free <a href={tool('esp-segmenter', 'cold-email-inboxes')} target="_blank" rel="noopener">ESP segmenter</a> before you buy. The share of prospects on each provider is the share your fleet should mirror.</p>
+
+  <h2>How much each inbox should send</h2>
+  <p>One number per inbox per day, and it differs by platform. These are the paces an inbox can hold for months, deliberately below what the platforms will technically allow:</p>
+  <VolumeTable />
+  <p>Here is what that means for a round 1,000 cold emails a day:</p>
+  <SizingTable target={1000} />
+
+  <h2>What every inbox arrives with</h2>
+  <ul>
+    <li>A real mailbox on a licensed Google Workspace, Microsoft 365 or Azure tenant, not a relay or an alias, with you as admin.</li>
+    <li>Each domain in its own isolated workspace, so one bad campaign cannot reach the rest of your infrastructure. No shared tenants.</li>
+    <li>SPF, DKIM and DMARC published, and the domain forwarded to your main site, before you log in.</li>
+    <li>Warmup that keeps running at {volume.warmupPerDay} emails per inbox per day underneath your campaigns.</li>
+    <li>A dashboard, plus an API and MCP server if you would rather order and manage the fleet from code or an AI agent.</li>
+  </ul>
+
+  <h2>Prewarmed or fresh</h2>
+  <p>Prewarmed inboxes have already done their weeks of sending history and can carry a campaign the day you log in. Fresh inboxes go on your own branded domain and need about three weeks of warmup before cold volume, in exchange for a lower monthly price at scale. The usual pattern: prewarmed to launch, fresh to scale, and a few prewarmed inboxes in reserve. <a href="/prewarmed-vs-fresh-inboxes/">Prewarmed vs fresh, in full</a>.</p>
+
+  <h2>What they cost</h2>
+  <p>Prewarmed Google and Microsoft inboxes are priced per inbox and sold in packs of three with the domain included. Azure is priced per tenant.</p>
+  <PricingTable productKey="google-prewarmed" note={false} />
+  <PricingTable productKey="azure-tenant" note={false} />
+  <p>Every product and term is on the <a href="/pricing/">pricing page</a>.</p>
+
+  <h2>From order to first send</h2>
+  <ol>
+    <li><strong>Pick the platform and quantity</strong> in the app. Use the table above, or the <a href="/calculator/">calculator</a> for any other volume.</li>
+    <li><strong>Settle two-factor.</strong> Either turn 2FA off on the receiving account before handover, or keep it on and give restricted sub-account access to support@warminboxes.com.</li>
+    <li><strong>Log in and send yourself a test.</strong> A message to a Gmail and an Outlook address you control, with spf=pass, dkim=pass and dmarc=pass in the headers, is the check that matters.</li>
+    <li><strong>Connect your sequencer</strong> by provider over OAuth, set a display name, signature and daily limit on each inbox, and start the campaign.</li>
+  </ol>
+</Intent>

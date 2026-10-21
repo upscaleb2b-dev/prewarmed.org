@@ -14,6 +14,7 @@ import tools from '../data/tools.json';
 import leads from '../data/leads.json';
 import { products } from '../data/products.js';
 import Mark from './Mark.astro';
+import { intents } from '../data/intents.js';
 
 const groups = [
   { id: 'diagnose', label: 'Diagnose' },
@@ -94,6 +95,10 @@ const href = (t) => (t.host === 'prewarmed.org' ? t.url : toolUrl(t, { page: 'fo
           <a href="/prewarmed-inboxes/">All inboxes →</a>
         </div>
         <div>
+          <p class="eyebrow">Cold email</p>
+          {intents.map((i) => <a href={`/${i.slug}/`}>{i.label}</a>)}
+        </div>
+        <div>
           <p class="eyebrow">Fresh</p>
           <a href="/fresh-google-inboxes/">Google Workspace</a>
           <a href="/fresh-microsoft-365-inboxes/">Microsoft 365</a>
@@ -167,7 +172,7 @@ const href = (t) => (t.host === 'prewarmed.org' ? t.url : toolUrl(t, { page: 'fo
   .ft-top { display: grid; grid-template-columns: minmax(230px, 300px) 1fr; gap: 40px; padding-top: 34px; }
   @media (max-width: 900px) { .ft-top { grid-template-columns: 1fr; gap: 32px; } }
   .brand { display: inline-flex; align-items: center; gap: 8px; font-family: var(--font-display); font-weight: 700; font-size: 18px; letter-spacing: -.03em; margin: 0 0 12px; }
-  .ft-cols { display: grid; grid-template-columns: repeat(5, 1fr); gap: 28px 24px; align-items: start; }
+  .ft-cols { display: grid; grid-template-columns: repeat(6, 1fr); gap: 28px 24px; align-items: start; }
   @media (max-width: 1080px) { .ft-cols { grid-template-columns: repeat(3, 1fr); } }
   @media (max-width: 620px) { .ft-cols { grid-template-columns: repeat(2, 1fr); } }
   .ft-cols .eyebrow { margin: 0 0 12px; }

@@ -1,0 +1,60 @@
+---
+import Intent from '../layouts/Intent.astro';
+import VolumeTable from '../components/VolumeTable.astro';
+import PricingTable from '../components/PricingTable.astro';
+import { volume, rate } from '../data/volume.js';
+import { tool } from '../data/intents.js';
+
+const page = 'smartlead-inboxes';
+
+const faqs = [
+  ['Can you load the inboxes into Smartlead for me?', 'Yes. Save your Smartlead login once in the portal under sequencer keys and name the client workspace on the order. The build ends with the mailboxes exported into that workspace, connected.'],
+  ['Do I have to store my Smartlead login?', 'No. You can import the mailboxes yourself from the credentials in your portal instead. The steps are the same either way.'],
+  ['What cap should I set per mailbox?', `${rate('google')} a day on Google Workspace, ${rate('microsoft')} on Microsoft 365, and ${rate('azure-100')} to ${rate('azure-25')} on Azure depending on how full the tenant is. The same figures the calculator sizes fleets on.`],
+  ['Should I run Smartlead warmup?', `Leave it off. Warmup already runs at ${volume.warmupPerDay} emails per inbox per day underneath your campaigns, so Smartlead's on top spends the same mailbox's daily budget twice.`],
+  ['Is Warm Inboxes a Smartlead partner?', 'Yes. Warm Inboxes is a Smartlead Partner on the infrastructure side: it sells the mailboxes, not Smartlead seats.'],
+];
+---
+<Intent slug={page} faqs={faqs} related={[['/instantly-inboxes/', 'Inboxes for Instantly'], ['/calculator/', 'Calculator'], ['/prewarmed-microsoft-365-inboxes/', 'Prewarmed Microsoft 365 inboxes']]}>
+  <p class="note">Warm Inboxes is a Smartlead Partner on the infrastructure side. It sells the mailboxes, not the seats, and exports them into the Smartlead workspace you name.</p>
+
+  <h2>The layout that keeps clients apart</h2>
+  <p>Smartlead's client workspaces make running several clients workable. Shared infrastructure underneath them is what makes it dangerous: one domain with inboxes in two workspaces, one tracking domain under everybody. Six layers, per client:</p>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Layer</th><th>Per client</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Domains</td><td>Their own, 2 to 3 inboxes each</td><td>The unit of reputation. Never shared.</td></tr>
+        <tr><td>Mailboxes</td><td>Their own, named for their brand</td><td>A mailbox sends for one client only.</td></tr>
+        <tr><td>Smartlead workspace</td><td>One per client</td><td>Reporting, caps and suppression stay separate.</td></tr>
+        <tr><td>Tracking domain</td><td>Their own, or tracking off</td><td>A shared tracking domain re-joins what you separated.</td></tr>
+        <tr><td>Suppression list</td><td>Theirs, plus your global one</td><td>Their opt-outs are theirs; yours apply everywhere.</td></tr>
+        <tr><td>Portal order</td><td>One folder per client</td><td>Exports land in the right workspace; renewals stay legible.</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>The first layer is the one that matters. Get the domains right and the rest follows; get them wrong and no Smartlead setting can separate what the receiver already sees as one sender. A new client is a new folder, a new order and a new workspace, with nothing in common with the last one.</p>
+
+  <h2>Two ways into Smartlead</h2>
+  <p><strong>We export them.</strong> Save your Smartlead login once in the portal under sequencer keys, name the workspace on the order, and the mailboxes arrive in it connected. The login is used for every export after that and never shown back.</p>
+  <p><strong>You import them.</strong> If you would rather not store a login, take the credentials from your portal and do it yourself:</p>
+  <ol>
+    <li><strong>Connect by provider over OAuth.</strong> Google mailboxes through the Google path, Microsoft 365 and Azure through the Microsoft path. No stored password, nothing breaks on rotation.</li>
+    <li><strong>On Microsoft over IMAP and SMTP, enable SMTP AUTH first.</strong> It is off by default on recent tenants and fails looking like a wrong password.</li>
+    <li><strong>Bulk import, one file per client.</strong> The <a href={tool('sequencer-csv-converter', page)} target="_blank" rel="noopener">sequencer CSV converter</a> shapes the credentials for Smartlead. One file per client keeps an account out of the wrong workspace.</li>
+    <li><strong>Set display name, signature and daily cap</strong> on every mailbox, across the import in one pass.</li>
+    <li><strong>Point tracking at the client's own domain, or turn it off.</strong></li>
+  </ol>
+
+  <h2>The daily cap per mailbox</h2>
+  <VolumeTable />
+  <p>For an agency the number to watch is not the cap but the creep. A client asks for a push, the cap goes up for a week, and it never comes back down. Make the cap a policy in the onboarding document and size the client's fleet for the volume they actually want with the <a href="/calculator/">calculator</a>.</p>
+
+  <h2>Seeing a problem before the client does</h2>
+  <p>Smartlead's API exposes per-mailbox and per-campaign stats: bounces by domain, replies by mailbox, the account whose numbers moved this week. Pair that with Google Postmaster Tools on every domain sending to Gmail and a weekly <a href={tool('blacklist-checker', page)} target="_blank" rel="noopener">blacklist check</a>. When one mailbox slips, pause it so the campaign reroutes, run its bounces through the <a href={tool('bounce-analyzer', page)} target="_blank" rel="noopener">bounce analyzer</a> to see whether it is the list or the domain, and keep a few spares per client so it is an inconvenience rather than a paused campaign.</p>
+
+  <h2>What it costs per client</h2>
+  <PricingTable productKey="google-prewarmed" note={false} />
+  <PricingTable productKey="azure-tenant" note={false} />
+  <p>A typical client launch is a prewarmed order to start sending this week and a fresh order on their own brand to scale on. Microsoft 365 is priced the same as Google; fresh inboxes are on the <a href="/pricing/">pricing page</a>.</p>
+</Intent>

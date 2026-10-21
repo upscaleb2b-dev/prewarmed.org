@@ -1,0 +1,84 @@
+---
+import Intent from '../layouts/Intent.astro';
+import VolumeTable from '../components/VolumeTable.astro';
+import { volume, rate } from '../data/volume.js';
+import { tool } from '../data/intents.js';
+import pricing from '../data/pricing.json';
+
+const page = 'cold-email-infrastructure';
+const P = pricing.products;
+
+// The 1,000-a-day reference plan from the Warm Inboxes setup guide, priced
+// from pricing.json so it moves when the prices do.
+const plan = { google: 47, googleDomains: 16, azureInboxes: 150, tenants: 2 };
+const googleCost = plan.google * P['google-prewarmed'].perUnit.monthly;
+const azureCost = plan.tenants * P['azure-tenant'].perTenant.monthly;
+const total = googleCost + azureCost;
+const sends = plan.google * rate('google') + plan.azureInboxes * rate('azure-100');
+const n = (x) => x.toLocaleString('en-US');
+
+const faqs = [
+  ['What is cold email infrastructure?', 'Everything that sits between your list and a prospect\'s inbox: the sending domains, the mailboxes on them, the platform those mailboxes live on, the DNS records that prove they are yours, the warmup history that makes receivers trust them, and the daily pace that keeps that trust intact.'],
+  ['Should I send cold email from my company domain?', 'No. Register separate sending domains, forward them to your main site, and keep the company domain for replies, contracts and support. A burned sending domain is retired in an afternoon; a burned company domain is a crisis.'],
+  ['How many inboxes per domain?', 'Two or three. One per domain wastes a registration and a warmup on a handful of sends a day; five or more means one bad batch takes a large slice of your volume with it.'],
+  ['What does the setup cost per month?', `It depends on the platform mix. As a reference, about ${n(sends)} cold emails a day on ${plan.google} Google inboxes and ${plan.azureInboxes} Azure inboxes comes to about $${n(total)} a month on monthly billing, domains included.`],
+  ['Can I skip the warmup?', 'Not on a new domain. What you can do is buy infrastructure that has already done it. Prewarmed domains and inboxes arrive with the weeks of history behind them and send from the first day.'],
+];
+---
+<Intent slug={page} faqs={faqs} related={[['/how-it-works/', 'How it works'], ['/calculator/', 'Calculator'], ['/prewarmed-domains/', 'Prewarmed domains']]}>
+  <h2>1. Domains: separate, forwarded, boring</h2>
+  <p>Never send cold email from the domain your company runs on. Register variants of your brand, on .com where you can, forward each one to your real site so a prospect who types it in lands somewhere, and keep every registration in one account with auto-renew on. The cheap extensions save a few dollars and cost you inbox placement.</p>
+
+  <h2>2. Inboxes: two or three per domain</h2>
+  <p>That ratio spreads risk without wasting domains. Name the mailboxes like people, first name or first.last, and give each a real display name and signature before it sends anything. At three inboxes and {rate('google')} a day each, one Google domain carries about {3 * rate('google')} cold emails daily.</p>
+
+  <h2>3. Platform: match the list</h2>
+  <p>Google Workspace reaches Google-hosted prospects with the least friction. Microsoft 365 reaches Outlook-hosted ones. Azure tenants give Microsoft reach at a much lower cost per inbox and a much lower pace per inbox. Run your list through the <a href={tool('esp-segmenter', page)} target="_blank" rel="noopener">ESP segmenter</a> first: the share of your prospects behind each provider is the share your fleet should mirror.</p>
+
+  <h2>4. DNS: three records, before the first send</h2>
+  <ul>
+    <li><strong>SPF:</strong> one TXT record at the root, with a single include for the platform and under ten lookups.</li>
+    <li><strong>DKIM:</strong> the platform's key published under its selector. On Microsoft 365, DKIM also has to be switched on for the domain, which is the step most people miss.</li>
+    <li><strong>DMARC:</strong> start at p=none with aggregate reporting, and move to p=quarantine once two weeks of reports show only your own mail aligning.</li>
+  </ul>
+  <p>Records being present is not the check. A test message to a Gmail and an Outlook account you control, showing spf=pass, dkim=pass and dmarc=pass in the headers, is. The <a href={tool('header-analyzer', page)} target="_blank" rel="noopener">header analyzer</a> reads them for you.</p>
+
+  <h2>5. Warmup: three weeks, or already done</h2>
+  <p>A new inbox on a new domain has no history, and receivers treat no history with suspicion. The fix is about three weeks of low, rising, engaged sending before any cold volume. Warmup tools automate the correspondence; they do not shorten the calendar. The alternative is <a href="/prewarmed-inboxes/">prewarmed infrastructure</a>, which has already done those weeks and sends the day it lands.</p>
+
+  <h2>6. Pace: the number that decides everything</h2>
+  <p>Spread through business hours in the recipient's time zone, never fired at nine o'clock. These are not provider limits, which are far higher. They are the paces at which engagement and complaint signals stay below what filters act on, month after month:</p>
+  <VolumeTable />
+  <p>Total volume comes from more inboxes, never from pushing each one. A fleet that sends a sustainable number every day outlasts one that sprints for three weeks.</p>
+
+  <h2>The pieces around the edges</h2>
+  <ul>
+    <li><strong>Tracking.</strong> A shared tracking domain ties your reputation to every other sender on it. Use your own, or turn open tracking off.</li>
+    <li><strong>Suppression.</strong> One list of opt-outs, bounces and hard noes, shared across every domain, inbox and tool, checked before every send. The <a href={tool('suppression-checker', page)} target="_blank" rel="noopener">suppression checker</a> runs a list against it.</li>
+    <li><strong>Bounce rules.</strong> Pause a domain at 2% bounces, stop and investigate at 3%. The <a href={tool('bounce-analyzer', page)} target="_blank" rel="noopener">bounce analyzer</a> turns the codes into a cause.</li>
+    <li><strong>Monitoring.</strong> Google Postmaster Tools on every domain with Gmail volume, a weekly <a href={tool('blacklist-checker', page)} target="_blank" rel="noopener">blacklist check</a>, and domain expiry watched.</li>
+    <li><strong>A reserve.</strong> Keep prewarmed capacity on standby equal to about a week of sending, so a tired domain is swapped out the same morning rather than waiting three weeks for a new one to warm.</li>
+  </ul>
+
+  <h2>What it costs: 1,000 a day, priced</h2>
+  <p>A mixed fleet that covers both Google and Microsoft-hosted prospects:</p>
+  <div class="scroll-x cost">
+    <table>
+      <thead><tr><th>Line</th><th>Quantity</th><th>Sends a day</th><th>Monthly</th></tr></thead>
+      <tbody>
+        <tr><td>Prewarmed Google inboxes</td><td class="mono">{plan.google} on {plan.googleDomains} domains</td><td class="mono">{n(plan.google * rate('google'))}</td><td class="mono">${n(googleCost)}</td></tr>
+        <tr><td>Prewarmed Azure tenants</td><td class="mono">{plan.tenants} tenants, {plan.azureInboxes} inboxes</td><td class="mono">{n(plan.azureInboxes * rate('azure-100'))}</td><td class="mono">${n(azureCost)}</td></tr>
+        <tr><td><strong>Total</strong></td><td></td><td class="mono"><strong>{n(sends)}</strong></td><td class="mono"><strong>${n(total)}</strong></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Monthly billing, prewarmed domains included. Two-month and quarterly terms are cheaper; the <a href="/pricing/">pricing page</a> has every figure and the <a href="/calculator/">calculator</a> prices any volume you type in.</p>
+
+  <h2>The shortcut</h2>
+  <p>Steps one to five are what Warm Inboxes delivers: Google, Microsoft 365 and Azure inboxes on free prewarmed domains, each domain in its own isolated workspace, forwarded, with SPF, DKIM and DMARC set before you log in and warmup running at {volume.warmupPerDay} a day underneath your campaigns. What is left for you is step six, and the list.</p>
+</Intent>
+
+<style>
+  /* Four short columns: fits a phone without the 620px scroll floor. */
+  @media (max-width: 680px) { .cost table { min-width: 0; } .cost th, .cost td { padding: 11px 8px; } }
+</style>

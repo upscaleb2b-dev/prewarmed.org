@@ -1,0 +1,63 @@
+---
+import Intent from '../layouts/Intent.astro';
+import PricingTable from '../components/PricingTable.astro';
+import { volume, rate } from '../data/volume.js';
+import { tool } from '../data/intents.js';
+
+const page = 'reseller-inboxes';
+
+const faqs = [
+  ['What are reseller inboxes?', 'Google Workspace or Microsoft 365 seats provisioned on a provider\'s infrastructure, sold to you at a discount to buying the seats yourself, with the domains, DNS and setup already done.'],
+  ['Are reseller inboxes real Google and Microsoft mailboxes?', 'They should be. The ones worth buying are licensed seats on a real tenant, with you as admin, not relays, aliases or SMTP accounts dressed up with a Google logo. If you cannot log in to the admin console, you do not have one.'],
+  ['What is the risk with a shared tenant?', 'Every seat on a tenant shares some of its reputation. On a shared tenant a stranger\'s bad campaign can drag yours down with it. Isolated per customer, or better per domain, your reputation is yours alone.'],
+  ['Reseller inboxes or private SMTP?', 'Private SMTP is cheaper per inbox and fast to provision, but your own IPs and domains carry all of the reputation with no big-platform trust behind them. Google and Microsoft seats are the more forgiving choice, and the right one unless you run strict rotation and stop rules.'],
+  ['How should I test a new provider?', 'Start with about a dozen inboxes for a month at normal pace before committing to a hundred. Check the records on arrival, then watch bounces, placement and how many inboxes stay healthy through real sending.'],
+];
+---
+<Intent slug={page} faqs={faqs} related={[['/best-prewarmed-inboxes/', 'How to choose a provider'], ['/providers/', 'Provider directory'], ['/compare/google-vs-microsoft-vs-azure/', 'Google vs Microsoft vs Azure']]}>
+  <h2>What reseller inboxes are</h2>
+  <p>Buying Google Workspace or Microsoft 365 seats yourself means a tenant to set up, domains to register, DNS to publish on each one, and three weeks of warmup before any of it carries a campaign. A reseller does that part. You get seats on infrastructure they have already built, at a lower price per seat than retail, ready to connect to your sequencer.</p>
+  <p>The discount is real and so is the time saved. What decides whether the inboxes still land in month three is how the infrastructure underneath them was built.</p>
+
+  <h2>Four things that decide whether they last</h2>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>What to check</th><th>What good looks like</th><th>How Warm Inboxes does it</th></tr></thead>
+      <tbody>
+        <tr><td>Whose tenant the seats live on</td><td>Isolated per customer, so nobody else's sending touches yours</td><td>Every domain in its own isolated workspace. No shared tenants.</td></tr>
+        <tr><td>Who holds the admin</td><td>You, so you can rotate passwords, revoke tokens and move data</td><td>You are admin on a licensed tenant</td></tr>
+        <tr><td>DNS on arrival</td><td>SPF, DKIM and DMARC set and passing on a real message</td><td>All three set, plus forwarding, before you log in</td></tr>
+        <tr><td>History before the first send</td><td>Weeks of real, gradual sending, or a clear warmup plan</td><td>Prewarmed, or warmed for you; warmup then runs at {volume.warmupPerDay} a day underneath</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Reseller, direct or private SMTP</h2>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th></th><th>Seats bought direct</th><th>Reseller inboxes</th><th>Private SMTP</th></tr></thead>
+      <tbody>
+        <tr><td>Who does the setup</td><td>You</td><td>The reseller</td><td>The provider, or you</td></tr>
+        <tr><td>Platform trust</td><td>Google or Microsoft</td><td>Google or Microsoft</td><td>Your IPs and domains only</td></tr>
+        <tr><td>Cost per inbox</td><td>Highest</td><td>Lower</td><td>Lowest</td></tr>
+        <tr><td>Time to first send</td><td>About three weeks</td><td>From day one if prewarmed</td><td>Depends on warmup</td></tr>
+        <tr><td>Best for</td><td>One brand, low volume</td><td>Most cold email</td><td>High volume with strict discipline</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Most serious fleets end up mixed: Google seats for Google-hosted prospects, Microsoft seats for Outlook-hosted ones. The <a href={tool('esp-segmenter', page)} target="_blank" rel="noopener">ESP segmenter</a> tells you the split in your list.</p>
+
+  <h2>Test a dozen before you buy a hundred</h2>
+  <p>A month on a small batch tells you more than any sales page. Four packs of three is enough:</p>
+  <ol>
+    <li><strong>Day one: check what arrived.</strong> Run each domain through the <a href={tool('deliverability-checker', page)} target="_blank" rel="noopener">deliverability checker</a>, then send a test to a Gmail and an Outlook address and read the headers. All three authentication checks should pass.</li>
+    <li><strong>Days two and three: ramp.</strong> Start below the full pace, to verified addresses, and watch bounces.</li>
+    <li><strong>Weeks two to four: normal volume.</strong> {rate('google')} a day on Google, {rate('microsoft')} on Microsoft. Track bounce rate, replies and placement at Gmail and Outlook.</li>
+    <li><strong>The read-out.</strong> Every inbox still healthy at normal pace, records passing, placement holding at both providers: that batch will hold at a hundred.</li>
+  </ol>
+
+  <h2>What Warm Inboxes seats cost</h2>
+  <p>Prewarmed Google and Microsoft inboxes, priced per inbox and sold in packs of three on a free prewarmed .com or .co domain:</p>
+  <PricingTable productKey="google-prewarmed" note={false} />
+  <p>Microsoft 365 inboxes are the same price. Azure tenants and fresh inboxes on your own domains are on the <a href="/pricing/">pricing page</a>.</p>
+</Intent>

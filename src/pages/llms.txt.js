@@ -10,6 +10,7 @@ import { site } from '../data/site.js';
 import pricing from '../data/pricing.json';
 import tools from '../data/tools.json';
 import leads from '../data/leads.json';
+import { intents } from '../data/intents.js';
 
 const B = 'https://prewarmed.org';
 const P = pricing.products;
@@ -47,6 +48,10 @@ ${prewarmed.map((p) => link('/' + p.slug + '/', p.eyebrow, p.description)).join(
 ## Fresh products
 
 ${fresh.map((p) => link('/' + p.slug + '/', p.eyebrow, p.description)).join('\n')}
+
+## Cold email infrastructure
+
+${intents.map((i) => link('/' + i.slug + '/', i.h1, i.description)).join('\n')}
 
 ## Guides and comparisons
 

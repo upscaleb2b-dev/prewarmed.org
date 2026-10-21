@@ -1,0 +1,60 @@
+---
+import Intent from '../layouts/Intent.astro';
+import PricingTable from '../components/PricingTable.astro';
+import SizingTable from '../components/SizingTable.astro';
+import { rate } from '../data/volume.js';
+import { tool } from '../data/intents.js';
+import pricing from '../data/pricing.json';
+
+const page = 'buy-email-accounts';
+const g = pricing.products['google-prewarmed'];
+const az = pricing.products['azure-tenant'];
+const pack = (term) => g.perUnit[term] * g.packSize;
+
+const faqs = [
+  ['Where should I buy email accounts for cold email?', 'From a provider that builds and warms its own infrastructure and hands you real Google Workspace or Microsoft 365 accounts with admin access. Marketplaces and one-off sellers cannot show you how an account was warmed, and the history is the part you are paying for.'],
+  ['What should a cold email account include?', 'The mailbox on a genuine business plan, the sending domain, SPF, DKIM and DMARC set before delivery, admin access, isolation from other customers, and weeks of real sending history if it is sold as prewarmed.'],
+  [`How much does a cold email account cost?`, `Prewarmed Google and Microsoft accounts are $${g.perUnit.monthly} per inbox per month, or $${g.perUnit.quarterly} on a quarterly term, with the domain included. An Azure tenant is $${az.perTenant.monthly} a month for up to ${az.inboxesPerTenant} inboxes.`],
+  ['Can I move prewarmed accounts onto my own domain?', 'No. The sending history belongs to the prewarmed domain the accounts arrive on, so they stay on it. If you want accounts on your own brand, order fresh inboxes on your domain and let them warm.'],
+  ['Should I still ramp up warmed accounts?', 'Yes, briefly. A day or two below full pace to verified addresses costs almost nothing and tells you the batch is healthy before the real list goes in.'],
+];
+---
+<Intent slug={page} faqs={faqs} related={[['/pricing/', 'Pricing'], ['/prewarmed-google-inboxes/', 'Prewarmed Google inboxes'], ['/prewarmed-microsoft-365-inboxes/', 'Prewarmed Microsoft 365 inboxes']]}>
+  <h2>What you are actually buying</h2>
+  <p>A prewarmed email account has one ingredient that matters: weeks of genuine, gradual sending and engagement history on a real business mailbox before you ever log in. That history is what Gmail and Outlook score, and it is why the account can carry a campaign on the first day. Everything else on a listing is packaging.</p>
+  <p>So buy the process, not the screenshot. A provider that can describe how its accounts were warmed, and for how long, in plain language, is selling you the real thing.</p>
+
+  <h2>A complete account, line by line</h2>
+  <ul>
+    <li><strong>A real mailbox</strong> on a licensed Google Workspace, Microsoft 365 or Azure tenant, not a relay or an alias.</li>
+    <li><strong>The domain.</strong> Prewarmed packs of {g.packSize} come on a free prewarmed .com or .co domain.</li>
+    <li><strong>Authentication</strong>: SPF, DKIM and DMARC set before handover, plus forwarding to your main site.</li>
+    <li><strong>Admin access</strong> for you, so you control passwords and tokens.</li>
+    <li><strong>Isolation</strong>: each domain in its own workspace, with no shared tenants.</li>
+    <li><strong>Ongoing warmup</strong> underneath your campaigns, so the history keeps building while you send.</li>
+  </ul>
+
+  <h2>What it costs</h2>
+  <p>The smallest order is one pack of {g.packSize} Google or Microsoft inboxes on one domain: ${pack('monthly')} a month on monthly billing, or ${pack('quarterly')} a month on a quarterly term.</p>
+  <PricingTable productKey="google-prewarmed" note={false} />
+  <PricingTable productKey="azure-tenant" note={false} />
+  <p>Microsoft 365 packs are priced the same as Google. Fresh accounts on your own domain are on the <a href="/pricing/">pricing page</a>.</p>
+
+  <h2>How many to buy</h2>
+  <p>Work backwards from the sends you need. Divide your daily target by a sane pace per inbox, {rate('google')} on Google and {rate('microsoft')} on Microsoft, and round up to whole domains. For 300 cold emails a day:</p>
+  <SizingTable target={300} keys={['google', 'microsoft']} />
+  <p>Add headroom so batches can rest between campaigns. The <a href={tool('inbox-rotation-planner', page)} target="_blank" rel="noopener">rotation planner</a> works out how much.</p>
+
+  <h2>Google or Microsoft</h2>
+  <p>Match the accounts to the people you are emailing. Tech and startup lists lean Google-hosted; finance, insurance, manufacturing and larger enterprises lean Microsoft. The <a href={tool('esp-segmenter', page)} target="_blank" rel="noopener">ESP segmenter</a> shows the split in your own list, and at real volume buying both and routing by provider beats either alone.</p>
+
+  <h2>After you pay: six steps to the first campaign</h2>
+  <ol>
+    <li><strong>Order in the app</strong>, choosing the platform and the number of packs.</li>
+    <li><strong>Settle two-factor.</strong> Turn 2FA off on the receiving account before handover, or keep it on and give restricted sub-account access to support@warminboxes.com.</li>
+    <li><strong>Check the headers.</strong> Send a test to a Gmail and an Outlook address and run it through the <a href={tool('header-analyzer', page)} target="_blank" rel="noopener">header analyzer</a>. SPF, DKIM and DMARC should all pass.</li>
+    <li><strong>Connect your sequencer</strong> by provider over OAuth, so no password is stored.</li>
+    <li><strong>Set the display name, signature and daily limit</strong> on every account before it sends.</li>
+    <li><strong>Ramp for a day or two</strong> below full pace to verified addresses, then step up.</li>
+  </ol>
+</Intent>

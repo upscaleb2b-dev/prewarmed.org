@@ -1,0 +1,57 @@
+---
+import Intent from '../layouts/Intent.astro';
+import SizingTable from '../components/SizingTable.astro';
+import { volume, rate } from '../data/volume.js';
+import { tool } from '../data/intents.js';
+
+const page = 'agency-inboxes';
+
+const faqs = [
+  ['Should every client have their own domains?', 'Yes, always. The domain is the unit of reputation. The moment two clients send from one domain, one client\'s list quality can damage the other\'s placement, and no sequencer setting can separate what the receiver already sees as one sender.'],
+  ['Can I order for many clients from one account?', 'Yes. Place one order per client, in a folder named for them. Renewals stay legible, exports land in the right sequencer workspace, and ending a client is ending one order.'],
+  ['Can I automate client onboarding?', 'Yes. Everything the dashboard does is also available over the API and an MCP server, so a new client can be ordered and set up from your own tooling or an AI agent.'],
+  ['What daily cap should I promise a client?', `The one the fleet can hold for months: about ${rate('google')} per Google inbox and ${rate('microsoft')} per Microsoft inbox. Write it into the onboarding document so a push for more volume becomes a bigger order, not a higher cap.`],
+  ['How do I spot a problem before the client does?', 'Watch bounces by domain and replies by mailbox every week, keep Google Postmaster Tools on every domain with Gmail volume, and run a weekly blacklist check. A slipping inbox is then a Monday item rather than a client email.'],
+];
+---
+<Intent slug={page} faqs={faqs} related={[['/smartlead-inboxes/', 'Smartlead client layout'], ['/calculator/', 'Calculator'], ['/prewarmed-azure-inboxes/', 'Azure tenants']]}>
+  <h2>Why agencies order per client</h2>
+  <p>Agencies rarely lose a client to bad copy. They lose one to a shared fleet: a new client hands over a scraped list, bounces climb on Tuesday, and by Thursday three other clients are asking why replies dropped. What decides whether anyone else notices is whether that client's sending ever touched a domain another client depends on.</p>
+  <p>The fix is structural and cheap if it is done on day one. Each client gets their own domains, their own mailboxes and their own order, so the blast radius of any one client is that client.</p>
+
+  <h2>A client, from onboarding to offboarding</h2>
+  <div class="scroll-x">
+    <table>
+      <thead><tr><th>Stage</th><th>What you do</th><th>Why</th></tr></thead>
+      <tbody>
+        <tr><td>Onboard</td><td>Segment their list, size the fleet, place one order in a folder named for them</td><td>The fleet matches their market, and nothing is shared from the start</td></tr>
+        <tr><td>Launch</td><td>Start on prewarmed inboxes</td><td>Campaigns run the week the contract is signed, not three weeks later</td></tr>
+        <tr><td>Scale</td><td>Add fresh inboxes on the client's own branded domains</td><td>Lower cost per inbox at volume, warming while the prewarmed fleet sends</td></tr>
+        <tr><td>Keep a reserve</td><td>A few spare prewarmed inboxes per client</td><td>A tired inbox is swapped the same morning, not a paused campaign</td></tr>
+        <tr><td>Offboard</td><td>Export their replies and opt-outs, then end their order</td><td>Nothing else renews, breaks or loses a domain</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h2>Sizing a typical client</h2>
+  <p>A client who wants 500 cold emails a day needs this, depending on where their prospects sit:</p>
+  <SizingTable target={500} />
+  <p>Run their list through the <a href={tool('esp-segmenter', page)} target="_blank" rel="noopener">ESP segmenter</a> during onboarding and size against the split it shows. Most B2B lists justify a mix.</p>
+
+  <h2>Rules worth putting in the onboarding document</h2>
+  <ul>
+    <li><strong>The cap is policy, not a dial.</strong> A client asks for a push, the cap goes up for a week and never comes back down. More volume means a bigger order.</li>
+    <li><strong>One tracking domain per client, or none.</strong> A shared tracking domain re-joins everything you separated.</li>
+    <li><strong>Their suppression list plus yours.</strong> Their opt-outs are theirs; your global list applies to every client. The <a href={tool('suppression-checker', page)} target="_blank" rel="noopener">suppression checker</a> runs a list against both.</li>
+    <li><strong>Every list verified before upload.</strong> The <a href={tool('email-verifier', page)} target="_blank" rel="noopener">email verifier</a> and <a href={tool('csv-cleaner', page)} target="_blank" rel="noopener">CSV cleaner</a> are free.</li>
+    <li><strong>Sequencer warmup off.</strong> Warmup already runs at {volume.warmupPerDay} per inbox per day underneath the campaigns. A second warmup spends the same daily budget twice.</li>
+  </ul>
+
+  <h2>Built for running many clients</h2>
+  <ul>
+    <li>Each domain in its own isolated workspace, so isolation is real at the infrastructure level, not just a folder name.</li>
+    <li>You are admin on every tenant, so a client's mailboxes never depend on someone else answering a message.</li>
+    <li>Connected to your sending tool for you if you want, and on Smartlead exported straight into the client workspace you name. The <a href="/smartlead-inboxes/">Smartlead layout</a> covers it step by step.</li>
+    <li>API and MCP access, so onboarding the tenth client is a script rather than an afternoon.</li>
+  </ul>
+</Intent>

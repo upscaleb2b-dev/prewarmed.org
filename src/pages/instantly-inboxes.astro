@@ -1,0 +1,67 @@
+---
+import Intent from '../layouts/Intent.astro';
+import VolumeTable from '../components/VolumeTable.astro';
+import SizingTable from '../components/SizingTable.astro';
+import PricingTable from '../components/PricingTable.astro';
+import { volume, rate } from '../data/volume.js';
+import { tool } from '../data/intents.js';
+
+const page = 'instantly-inboxes';
+
+const faqs = [
+  ['Do these inboxes work with Instantly?', 'Yes. They are official Google Workspace, Microsoft 365 and Azure mailboxes, so Instantly connects to them the way it connects to any business mailbox, over OAuth by provider. Warm Inboxes is an Instantly Certified Expert.'],
+  ['What daily limit should I set in Instantly?', `${rate('google')} per inbox per day on Google Workspace, ${rate('microsoft')} on Microsoft 365, and ${rate('azure-100')} to ${rate('azure-25')} on Azure depending on how full the tenant is. The default is not tuned to these mailboxes.`],
+  ['Should I turn on Instantly warmup?', `You can leave it off. Warmup already runs at ${volume.warmupPerDay} emails per inbox per day underneath your campaigns. If you turn Instantly's on as well, count it inside the daily limit rather than on top of it.`],
+  ['Why does my Microsoft inbox fail to connect over SMTP?', 'Authenticated SMTP is off by default on recent Microsoft tenants, at the tenant and again per mailbox, and it fails looking exactly like a wrong password. Enable SMTP AUTH for that mailbox, or connect over OAuth and skip the question.'],
+  ['Can you connect them to Instantly for me?', 'Yes, if you want. Otherwise the credentials arrive in a form that shapes straight into Instantly\'s bulk CSV upload.'],
+];
+---
+<Intent slug={page} faqs={faqs} related={[['/smartlead-inboxes/', 'Inboxes for Smartlead'], ['/calculator/', 'Calculator'], ['/prewarmed-google-inboxes/', 'Prewarmed Google inboxes']]}>
+  <p class="note">Warm Inboxes is an Instantly Certified Expert. The inboxes are official Google Workspace, Microsoft 365 and Azure mailboxes, built and authenticated before handover.</p>
+
+  <h2>Before you open the Email Accounts screen</h2>
+  <p>Most trouble connecting mailboxes to Instantly is not in Instantly. It is a mailbox that is not finished, and the sequencer is the first thing to notice. Four things should already be true:</p>
+  <ul>
+    <li><strong>The mailbox is real and you hold the admin.</strong> A licensed tenant, not a relay or an alias.</li>
+    <li><strong>DNS is published.</strong> SPF, DKIM, DMARC and forwarding are set before handover. Confirm it in one pass with the <a href={tool('deliverability-checker', page)} target="_blank" rel="noopener">deliverability checker</a>.</li>
+    <li><strong>Two-factor is settled.</strong> Off on the receiving account before handover, or on with restricted sub-account access given to support@warminboxes.com.</li>
+    <li><strong>You know your connection method.</strong> OAuth for Google and Microsoft, IMAP and SMTP for anything else.</li>
+  </ul>
+
+  <h2>Connecting them, step by step</h2>
+  <p>Instantly moves its menus around, so these are written as what you are doing rather than a click path:</p>
+  <ol>
+    <li><strong>Add accounts by provider, not generically.</strong> Use the Google option for Workspace and the Microsoft option for Microsoft 365 and Azure. OAuth means no stored password, nothing breaks on a password rotation, and no app passwords.</li>
+    <li><strong>Use the bulk CSV upload</strong> once you are past a handful. Forty mailboxes one at a time is an afternoon.</li>
+    <li><strong>Expect SMTP AUTH to be off on new Microsoft tenants</strong> if you connect over IMAP and SMTP. Enable it per mailbox, or use OAuth.</li>
+    <li><strong>Set the display name and signature</strong> before the first send. Bulk edit does the whole fleet in a minute.</li>
+    <li><strong>Set the daily limit deliberately</strong>, per platform, from the table below.</li>
+  </ol>
+
+  <h2>The daily limit to set on each inbox</h2>
+  <VolumeTable />
+  <p>An Azure tenant is billed flat whatever is on it, so a lighter tenant sends more per inbox for the same money. These figures sit deliberately below what each platform will technically allow; the number that matters is the one an inbox can hold for months.</p>
+
+  <h2>Leave Instantly's warmup off</h2>
+  <p>Warmup does not stop when the inboxes arrive. It keeps running at {volume.warmupPerDay} emails per inbox per day underneath your campaigns for as long as you hold them. Instantly's own warmup on top is more mail from the same mailbox against the same daily budget, so leave it off, or count it inside the limit.</p>
+
+  <h2>How many inboxes for 1,000 a day</h2>
+  <SizingTable target={1000} />
+  <p>Google is the fewest inboxes for a given volume. Microsoft is more inboxes on fewer domains. Azure is the cheapest per inbox and billed per tenant, so the lever is how densely you load each tenant.</p>
+
+  <h2>Running several clients in one workspace</h2>
+  <p>Tag accounts by client in Instantly when you connect them, not afterwards; tags survive bulk edits and are what you filter the Unibox on. Keep domains unshared between clients too, so one client's list cannot reach another's sending domain. <a href="/agency-inboxes/">More on running agency clients</a>.</p>
+
+  <h2>When one inbox starts slipping</h2>
+  <ol>
+    <li><strong>Pause that account in Instantly.</strong> The campaign reroutes across the rest of the fleet.</li>
+    <li><strong>Check whether it is the inbox or the domain</strong> with the <a href={tool('blacklist-checker', page)} target="_blank" rel="noopener">blacklist checker</a> and the deliverability checker.</li>
+    <li><strong>Swap in a spare.</strong> A few inboxes on standby turn a flagged account into an afternoon's inconvenience.</li>
+    <li><strong>Message us on WhatsApp</strong> and we will look at it with you.</li>
+  </ol>
+
+  <h2>What the inboxes cost</h2>
+  <PricingTable productKey="google-prewarmed" note={false} />
+  <PricingTable productKey="azure-tenant" note={false} />
+  <p>Microsoft 365 packs are priced the same as Google. Everything else is on the <a href="/pricing/">pricing page</a>.</p>
+</Intent>

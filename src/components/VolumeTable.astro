@@ -1,0 +1,17 @@
+---
+/** Safe cold sends per inbox per day, from src/data/volume.js. */
+import { volume } from '../data/volume.js';
+---
+<div class="scroll-x vt">
+  <table>
+    <thead><tr><th>Platform</th><th>Cold emails per inbox per day</th></tr></thead>
+    <tbody>
+      {volume.rows.map((r) => <tr><td>{r.label}</td><td class="mono">{r.perDay}</td></tr>)}
+    </tbody>
+  </table>
+</div>
+<style>
+  .vt { margin: 18px 0; }
+  /* Two narrow columns: fits a phone, so it does not need the 620px floor. */
+  @media (max-width: 680px) { .vt table { min-width: 0; } }
+</style>

@@ -1,0 +1,24 @@
+---
+/** Inboxes and domains or tenants for a daily target, from src/data/volume.js. */
+import { volume, sizeFor } from '../data/volume.js';
+const { target = 1000, keys = ['google', 'microsoft', 'azure-100', 'azure-25'] } = Astro.props;
+const n = (x) => x.toLocaleString('en-US');
+---
+<div class="scroll-x st">
+  <table>
+    <thead><tr><th>Platform</th><th>Inboxes for {n(target)} a day</th><th>Domains or tenants</th></tr></thead>
+    <tbody>
+      {keys.map((k) => {
+        const r = volume.rows.find((x) => x.key === k);
+        const s = sizeFor(target, k);
+        return <tr><td>{r.label}</td><td class="mono">{n(s.inboxes)}</td><td class="mono">{s.containers} {s.container}{s.containers === 1 ? '' : 's'}</td></tr>;
+      })}
+    </tbody>
+  </table>
+</div>
+<p class="st-note">Rounded up to whole inboxes and whole domains. The <a href="/calculator/">calculator</a> does the exact arithmetic for any volume, including the domain cost.</p>
+<style>
+  .st { margin: 18px 0 8px; }
+  .st-note { font-size: 14px; color: var(--text-muted); }
+  @media (max-width: 680px) { .st table { min-width: 0; } .st th, .st td { padding: 11px 9px; } }
+</style>

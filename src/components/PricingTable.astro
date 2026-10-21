@@ -1,6 +1,7 @@
 ---
 import pricing from '../data/pricing.json';
-const { productKey } = Astro.props;
+// note={false} drops the policy line, for pages that carry their own terms.
+const { productKey, note = true } = Astro.props;
 const p = pricing.products[productKey];
 // Fresh products are sold monthly only, the longer terms carried the same
 // figure, so three identical rows just made the price look negotiable.
@@ -34,7 +35,7 @@ const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
       </tbody>
     </table>
   </div>
-  <p class="note">{pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>
+  {note && <p class="note">{pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>}
 </div>
 <style>
   .pt { margin-block: 26px; }

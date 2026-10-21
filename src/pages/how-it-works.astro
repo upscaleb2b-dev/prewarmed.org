@@ -5,6 +5,7 @@ import PricingTable from '../components/PricingTable.astro';
 import tools from '../data/tools.json';
 import pricing from '../data/pricing.json';
 import WhatsApp from '../components/WhatsApp.astro';
+import VolumeTable from '../components/VolumeTable.astro';
 ---
 <Simple
   schema={{ '@type': 'HowTo', name: 'How a domain is aged and warmed before cold email',
@@ -83,18 +84,7 @@ import WhatsApp from '../components/WhatsApp.astro';
 
   <h2 id="volume">Safe daily volume, by platform</h2>
   <p>The safe daily limit per inbox depends on the platform. These are the figures the <a href="/calculator/">infrastructure calculator</a> sizes fleets on.</p>
-  <div class="scroll-x">
-    <table>
-      <thead><tr><th>Platform</th><th>Cold emails per inbox per day</th></tr></thead>
-      <tbody>
-        <tr><td>Google Workspace</td><td class="mono">15</td></tr>
-        <tr><td>Microsoft 365</td><td class="mono">8</td></tr>
-        <tr><td>Azure, full tenant of 100</td><td class="mono">2</td></tr>
-        <tr><td>Azure, 50 per tenant</td><td class="mono">4</td></tr>
-        <tr><td>Azure, 25 per tenant</td><td class="mono">6</td></tr>
-      </tbody>
-    </table>
-  </div>
+  <VolumeTable />
   <p>An Azure tenant is billed flat whatever is on it, so a lighter tenant sends more per inbox for the same money.</p>
   <p><strong>Warmup keeps running.</strong> It runs at 30 emails per inbox per day alongside your cold sends, so you never switch it off.</p>
 
