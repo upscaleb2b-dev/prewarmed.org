@@ -6,12 +6,14 @@ import pricing from '../data/pricing.json';
 import WhatsApp from '../components/WhatsApp.astro';
 const g = pricing.products['google-prewarmed'];
 const gf = pricing.products['google-fresh'];
+const gfLow = Math.min(...gf.tiers.flatMap((t) => Object.values(t.perUnit)));
+const money = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
 const faqs = [
-  ['What is the difference between prewarmed and fresh inboxes?', 'The same licensed mailbox, sold at two points in its life. Prewarmed has had 30 days of domain aging and 21 days of warming spent on it and comes with the domain. Fresh has had neither and does not.'],
-  ['How long until a fresh inbox can send cold email?', 'About 51 days on a new domain: 30 of aging, then 21 of warming. On a domain that is already old and sending normal business mail, roughly 21.'],
-  ['Is prewarmed worth the extra cost?', 'It depends entirely on your start date. If you need to send inside two months it is not really a comparison, because fresh cannot get there. If your launch is further out and you already run warming, fresh is the better buy.'],
-  ['Can I speed up warming?', 'No. Every method that claims to is just sending earlier, and sending early is what gets domains blocklisted in a way that is very hard to reverse.'],
-  ['Can I mix the two?', 'That is what most teams sending seriously end up doing. Prewarmed for the campaign that starts now, fresh warming behind it for next quarter. It is cheaper than either extreme.'],
+  ['What is the difference between prewarmed and fresh inboxes?', 'The same licensed mailbox, at two points in its life. Prewarmed arrives on a prewarmed domain that has already been aged 30 days and warmed 21, and sends on arrival. Fresh is built on your own domain and warmed for you for 14 to 21 days before it sends.'],
+  ['How long until a fresh inbox can send cold email?', 'Once its warmup is done: 14 to 21 days after delivery. Every order, prewarmed or fresh, is delivered within 48 to 72 hours of payment.'],
+  ['Do I need a warmup tool for fresh inboxes?', 'No. Warm Inboxes warms them for 14 to 21 days before you send, and keeps warmup running at 30 emails per inbox per day underneath your campaigns on both products.'],
+  ['Is prewarmed worth the extra cost?', 'It depends on your start date. If you need to send this week, fresh cannot get there. If your launch is three weeks or more out, or you want your own brand on the domain, fresh is the better buy.'],
+  ['Can I mix the two?', 'That is what most teams sending seriously end up doing. Prewarmed for the campaign that starts now, fresh on their own brand warming behind it. It is cheaper than either extreme.'],
 ];
 const schema = {
   '@context': 'https://schema.org',
@@ -26,48 +28,41 @@ const schema = {
       <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <span class="muted">Prewarmed vs fresh</span></p>
       <p class="eyebrow">Compare</p>
       <h1>Prewarmed vs fresh inboxes</h1>
-      <p class="lede">The same mailbox at two points in its life. The price gap is what 51 days costs. Whether to pay it is not about the price.</p>
+      <p class="lede">The same mailbox at two points in its life. Prewarmed sends on arrival; fresh is built on your own domain and warmed for you first. Which to buy is about your start date, not the price.</p>
       <p class="cta"><a class="btn btn-primary btn-lg" href="/calculator/">Put your dates in →</a></p>
 
       <div class="scroll-x">
         <table>
           <thead><tr><th></th><th>Prewarmed</th><th>Fresh</th></tr></thead>
           <tbody>
-            <tr><td>Time to first send</td><td class="yes">Same day</td><td>21 days on a domain you already use, 51 on a new one</td></tr>
-            <tr><td>Domain age at first send</td><td class="yes">30 days +</td><td>Whatever yours already is</td></tr>
-            <tr><td>Domain included</td><td class="yes">Free</td><td class="no">No, about ${pricing.products['domain-fresh'].price} a year</td></tr>
+            <tr><td>Delivered</td><td>Within 48 to 72 hours</td><td>Within 48 to 72 hours</td></tr>
+            <tr><td>Ready to send</td><td class="yes">On arrival</td><td>After 14 to 21 days of warmup</td></tr>
+            <tr><td>Domain</td><td class="yes">Prewarmed .com or .co, aged 30 days +</td><td class="yes">Your own brand</td></tr>
+            <tr><td>Domain cost</td><td class="yes">Free</td><td>Bring your own free, or ${pricing.products['domain-fresh'].price} one off</td></tr>
             <tr><td>SPF, DKIM, DMARC and MX</td><td class="yes">Set before handover</td><td class="yes">Set before handover</td></tr>
-            <tr><td>Warming tool</td><td class="yes">None needed</td><td class="no">Extra, per mailbox per month</td></tr>
-            <tr><td>Placement tested before you get it</td><td class="yes">Yes</td><td class="no">No</td></tr>
-            <tr><td>Per inbox per month</td><td>${g.perUnit.quarterly}</td><td class="yes">${gf.perUnit.monthly.toFixed(2)}, monthly only</td></tr>
+            <tr><td>Warming tool</td><td class="yes">None needed</td><td class="yes">None needed, warmup included</td></tr>
+                        <tr><td>Google, per inbox per month</td><td>{money(g.perUnit.monthly)} to {money(g.perUnit.quarterly)}</td><td class="yes">{money(gf.fromPrice)} to {money(gfLow)}, by size and cycle</td></tr>
           </tbody>
         </table>
       </div>
 
       <h2>The comparison people get wrong</h2>
-      <p>Put the two monthly per-inbox prices side by side and fresh wins easily. That comparison treats them as the same product at different prices, and they are not. Fresh is a mailbox. Prewarmed is a mailbox plus 51 days of elapsed calendar time plus a domain plus the configuration plus a placement test.</p>
-      <p>Price the calendar time and the gap closes, and for a lot of teams it inverts. The question is not which line item is cheaper. It is what a month of not sending costs your business.</p>
-
-      <h2>What fresh actually costs you</h2>
-      <p>Three things get left out of the cheaper number, and the third is the one that catches people.</p>
-      <p><strong>The warming tool.</strong> Most charge per mailbox per month, and you pay it for the whole warming period. On three mailboxes it is a rounding error. On a hundred it is a real bill, and it can exceed the entire saving.</p>
-      <p><strong>The domain.</strong> Prewarmed includes it. Fresh does not, so add the registration for every domain in the plan.</p>
-      <p><strong>The risk that your first attempt does not work.</strong> Warming is a schedule, and the most common way people ruin fresh inboxes is impatience: four days of warming, a decision that it looks fine, two hundred cold emails, and a dead domain within a fortnight. That cost falls entirely on the fresh column and no calculator can price it.</p>
+      <p>Put the two per-inbox prices side by side and fresh wins easily, about a third of the prewarmed price at volume. That comparison treats them as the same product at different prices, and they are not. Prewarmed is a mailbox plus a domain that has already done its weeks, sending the day it lands. Fresh is a mailbox on your own domain that sends three weeks later.</p>
+      <p>Both arrive within 48 to 72 hours with SPF, DKIM and DMARC set, and both are warmed by Warm Inboxes, so neither needs a warmup tool. The real difference is the calendar, and what three weeks of not sending costs your business.</p>
 
       <h2>When fresh is the right call</h2>
-      <p>All three of these have to be true:</p>
       <ul>
-        <li>Your start date is more than about two months out, so the 51 days fits inside time you already had.</li>
-        <li>You already run warming infrastructure and know what it costs you per mailbox.</li>
-        <li>The person who would run it has the attention to follow the schedule rather than cutting it short.</li>
+        <li>Your first send is three weeks or more away, so the warmup fits inside time you already had.</li>
+        <li>You want your own brand on the sending domain. Prewarmed inboxes stay on their prewarmed domain.</li>
+        <li>You are adding capacity behind a fleet that is already sending, at the lower price per inbox.</li>
       </ul>
-      <p>If any one of them is false, prewarmed is cheaper than it looks. And if you are somewhere in between, split it: buy prewarmed for what is live now and warm a fresh batch behind it for next quarter.</p>
+      <p>And if you are somewhere in between, split it: buy prewarmed for what is live now and let a fresh batch on your own brand warm behind it.</p>
 
-      <h2>When fresh is the wrong call</h2>
-      <p>A client campaign that starts next week. A domain you have just burned and have not yet diagnosed. A team where warming would be somebody's fourth priority. In each of those the cheaper line item is the more expensive decision, and the gap is not the price difference. It is the month of meetings you do not get.</p>
+      <h2>When prewarmed is the right call</h2>
+      <p>A client campaign that starts next week. A domain you have just retired and need capacity to replace this week. A launch date that is fixed and close. In each of those the cheaper line item is the more expensive decision, and the gap is not the price difference. It is the weeks of meetings you do not get.</p>
 
       <h2>Work out which you are</h2>
-      <p>The <a href="/calculator/">calculator</a> takes your daily send target and your launch date, sizes the infrastructure on each of the three platforms, prices both ways, and tells you whether fresh can reach your date at all. The <a href="/tools/warmup-tax/">warmup tax calculator</a> prices the waiting on its own.</p>
+      <p>The <a href="/calculator/">calculator</a> takes your daily send target and your launch date, sizes the infrastructure on each of the three platforms, prices both ways, and tells you whether fresh can reach your date at all.</p>
 
       <h2>The pages for each</h2>
       <p><strong>Prewarmed:</strong> <a href="/prewarmed-google-inboxes/">Google Workspace</a>, <a href="/prewarmed-microsoft-365-inboxes/">Microsoft 365</a>, <a href="/prewarmed-azure-inboxes/">Azure tenants</a>, <a href="/prewarmed-domains/">domains</a>.</p>

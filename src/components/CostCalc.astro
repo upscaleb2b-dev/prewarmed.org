@@ -2,60 +2,53 @@
 /**
  * Home-page cost calculator.
  *
- * The obvious framing, "monthly savings vs fresh + a warmup tool", does not
- * work honestly with our prices. Fresh Google is $3.00-3.50 an inbox against
- * $6 prewarmed, so a monthly-savings card would show fresh winning unless we
- * invented a large warming-tool fee. So it measures the thing that is actually
- * true: fresh sends nothing for 51 days, so over a first quarter you pay for
- * months in which no cold email leaves the building. Cost per thousand emails
- * ACTUALLY SENT inverts the comparison, and survives someone checking it.
+ * Fresh inboxes cost less a month; prewarmed ones send from the day they
+ * arrive. Both are delivered in 48 to 72 hours and both are warmed by Warm
+ * Inboxes, so the only real difference over a first quarter is the 14 to 21
+ * days a fresh fleet spends warming before it can send. This measures cost
+ * per thousand cold emails ACTUALLY SENT over 90 days, on Warm Inboxes'
+ * published prices, and reports whichever side wins. At volume fresh often
+ * does, and the copy says so rather than hiding it.
  *
- * The fresh column now carries a warming-tool subscription, because fresh
- * inboxes cannot warm themselves and that bill is real. Two choices keep it
- * conservative rather than self-serving: it is charged as a flat monthly fee
- * (tools that meter per mailbox cost far more at volume), and only for the
- * WARMING WINDOW, not the whole 90 days, although most teams leave it running.
- * Both choices favour the fresh column, which is the only kind of assumption
- * worth publishing when you sell the other one.
+ * Assumptions, all stated under the result: quarterly billing on both sides
+ * (the 90-day window), fresh at the order-size tier it qualifies for, a $12
+ * one-off domain per three fresh inboxes, and the full 21 days of warmup.
  */
-import { wi, order } from '../data/site.js';
+import { order } from '../data/site.js';
 import pricing from '../data/pricing.json';
+import { rate } from '../data/volume.js';
 import Handoff from './Handoff.astro';
 import WhatsApp from './WhatsApp.astro';
 
 const P = pricing.products;
 const cfg = {
-  // Cold sends per inbox per day. A tenant is run quieter on purpose: when
-  // mailboxes are cheap enough to buy a hundred, the surplus is spent on a
-  // lower per-address rate rather than on more total volume.
-  perDay: 15,
-  perDayTenant: 2,
-  readyDays: 51,
+  readyDays: 21,
   windowDays: 90,
-  // A fresh domain is bought by the year, so charging a whole year against a
-  // 90-day window overstates what fresh costs in that window, and it would
-  // overstate it in our favour, which is the one direction this calculator
-  // is not allowed to lean. Pro-rated to the window instead.
-  domainYear: P['domain-fresh'].price,
-  warmupMonthly: P['warmup-tool'].price,
+  domain: P['domain-fresh'].price,
+  // Mailboxes per tenant -> cold sends per mailbox per day. A lighter tenant
+  // sends more per address for the same flat price.
+  tenantRate: { 25: rate('azure-25'), 49: rate('azure-50'), 100: rate('azure-100') },
   platforms: [
-    { id: 'google', label: 'Google Workspace', shape: 'pack', pre: P['google-prewarmed'].perUnit.quarterly,
-      fresh: P['google-fresh'].perUnit.monthly, slug: 'prewarmed-google-inboxes' },
-    { id: 'microsoft', label: 'Microsoft 365', shape: 'pack', pre: P['microsoft-prewarmed'].perUnit.quarterly,
-      fresh: P['microsoft-fresh'].perUnit.monthly, slug: 'prewarmed-microsoft-365-inboxes' },
+    { id: 'google', label: 'Google Workspace', shape: 'pack', perDay: rate('google'),
+      pre: P['google-prewarmed'].perUnit.quarterly,
+      freshTiers: P['google-fresh'].tiers.map((t) => ({ min: t.min, price: t.perUnit.quarterly })),
+      slug: 'prewarmed-google-inboxes' },
+    { id: 'microsoft', label: 'Microsoft 365', shape: 'pack', perDay: rate('microsoft'),
+      pre: P['microsoft-prewarmed'].perUnit.quarterly,
+      freshTiers: [{ min: 1, price: P['microsoft-fresh'].perUnit.quarterly }],
+      slug: 'prewarmed-microsoft-365-inboxes' },
     { id: 'azure', label: 'Azure tenant', shape: 'tenant', per: P['azure-tenant'].inboxesPerTenant,
       densities: P['azure-tenant'].densities,
       pre: P['azure-tenant'].perTenant.quarterly,
-      preMonthly: P['azure-tenant'].perTenant.monthly,
-      fresh: P['azure-fresh'].perTenant.monthly, freshPerTenant: true, slug: 'prewarmed-azure-inboxes' },
+      fresh: P['azure-fresh'].perTenant.quarterly, slug: 'prewarmed-azure-inboxes' },
   ],
 };
 ---
 <section class="cc" data-cfg={JSON.stringify(cfg)}>
   <div class="wrap">
     <p class="pill">Cost calculator</p>
-    <h2>What does the 51-day wait actually cost you?</h2>
-    <p class="sub">Fresh inboxes are cheaper every month. They also send nothing for {cfg.readyDays} days. Measure the same money against emails actually sent and the answer flips.</p>
+    <h2>What does the warmup wait actually cost you?</h2>
+    <p class="sub">Fresh inboxes cost less a month and send nothing for their first 14 to 21 days. Measure both against cold emails actually sent in a first quarter and see which wins at your size.</p>
 
     <div class="panel">
       <div class="tabs" role="tablist">
@@ -76,10 +69,10 @@ const cfg = {
       </div>
 
       <div class="cards">
-        <div class="c"><p class="n mono" id="cc-blocked">…</p><p class="l">Cold emails you cannot send while a fresh domain ages and warms</p></div>
+        <div class="c"><p class="n mono" id="cc-blocked">…</p><p class="l">Cold emails a fresh fleet cannot send during its warmup</p></div>
         <div class="c"><p class="n mono" id="cc-fresh">…</p><p class="l" id="cc-fresh-l">Fresh: cost per 1,000 emails actually sent in your first 90 days</p></div>
         <div class="c win"><p class="n mono" id="cc-pre">…</p><p class="l" id="cc-pre-l">Prewarmed: cost per 1,000 emails actually sent in the same 90 days</p></div>
-        <div class="c good"><p class="n mono" id="cc-delta">…</p><p class="l" id="cc-delta-l">Cheaper per email delivered, because nothing is spent waiting</p></div>
+        <div class="c good"><p class="n mono" id="cc-delta">…</p><p class="l" id="cc-delta-l">…</p></div>
       </div>
 
       <p class="say" id="cc-say">…</p>
@@ -89,7 +82,7 @@ const cfg = {
         <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a> <WhatsApp />
       </div>
       <Handoff />
-      <p class="foot" id="cc-foot">Assumes {cfg.perDay} cold emails per inbox per day and three inboxes to a domain. Fresh carries a <strong>${cfg.warmupMonthly} a month</strong> warming tool, charged as a flat fee for the {cfg.readyDays} warming days only. Most teams leave it running longer, and tools that charge per mailbox cost more than this at volume. Fresh also buys its own domains at ${cfg.domainYear} a year, charged here for the {cfg.windowDays} days only; prewarmed includes them and needs no warming tool.</p>
+      <p class="foot" id="cc-foot">…</p>
     </div>
   </div>
 </section>
@@ -109,59 +102,53 @@ const cfg = {
     const n = +$('cc-n').value;
     $('cc-nout').textContent = n + ' inboxes';
 
-    const perDay = active.shape === 'tenant' ? C.perDayTenant : C.perDay;
-    const sendDays = C.windowDays - C.readyDays;              // fresh sends only after day 51
-    const blocked = n * perDay * C.readyDays;
+    const tenant = active.shape === 'tenant';
+    const perDay = tenant ? C.tenantRate[density] : active.perDay;
+    const sendDays = C.windowDays - C.readyDays;
+    const months = C.windowDays / 30;
     const preEmails = n * perDay * C.windowDays;
     const freshEmails = n * perDay * sendDays;
+    $('cc-blocked').textContent = num(n * perDay * C.readyDays);
 
-    const months = C.windowDays / 30;
-    // Fresh has to warm itself. Charged for the warming window only.
-    const warmup = C.warmupMonthly * (C.readyDays / 30);
-    const domainCost = C.domainYear * (C.windowDays / 365);
-    const preCost = active.shape === 'tenant'
-      ? Math.ceil(n / density) * active.pre * months
-      : n * active.pre * months;
-
-    $('cc-blocked').textContent = num(blocked);
-
-    if (active.freshPerTenant) {
-      // A fresh tenant has no published price, so comparing prewarmed-vs-fresh
-      // is not available here. The comparison that IS real at this volume is a
-      // tenant against the same mailboxes bought as packs.
+    let preCost, freshCost, freshNote;
+    if (tenant) {
       const tenants = Math.ceil(n / density);
-      const freshCost = tenants * active.fresh * months + tenants * domainCost + warmup;
-      const preK = (preCost / preEmails) * 1000;
-      const freshK = (freshCost / freshEmails) * 1000;
-      const pct = Math.round((1 - preK / freshK) * 100);
-      $('cc-fresh').textContent = money(freshK);
-      $('cc-fresh-l').textContent = 'Fresh tenant: cost per 1,000 emails actually sent in your first 90 days';
-      $('cc-pre').textContent = money(preK);
-      $('cc-pre-l').textContent = 'Prewarmed tenant, per 1,000 emails sent in the same 90 days';
-      $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
-      $('cc-delta-l').textContent = 'Cheaper per email delivered, though at a quarterly commit both cost the same per tenant';
-      $('cc-say').innerHTML =
-        `Both tenants cost <strong>${money(active.fresh)}</strong> each on a three-month commit, so at ${density} mailboxes to a tenant your ${n} inboxes cost <strong>${money(preCost)}</strong> either way, except the prewarmed one sends for all 90 days and the fresh one for ${C.windowDays - C.readyDays}. That is <strong>${money(preK)} per thousand against ${money(freshK)}</strong>, once the fresh side pays <strong>${money(warmup)}</strong> to warm itself. Paying the same money to wait ${C.readyDays} days is the whole decision.`;
+      preCost = tenants * active.pre * months;
+      freshCost = tenants * active.fresh * months + tenants * C.domain;
+      freshNote = `${tenants} ${tenants === 1 ? 'tenant' : 'tenants'} at ${money(active.fresh)} plus ${money(C.domain)} a domain`;
     } else {
+      const tier = active.freshTiers.filter((t) => n >= t.min).pop();
       const domains = Math.ceil(n / 3);
-      const freshCost = n * active.fresh * months + domains * domainCost + warmup;
-      const preK = (preCost / preEmails) * 1000;
-      const freshK = (freshCost / freshEmails) * 1000;
-      const pct = Math.round((1 - preK / freshK) * 100);
-      $('cc-fresh').textContent = money(freshK);
-      $('cc-fresh-l').textContent = 'Fresh: cost per 1,000 emails actually sent in your first 90 days';
-      $('cc-pre').textContent = money(preK);
-      $('cc-pre-l').textContent = 'Prewarmed: cost per 1,000 emails actually sent in the same 90 days';
-      $('cc-delta-l').textContent = 'Cheaper per email delivered, because nothing is spent waiting';
-      $('cc-delta').textContent = (pct > 0 ? pct : 0) + '%';
-      $('cc-say').innerHTML =
-        `Over 90 days, ${n} fresh ${active.label} inboxes cost <strong>${money(freshCost)}</strong> for mailboxes, domains and <strong>${money(warmup)}</strong> of warming tool, and deliver ${num(freshEmails)} cold emails, because the first ${C.readyDays} days are spent aging and warming. The same ${n} prewarmed inboxes cost <strong>${money(preCost)}</strong> and deliver ${num(preEmails)}, sending from the day they arrive: <strong>${money(preK)} per thousand against ${money(freshK)}</strong>.`;
+      preCost = n * active.pre * months;
+      freshCost = n * tier.price * months + domains * C.domain;
+      freshNote = `${money(tier.price)} an inbox plus ${domains} ${domains === 1 ? 'domain' : 'domains'} at ${money(C.domain)}`;
     }
-    const foot = $('cc-foot');
-    if (foot) foot.firstChild.nodeValue =
-      active.shape === 'tenant'
-        ? `Assumes ${perDay} cold emails per mailbox per day on a tenant, far lower per address than a pack, which is the point of tenant density. `
-        : `Assumes ${perDay} cold emails per inbox per day and three inboxes to a domain. `;
+    const preK = (preCost / preEmails) * 1000;
+    const freshK = (freshCost / freshEmails) * 1000;
+    const preWins = preK <= freshK;
+    const pct = Math.round(Math.abs(1 - (preWins ? preK / freshK : freshK / preK)) * 100);
+
+    $('cc-fresh').textContent = money(freshK);
+    $('cc-fresh-l').textContent = `Fresh${tenant ? ' tenant' : ''}: cost per 1,000 emails actually sent in your first 90 days`;
+    $('cc-pre').textContent = money(preK);
+    $('cc-pre-l').textContent = `Prewarmed${tenant ? ' tenant' : ''}: cost per 1,000 emails actually sent in the same 90 days`;
+    const even = pct < 2;
+    $('cc-delta').textContent = even ? 'Even' : pct + '%';
+    $('cc-delta-l').textContent = even
+      ? 'About the same per email sent at this size, and prewarmed sends three weeks sooner'
+      : preWins
+      ? 'Prewarmed is cheaper per email sent, because nothing is spent waiting'
+      : 'Fresh is cheaper per email sent at this size; prewarmed buys you the three weeks';
+    // Highlight whichever side actually wins.
+    $('cc-pre').parentElement.classList.toggle('win', preWins || even);
+    $('cc-fresh').parentElement.classList.toggle('win', !preWins && !even);
+    $('cc-say').innerHTML =
+      `Over 90 days, ${n} fresh ${active.label} inboxes cost <strong>${money(freshCost)}</strong> (${freshNote}) and send ${num(freshEmails)} cold emails, because the first ${C.readyDays} days go on warmup. The same ${n} prewarmed inboxes cost <strong>${money(preCost)}</strong> and send ${num(preEmails)}, from the day they arrive. That is <strong>${money(preK)} per thousand against ${money(freshK)}</strong>. ` +
+      (even ? 'At this size they cost about the same per email, so prewarmed is the three weeks for nothing.'
+        : preWins ? 'Prewarmed is the cheaper way to send here as well as the faster one.'
+        : 'Fresh is the cheaper way to send here. Prewarmed is the price of starting three weeks sooner, which is worth it when a campaign has a date.');
+    $('cc-foot').textContent =
+      `Assumes ${perDay} cold emails per ${tenant ? 'mailbox' : 'inbox'} per day${tenant ? ` at ${density} mailboxes to a tenant` : ' and three inboxes to a domain'}, quarterly billing on both sides, and the full 21 days of fresh warmup (at 14 days fresh comes out a little cheaper). Fresh domains are ${money(C.domain)} one off, or free if you bring your own. Both are delivered within 48 to 72 hours and neither needs a warmup tool.`;
     $('cc-more').href = '/' + active.slug + '/';
   }
 

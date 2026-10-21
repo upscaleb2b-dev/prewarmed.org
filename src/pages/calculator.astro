@@ -13,18 +13,23 @@ import Base from '../layouts/Base.astro';
 import { wi, order } from '../data/site.js';
 import pricing from '../data/pricing.json';
 import WhatsApp from '../components/WhatsApp.astro';
+import { rate } from '../data/volume.js';
 
 const P = pricing.products;
 const cfg = {
   verified: pricing._verified,
   domainFresh: P['domain-fresh'].price,
+  // Delivery is 48 to 72 hours for both; fresh then warms for up to 21 days.
+  preDays: 3,
+  freshDays: 24,
   platforms: {
     google: {
       label: 'Google Workspace',
       shape: 'packs',
       packSize: P['google-prewarmed'].packSize,
       prewarmed: P['google-prewarmed'].perUnit.quarterly,
-      fresh: P['google-fresh'].perUnit.monthly,
+      pace: rate('google'),
+      freshTiers: P['google-fresh'].tiers.map((t) => ({ min: t.min, price: t.perUnit.quarterly })),
       note: 'Best when most of the people you email are on Gmail or Google Workspace, which is most business lists.',
     },
     microsoft: {
@@ -32,7 +37,8 @@ const cfg = {
       shape: 'packs',
       packSize: P['microsoft-prewarmed'].packSize,
       prewarmed: P['microsoft-prewarmed'].perUnit.quarterly,
-      fresh: P['microsoft-fresh'].perUnit.monthly,
+      pace: rate('microsoft'),
+      freshTiers: [{ min: 1, price: P['microsoft-fresh'].perUnit.quarterly }],
       note: 'Best when your list is Microsoft-heavy, and the only platform that tells you why a message was filtered.',
     },
     azure: {
@@ -40,7 +46,8 @@ const cfg = {
       shape: 'tenant',
       per: P['azure-tenant'].inboxesPerTenant,
       prewarmed: P['azure-tenant'].perTenant.quarterly,
-      fresh: P['azure-fresh'].perTenant.monthly, freshPerTenant: true,
+      pace: rate('azure-100'),
+      fresh: P['azure-fresh'].perTenant.quarterly, freshPerTenant: true,
       note: 'One flat price per tenant holding 25, 49 or 100 mailboxes. Density is the dial between cost per inbox and how much one bad list reaches.',
     },
   },
@@ -63,7 +70,7 @@ const schema = {
     <div class="wrap calcw">
       <p class="eyebrow">Free tool</p>
       <h1>Prewarmed or fresh? Put your numbers in.</h1>
-      <p class="lede">How much infrastructure your volume needs, on each of the three platforms, priced both ways, and whether your launch date leaves room to warm it yourself.</p>
+      <p class="lede">How much infrastructure your volume needs, on each of the three platforms, priced both ways, and whether your launch date leaves room for fresh inboxes to finish their warmup.</p>
 
       <div class="calc" data-cfg={JSON.stringify(cfg)}>
         <div class="fields">
@@ -75,23 +82,6 @@ const schema = {
             <label for="weeks">Weeks until you need to start</label>
             <input id="weeks" type="number" min="0" max="52" value="2" inputmode="numeric" />
             <span class="hint">0 means this week</span>
-          </div>
-          <div class="field">
-            <label for="domainstate">The domain you would warm</label>
-            <select id="domainstate">
-              <option value="51">Brand new: needs 30 days aging first</option>
-              <option value="21">Already old and sending normal email</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="warmcost">Your warming tool, per inbox per month</label>
-            <input id="warmcost" type="number" min="0" max="100" step="0.5" value="0" inputmode="decimal" />
-            <span class="hint">0 if your sequencer includes it</span>
-          </div>
-          <div class="field">
-            <label for="perinbox">Cold emails per inbox per day</label>
-            <input id="perinbox" type="number" min="1" max="100" value="15" inputmode="numeric" />
-            <span class="hint acc">we recommend 15</span>
           </div>
           <div class="field">
             <label for="headroom">Spare capacity held back</label>
@@ -112,14 +102,13 @@ const schema = {
 
       <h2>How it decides</h2>
       <p>Two things move the answer, and only one of them is money.</p>
-      <p><strong>Volume</strong> sets how many inboxes you need: your daily target divided by 15, plus a fifth held back for replacements, then three inboxes to a domain. That part is the same whichever way you buy.</p>
-      <p><strong>Your start date</strong> sets whether fresh is available to you at all. A brand new domain needs 30 days of sitting still and then 21 days of warming before the first cold email, 51 days in all. On a domain that is already old and sending normal business email, you owe the 21 days only. If your launch is inside that window, the cheaper line item is not an option, it is a missed month.</p>
-      <p>When both are available, the calculator prices them against each other, including the warming tool you would pay for and the domain you would buy. The prewarmed price includes the domain; the fresh price does not.</p>
-      <p>What it cannot price is the risk that your first attempt at warming does not work. That is a real cost and it falls entirely on the fresh column.</p>
+      <p><strong>Volume</strong> sets how many inboxes you need: your daily target divided by the safe pace for each platform (15 a day on Google, 8 on Microsoft 365, 2 per mailbox on a full Azure tenant), plus the spare capacity you hold back, then three inboxes to a domain. That part is the same whichever way you buy.</p>
+      <p><strong>Your start date</strong> sets whether fresh is available to you at all. Every order is delivered within 48 to 72 hours of payment. Prewarmed inboxes send on arrival; fresh ones are then warmed by Warm Inboxes for 14 to 21 days before they send. If your launch is inside that window, the cheaper line item is not an option, it is a missed few weeks.</p>
+      <p>When both are available, the calculator prices them against each other on quarterly billing, at the fresh order-size tier you qualify for, plus the domains you would buy. The prewarmed price includes the domain; fresh domains are $12 one off, or free if you bring your own. Neither needs a warmup tool.</p>
 
       <h2>What it does not do</h2>
       <p>This tool answers one question: prewarmed or fresh, at your volume, on your timeline. For pure sizing, meaning how many inboxes and domains for a target with a ramp plan, Warm Inboxes already has <a href={wi('/calculator', { page: 'calculator', placement: 'handoff' })} target="_blank" rel="noopener">a calculator</a> and we have not rebuilt it. The arithmetic behind both is written out on <a href="/tools/stack-calculator/">the sizing page</a>.</p>
-      <p>To price the waiting on its own, use the <a href="/tools/warmup-tax/">warmup tax calculator</a>. To read the argument rather than the numbers, see <a href="/prewarmed-vs-fresh-inboxes/">prewarmed vs fresh inboxes</a>.</p>
+      <p>To read the argument rather than the numbers, see <a href="/prewarmed-vs-fresh-inboxes/">prewarmed vs fresh inboxes</a>.</p>
     </div>
   </section>
 </Base>
@@ -130,46 +119,43 @@ const schema = {
   if (!root) return;
   const C = JSON.parse(root.dataset.cfg);
   const $ = (id) => document.getElementById(id);
-  const ids = ['target', 'weeks', 'domainstate', 'warmcost', 'perinbox', 'headroom'];
+  const ids = ['target', 'weeks', 'headroom'];
   const money = (n) => '$' + Math.round(n).toLocaleString('en-US');
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   function render() {
     const target = Math.max(1, +$('target').value || 0);
     const weeks = Math.max(0, +$('weeks').value || 0);
-    const days = +$('domainstate').value;
-    const warmCost = Math.max(0, +$('warmcost').value || 0);
-    const perInbox = Math.max(1, +$('perinbox').value || 15);
     const headroom = Math.min(100, Math.max(0, +$('headroom').value || 0));
-
-    const inboxes = Math.ceil(Math.ceil(target / perInbox) * (1 + headroom / 100));
-    const domains = Math.ceil(inboxes / 3);
-    const freshFits = weeks * 7 >= days;
+    const freshFits = weeks * 7 >= C.freshDays;
 
     $('verdict').className = 'verdict ' + (freshFits ? 'v-open' : 'v-shut');
     $('verdict').textContent = freshFits
-      ? `You have ${weeks} weeks and warming needs ${days} days, so fresh is genuinely on the table. Below is what each costs you.`
-      : `You need to send in ${weeks === 0 ? 'under a week' : weeks + ' weeks'} and warming a domain takes ${days} days. Fresh cannot get there. Buy prewarmed, or move the date.`;
+      ? `You have ${weeks} weeks, and fresh inboxes need up to ${C.freshDays} days from payment to their first send, so fresh is genuinely on the table. Below is what each costs you.`
+      : `You need to send in ${weeks === 0 ? 'under a week' : weeks + ' weeks'}, and fresh inboxes need up to ${C.freshDays} days from payment: 48 to 72 hours for delivery, then 14 to 21 days of warmup. Fresh cannot get there. Buy prewarmed, or move the date.`;
 
     $('plats').innerHTML = Object.entries(C.platforms).map(([key, p]) => {
       const tenant = p.shape === 'tenant';
+      const inboxes = Math.ceil(Math.ceil(target / p.pace) * (1 + headroom / 100));
+      const domains = Math.ceil(inboxes / 3);
       const units = tenant ? Math.ceil(inboxes / p.per) : inboxes;
       const pre = tenant ? units * p.prewarmed : inboxes * p.prewarmed;
       const unitLine = tenant
-        ? `${units} tenant${units === 1 ? '' : 's'} of ${p.per}`
-        : `${inboxes} inboxes · ${domains} domains`;
+        ? `${inboxes} mailboxes · ${units} tenant${units === 1 ? '' : 's'} of ${p.per} · ${p.pace} a day each`
+        : `${inboxes} inboxes · ${domains} domains · ${p.pace} a day each`;
 
       let freshBlock;
       if (p.freshPerTenant) {
         const fc = units * p.fresh;
         freshBlock = `<p class="big mono">${money(fc)}<span class="mo">/mo</span></p>
-          <p class="sub">${units} tenant${units === 1 ? '' : 's'} at ${money(p.fresh)}, plus ${money(units * C.domainFresh)} once for domains</p>
-          <p class="sub when">Ready to send in ${days} days</p>`;
+          <p class="sub">${units} tenant${units === 1 ? '' : 's'} at ${money(p.fresh)}, plus ${money(units * C.domainFresh)} once for domains, or bring your own</p>
+          <p class="sub when">Sends after 14 to 21 days of warmup</p>`;
       } else {
-        const fc = inboxes * p.fresh + inboxes * warmCost;
+        const tier = p.freshTiers.filter((t) => inboxes >= t.min).pop();
+        const fc = inboxes * tier.price;
         freshBlock = `<p class="big mono">${money(fc)}<span class="mo">/mo</span></p>
-          <p class="sub">plus ${money(domains * C.domainFresh)} once for ${domains} domain${domains === 1 ? '' : 's'}${warmCost > 0 ? `, warming tool included above` : ''}</p>
-          <p class="sub when">Ready to send in ${days} days</p>`;
+          <p class="sub">$${tier.price.toFixed(2)} an inbox, plus ${money(domains * C.domainFresh)} once for ${domains} domain${domains === 1 ? '' : 's'}, or bring your own</p>
+          <p class="sub when">Sends after 14 to 21 days of warmup</p>`;
       }
 
       return `<div class="plat">
@@ -180,7 +166,7 @@ const schema = {
             <p class="tag">Prewarmed</p>
             <p class="big mono">${money(pre)}<span class="mo">/mo</span></p>
             <p class="sub">domain included</p>
-            <p class="sub when">Ready to send today</p>
+            <p class="sub when">Sends on arrival, 48 to 72 hours after payment</p>
           </div>
           <div class="opt ${freshFits ? '' : 'out'}">
             <p class="tag">Fresh${freshFits ? '' : ' (too late)'}</p>

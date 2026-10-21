@@ -3,15 +3,29 @@ import pricing from '../data/pricing.json';
 // note={false} drops the policy line, for pages that carry their own terms.
 const { productKey, note = true } = Astro.props;
 const p = pricing.products[productKey];
-// Fresh products are sold monthly only, the longer terms carried the same
-// figure, so three identical rows just made the price look negotiable.
-const terms = p.monthlyOnly ? pricing.terms.filter((t) => t.id === 'monthly') : pricing.terms;
+// Prewarmed bills monthly, every 2 months or quarterly; fresh bills monthly,
+// quarterly or yearly. Each product names its own set.
+const allTerms = p.terms === 'freshTerms' ? pricing.freshTerms : pricing.terms;
+// A fresh Azure tenant is one price on every cycle, and three identical rows
+// just made the price look negotiable.
+const terms = p.flatAllTerms ? [{ id: allTerms[0].id, label: 'Any billing cycle' }] : allTerms;
 const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
 ---
 <div class="pt">
   <div class="scroll-x">
+    {p.tiers ? (
+      <table>
+        <caption>{p.label} · per inbox per month · {p.domainIncluded ? 'prewarmed domain included' : 'domain not included'}</caption>
+        <thead><tr><th>Order size</th>{allTerms.map((t) => <th>{t.label}</th>)}</tr></thead>
+        <tbody>
+          {p.tiers.map((tier) => (
+            <tr><td>{tier.label}</td>{allTerms.map((t) => <td class={`mono price${t.best ? ' bestc' : ''}`}>${tier.perUnit[t.id].toFixed(2)}</td>)}</tr>
+          ))}
+        </tbody>
+      </table>
+    ) : (
     <table>
-      <caption>{p.label}{p.packSize ? ` · sold in packs of ${p.packSize}` : ''}{p.monthlyOnly ? ' · monthly only' : ''}{p.unit === 'domain' ? '' : p.domainIncluded ? ' · prewarmed domain included' : ' · domain not included'}</caption>
+      <caption>{p.label}{p.packSize ? ` · sold in packs of ${p.packSize}` : ''}{p.flatAllTerms ? ' · same price on every billing cycle' : ''}{p.unit === 'domain' ? '' : p.domainIncluded ? ' · prewarmed domain included' : ' · domain not included'}</caption>
       <thead>
         <tr><th>Billing</th><th>{p.unit === 'tenant' ? 'Per tenant' : `Per ${p.unit}`}</th>{p.unit === 'tenant' ? <th>Per inbox</th> : p.packSize ? <th>Pack of {p.packSize}</th> : null}</tr>
       </thead>
@@ -26,7 +40,7 @@ const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
             ?? (p.packSize && range ? [range[0] * p.packSize, range[1] * p.packSize] : null);
           return (
             <tr class={t.best ? 'best' : ''}>
-              <td>{t.label}{t.best && !p.monthlyOnly && <span class="tag">best value</span>}</td>
+              <td>{t.label}{t.best && <span class="tag">best value</span>}</td>
               <td class="mono price">{range ? `${fmt(range[0])}–${fmt(range[1])}` : per !== null ? fmt(per) : '…'}</td>
               {(p.unit === 'tenant' || p.packSize) && <td class="mono">{Array.isArray(second) ? `${fmt(second[0])}–${fmt(second[1])}` : second !== null ? `${fmt(second)}${p.unit === 'tenant' ? ' /inbox' : ''}` : '…'}</td>}
             </tr>
@@ -34,13 +48,15 @@ const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
         })}
       </tbody>
     </table>
+    )}
   </div>
+  {p.note && p.terms === 'freshTerms' && <p class="note">{p.note}</p>}
   {note && <p class="note">{pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>}
 </div>
 <style>
   .pt { margin-block: 26px; }
   .price { font-size: 19px; font-weight: 500; color: var(--text); }
-  .best td { background: var(--accent-soft); }
+  .best td, td.bestc { background: var(--accent-soft); }
   .tag { font-size: 11px; letter-spacing: .05em; text-transform: uppercase; color: var(--accent); margin-left: 8px; }
   .note { font-size: 13.5px; color: var(--text-muted); margin: 12px 0 0; }
 

@@ -23,7 +23,9 @@ export function getStaticPaths() {
 const { p } = Astro.props;
 const price = pricing.products[p.pricingKey];
 const billing = price?.billing ?? 'monthly';
-const per = price?.perUnit?.quarterly ?? price?.perInbox?.quarterly ?? null;
+// Fresh products name their headline price (the no-minimum monthly rate);
+// prewarmed ones lead with the quarterly rate.
+const per = price?.fromPrice ?? price?.perUnit?.quarterly ?? price?.perInbox?.quarterly ?? null;
 const range = price?.perUnitRange?.quarterly ?? null;
 const unitWord = price?.unit === 'tenant' ? 'inbox' : price?.unit;
 
@@ -53,8 +55,14 @@ const ships = p.ships ?? [
   'Domain aged **30 days** before first send',
   'Then warmed **21 days** on real traffic',
   'SPF, DKIM, DMARC and MX configured',
-  'Delivered same day',
+  'Delivered within **48 to 72 hours** of payment',
 ];
+/** The mid-page band. Every order lands within 48 to 72 hours; what differs is when it can send. */
+const band = p.slug === 'fresh-domains'
+  ? { h: `${p.eyebrow} arrive with the order, within 48 to 72 hours.`, p: 'Registered clean and handed over alongside the inboxes, with the records prepared to match.' }
+  : p.family === 'fresh'
+  ? { h: `${p.eyebrow} arrive within 48 to 72 hours of payment.`, p: 'Built on your own domain with SPF, DKIM and DMARC set, then warmed by Warm Inboxes for 14 to 21 days before your first campaign.' }
+  : { h: `${p.eyebrow} arrive within 48 to 72 hours, ready to send.`, p: 'The 51 days of aging and warming already happened. You get the logins, the records are set, and the first campaign can go out the day they land.' };
 const parts = (t) => t.split('**').map((chunk, i) => ({ chunk, bold: i % 2 === 1 }));
 const crumb = p.slug === 'fresh-domains'
   ? { href: '/prewarmed-domains/', label: 'Domains' }
@@ -155,8 +163,8 @@ const schema = {
   {!askFirst && (
     <section class="band">
       <div class="wrap">
-        <p class="band-h">{p.eyebrow} ship the same day you order.</p>
-        <p class="band-p">The 51 days of aging and warming already happened. You get the logins, the records are set, and the first campaign can go out this afternoon.</p>
+        <p class="band-h">{band.h}</p>
+        <p class="band-p">{band.p}</p>
         <div class="band-cta">
           <a class="btn btn-primary btn-lg" href={order({ page: p.slug, placement: 'mid-band' })} target="_blank" rel="noopener">Get {p.eyebrow} →</a>
           <WhatsApp label="Ask a question first" />

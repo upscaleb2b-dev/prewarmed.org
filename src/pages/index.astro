@@ -17,9 +17,9 @@ const liveTools = tools.tools.filter((t) => t.live).length;
 const faqs = [
   ['What does prewarmed actually mean?', 'Thirty days of aging with the records in place, then twenty-one days of real sending and receiving. A lot of what is sold as prewarmed skips one half, or both.'],
   ['Are these real Google and Microsoft accounts?', 'Yes. Proper paid accounts on a domain we age and warm. Not a relay service, and not a seat on somebody else\'s account.'],
-  ['How fast do I get them?', 'The same day, on business days. The 51 days of waiting already happened before you ordered.'],
-  ['How many emails a day can I send?', 'We suggest 15 per inbox per day, with three inboxes on each domain. That is deliberately cautious, and it is the setup that keeps working month after month.'],
-  ['What if a domain stops landing in the inbox?', 'Retire it and start a fresh batch. We do not repair damaged domains and we do not swap them, because repair takes weeks and rarely brings the old reputation back. Fresh domains and inboxes ship the same day, so the faster route is also the better one for deliverability.'],
+  ['How fast do I get them?', 'Within 48 to 72 hours of payment, ready to send on arrival. The 51 days of aging and warming already happened before you ordered.'],
+  ['How many emails a day can I send?', 'We suggest 15 per Google inbox and 8 per Microsoft 365 inbox per day, with three inboxes on each domain. That is deliberately cautious, and it is the setup that keeps working month after month.'],
+  ['What if a domain stops landing in the inbox?', 'Retire it and start a fresh batch. We do not repair damaged domains and we do not swap them, because repair takes weeks and rarely brings the old reputation back. You can order fresh domains and inboxes the same day and they arrive within 48 to 72 hours, so the faster route is also the better one for deliverability.'],
   ['Which sending tools do these work with?', 'Any of them. Smartlead, Instantly, Email Bison, ManyReach and the rest all connect the same way.'],
   ['Who runs prewarmed.org?', site.disclosure],
 ];
@@ -32,7 +32,7 @@ const schema = {
 ---
 <Base
   title="Prewarmed Inboxes & Domains for Cold Email | prewarmed.org"
-  description="Prewarmed inboxes on Google Workspace, Microsoft 365 or Azure, on a domain aged 30 days and warmed 21 more. DNS configured, delivered same day."
+  description="Prewarmed inboxes on Google Workspace, Microsoft 365 or Azure, on a domain aged 30 days and warmed 21 more. DNS configured, delivered in 48 to 72 hours."
   schema={schema}>
 
   <section class="hero section">
@@ -86,7 +86,7 @@ const schema = {
         <WhatsApp label="Need help choosing a provider?" />
       </p>
       <div class="fresh-strip">
-        <p><strong>Not starting for two months?</strong> Each one has a fresh version: cheaper, and you run the 51 days.</p>
+        <p><strong>Not starting for three weeks?</strong> Each one has a fresh version: cheaper, on your own domain, and warmed for you for 14 to 21 days.</p>
         <p class="fresh-links">
           <a href="/fresh-google-inboxes/">Fresh Google</a>
           <a href="/fresh-microsoft-365-inboxes/">Fresh Microsoft 365</a>
@@ -104,11 +104,11 @@ const schema = {
         <table>
           <thead><tr><th></th><th>Prewarmed</th><th>Fresh inbox</th><th>Do it yourself</th></tr></thead>
           <tbody>
-            <tr><th scope="row">How soon you can send</th><td class="yes">Same day</td><td>21 days on a domain you already use, 51 on a new one</td><td>51 days</td></tr>
+            <tr><th scope="row">How soon you can send</th><td class="yes">On arrival</td><td>After 14 to 21 days of warmup</td><td>51 days</td></tr>
             <tr><th scope="row">Domain age on day one</th><td class="yes">30 days +</td><td>Whatever yours already is</td><td>0 days</td></tr>
             <tr><th scope="row">What you pay for the mailbox</th><td class="yes">Reseller rate</td><td class="yes">Reseller rate</td><td class="no">Retail list price (${pricing.products['retail-list'].price.toFixed(2)})</td></tr>
-            <tr><th scope="row">Cost of a warmup tool</th><td class="yes">None</td><td class="no">From ${pricing.products['warmup-tool'].price} a month</td><td class="no">From ${pricing.products['warmup-tool'].price} a month</td></tr>
-            <tr><th scope="row">Domain included</th><td class="yes">Free</td><td class="no">No, ${pricing.products['domain-fresh'].price} a year</td><td class="no">No, ${pricing.products['domain-fresh'].price} a year</td></tr>
+            <tr><th scope="row">Cost of a warmup tool</th><td class="yes">None</td><td class="yes">None, warmup included</td><td class="no">From ${pricing.products['warmup-tool'].price} a month</td></tr>
+            <tr><th scope="row">Domain included</th><td class="yes">Free</td><td>Your own, or ${pricing.products['domain-fresh'].price} one off</td><td class="no">No, you register it</td></tr>
             <tr><th scope="row">SPF, DKIM and DMARC set up</th><td class="yes">Before handover</td><td class="yes">Before handover</td><td class="no">You</td></tr>
           </tbody>
         </table>

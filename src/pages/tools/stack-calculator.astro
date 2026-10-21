@@ -12,19 +12,23 @@ import Base from '../../layouts/Base.astro';
 import { wi, toolUrl } from '../../data/site.js';
 import pricing from '../../data/pricing.json';
 import tools from '../../data/tools.json';
+import { rate } from '../../data/volume.js';
 
 const planner = tools.tools.find((t) => t.id === 'inbox-planner');
 const pack = pricing.products['google-prewarmed'];
 const tenant = pricing.products['azure-tenant'];
 
 // One worked example, carried through every step below.
-const ex = { target: 1500, perInbox: 15, perDomain: 3, headroom: 0.2 };
+const ex = { target: 1500, perInbox: rate('google'), perDomain: 3, headroom: 0.2 };
 ex.base = Math.ceil(ex.target / ex.perInbox);
 ex.inboxes = Math.ceil(ex.base * (1 + ex.headroom));
 ex.domains = Math.ceil(ex.inboxes / ex.perDomain);
 ex.packs = Math.ceil(ex.inboxes / pack.packSize);
 ex.packCost = ex.inboxes * pack.perUnit.quarterly;
-ex.tenants = Math.ceil(ex.inboxes / tenant.inboxesPerTenant);
+// A tenant mailbox runs far quieter than a pack inbox, so it needs its own count.
+ex.tenantPace = rate('azure-100');
+ex.tenantMailboxes = Math.ceil(Math.ceil(ex.target / ex.tenantPace) * (1 + ex.headroom));
+ex.tenants = Math.ceil(ex.tenantMailboxes / tenant.inboxesPerTenant);
 ex.tenantCost = ex.tenants * tenant.perTenant.quarterly;
 const money = (n) => `$${n.toLocaleString('en-US')}`;
 
@@ -35,7 +39,7 @@ const schema = {
   '@graph': [{
     '@type': 'FAQPage',
     mainEntity: [
-      ['How many inboxes do I need?', `Divide your daily send target by 15, then add about 20 per cent for replacements. At ${ex.target} a day that is ${ex.inboxes} inboxes.`],
+      ['How many inboxes do I need?', `Divide your daily send target by the safe pace for the platform: ${rate('google')} a day on Google Workspace, ${rate('microsoft')} on Microsoft 365, ${ex.tenantPace} per mailbox on a full Azure tenant. Then add about 20 per cent spare. At ${ex.target} a day on Google that is ${ex.inboxes} inboxes.`],
       ['How many domains do I need?', `Three inboxes per domain. At ${ex.inboxes} inboxes that is ${ex.domains} domains.`],
       ['Packs or an Azure tenant?', `Packs keep a failure contained to three inboxes. A tenant is far cheaper per inbox but all ${tenant.inboxesPerTenant} share one reputation. Under about 1,000 sends a day, buy packs.`],
     ].map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
@@ -63,8 +67,8 @@ const schema = {
       <h2>The four steps</h2>
       <ol class="steps">
         <li>
-          <h3>Inboxes: divide your daily target by 15</h3>
-          <p>Fifteen cold emails per inbox per day is what we run and what we recommend. It is deliberately low. The published provider limits are the point at which Google or Microsoft stop you, not advice on what is safe.</p>
+          <h3>Inboxes: divide your daily target by the pace</h3>
+          <p>{rate('google')} cold emails per inbox per day on Google Workspace, {rate('microsoft')} on Microsoft 365, {ex.tenantPace} per mailbox on a full Azure tenant. Those are what we run and what we recommend, and they are deliberately low. The published provider limits are the point at which Google or Microsoft stop you, not advice on what is safe.</p>
           <p class="ex mono">{ex.target.toLocaleString('en-US')} ÷ {ex.perInbox} = {ex.base} inboxes</p>
         </li>
         <li>
@@ -79,18 +83,18 @@ const schema = {
         </li>
         <li>
           <h3>Cost: price both shapes, not one</h3>
-          <p>The same {ex.inboxes} inboxes cost wildly different amounts depending on whether you buy packs or a tenant, and the cheaper one is not automatically the right one. That is the next section.</p>
+          <p>The same volume costs wildly different amounts depending on whether you buy packs or tenants, and the cheaper one is not automatically the right one. That is the next section.</p>
           <p class="ex mono">{ex.packs} packs of {pack.packSize}, or {ex.tenants} {ex.tenants === 1 ? 'tenant' : 'tenants'}</p>
         </li>
       </ol>
 
       <h2>The decision a calculator will not make for you</h2>
-      <p>At {ex.target.toLocaleString('en-US')} sends a day you need {ex.inboxes} inboxes either way. What changes is the shape you buy them in, and the two shapes are not the same product at different prices.</p>
+      <p>At {ex.target.toLocaleString('en-US')} sends a day you need {ex.inboxes} Google inboxes in packs, or {ex.tenantMailboxes} mailboxes across Azure tenants, because a tenant mailbox sends {ex.tenantPace} a day rather than {ex.perInbox}. The two shapes are not the same product at different prices.</p>
       <div class="scroll-x">
         <table>
           <thead><tr><th></th><th>Packs</th><th>Azure {ex.tenants === 1 ? 'tenant' : 'tenants'}</th></tr></thead>
           <tbody>
-            <tr><td>What you buy</td><td>{ex.packs} packs of {pack.packSize}</td><td>{ex.tenants} {ex.tenants === 1 ? 'tenant' : 'tenants'} of {tenant.inboxesPerTenant}</td></tr>
+            <tr><td>What you buy</td><td>{ex.packs} packs of {pack.packSize}, {ex.perInbox} a day each</td><td>{ex.tenants} {ex.tenants === 1 ? 'tenant' : 'tenants'} of {tenant.inboxesPerTenant}, {ex.tenantPace} a day each</td></tr>
             <tr><td>Roughly per month</td><td>{money(ex.packCost)}</td><td class="yes">{money(ex.tenantCost)}</td></tr>
             <tr><td>Domains involved</td><td class="yes">{ex.domains}</td><td>Far fewer</td></tr>
             <tr><td>What one failure costs you</td><td class="yes">{pack.packSize} inboxes</td><td class="no">Up to {tenant.inboxesPerTenant} at once</td></tr>
@@ -102,7 +106,7 @@ const schema = {
       <p>The full risk model is on the <a href="/prewarmed-azure-inboxes/">Azure tenant page</a>, and the two are compared directly in <a href="/compare/azure-tenant-vs-microsoft-365/">Azure tenant vs Microsoft 365 packs</a>.</p>
 
       <h2>Then check what waiting costs you</h2>
-      <p>Sizing tells you what to buy. It does not tell you whether to buy it warmed or warm it yourself, and that decision usually turns on the value of the weeks rather than the price of the mailbox. The <a href="/tools/warmup-tax/">warmup tax calculator</a> puts a number on the 51 days.</p>
+      <p>Sizing tells you what to buy. It does not tell you whether to buy it prewarmed or fresh, and that decision usually turns on the value of the weeks rather than the price of the mailbox. The <a href="/calculator/">calculator</a> prices both against your start date.</p>
 
       <p class="cta-row"><a class="btn btn-primary btn-lg" href={calcUrl} target="_blank" rel="noopener">Run the numbers at Warm Inboxes ↗</a></p>
     </div>

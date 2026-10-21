@@ -1,8 +1,8 @@
 {
   "_verified": true,
-  "_source": "Confirmed correct by the site owner on 2026-09-29.",
+  "_source": "Matched to the Warm Inboxes price list (https://warminboxes.com/price.md) on 2026-10-21.",
   "_confirmedBy": "site owner",
-  "_confirmedAt": "2026-09-29",
+  "_confirmedAt": "2026-10-21",
   "currency": "USD",
   "terms": [
     {
@@ -19,6 +19,24 @@
       "id": "quarterly",
       "label": "Quarterly",
       "months": 3,
+      "best": true
+    }
+  ],
+  "freshTerms": [
+    {
+      "id": "monthly",
+      "label": "Monthly",
+      "months": 1
+    },
+    {
+      "id": "quarterly",
+      "label": "Quarterly",
+      "months": 3
+    },
+    {
+      "id": "yearly",
+      "label": "Yearly",
+      "months": 12,
       "best": true
     }
   ],
@@ -78,22 +96,57 @@
     "google-fresh": {
       "label": "Fresh Google Workspace",
       "unit": "inbox",
-      "packSize": 3,
       "domainIncluded": false,
-      "monthlyOnly": true,
+      "terms": "freshTerms",
+      "fromPrice": 3.5,
       "perUnit": {
-        "monthly": 3.0
-      }
+        "monthly": 3.5,
+        "quarterly": 3.25,
+        "yearly": 3
+      },
+      "tiers": [
+        {
+          "label": "No minimum",
+          "min": 1,
+          "perUnit": {
+            "monthly": 3.5,
+            "quarterly": 3.25,
+            "yearly": 3
+          }
+        },
+        {
+          "label": "30 inboxes or more",
+          "min": 30,
+          "perUnit": {
+            "monthly": 3.25,
+            "quarterly": 3,
+            "yearly": 2.5
+          }
+        },
+        {
+          "label": "100 inboxes or more",
+          "min": 100,
+          "perUnit": {
+            "monthly": 3,
+            "quarterly": 2.5,
+            "yearly": 2
+          }
+        }
+      ],
+      "note": "Built on your own domain, then warmed by Warm Inboxes for 14 to 21 days before you send."
     },
     "microsoft-fresh": {
       "label": "Fresh Microsoft 365",
       "unit": "inbox",
-      "packSize": 3,
       "domainIncluded": false,
-      "monthlyOnly": true,
+      "terms": "freshTerms",
+      "fromPrice": 3,
       "perUnit": {
-        "monthly": 3.0
-      }
+        "monthly": 3,
+        "quarterly": 2.5,
+        "yearly": 2
+      },
+      "note": "Built on your own domain, then warmed by Warm Inboxes for 14 to 21 days before you send."
     },
     "azure-fresh": {
       "label": "Fresh Azure tenant",
@@ -114,21 +167,28 @@
         }
       ],
       "domainIncluded": false,
+      "terms": "freshTerms",
+      "flatAllTerms": true,
+      "fromPrice": 0.5,
       "perTenant": {
-        "monthly": 50
+        "monthly": 50,
+        "quarterly": 50,
+        "yearly": 50
       },
       "perInbox": {
-        "monthly": 0.5
+        "monthly": 0.5,
+        "quarterly": 0.5,
+        "yearly": 0.5
       },
-      "note": "Flat per tenant, unwarmed. No aging, no warming, no domain.",
-      "monthlyOnly": true
+      "note": "One flat price per tenant on every billing cycle, 25 to 100 inboxes on one domain. Built on your own domain, then warmed by Warm Inboxes for 14 to 21 days before you send."
     },
     "domain-fresh": {
       "label": "Fresh .com domain",
       "unit": "domain",
-      "billing": "yearly",
+      "billing": "one-time",
       "price": 12,
-      "note": "Registered clean and handed over. No aging, no warming, no sending history. Renews yearly."
+      "listPrice": 20,
+      "note": "Bought through Warm Inboxes: $20 list, currently $12, one off. Bring your own domain and there is no domain charge."
     },
     "domain-prewarmed": {
       "label": "Prewarmed domain",
@@ -162,7 +222,7 @@
   "policy": {
     "refunds": "No refunds. State this plainly on /refund-policy/. Hiding it is both an Ads disapproval risk and a chargeback risk.",
     "nonComFrom": 4.5,
-    "delivery": "Same day on business days",
+    "delivery": "Delivered within 48 to 72 hours of payment",
     "priceMatch": "If another provider quotes you less for the same thing, send us the quote and we will match it."
   }
 }

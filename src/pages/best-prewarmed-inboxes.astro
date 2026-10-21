@@ -6,7 +6,7 @@ import { criteria } from '../data/providers.js';
 import WhatsApp from '../components/WhatsApp.astro';
 const faqs = [
   ['Which prewarmed inbox provider is best?', 'It depends on which of these you need most: aging, warming, an included domain, how fast a fresh batch ships, and platform coverage. This page ranks the criteria rather than the companies, because we sell one of the companies.'],
-  ['When should I not buy prewarmed inboxes?', 'When your launch is more than about two months out and you already run warming yourself. Prewarmed buys time and removes setup work. If you have the time and the setup is not a problem for you, you are paying for something you do not need.'],
+  ['When should I not buy prewarmed inboxes?', 'When your launch is three weeks or more out, or the sending domain has to carry your own brand. Prewarmed buys time. If you have the time, fresh inboxes on your own domain are warmed for you for 14 to 21 days and cost less.'],
   ['Is prewarmed just a rebranded aged domain?', 'From some sellers, yes. Aged means old. Prewarmed means aged and then used to send and receive real mail under published authentication. Ask how many days of each, and treat a vague answer as a no.'],
   ['Are the warmup networks real traffic?', 'Warming pools are accounts mailing each other. That is not the same as a customer conversation, and nobody should claim otherwise. What it does do is establish a normal sending pattern before you start, which is what the receiving side is checking for.'],
   ['Does buying prewarmed guarantee inbox placement?', 'No, and a provider who says it does is selling you something they cannot deliver. Infrastructure decides whether you get a fair hearing. Your list and your copy decide the rest.'],
@@ -34,7 +34,7 @@ const schema = {
       <ol class="asks">
         <li><strong>How many days was the domain registered before its first send?</strong><span>Under 30 and you are buying a domain that is exposed to an early blocklisting, which is the hardest kind to reverse. This is the step most often skipped, because waiting costs the seller stock turnover.</span></li>
         <li><strong>How many days did it send and receive real mail before I get it?</strong><span>Age alone builds no reputation. A domain registered in 2011 that has never sent anything is an unknown sender. If the answer is a number of days, good. If it is "it's aged", they have answered a different question.</span></li>
-        <li><strong>How fast can they ship a fresh batch?</strong><span>Every provider has domains that stop landing. What differs is how quickly you are sending again. Repairing a damaged domain takes weeks and often does not restore the reputation, so same-day fresh domains and inboxes are worth more than any repair promise.</span></li>
+        <li><strong>How fast can they ship a fresh batch?</strong><span>Every provider has domains that stop landing. What differs is how quickly you are sending again. Repairing a damaged domain takes weeks and often does not restore the reputation, so a new batch you can order the same day and have within days is worth more than any repair promise.</span></li>
       </ol>
 
       <h2>The criteria, in the order they matter</h2>
@@ -46,8 +46,8 @@ const schema = {
 
       <h2>When you should not buy prewarmed inboxes</h2>
       <p>Prewarmed infrastructure solves two problems: time to launch, and the setup work. If neither of those is your problem, you are paying for something you do not need, and you should not.</p>
-      <p><strong>You have three or four weeks and do not value the speed.</strong> If nothing has to go out until well into next quarter, fresh infrastructure is a perfectly reasonable purchase. Buy fresh mailboxes, run the aging and the warming yourself, and keep the difference. The <a href="/calculator/">calculator</a> will tell you whether your date actually leaves room.</p>
-      <p><strong>You already run warming well.</strong> Some teams have the tooling, the routine and the patience. For them the 51 days is a background process rather than a project, and paying someone else to have already done it is paying for convenience they do not need.</p>
+      <p><strong>You have three or four weeks and do not value the speed.</strong> If nothing has to go out for a month, fresh infrastructure is a perfectly reasonable purchase. Fresh mailboxes are built on your own domain and warmed for you for 14 to 21 days, at a lower price per inbox. The <a href="/calculator/">calculator</a> will tell you whether your date actually leaves room.</p>
+      <p><strong>You want your own brand on the sending domain.</strong> Prewarmed inboxes come on a prewarmed domain and stay on it. If the domain has to carry your name, fresh inboxes on your own domain are the product.</p>
       <p><strong>Your problem is the list, not the infrastructure.</strong> This is the big one. If your replies stopped because you are emailing bad data or your copy reads like a template, new inboxes will burn exactly as fast as the old ones did and you will have spent money to arrive in the same place. Rule out the list first. A provider who lets you buy without asking about your list is not being helpful.</p>
       <p><strong>You have not found out why the last domain went.</strong> Replacing capacity before you understand the failure repeats the failure on cleaner infrastructure.</p>
 
@@ -56,8 +56,8 @@ const schema = {
       <p>From some sellers, that is exactly what it is, and the way to find out is question two above. Aged and prewarmed describe different things, and only one of them involves the domain having sent anything. A domain bought second hand, registered years ago, abandoned repeatedly and last used for spam is worse than one registered last month, and the listing will only mention the year.</p>
       <h3>"Warmup pools are fake traffic"</h3>
       <p>Warming pools are accounts mailing each other, and pretending that is indistinguishable from customer correspondence would be dishonest. What it establishes is a normal pattern of mail going out, mail coming back and replies happening, before you start sending to strangers. That pattern is what the receiving side looks at. It is a real signal produced by an artificial process, and both halves of that sentence are true.</p>
-      <h3>"Would I not be better warming fresh mailboxes myself?"</h3>
-      <p>Often, yes. See the section above. The honest framing is that prewarmed primarily buys time to launch and removes setup work. It is not magic and it is not a different class of mailbox. It is the same mailbox with 51 days already spent on it.</p>
+      <h3>"Would I not be better buying fresh mailboxes?"</h3>
+      <p>Often, yes, when your date allows. See the section above. The honest framing is that prewarmed primarily buys time to launch and removes setup work. It is not magic and it is not a different class of mailbox. It is the same mailbox with 51 days already spent on it.</p>
       <h3>"What about the ownership history of the domain?"</h3>
       <p>A fair question, and the reason to ask what a provider checks before acquisition. Drop history and blocklist exposure both matter and neither is visible from the age. Our own answer is on the <a href="/prewarmed-domains/">domains page</a>; ask anyone else the same thing.</p>
 
@@ -67,7 +67,7 @@ const schema = {
 
       <section class="ours">
         <h2>What we ship, for comparison</h2>
-        <p>So you can run the questions on us: domains aged 30 days before first send, then 21 days of real sending and receiving; the domain included at no cost; Google Workspace, Microsoft 365 and Azure tenants; delivered same day. On replacement: we do not repair damaged domains or swap them, because repair takes weeks and rarely restores the reputation. A fresh batch ships the same day instead.</p>
+        <p>So you can run the questions on us: domains aged 30 days before first send, then 21 days of real sending and receiving; the domain included at no cost; Google Workspace, Microsoft 365 and Azure tenants; delivered within 48 to 72 hours of payment. On replacement: we do not repair damaged domains or swap them, because repair takes weeks and rarely restores the reputation. A new batch can be ordered the same day instead, and arrives within 48 to 72 hours.</p>
         <p class="cta"><a class="btn btn-primary btn-lg" href={order({ page: 'best-prewarmed-inboxes', placement: 'body' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out what you need →</a> <WhatsApp /></p>
       </section>
 
