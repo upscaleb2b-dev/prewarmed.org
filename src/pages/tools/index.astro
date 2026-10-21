@@ -30,17 +30,17 @@ const schema = {
 };
 ---
 <Base
-  title={`${live.length} Free Cold Email Deliverability Tools`}
-  description={`${live.length} free tools to diagnose cold email infrastructure: blacklists, authentication, list hygiene and pre-send QA. No signup.`}
+  title={`${tools.total} Free Cold Email Deliverability Tools`}
+  description={`${tools.total} free tools to diagnose cold email infrastructure: blacklists, authentication, list hygiene and pre-send QA. No signup.`}
   schema={schema}>
 
   <section class="section">
     <div class="wrap">
       <p class="eyebrow">Free tools</p>
       <h1>Diagnose before you buy.</h1>
-      <p class="lede">{live.length} free tools, no signup. Each one tells you when to run it and what to do with the answer.</p>
+      <p class="lede">{tools.total} free deliverability tools, no signup. The ones below each tell you when to run it and what to do with the answer.</p>
       <p class="cta-row">
-        <a class="btn btn-primary btn-lg" href={wiUrl(tools.hub, { page: 'tools-hub', placement: 'hero' })} target="_blank" rel="noopener">Open all {live.length} tools ↗</a>
+        <a class="btn btn-primary btn-lg" href={wiUrl(tools.hub, { page: 'tools-hub', placement: 'hero' })} target="_blank" rel="noopener">Open all {tools.total} tools ↗</a>
         <a class="btn btn-ghost btn-lg" href="#diagnose">Start with what is broken →</a>
       </p>
       <p class="src mono">Tools open on warminboxes.com. Free, no signup.</p>
@@ -74,7 +74,7 @@ const schema = {
 
   <section class="section">
     <div class="wrap">
-      <p class="all"><a class="btn btn-primary btn-lg" href={wiUrl(tools.hub, { page: 'tools-hub', placement: 'browse-all' })} target="_blank" rel="noopener">Open all {live.length} tools ↗</a></p>
+      <p class="all"><a class="btn btn-primary btn-lg" href={wiUrl(tools.hub, { page: 'tools-hub', placement: 'browse-all' })} target="_blank" rel="noopener">Open all {tools.total} tools ↗</a></p>
     </div>
   </section>
 

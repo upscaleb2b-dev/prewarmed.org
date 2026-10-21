@@ -73,7 +73,7 @@ ${link('/compare/azure-tenant-vs-microsoft-365/', 'Azure tenant vs Microsoft 365
 
 ## Free tools
 
-${live.length} free tools, no signup. Hub: ${B}/tools/
+${tools.total} free tools, no signup. Hub: ${B}/tools/
 
 ${live.slice(0, 12).map((t) => `- ${t.name}: ${t.short}`).join('\n')}
 

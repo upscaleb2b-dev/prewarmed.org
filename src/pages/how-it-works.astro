@@ -129,8 +129,8 @@ import VolumeTable from '../components/VolumeTable.astro';
   <p>If you are building on the API or MCP and want help getting started, message support on WhatsApp or email <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>.</p>
 
   <h2 id="tools">The free tools</h2>
-  <p>All {tools.tools.filter((t) => t.live).length} are free and need no signup, so you can check DNS, authentication and blacklist status before you send. The ones people reach for first are the blacklist checker, the deliverability checker, which grades a domain A to F across SPF, DKIM, DMARC, MX, blacklists and domain age, and the burned inbox checker.</p>
-  <p><a class="btn btn-ghost" href="/tools/">Browse the tools →</a> <a class="btn btn-ghost" href={wiUrl(tools.hub, { page: 'how-it-works', placement: 'tools' })} target="_blank" rel="noopener">Open all {tools.tools.filter((t) => t.live).length} tools ↗</a></p>
+  <p>All {tools.total} are free and need no signup, so you can check DNS, authentication and blacklist status before you send. The ones people reach for first are the blacklist checker, the deliverability checker, which grades a domain A to F across SPF, DKIM, DMARC, MX, blacklists and domain age, and the burned inbox checker.</p>
+  <p><a class="btn btn-ghost" href="/tools/">Browse the tools →</a> <a class="btn btn-ghost" href={wiUrl(tools.hub, { page: 'how-it-works', placement: 'tools' })} target="_blank" rel="noopener">Open all {tools.total} tools ↗</a></p>
 
   <h2 id="support">Support and billing</h2>
   <p>Support is 24/7 from the operators who run cold email themselves. No tickets and no chatbots.</p>

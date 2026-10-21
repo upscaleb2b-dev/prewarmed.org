@@ -12,6 +12,7 @@
 import Simple from '../layouts/Simple.astro';
 import Faq from '../components/Faq.astro';
 import WhatsApp from '../components/WhatsApp.astro';
+import tools from '../data/tools.json';
 
 
 const faqs = [
@@ -65,7 +66,7 @@ const faqs = [
 
   <Faq faqs={faqs} />
 
-  <p class="alt">In the meantime, the email side is live: <a href="/prewarmed-inboxes/">prewarmed inboxes</a>, <a href="/prewarmed-domains/">prewarmed domains</a>, and <a href="/tools/">33 free tools</a>.</p>
+  <p class="alt">In the meantime, the email side is live: <a href="/prewarmed-inboxes/">prewarmed inboxes</a>, <a href="/prewarmed-domains/">prewarmed domains</a>, and <a href="/tools/">{tools.total} free deliverability tools</a>.</p>
 </Simple>
 
 <style>

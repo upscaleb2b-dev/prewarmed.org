@@ -79,7 +79,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
                 <div class="mega-cta">
                   <a class="btn btn-primary" href="/prewarmed-inboxes/">See inboxes</a>
                   <a href={wiUrl(tools.hub, { page: 'nav', placement: 'tools-mega' })}
-                     target="_blank" rel="noopener">All {live.length} free tools ↗</a>
+                     target="_blank" rel="noopener">All {tools.total} free tools ↗</a>
                 </div>
               </div>
             </div>
@@ -110,7 +110,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
           {item.children && (
             <div class="m-sub">{item.children.map((c) => <a href={c.href}>{c.label}</a>)}</div>
           )}
-          {item.mega && <div class="m-sub"><a href="/tools/">All {live.length} free tools</a></div>}
+          {item.mega && <div class="m-sub"><a href="/tools/">All {tools.total} free tools</a></div>}
           {item.leads && <div class="m-sub"><a href="/leads/">{leads.totalLists} lists · {leadsM}M+ contacts</a></div>}
         </div>
       ))}

@@ -1,6 +1,8 @@
 {
   "_note": "Tool list and URLs taken from the warminboxes.com page export supplied 2026-09-16. supportsDomainParam is null where it has not been confirmed with the WI dev team.",
   "hub": "https://warminboxes.com/deliverability-tools",
+  "total": 55,
+  "_totalSource": "Count published on the Warm Inboxes tools hub (warminboxes.com/deliverability-tools), checked 2026-10-21. The list below is the subset this site describes individually.",
   "tools": [
     {
       "id": "bimi-checker",
