@@ -264,7 +264,7 @@ import WiProof from '../components/WiProof.astro';
     </div>
   </section>
 
-  <Testimonials page={p.slug} limit={6} heading="Operators running on this infrastructure" />
+  <Testimonials page={p.slug} limit={8} platform={p.pricingKey?.startsWith('google') ? 'google' : p.pricingKey?.startsWith('azure') ? 'azure' : null} heading="Operators running on this infrastructure" />
 
   <section class="section">
     <div class="wrap"><Faq faqs={p.faqs} /></div>

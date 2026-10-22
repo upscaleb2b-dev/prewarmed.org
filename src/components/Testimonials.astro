@@ -1,46 +1,135 @@
 ---
 /**
- * Client reviews. Named people with roles, from warminboxes.com/reviews.
+ * Client video reviews, from warminboxes.com/reviews.
+ *
+ * Each card shows the YouTube thumbnail and only loads the player when it is
+ * clicked, the way Warm Inboxes does it: a row of eight live YouTube iframes
+ * would cost every visitor several megabytes and a slower page for videos
+ * most of them never press. The player is youtube-nocookie, so nothing is set
+ * until someone chooses to watch. Starting one video stops the last.
  *
  * A quote flagged `summary` is a review's title rather than a sentence the
  * person said, so it renders without quotation marks, putting speech marks
  * round "How Eleon Acquisition runs cold email" would be inventing a quote.
  */
-import { testimonials, featured, totalReviews } from '../data/testimonials.js';
-import { wi } from '../data/site.js';
-const { limit = 6, heading = 'What operators running this infrastructure say', page = 'site', pick = 'featured' } = Astro.props;
-const list = (pick === 'featured' ? featured : testimonials).slice(0, limit);
+import { testimonials, featured, totalReviews, reelFor } from '../data/testimonials.js';
+import { wi, wiUrl } from '../data/site.js';
+// inset={false} when the reel sits inside a page column that already has its own .wrap.
+const { limit = 8, heading = 'What operators running this infrastructure say', page = 'site', pick = 'featured', platform = null, inset = true } = Astro.props;
+const base = platform ? reelFor(platform) : pick === 'featured' ? featured : testimonials;
+const list = base.filter((t) => t.video).slice(0, limit);
+const all = wi('/reviews', { page, placement: 'video-reviews' });
 ---
-<section class="tst">
-  <div class="wrap">
-    <h2>{heading}</h2>
-    <p class="sub">
-      {totalReviews} named video reviews are published on
-      <a href={wi('/reviews', { page, placement: 'testimonials' })} target="_blank" rel="noopener">the Warm Inboxes reviews page <span class="ext" aria-hidden="true">↗</span></a>,
-      who fulfil every order placed here.
-    </p>
-    <div class="tgrid">
+<section class={`tst${inset ? '' : ' flush'}`}>
+  <div class={inset ? 'wrap' : ''}>
+    <div class="tst-head">
+      <div>
+        <h2>{heading}</h2>
+        <p class="sub">
+          {totalReviews} named video reviews from operators sending on this infrastructure, all published on
+          <a href={all} target="_blank" rel="noopener">the Warm Inboxes reviews page <span class="ext" aria-hidden="true">↗</span></a>,
+          who fulfil every order placed here.
+        </p>
+      </div>
+      <div class="arrows">
+        <button type="button" class="arw" data-dir="-1" aria-label="Previous reviews">←</button>
+        <button type="button" class="arw" data-dir="1" aria-label="More reviews">→</button>
+      </div>
+    </div>
+    <div class="reel" role="list" aria-label="Video reviews">
       {list.map((t) => (
-        <figure class="t">
-          <blockquote>{t.summary ? t.quote : `“${t.quote}”`}</blockquote>
-          <figcaption><b>{t.name}</b><span>{t.role}</span></figcaption>
+        <figure class="v" role="listitem">
+          <div class="frame">
+            <button type="button" class="play" data-yt={t.video} data-who={t.name} aria-label={`Play ${t.name}'s video review`}>
+              <img src={`https://i.ytimg.com/vi/${t.video}/hqdefault.jpg`} alt="" loading="lazy" decoding="async" width="480" height="360" />
+              <span class="pbtn" aria-hidden="true"><svg viewBox="0 0 24 24" width="26" height="26"><path fill="currentColor" d="M8 5.5v13l11-6.5z" /></svg></span>
+            </button>
+          </div>
+          <figcaption>
+            <blockquote>{t.summary ? t.quote : `“${t.quote}”`}</blockquote>
+            <p class="who"><b>{t.name}</b><span>{t.role}</span></p>
+            <a class="full" href={wiUrl(`https://warminboxes.com/reviews/${t.review}`, { page, placement: 'video-review' })} target="_blank" rel="noopener">Full review ↗</a>
+          </figcaption>
         </figure>
       ))}
+      <a class="v more" role="listitem" href={all} target="_blank" rel="noopener">
+        <span class="mn mono">{totalReviews}</span>
+        <span class="ml">Watch all {totalReviews} video reviews on Warm Inboxes ↗</span>
+      </a>
     </div>
   </div>
 </section>
 
+<script is:inline>
+(() => {
+  if (window.__pwReel) return;
+  window.__pwReel = true;
+  let current = null;
+  document.addEventListener('click', (e) => {
+    const arw = e.target.closest('.tst .arw');
+    if (arw) {
+      const reel = arw.closest('.tst').querySelector('.reel');
+      reel.scrollBy({ left: +arw.dataset.dir * reel.clientWidth * 0.85, behavior: 'smooth' });
+      return;
+    }
+    const btn = e.target.closest('.tst .play');
+    if (!btn) return;
+    const id = btn.dataset.yt, who = btn.dataset.who;
+    if (current) current.frame.replaceWith(current.btn);
+    const f = document.createElement('iframe');
+    f.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&playsinline=1';
+    f.title = who + ' video review of Warm Inboxes';
+    f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+    f.allowFullscreen = true;
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
+    btn.replaceWith(f);
+    current = { frame: f, btn };
+    if (window.gtag) window.gtag('event', 'video_play', { video_id: id, reviewer: who, pw_from: location.pathname });
+  });
+})();
+</script>
+
 <style>
-  .tst { padding-block: 60px; }
+  /* Sized by the space it sits in, not the screen, so the same reel works
+     full width on the home page and inside a narrow hub column. */
+  .tst { padding-block: 60px; container-type: inline-size; }
+  .tst.flush { padding-block: 40px 20px; }
+  .tst-head { display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin: 0 0 24px; }
   .tst h2 { margin: 0 0 12px; }
-  .sub { color: var(--text-2); margin: 0 0 28px; max-width: 62ch; font-size: 16px; }
-  .tgrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-  @media (max-width: 900px) { .tgrid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 620px) { .tgrid { grid-template-columns: 1fr; } }
-  .t { margin: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 20px 22px; display: flex; flex-direction: column; gap: 14px; }
-  .t blockquote { margin: 0; font-size: 16px; line-height: 1.55; color: var(--text); }
-  .t figcaption { margin-top: auto; font-size: 13.5px; line-height: 1.45; }
-  .t figcaption b { display: block; color: var(--text); font-weight: 600; }
-  .t figcaption span { color: var(--text-muted); }
+  .sub { color: var(--text-2); margin: 0; max-width: 62ch; font-size: 16px; }
   .sub a { text-decoration: underline; text-underline-offset: 2px; }
+  .arrows { display: flex; gap: 8px; flex: none; }
+  .arw { width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--border-strong); background: transparent; color: var(--text); font-size: 18px; cursor: pointer; }
+  .arw:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* A row of cards you swipe or scroll sideways. Four across on a laptop,
+     a card and a half on a phone so it is obvious there is more. */
+  .reel {
+    display: grid; grid-auto-flow: column; gap: 16px;
+    grid-auto-columns: 72%;
+    overflow-x: auto; overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory; padding-bottom: 12px;
+    scrollbar-width: thin; scrollbar-color: var(--border-strong) transparent;
+  }
+  @container (min-width: 560px) { .reel { grid-auto-columns: calc((100% - 32px) / 2.6); } }
+  @container (min-width: 1000px) { .reel { grid-auto-columns: calc((100% - 48px) / 4); } }
+  @container (max-width: 559px) { .arrows { display: none; } }
+  .v { scroll-snap-align: start; margin: 0; display: flex; flex-direction: column; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); overflow: hidden; }
+  .frame { aspect-ratio: 9 / 16; background: #000; position: relative; }
+  .play { display: block; width: 100%; height: 100%; padding: 0; margin: 0; border: 0; background: none; cursor: pointer; position: relative; }
+  .play img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .frame iframe { width: 100%; height: 100%; border: 0; display: block; }
+  .pbtn { position: absolute; inset: 0; margin: auto; width: 62px; height: 62px; border-radius: 50%; background: var(--accent); color: var(--accent-ink); display: grid; place-items: center; box-shadow: 0 6px 24px rgba(0, 0, 0, .45); transition: transform .15s ease; }
+  .play:hover .pbtn, .play:focus-visible .pbtn { transform: scale(1.08); }
+  .play:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+  figcaption { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  blockquote { margin: 0; font-size: 15px; line-height: 1.5; color: var(--text); }
+  .who { margin: auto 0 0; font-size: 13.5px; line-height: 1.4; }
+  .who b { display: block; color: var(--text); font-weight: 600; }
+  .who span { color: var(--text-muted); }
+  .full { font-size: 13.5px; color: var(--accent); }
+  .more { justify-content: center; align-items: center; text-align: center; padding: 24px; gap: 10px; color: var(--text); text-decoration: none; }
+  .more:hover { border-color: var(--accent); text-decoration: none; }
+  .mn { font-size: 52px; color: var(--accent); line-height: 1; }
+  .ml { font-size: 15px; font-weight: 600; max-width: 16ch; }
 </style>
