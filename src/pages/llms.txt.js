@@ -66,7 +66,7 @@ ${link('/google/', 'Google Workspace', 'What Gmail checks, how many inboxes you 
 ${link('/microsoft/', 'Microsoft 365, Outlook and Azure', 'Packs vs tenants, and why Microsoft tells you why mail failed.')}
 ${link('/how-it-works/', 'How it works', 'The 51 days: 30 aging, 21 warming.')}
 ${link('/providers/', 'Provider directory', 'Who sells prewarmed inboxes, and the criteria to judge on.')}
-${link('/methodology/', 'Methodology', 'How this site judges, where numbers come from, and what it will not claim.')}
+${link('/methodology/', 'Prewarmed inboxes tests and FAQs', 'How every prewarmed batch is seed-tested before it ships, the inbox placement test log, and common questions.')}
 ${link('/pricing/', 'Pricing', 'Every price, from one data file.')}
 ${link('/compare/google-vs-microsoft-vs-azure/', 'Google vs Microsoft vs Azure', 'Which platform matches your list.')}
 ${link('/compare/azure-tenant-vs-microsoft-365/', 'Azure tenant vs Microsoft 365 packs', 'Cost per inbox against how much one bad week reaches.')}

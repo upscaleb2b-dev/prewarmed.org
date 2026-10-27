@@ -1,20 +1,77 @@
 ---
+/**
+ * Tests and FAQs. The URL stays /methodology/ so existing links keep working.
+ *
+ * The placement test log on warminboxes.com is the record behind every
+ * "prewarmed" claim on this site, so it leads the page: the log itself and
+ * both CSVs, linked rather than copied, because it grows every month and a
+ * copy here would go stale. Figures below come from volume.js and the same
+ * data files every other page reads.
+ */
 import Simple from '../layouts/Simple.astro';
-import { site } from '../data/site.js';
-import { criteria, unverified } from '../data/providers.js';
+import Faq from '../components/Faq.astro';
+import { site, wiUrl } from '../data/site.js';
+import { criteria } from '../data/providers.js';
+import { rate } from '../data/volume.js';
+import pricing from '../data/pricing.json';
+
+const page = 'methodology';
+const LOG = 'https://warminboxes.com/research/inbox-placement-log';
+const log = (url, placement) => wiUrl(url, { page, placement });
+
+const faqs = [
+  ['How are prewarmed inboxes tested?', 'Every new batch is seed-tested before it ships: messages go out to a seed list of real Gmail, Outlook and other mailboxes, and each one is scored as inbox or spam. Warm Inboxes deploys only batches that clear 95% inbox placement.'],
+  ['Where can I see the test results?', 'In the inbox placement test log on warminboxes.com. It is published month by month, with sent, received, inbox and spam counts, and a breakdown by sending and receiving provider. Both are downloadable as CSV.'],
+  ['What does prewarmed mean on this site?', 'A domain aged 30 days with its records in place, then warmed for 21 days on real sending and receiving, before it reaches you. 51 days in all, already done when you log in.'],
+  ['How many cold emails can a prewarmed inbox send?', `About ${rate('google')} a day on Google Workspace, ${rate('microsoft')} on Microsoft 365 and ${rate('azure-100')} per mailbox on a full Azure tenant of 100. Volume comes from more inboxes, not from pushing each one harder.`],
+  ['How fast do they arrive?', `${pricing.policy.delivery}, with SPF, DKIM and DMARC set and ready to send on arrival.`],
+  ['Can I test them myself?', 'Yes, and it takes a few minutes. Send a message to a Gmail and an Outlook address you control and check the headers show spf=pass, dkim=pass and dmarc=pass, then run the domain through the free deliverability checker.'],
+  ['Does a passing test mean every email lands in the inbox?', 'It means the batch was landing when it shipped. What keeps it landing is how it is used: a steady daily pace, verified lists and a low bounce rate. Mailbox providers make the final call on every message.'],
+];
+
+const schema = {
+  '@graph': [
+    { '@type': 'WebPage', name: 'Prewarmed Inboxes Tests and FAQs', url: 'https://prewarmed.org/methodology/', publisher: { '@id': 'https://prewarmed.org/#org' } },
+    { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
+  ],
+};
 ---
-<Simple schema={{ '@type': 'WebPage', name: 'Methodology', url: 'https://prewarmed.org/methodology/', publisher: { '@id': 'https://prewarmed.org/#org' } }} title="Methodology: How prewarmed.org Judges Inbox Providers"
-  description="The criteria this site judges prewarmed inbox providers on, where the numbers come from, and how we handle selling what we write about."
-  eyebrow="Methodology" h1="How we judge, and what we will not claim"
-  lede="We sell prewarmed inboxes. That does not make a comparison worthless, but it does mean the method has to be checkable.">
+<Simple schema={schema} title="Prewarmed Inboxes Tests and FAQs | prewarmed.org"
+  description="How every batch of prewarmed inboxes is seed-tested before it ships, the full inbox placement test log, and answers to the common questions."
+  eyebrow="Tests and FAQs" h1="Prewarmed Inboxes Tests and FAQs"
+  lede="Every batch is seed-tested for inbox placement before it ships, and every result is logged and published. Here is the log, how the tests work, and the questions people ask first.">
 
-  <p class="note">{site.disclosure}</p>
+  <section class="logcard" aria-labelledby="log-h">
+    <p class="tag">Inbox placement test log</p>
+    <h2 id="log-h">Every past test, published month by month</h2>
+    <p>Before a batch of prewarmed inboxes ships, Warm Inboxes sends from it to a seed list of real Gmail, Outlook and other mailboxes and scores where every message lands. Only batches that clear 95% inbox placement are deployed. The full record of those tests, every month since testing began, is public.</p>
+    <ul class="has">
+      <li>Messages sent, received, landed in the inbox and landed in spam, per month</li>
+      <li>Placement broken down by sending and receiving provider</li>
+      <li>Downloadable as CSV, free to reuse with attribution</li>
+    </ul>
+    <div class="logcta">
+      <a class="btn btn-primary btn-lg" href={log(LOG, 'log-hero')} target="_blank" rel="noopener">Open the placement test log ↗</a>
+    </div>
+    <p class="dl">Download: <a href={log(`${LOG}.csv`, 'log-csv')} target="_blank" rel="noopener">monthly totals (CSV) ↗</a> · <a href={log(`${LOG}-routes.csv`, 'log-routes-csv')} target="_blank" rel="noopener">by provider route (CSV) ↗</a></p>
+  </section>
 
-  <h2>The conflict, stated first</h2>
-  <p>Warm Inboxes is one of the providers this site writes about. Every ranking page here will rank a company we own, and no amount of careful wording changes that. So rather than pretend to a neutrality we do not have, we do three things: publish the criteria before the conclusions, publish the figures that produce them, and never make a claim about a competitor that we have not checked against that competitor's own material.</p>
-  <p>If a comparison here favours us on a criterion you think is the wrong criterion, the criterion is the thing to argue with. That is why they are listed before anything is scored.</p>
+  <h2>How a batch is tested</h2>
+  <ol>
+    <li><strong>Aged.</strong> The domain sits for 30 days with SPF, DKIM, DMARC and MX in place before it sends anything.</li>
+    <li><strong>Warmed.</strong> 21 days of real sending and receiving, rising slowly, with replies coming back.</li>
+    <li><strong>Seed-tested.</strong> The batch sends to a seed list across the major mailbox providers, and every message is scored inbox or spam.</li>
+    <li><strong>Deployed or held back.</strong> Batches that clear 95% inbox placement ship. The result goes into the log either way.</li>
+  </ol>
 
-  <h2>The criteria</h2>
+  <h2>Why 30 days and 21 days</h2>
+  <p>Thirty days of aging exists because a domain that starts sending in its first few days is added to the major blocklists almost immediately, and a listing that early is the hardest kind to reverse. Age is one of the very few signals a sender cannot fake or accelerate.</p>
+  <p>Twenty-one days of warming exists because age alone builds no reputation. A domain that is old and has never sent anything is an unknown, not a trusted, sender. The warming period is what turns the age into a record, and the seed test is what confirms it worked.</p>
+
+  <div class="faqwrap"><Faq faqs={faqs} /></div>
+
+  <h2>How this site judges providers</h2>
+  <p>Warm Inboxes is one of the providers this site writes about, and the team behind it runs this site. So the criteria are published before any conclusion, the figures that produce them are published too, and no claim is made about another company that has not been checked against that company's own material.</p>
   <p>These are the things that decide whether an inbox works, in the order they tend to matter. They are not weighted into a single score, because a single score hides exactly the trade-off a buyer needs to see.</p>
   <dl class="crit">
     {criteria.map(([h, b]) => (
@@ -24,31 +81,33 @@ import { criteria, unverified } from '../data/providers.js';
 
   <h2>Where the numbers come from</h2>
   <ul>
-    <li><strong>Our own figures</strong> (aging and warming durations, sending rates, pack shapes) come from the infrastructure Warm Inboxes operates. They are what we run, not what we recommend to others and avoid ourselves.</li>
-    <li><strong>Prices</strong> come from a single data file that every page on this site reads. There is one price for a thing, and changing it changes it everywhere. The build refuses to publish while that file is marked unverified.</li>
-    <li><strong>Competitor facts</strong> are recorded only from a company's own site or documentation, with the date they were checked. Where a field has not been checked, the page says so rather than guessing.</li>
+    <li><strong>Placement results</strong> come from the seed tests above, published in the <a href={log(LOG, 'body')} target="_blank" rel="noopener">placement test log ↗</a>.</li>
+    <li><strong>Aging, warming, sending rates and pack shapes</strong> come from the infrastructure Warm Inboxes operates. They are what it runs, not what it recommends to others and avoids itself.</li>
+    <li><strong>Prices</strong> come from a single data file that every page on this site reads, matched to the Warm Inboxes price list. Changing a price changes it everywhere.</li>
+    <li><strong>Other providers' facts</strong> are recorded only from that company's own site or documentation, with the date they were checked.</li>
   </ul>
 
-  <h2>What we will not do</h2>
-  <ul>
-    <li>Publish a number we have not verified, including our own. Pages carry a visible warning where a figure is pending confirmation.</li>
-    <li>State a competitor's price, aging period or policy from memory or from a third-party summary. Those change, and being wrong about a rival is both a legal problem and the fastest way to lose a reader.</li>
-    <li>Write a review of a product nobody here has used, or attribute a quote to a person who did not say it.</li>
-    <li>Claim independence. This site is operated by a seller and says so on every page.</li>
-  </ul>
-
-  <h2>Why 30 days and 21 days</h2>
-  <p>The two numbers this site is built around deserve their own justification. Thirty days of aging exists because a domain that starts sending in its first few days is added to the major blocklists almost immediately, and a listing that early is the hardest kind to reverse. Age is one of the very few signals a sender cannot fake or accelerate.</p>
-  <p>Twenty-one days of warming exists because age alone builds no reputation. A domain that is old and has never sent anything is an unknown, not a trusted, sender. The warming period is what turns the age into a record.</p>
-  <p>Both are cautious. Shorter periods work often enough that plenty of providers sell them. They fail in a way that costs you a month, which is why we do not.</p>
+  <p class="note">{site.disclosure}</p>
 
   <h2>Corrections</h2>
-  <p>If a figure here is wrong, ours or a competitor's, write to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>. We will correct it and note what changed rather than editing quietly.</p>
+  <p>If a figure here is wrong, ours or anyone else's, write to <a href={`mailto:${site.correctionsEmail}`}>{site.correctionsEmail}</a>. We will correct it and note what changed.</p>
 </Simple>
 
 <style>
+  .logcard { margin: 0 0 12px; padding: 26px 26px 22px; border: 1px solid var(--accent); background: var(--accent-soft); border-radius: var(--r-card); }
+  .logcard .tag { margin: 0 0 6px; font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .logcard h2 { margin: 0 0 12px !important; }
+  .logcard p { color: var(--text-2); }
+  .has { margin: 14px 0 20px; }
+  .logcta { margin: 0 0 14px; }
+  .dl { font-size: 14px; margin: 0; }
+  .faqwrap { margin-top: 48px; }
   .crit { margin: 22px 0 0; }
   .crit > div { padding: 14px 0; border-bottom: 1px solid var(--border); }
   .crit dt { font-weight: 600; color: var(--text); font-size: 16px; margin-bottom: 6px; }
   .crit dd { margin: 0; color: var(--text-2); font-size: 15.5px; }
+  @media (max-width: 560px) {
+    .logcard { padding: 22px 18px 18px; }
+    .logcta .btn { width: 100%; }
+  }
 </style>
