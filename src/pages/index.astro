@@ -6,7 +6,6 @@ import Faq from '../components/Faq.astro';
 import { products } from '../data/products.js';
 import { site, wi, order } from '../data/site.js';
 import pricing from '../data/pricing.json';
-import tools from '../data/tools.json';
 import Handoff from '../components/Handoff.astro';
 import ProviderMark from '../components/ProviderMark.astro';
 import ProofStats from '../components/ProofStats.astro';
@@ -41,7 +40,7 @@ const schema = {
       <p class="lede">Gmail and Outlook do not trust a new domain. We age and warm it 51 days so you can send the day your inboxes arrive, on Google Workspace, Microsoft 365 or Azure.</p>
       <div class="cta">
         <a class="btn btn-primary btn-lg" href={order({ page: 'home', placement: 'hero' })} target="_blank" rel="noopener">Get inboxes</a>
-        <a class="btn btn-ghost btn-lg" href="/tools/">{tools.total} free deliverability tools</a> <WhatsApp />
+        <a class="btn btn-ghost btn-lg" href="/tools/#agent">Download deliverability agent</a> <WhatsApp />
       </div>
       <Handoff />
 

@@ -5,6 +5,7 @@ import tools from '../../data/tools.json';
 import { toolUrl, wi, wiUrl, order } from '../../data/site.js';
 import Handoff from '../../components/Handoff.astro';
 import WhatsApp from '../../components/WhatsApp.astro';
+import DeliverabilityAgent from '../../components/DeliverabilityAgent.astro';
 
 const groups = [
   { id: 'diagnose', label: 'Something is wrong', blurb: 'Emails stopped landing. Find out why.' },
@@ -45,6 +46,10 @@ const schema = {
       </p>
       <p class="src mono">Tools open on warminboxes.com. Free, no signup.</p>
     </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap"><DeliverabilityAgent page="tools-hub" /></div>
   </section>
 
   {groups.map((g) => {
