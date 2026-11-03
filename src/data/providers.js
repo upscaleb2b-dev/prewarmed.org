@@ -41,9 +41,9 @@ export const providers = [
     agingDays: 30,
     warmingDays: 21,
     domainIncluded: true,
-    replacement: 'No repair and no swap. A damaged domain is retired and a new batch can be ordered the same day, arriving within 48 to 72 hours, which beats waiting weeks on a repair that may not hold.',
+    replacement: 'No repair and no swap. A damaged domain is retired and a new batch can be ordered and typically delivered the same day, which beats waiting weeks on a repair that may not hold.',
     platforms: ['Google Workspace', 'Microsoft 365', 'Azure / Entra tenants'],
-    delivery: 'Within 48 to 72 hours of payment',
+    delivery: 'Typically the same day, within 72 hours at the latest',
     page: '/providers/warm-inboxes/',
   },
   // ---- Not yet checked. Names supplied by the site owner; every fact null. ----

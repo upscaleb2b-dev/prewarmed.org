@@ -58,14 +58,14 @@ const ships = p.ships ?? [
   'Domain aged **30 days** before first send',
   'Then warmed **21 days** on real traffic',
   'SPF, DKIM, DMARC and MX configured',
-  'Delivered within **48 to 72 hours** of payment',
+  'Typically delivered **the same day**',
 ];
-/** The mid-page band. Every order lands within 48 to 72 hours; what differs is when it can send. */
+/** The mid-page band. Prewarmed typically lands the same day and sends on arrival; fresh lands in 48 to 72 hours and warms first. */
 const band = p.slug === 'fresh-domains'
   ? { h: `${p.eyebrow} arrive with the order, within 48 to 72 hours.`, p: 'Registered clean and handed over alongside the inboxes, with the records prepared to match.' }
   : p.family === 'fresh'
   ? { h: `${p.eyebrow} arrive within 48 to 72 hours of payment.`, p: 'Built on your own domain with SPF, DKIM and DMARC set, then warmed by Warm Inboxes for 14 to 21 days before your first campaign.' }
-  : { h: `${p.eyebrow} arrive within 48 to 72 hours, ready to send.`, p: 'The 51 days of aging and warming already happened. You get the logins, the records are set, and the first campaign can go out the day they land.' };
+  : { h: `${p.eyebrow} typically arrive the same day, ready to send.`, p: 'The 51 days of aging and warming already happened. You get the logins, the records are set, and the first campaign can go out the day they land.' };
 const parts = (t) => t.split('**').map((chunk, i) => ({ chunk, bold: i % 2 === 1 }));
 const crumb = p.slug === 'fresh-domains'
   ? { href: '/prewarmed-domains/', label: 'Domains' }
@@ -139,7 +139,7 @@ import WiProof from '../components/WiProof.astro';
           {askFirst
             ? <a class="btn btn-primary full" href={wa()}>Ask for a price →</a>
             : <a class="btn btn-primary full" href={order({ page: p.slug, placement: 'order-panel' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp />}
-          <p class="micro muted">{pricing.policy.delivery}.</p>
+          <p class="micro muted">{p.family === 'prewarmed' ? pricing.policy.deliveryPrewarmed : pricing.policy.delivery}.</p>
         </aside>
       </div>
     </div>
@@ -224,7 +224,7 @@ import WiProof from '../components/WiProof.astro';
             <div class="flat">
               <p class="fprice mono">{priceLabel?.big} <span class="muted">{priceLabel?.sub}</span></p>
               {price?.note && <p class="fnote">{price.note}</p>}
-              <p class="fnote">{pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>
+              <p class="fnote">{p.family === 'prewarmed' ? pricing.policy.deliveryPrewarmed : pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>
             </div>
           )}
           <a class="btn btn-primary" href={order({ page: p.slug, placement: 'pricing' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp />

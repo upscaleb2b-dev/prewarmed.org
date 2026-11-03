@@ -15,9 +15,9 @@ import WhatsApp from '../components/WhatsApp.astro';
 const faqs = [
   ['What does prewarmed actually mean?', 'Thirty days of aging with the records in place, then twenty-one days of real sending and receiving. A lot of what is sold as prewarmed skips one half, or both.'],
   ['Are these real Google and Microsoft accounts?', 'Yes. Proper paid accounts on a domain we age and warm. Not a relay service, and not a seat on somebody else\'s account.'],
-  ['How fast do I get them?', 'Within 48 to 72 hours of payment, ready to send on arrival. The 51 days of aging and warming already happened before you ordered.'],
+  ['How fast do I get them?', 'Typically the same day, and within 72 hours at the latest, ready to send on arrival. The 51 days of aging and warming already happened before you ordered.'],
   ['How many emails a day can I send?', 'We suggest 15 per Google inbox and 8 per Microsoft 365 inbox per day, with three inboxes on each domain. That is deliberately cautious, and it is the setup that keeps working month after month.'],
-  ['What if a domain stops landing in the inbox?', 'Retire it and start a fresh batch. We do not repair damaged domains and we do not swap them, because repair takes weeks and rarely brings the old reputation back. You can order fresh domains and inboxes the same day and they arrive within 48 to 72 hours, so the faster route is also the better one for deliverability.'],
+  ['What if a domain stops landing in the inbox?', 'Retire it and start a fresh batch. We do not repair damaged domains and we do not swap them, because repair takes weeks and rarely brings the old reputation back. You can order a new batch and typically have it the same day, so the faster route is also the better one for deliverability.'],
   ['Which sending tools do these work with?', 'Any of them. Smartlead, Instantly, Email Bison, ManyReach and the rest all connect the same way.'],
   ['Who runs prewarmed.org?', site.disclosure],
 ];
@@ -30,7 +30,7 @@ const schema = {
 ---
 <Base
   title="Prewarmed Inboxes & Domains for Cold Email | prewarmed.org"
-  description="Prewarmed inboxes on Google Workspace, Microsoft 365 or Azure, on a domain aged 30 days and warmed 21 more. DNS configured, delivered in 48 to 72 hours."
+  description="Prewarmed inboxes on Google Workspace, Microsoft 365 or Azure, on a domain aged 30 days and warmed 21 more. DNS configured, typically delivered the same day."
   schema={schema}>
 
   <section class="hero section">
@@ -59,7 +59,7 @@ const schema = {
         <div class="card"><h3>Proper accounts</h3><p class="muted">Real Google and Microsoft accounts, not a relay service or a shared seat.</p></div>
         <div class="card"><h3>30 days of age</h3><p class="muted">A domain’s age cannot be faked or rushed, and Gmail and Outlook both check it.</p></div>
         <div class="card"><h3>21 days of warming</h3><p class="muted">Three weeks of real emails sent and replied to, so the domain has a track record.</p></div>
-        <div class="card"><h3>Skip the 21-day warmup wait</h3><p class="muted">The aging and warming already happened on our clock. You get the logins within 48 to 72 hours and send the day they arrive.</p></div>
+        <div class="card"><h3>Skip the 21-day warmup wait</h3><p class="muted">The aging and warming already happened on our clock. You typically get the logins the same day and send the day they arrive.</p></div>
       </div>
       <div class="means-cta">
         <a class="btn btn-primary btn-lg" href={order({ page: 'home', placement: 'what-prewarmed-means' })} target="_blank" rel="noopener">Get prewarmed inboxes</a> <WhatsApp />

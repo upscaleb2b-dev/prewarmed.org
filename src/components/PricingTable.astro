@@ -51,7 +51,7 @@ const fmt = (n) => (Number.isInteger(n) ? `$${n}` : `$${n.toFixed(2)}`);
     )}
   </div>
   {p.note && p.terms === 'freshTerms' && <p class="note">{p.note}</p>}
-  {note && <p class="note">{pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>}
+  {note && <p class="note">{p.terms === 'freshTerms' ? pricing.policy.delivery : pricing.policy.deliveryPrewarmed}. {pricing.policy.refunds.split('.')[0]}.</p>}
 </div>
 <style>
   .pt { margin-block: 26px; }

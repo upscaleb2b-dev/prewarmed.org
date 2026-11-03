@@ -3,9 +3,10 @@
  * Home-page cost calculator.
  *
  * Fresh inboxes cost less a month; prewarmed ones send from the day they
- * arrive. Both are delivered in 48 to 72 hours and both are warmed by Warm
- * Inboxes, so the only real difference over a first quarter is the 14 to 21
- * days a fresh fleet spends warming before it can send. This measures cost
+ * arrive. Prewarmed typically lands the same day, fresh within 48 to 72
+ * hours, and both are warmed by Warm Inboxes, so the only real difference
+ * over a first quarter is the 14 to 21 days a fresh fleet spends warming
+ * before it can send. This measures cost
  * per thousand cold emails ACTUALLY SENT over 90 days, on Warm Inboxes'
  * published prices, and reports whichever side wins. At volume fresh often
  * does, and the copy says so rather than hiding it.
@@ -147,7 +148,7 @@ const cfg = {
         : preWins ? 'Prewarmed is the cheaper way to send here as well as the faster one.'
         : 'Fresh is the cheaper way to send here. Prewarmed is the price of starting three weeks sooner, which is worth it when a campaign has a date.');
     $('cc-foot').textContent =
-      `Assumes ${perDay} cold emails per ${tenant ? 'mailbox' : 'inbox'} per day${tenant ? ` at ${density} mailboxes to a tenant` : ' and three inboxes to a domain'}, quarterly billing on both sides, and the full 21 days of fresh warmup (at 14 days fresh comes out a little cheaper). Fresh domains are ${money(C.domain)} one off, or free if you bring your own. Both are delivered within 48 to 72 hours and neither needs a warmup tool.`;
+      `Assumes ${perDay} cold emails per ${tenant ? 'mailbox' : 'inbox'} per day${tenant ? ` at ${density} mailboxes to a tenant` : ' and three inboxes to a domain'}, quarterly billing on both sides, and the full 21 days of fresh warmup (at 14 days fresh comes out a little cheaper). Fresh domains are ${money(C.domain)} one off, or free if you bring your own. Prewarmed typically arrives the same day, fresh within 48 to 72 hours, and neither needs a warmup tool.`;
     $('cc-more').href = '/' + active.slug + '/';
   }
 

@@ -12,7 +12,7 @@ export const products = [
     h1: 'Prewarmed Google inboxes, ready to send on arrival',
     title: 'Prewarmed Google Workspace Inboxes for Cold Email',
     description:
-      'Official Google Workspace inboxes, warmed on an aged .com, with DNS configured before handover. Delivered within 48 to 72 hours.',
+      'Official Google Workspace inboxes, warmed on an aged .com, with DNS configured before handover. Typically delivered the same day.',
     keyword: 'prewarmed google inboxes',
     card: 'Real Google Workspace accounts on an aged domain, ready on arrival.',
     subhead:
@@ -26,7 +26,7 @@ export const products = [
       ['Domain', 'Prewarmed .com or .co, included'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
       ['Suggested volume', '15 cold emails per inbox per day'],
-      ['You get it', 'Within 48 to 72 hours of payment'],
+      ['You get it', 'Typically the same day, within 72 hours at the latest'],
     ],
     whoFor: [
       ['Agencies onboarding a client this week', 'The client signed. The campaign was supposed to start Monday. Warming your own would put first send in November.'],
@@ -93,7 +93,7 @@ export const products = [
       ['Are these real Google Workspace accounts?', 'Yes. Licensed Google Workspace accounts on a domain we age and warm, not SMTP relays and not shared seats.'],
       ['How many inboxes per domain?', 'Three. More is cheaper per inbox and concentrates risk: when the domain goes, everything on it goes with it.'],
       ['Can I connect these to Smartlead or Instantly?', 'Yes, over OAuth or app password. Set the per-inbox daily cap to your ramp figure rather than the platform default before the first send.'],
-      ['What if Google suspends an account?', 'Order a fresh batch. Suspensions happen on every provider, and we do not chase a recovery, because it takes weeks and the sending reputation rarely comes back with the account. A new batch can be ordered the same day and arrives within 48 to 72 hours, which is both quicker and cleaner for deliverability.'],
+      ['What if Google suspends an account?', 'Order a fresh batch. Suspensions happen on every provider, and we do not chase a recovery, because it takes weeks and the sending reputation rarely comes back with the account. A new batch can be ordered the same day and typically arrives the same day, which is both quicker and cleaner for deliverability.'],
       ['Can I add my own domain later?', 'Yes, though a domain you add yourself starts at zero reputation. The aged, warmed domain is the part you are actually buying.'],
     ],
     related: ['prewarmed-microsoft-365-inboxes', 'prewarmed-azure-inboxes', 'prewarmed-domains'],
@@ -106,7 +106,7 @@ export const products = [
     h1: 'Prewarmed Microsoft 365 inboxes for Outlook-heavy lists',
     title: 'Prewarmed Microsoft 365 Inboxes for Cold Email',
     description:
-      'Licensed Microsoft 365 mailboxes for cold email, warmed on an aged .com with authentication configured. Delivered in 48 to 72 hours by Warm Inboxes.',
+      'Licensed Microsoft 365 mailboxes for cold email, warmed on an aged .com with authentication configured. Typically delivered the same day by Warm Inboxes.',
     keyword: 'prewarmed microsoft 365 inboxes',
     card: 'Licensed Microsoft mailboxes, best for Outlook-heavy lists.',
     subhead:
@@ -120,7 +120,7 @@ export const products = [
       ['Domain', 'Prewarmed .com or .co, included'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
       ['Suggested volume', '8 cold emails per inbox per day'],
-      ['You get it', 'Within 48 to 72 hours of payment'],
+      ['You get it', 'Typically the same day, within 72 hours at the latest'],
     ],
     whoFor: [
       ['Enterprise and mid-market sellers', 'The companies you are targeting run Microsoft. Sending from Google into a Microsoft-heavy file gives up placement you did not need to give up.'],
@@ -204,7 +204,7 @@ export const products = [
     h1: 'Prewarmed Outlook inboxes for cold email',
     title: 'Prewarmed Outlook Inboxes for Cold Email, Ready to Send',
     description:
-      'Prewarmed Outlook inboxes on licensed Microsoft 365 mailboxes, on an aged domain with authentication configured. Delivered in 48 to 72 hours.',
+      'Prewarmed Outlook inboxes on licensed Microsoft 365 mailboxes, on an aged domain with authentication configured. Typically delivered the same day.',
     keyword: 'prewarmed outlook inboxes',
     subhead:
       'If you call them Outlook inboxes, these are them. Paid Microsoft 365 mailboxes, aged 30 days and warmed 21, ready the day you get them.',
@@ -217,7 +217,7 @@ export const products = [
       ['Warming', '21 days of real emails sent and received'],
       ['Email records', 'SPF · DKIM · DMARC · MX already set'],
       ['Suggested volume', '8 cold emails per inbox per day'],
-      ['You get it', 'Within 48 to 72 hours of payment'],
+      ['You get it', 'Typically the same day, within 72 hours at the latest'],
     ],
     whoFor: [
       ['Sellers who say Outlook, not M365', 'Same product, plainer name. Nothing about the mailbox differs.'],
@@ -279,7 +279,7 @@ export const products = [
       ['Email records', 'Set up before you get it'],
       ['Suggested volume', '2 cold emails per mailbox per day'],
       ['Total capacity', 'Up to 200 cold emails a day at 100 mailboxes'],
-      ['You get it', 'Within 48 to 72 hours of payment'],
+      ['You get it', 'Typically the same day, within 72 hours at the latest'],
     ],
     whoFor: [
       ['Agencies running many clients', 'Per-inbox economics change entirely at tenant scale. The same budget buys an order of magnitude more sending surface.'],
@@ -356,7 +356,7 @@ export const products = [
       ['How is this different from Microsoft 365 packs?', 'A pack is three mailboxes and a problem stays on that domain. A tenant is one flat price holding a hundred mailboxes that share a reputation: $0.50 an inbox on a quarterly commit, with all of the risk in one place.'],
       ['Can I bring my own domains into the tenant?', 'Yes, though a domain you add yourself starts at zero reputation and needs its own aging and warming.'],
       ['How many sends a day can a tenant carry?', 'At our recommended two cold per mailbox, 200 a day on a full tenant. Higher per mailbox is possible and raises risk across the whole pool, which is the one thing a shared reputation does not forgive. More volume should come from more mailboxes, not a higher rate on each.'],
-      ['What happens if the tenant gets flagged?', 'Move to a fresh tenant. Tenant-level events are rarer than domain burns and larger when they happen, and a flagged pool is not worth rehabilitating: that takes weeks with no guarantee the reputation returns. A new tenant can be ordered the same day and arrives within 48 to 72 hours.'],
+      ['What happens if the tenant gets flagged?', 'Move to a fresh tenant. Tenant-level events are rarer than domain burns and larger when they happen, and a flagged pool is not worth rehabilitating: that takes weeks with no guarantee the reputation returns. A new tenant can be ordered and typically delivered the same day.'],
     ],
     related: ['prewarmed-entra-inboxes', 'prewarmed-microsoft-365-inboxes', 'prewarmed-google-inboxes'],
   },
@@ -379,7 +379,7 @@ export const products = [
       ['Adding mailboxes', 'Upload a spreadsheet, get the accounts'],
       ['Email records', 'Set up before you get it'],
       ['Suggested volume', '2 cold emails per mailbox per day'],
-      ['You get it', 'Within 48 to 72 hours of payment'],
+      ['You get it', 'Typically the same day, within 72 hours at the latest'],
     ],
     whoFor: [
       ['Technical buyers using current Microsoft vocabulary', 'Microsoft calls it Entra now. Most vendors still say Azure AD. Same directory.'],
@@ -459,11 +459,11 @@ export const products = [
       ['Tracking', 'Custom tracking hostname, not shared'],
       ['History', 'Drop and blocklist history checked before acquisition'],
       ['Included', 'Free with every inbox pack'],
-      ['You get it', 'Within 48 to 72 hours of payment'],
+      ['You get it', 'Typically the same day, within 72 hours at the latest'],
     ],
     whoFor: [
       ['Anyone who has been sold an aged domain', 'Age is the attribute marketplaces sell because it is the one they can measure. It is not the one that matters.'],
-      ['Teams rebuilding after a burn', 'New capacity on a clean domain within 48 to 72 hours, rather than a delisting appeal that may not stick.'],
+      ['Teams rebuilding after a burn', 'New capacity on a clean domain, typically the same day, rather than a delisting appeal that may not stick.'],
       ['Operators spreading risk', 'More domains at fewer inboxes each is the correct shape. Free domains are what makes it affordable.'],
     ],
     body: [
@@ -501,7 +501,7 @@ export const products = [
       ['What makes a domain prewarmed rather than aged?', 'Aged means old. Prewarmed means aged and then used to send and receive real mail under published authentication. Only the second builds reputation.'],
       ['Do I own the domain?', 'Yes. The domain is registered to you with registrar access and nameserver control handed over, so you can move it, point it anywhere, or keep it if you stop buying from us. A domain left on a vendor nameserver is the vendor\'s, and that is not what you get here.'],
       ['Can I point it at my main website?', 'Yes, forwarding is standard practice and makes the domain look like what it claims to be.'],
-      ['What happens if a domain burns?', 'Retire it and order a new batch the same day; it arrives within 48 to 72 hours. We do not repair burnt domains or swap them: recovery takes weeks and rarely sticks, so the fast route is also the one that sends better. Hold back a little spare capacity and a burn costs you nothing in downtime.'],
+      ['What happens if a domain burns?', 'Retire it and order a new batch; it typically arrives the same day. We do not repair burnt domains or swap them: recovery takes weeks and rarely sticks, so the fast route is also the one that sends better. Hold back a little spare capacity and a burn costs you nothing in downtime.'],
       ['Are non-.com domains available?', 'Yes, via support. TLD carries real reputation differences, so ask before assuming a cheaper TLD is equivalent.'],
       ['How much is an aged domain?', 'It depends entirely on the domain. Age, prior use, drop history and blocklist exposure all move the price, so aged domains are quoted individually rather than listed. Message us with what you need.'],
       ['What is the difference between fresh at $12 and prewarmed free?', 'Time. A fresh .com is a clean registration, and the inboxes on it are warmed for 14 to 21 days before they send. A prewarmed .com has already been aged 30 days and warmed 21, and comes with the inboxes, ready on arrival.'],

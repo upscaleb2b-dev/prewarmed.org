@@ -19,8 +19,9 @@ const P = pricing.products;
 const cfg = {
   verified: pricing._verified,
   domainFresh: P['domain-fresh'].price,
-  // Delivery is 48 to 72 hours for both; fresh then warms for up to 21 days.
-  preDays: 3,
+  // Prewarmed typically lands the same day; fresh lands in 48 to 72 hours,
+  // then warms for up to 21 days.
+  preDays: 1,
   freshDays: 24,
   platforms: {
     google: {
@@ -103,7 +104,7 @@ const schema = {
       <h2>How it decides</h2>
       <p>Two things move the answer, and only one of them is money.</p>
       <p><strong>Volume</strong> sets how many inboxes you need: your daily target divided by the safe pace for each platform (15 a day on Google, 8 on Microsoft 365, 2 per mailbox on a full Azure tenant), plus the spare capacity you hold back, then three inboxes to a domain. That part is the same whichever way you buy.</p>
-      <p><strong>Your start date</strong> sets whether fresh is available to you at all. Every order is delivered within 48 to 72 hours of payment. Prewarmed inboxes send on arrival; fresh ones are then warmed by Warm Inboxes for 14 to 21 days before they send. If your launch is inside that window, the cheaper line item is not an option, it is a missed few weeks.</p>
+      <p><strong>Your start date</strong> sets whether fresh is available to you at all. Prewarmed inboxes typically arrive the same day and send on arrival; fresh ones arrive within 48 to 72 hours of payment and are then warmed by Warm Inboxes for 14 to 21 days before they send. If your launch is inside that window, the cheaper line item is not an option, it is a missed few weeks.</p>
       <p>When both are available, the calculator prices them against each other on quarterly billing, at the fresh order-size tier you qualify for, plus the domains you would buy. The prewarmed price includes the domain; fresh domains are $12 one off, or free if you bring your own. Neither needs a warmup tool.</p>
 
       <h2>What it does not do</h2>
@@ -166,7 +167,7 @@ const schema = {
             <p class="tag">Prewarmed</p>
             <p class="big mono">${money(pre)}<span class="mo">/mo</span></p>
             <p class="sub">domain included</p>
-            <p class="sub when">Sends on arrival, 48 to 72 hours after payment</p>
+            <p class="sub when">Sends on arrival, typically the same day</p>
           </div>
           <div class="opt ${freshFits ? '' : 'out'}">
             <p class="tag">Fresh${freshFits ? '' : ' (too late)'}</p>

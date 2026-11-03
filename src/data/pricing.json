@@ -210,6 +210,7 @@
     "refunds": "No refunds. State this plainly on /refund-policy/. Hiding it is both an Ads disapproval risk and a chargeback risk.",
     "nonComFrom": 4.5,
     "delivery": "Delivered within 48 to 72 hours of payment",
+    "deliveryPrewarmed": "Typically delivered the same day, and within 72 hours at the latest",
     "priceMatch": "If another provider quotes you less for the same thing, send us the quote and we will match it."
   }
 }

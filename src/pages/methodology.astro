@@ -24,7 +24,7 @@ const faqs = [
   ['Where can I see the test results?', 'In the inbox placement test log on warminboxes.com. It is published month by month, with sent, received, inbox and spam counts, and a breakdown by sending and receiving provider. Both are downloadable as CSV.'],
   ['What does prewarmed mean on this site?', 'A domain aged 30 days with its records in place, then warmed for 21 days on real sending and receiving, before it reaches you. 51 days in all, already done when you log in.'],
   ['How many cold emails can a prewarmed inbox send?', `About ${rate('google')} a day on Google Workspace, ${rate('microsoft')} on Microsoft 365 and ${rate('azure-100')} per mailbox on a full Azure tenant of 100. Volume comes from more inboxes, not from pushing each one harder.`],
-  ['How fast do they arrive?', `${pricing.policy.delivery}, with SPF, DKIM and DMARC set and ready to send on arrival.`],
+  ['How fast do they arrive?', `${pricing.policy.deliveryPrewarmed}, with SPF, DKIM and DMARC set and ready to send on arrival.`],
   ['Can I test them myself?', 'Yes, and it takes a few minutes. Send a message to a Gmail and an Outlook address you control and check the headers show spf=pass, dkim=pass and dmarc=pass, then run the domain through the free deliverability checker.'],
   ['Does a passing test mean every email lands in the inbox?', 'It means the batch was landing when it shipped. What keeps it landing is how it is used: a steady daily pace, verified lists and a low bounce rate. Mailbox providers make the final call on every message.'],
 ];

@@ -17,7 +17,7 @@ const faqs = [
   ['Are prewarmed Google inboxes real Workspace accounts?', 'They should be licensed Google Workspace accounts on a domain that has been aged and warmed. If a seller cannot confirm that, you are being offered a relay or a shared seat, which is a different product.'],
   ['How many cold emails a day per Google inbox?', 'We run 15, with three inboxes to a domain. Google publishes a much higher daily cap, but that number is where they stop you, not advice on what is safe.'],
   ['Should I use Google or Microsoft?', 'Whichever matches your list. Most business lists are Google-weighted, which makes Google the default. A list concentrated in large enterprises, finance or government usually is not.'],
-  ['Will Google suspend accounts used for cold email?', 'It can, and every provider deals with it. The answer is a fresh batch rather than a recovery attempt: recovery takes weeks and the sending reputation rarely returns with the account. A new batch can be ordered the same day and arrives within 48 to 72 hours.'],
+  ['Will Google suspend accounts used for cold email?', 'It can, and every provider deals with it. The answer is a fresh batch rather than a recovery attempt: recovery takes weeks and the sending reputation rarely returns with the account. A new batch can be ordered and typically delivered the same day.'],
   ['Can I put more than three inboxes on a domain?', 'Yes, and it is cheaper per inbox. It also means losing more at once when the domain goes. Three is the number that keeps a failure small.'],
 ];
 const schema = {
@@ -37,7 +37,7 @@ import WiProof from '../components/WiProof.astro';
       <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <span class="muted">Google</span></p>
       <p class="eyebrow">Google Workspace</p>
       <h1>Prewarmed Google Workspace inboxes</h1>
-      <p class="lede">Licensed Workspace accounts on domains aged 30 days and warmed 21. From ${pre.perUnit.quarterly} an inbox, domain included, delivered in 48 to 72 hours.</p>
+      <p class="lede">Licensed Workspace accounts on domains aged 30 days and warmed 21. From ${pre.perUnit.quarterly} an inbox, domain included, typically delivered the same day.</p>
       <p class="cta"><a class="btn btn-primary btn-lg" href={order({ page: 'google-hub', placement: 'hero' })} target="_blank" rel="noopener">Get Google inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a> <WhatsApp /></p>
       <Handoff />
 
