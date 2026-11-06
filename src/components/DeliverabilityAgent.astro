@@ -10,13 +10,18 @@
  * like a broken button.
  */
 import ai from '../data/ai-clients.json';
-import { wiUrl } from '../data/site.js';
-const { page = 'tools-hub' } = Astro.props;
+const {
+  tag = 'Free deliverability agent',
+  heading = 'Turn your own AI into a deliverability consultant',
+  lead = 'Add one address to Claude, ChatGPT, Cursor or any MCP client. Describe what is wrong with your cold email in your own words: it runs the checks itself, reads the results and tells you the fix, cheapest first. No account, no API key.',
+  guide = true,
+  id = 'agent',
+} = Astro.props;
 ---
-<section class="agent" id="agent" aria-labelledby="agent-h">
-  <p class="tag">Free deliverability agent</p>
-  <h2 id="agent-h">Turn your own AI into a deliverability consultant</h2>
-  <p class="lead">Add one address to Claude, ChatGPT, Cursor or any MCP client. Describe what is wrong with your cold email in your own words: it runs the checks itself, reads the results and tells you the fix, cheapest first. No account, no API key.</p>
+<section class="agent" id={id} aria-labelledby={`${id}-h`}>
+  {tag && <p class="tag">{tag}</p>}
+  <h2 id={`${id}-h`}>{heading}</h2>
+  {lead && <p class="lead">{lead}</p>}
 
   <div class="url">
     <code class="mono">{ai.mcp}</code>
@@ -34,7 +39,7 @@ const { page = 'tools-hub' } = Astro.props;
     ))}
   </ul>
   <p class="how" aria-live="polite" data-default="Click one: it opens the assistant's own add-server screen, installs the server, or copies the line to paste.">Click one: it opens the assistant's own add-server screen, installs the server, or copies the line to paste.</p>
-  <p class="guide"><a href={wiUrl(ai.guide, { page, placement: 'agent-guide' })} target="_blank" rel="noopener">Step-by-step setup and what to ask it, on Warm Inboxes ↗</a></p>
+  {guide && <p class="guide"><a href={ai.guide}>What it does, what to ask it, and how it works →</a></p>}
 </section>
 
 <script is:inline>
@@ -64,7 +69,7 @@ const { page = 'tools-hub' } = Astro.props;
 <style>
   /* Clear the sticky support bar and nav when a button jumps to #agent. */
   .agent {
-    scroll-margin-top: 140px;
+    scroll-margin-top: 160px;
     text-align: center; padding: 34px 28px 28px; margin: 0 auto;
     border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
     border-radius: var(--r-card);

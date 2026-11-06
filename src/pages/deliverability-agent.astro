@@ -1,0 +1,263 @@
+---
+/**
+ * The free Deliverability Agent, mirrored from
+ * warminboxes.com/deliverability-agent: what it is, how to connect it, what
+ * to ask it, how it works a problem, the questions teams bring, and what it
+ * will not do. The connect picker is the shared DeliverabilityAgent block, so
+ * the tools page and this page cannot drift apart. Every "how we answer it"
+ * link goes to the matching playbook or answer on warminboxes.com.
+ */
+import Base from '../layouts/Base.astro';
+import DeliverabilityAgent from '../components/DeliverabilityAgent.astro';
+import WhatsApp from '../components/WhatsApp.astro';
+import ai from '../data/ai-clients.json';
+import tools from '../data/tools.json';
+import leads from '../data/leads.json';
+import { wiUrl } from '../data/site.js';
+
+const page = 'deliverability-agent';
+const wl = (path, placement) => wiUrl(`https://warminboxes.com${path}`, { page, placement });
+
+const can = ['Domain and DNS checks', 'SPF, DKIM and DMARC', 'Blocklists', 'Published studies', `${leads.totalLists} free lead lists`, 'Guides and playbooks', `${tools.total} free tools`];
+
+const symptoms = [
+  ['reply-rate-drop', 'Reply rate dropped', 'A drop in replies has five usual causes, in rough order of how often they are the answer: setup that broke, sending too hard for the inboxes, a list that went stale or hit security gateways, senders that do not match the recipients, and copy. Work them in order before replacing anything.'],
+  ['blocklist-listing', 'Listed on a blocklist (SURBL, UCEPROTECT and others)', 'Most blocklist listings on cold email domains are common and cost little; one or two cost a lot. Find out which list, what was actually checked, and whether anything downstream (bounces, replies) moved before treating the domain as broken.'],
+  ['outlook-junk', 'Landing in Outlook or Microsoft 365 junk (SCL)', 'Microsoft stamps every message with a spam confidence level (SCL) and a verdict in its headers, which say exactly why a message went to junk. Read them before guessing.'],
+  ['gmail-spam', 'Landing in Gmail spam or Google Postmaster warnings', 'Gmail judges the domain more than the message. Check authentication and the bulk sender rules, read the headers of a spammed message, and watch Postmaster’s spam rate.'],
+  ['bounces-rising', 'Bounce rate rising', 'Bounces are the most legible signal in cold email: each one says which layer failed. Classify them before changing the list or the inboxes.'],
+  ['am-i-burned', 'Is my domain or inbox burned?', 'Most domains people think are burned are throttled or broken, and recover. Run the five tests before deciding: blocklists, authentication, placement, the bounces and how warmup behaves.'],
+  ['placement-test', 'Run an inbox placement test', 'A placement test sends a real message from the inbox to seed mailboxes and shows where it lands. The agent cannot send mail, so it points you to the free placement test at burnedinbox.com and reads the result alongside its setup checks.'],
+  ['new-setup', 'Setting up new domains and inboxes', 'A clean launch is mostly order: domains on a good TLD and separate from the company domain, authentication before the first send, warmup before cold volume, and a pre-send check of the campaign itself.'],
+  ['scaling', 'Scaling volume or planning infrastructure', 'Size from the list and the volume, not from a round number: the recipients’ platforms decide which inboxes to buy, the pace per inbox decides how many, and where the domains come from decides how long they last.'],
+];
+
+const steps = [
+  ['Diagnose before prescribing', 'It asks for what the answer depends on (the sending domain, the provider, the sequencer, sends per inbox per day, when the change started and what changed around then), then runs the checks. A recommendation without a check is a guess.'],
+  ['Cheapest fix first', 'It works the ladder in order: broken DNS and authentication (minutes, free), then sending behaviour (volume and warmup), then the list, then the copy, and only then the infrastructure. Each rung is cheaper than the next and explains more drops than the next.'],
+  ['Alarm in proportion to the evidence', 'It says what a finding costs, with the study that measured it. A SURBL listing on a cold email domain is common and, in the published data, did not move reply rate; a Google domain-reputation refusal is permanent and costs replies.'],
+  ['Say what was not checked', 'The Spamhaus DBL needs a paid key, so it says "not checked" and links Spamhaus’s own lookup. Provider reputation scores and inbox placement cannot be measured from here, and it says so rather than guessing.'],
+  ['Give the exact fix', 'The record to paste, the number to set (sends per inbox, warmup share, pause thresholds), the column to remove, and the tool page to rerun the check after the fix.'],
+  ['Cite sources in full', 'When a study, guide or playbook backs a point, it gives the full link so you can read it yourself, and names the tool each result came from.'],
+  ['Recommend infrastructure on evidence', 'New inboxes and domains are the right answer when a domain is refused by Google past the retirement line, confirmed on the Spamhaus DBL, confirmed burned, failed a recovery cycle, or when the volume needs more capacity. Not as the first answer to a problem DNS, the list or the copy explains.'],
+  ['Size it before anyone buys', 'When new infrastructure is the answer, it sizes it first with the free Fleet Planner and shows the plan. Only then does it offer the order, and nothing is placed without your explicit yes.'],
+];
+
+const Q = '/blog/cold-email-deliverability-questions';
+const questions = [
+  ['Replies dropped', [
+    ['q01-replies-stopped-after-five-days', 'My cold emails got great replies for the first 5 days, then stopped. What happened?'],
+    ['q08-reply-rate-below-one-percent-burned', 'My reply rate fell from about 2% to under 1%. Is my domain burned?'],
+    ['q28-new-batches-perform-worse', 'Each new lead batch performs worse than the last. Is it my infrastructure or my targeting?'],
+    ['q29-one-campaign-dead-other-fine', 'One campaign is dead but another on the same inboxes works. Are the inboxes burned?'],
+  ]],
+  ['Spam and placement', [
+    ['q02-authentication-passes-still-spam', 'SPF, DKIM and DMARC all pass. Why am I still landing in spam?'],
+    ['q03-gmail-inbox-outlook-junk', 'My emails land in Gmail but Outlook puts them in junk. Why?'],
+    ['q04-warmup-health-100-still-spam', 'My warmup tool says 100% health, but cold emails to real prospects land in spam. How?'],
+    ['q15-tracking-domain-spam', 'My sending domains look clean. Could my tracking domain be the problem?'],
+    ['q16-surbl-listed-burned', 'My domain is listed on SURBL. Do I need to throw it away?'],
+  ]],
+  ['Metrics that matter', [
+    ['q34-which-numbers-to-aim-for', 'Is a 1% reply rate good? What numbers should I actually care about?'],
+    ['q35-open-rate-dropped', 'My open rate went from 70% to 35%. Does that mean I am going to spam?'],
+  ]],
+  ['Sending volume and warmup', [
+    ['q05-do-warmup-emails-count', 'I send 15 cold and 30 warmup emails per inbox a day. Is that too much? Does warmup count?'],
+    ['q06-safest-cold-emails-per-inbox', 'What is the safest number of cold emails per inbox per day?'],
+    ['q07-warm-fresh-domain-how-long', 'I bought a new domain. How long do I warm it before sending cold email?'],
+    ['q10-does-rotation-help', 'Does inbox rotation actually help, or am I wasting money keeping half my inboxes resting?'],
+    ['q21-inboxes-per-domain', 'Is 1, 2, 3 or 5 inboxes per sending domain best?'],
+  ]],
+  ['Sequences, timing and follow-ups', [
+    ['q31-how-many-follow-ups', 'How many follow-ups should I send before I am just hurting deliverability?'],
+    ['q32-follow-up-spacing', 'Should I follow up after 1 day, 3 days, 5 days, or a week?'],
+    ['q33-follow-ups-inflate-volume', 'I add 200 new leads a day but send 700 or more emails. Are follow-ups causing this?'],
+    ['q36-best-time-to-send', 'Is there a best time of day to send cold email?'],
+    ['q37-weekend-sending', 'Should I keep cold campaigns running on Saturday and Sunday?'],
+  ]],
+  ['Message format, links and opt-outs', [
+    ['q38-links-in-first-email', 'Should my first cold email contain my website, calendar link, case study or Loom link?'],
+    ['q39-personalised-video-links', 'We make a personalised video for every prospect. Can I include the link in the first email?'],
+    ['q40-plain-text-or-html', 'Should cold email be plain text or HTML?'],
+    ['q41-images-logos-signatures', 'Does a logo, headshot, image signature or banner hurt cold email deliverability?'],
+    ['q42-unsubscribe-link', 'Should I put an unsubscribe link in every cold email?'],
+    ['q43-promotions-not-primary', 'My Gmail placement test says Promotions. Is that the same as spam?'],
+  ]],
+  ['Domain and account health', [
+    ['q09-rest-or-replace-domain', 'My domain used to work and now performs badly. Should I rest it or replace it?'],
+    ['q20-subdomain-or-separate-domain', 'Should I send cold email from mail.company.com or buy separate domains?'],
+    ['q44-aged-vs-fresh-domains', 'Should I buy aged domains for cold email, or are fresh domains just as good?'],
+    ['q45-which-tld', 'Which TLD should I buy for cold email: .com, .co, .info or .link?'],
+    ['q46-sending-domain-website', 'What should happen if a prospect types my cold email domain into their browser?'],
+    ['q47-account-suspended', 'One of my Google or Microsoft mailboxes was suspended. Is my domain burned?'],
+  ]],
+  ['Bounces and lists', [
+    ['q11-bounce-rate-jumped', 'My bounce rate jumped from under 1% to 4%. Should I pause everything?'],
+    ['q12-what-does-this-bounce-mean', 'I got a 550, 5.7.1, 421 or 4.7.x error. What does it mean and what do I do?'],
+    ['q25-is-my-list-burning-domains', 'My infrastructure gets worse every few weeks. Could my lead list be burning it?'],
+    ['q26-apollo-verified-reverify', 'Apollo says these emails are verified. Can I send them straight into a cold campaign?'],
+    ['q27-catch-all-addresses', 'Half my list is catch-all. Should I send to them or remove them?'],
+  ]],
+  ['Infrastructure planning', [
+    ['q22-infrastructure-for-volume', 'I need to send 500, 1,000 or 3,000 cold emails a day. How much infrastructure do I need?'],
+    ['q23-google-or-microsoft-inboxes', 'Is Google Workspace or Microsoft 365 better for cold email?'],
+    ['q24-microsoft-heavy-list', '60% of my prospects are on Microsoft. Should I change my sending infrastructure?'],
+    ['q48-which-stack', 'Google Workspace, Microsoft 365, Azure or SMTP: what should I use for cold email?'],
+  ]],
+  ['Scaling and testing', [
+    ['q49-scale-safely', 'My campaign works at 100 a day. How do I scale to 500 or 1,000 without burning everything?'],
+    ['q50-test-without-burning', 'I have a new list, new copy or a new offer. How do I test it without burning good infrastructure?'],
+  ]],
+  ['Advanced diagnostics', [
+    ['q13-high-opens-no-replies', 'My open rate is 60% or more but nobody replies. Is my copy bad?'],
+    ['q14-disable-open-tracking', 'Does open tracking hurt cold email deliverability? Should I turn it off?'],
+    ['q17-spf-permerror', 'SPF exists but receivers show SPF PermError. What did I break?'],
+    ['q18-dkim-exists-still-fails', 'My DKIM records are there but emails still show DKIM fail. Why?'],
+    ['q19-dmarc-p-none-bad', 'My DMARC policy is p=none. Is that why I am going to spam?'],
+    ['q30-everything-correct-zero-replies', 'Everything looks right and I still get zero replies. What do I check next, in order?'],
+  ]],
+];
+
+const wont = [
+  'Every tool is read-only. It does not send email, buy inboxes or change your DNS.',
+  'The Spamhaus DBL needs a paid key and is not queried. Asked about it, the answer says "not checked" and links Spamhaus’s own lookup; it never reports a domain as clean there.',
+  'Authentication checks cannot guarantee inbox placement, and there are no invented reputation scores: mailbox providers keep those private.',
+  'A free daily limit applies, counted in distinct domains. Checking a domain again the same day does not count again.',
+  'Pasted copy, headers and CSVs are processed to answer and not stored.',
+  'It cannot send a test email, so it does not measure inbox placement itself. For that it points you to the free placement test at burnedinbox.com.',
+];
+
+const schema = {
+  '@graph': [
+    { '@type': 'WebPage', name: 'Free Deliverability Agent for cold email', url: 'https://prewarmed.org/deliverability-agent/', isPartOf: { '@id': 'https://prewarmed.org/#site' } },
+    { '@type': 'SoftwareApplication', name: 'WarmInboxes Deliverability Agent', applicationCategory: 'BusinessApplication', operatingSystem: 'Any', url: 'https://prewarmed.org/deliverability-agent/', offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }, publisher: { '@type': 'Organization', name: 'Warm Inboxes', url: 'https://warminboxes.com' } },
+    { '@type': 'BreadcrumbList', itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://prewarmed.org/' },
+      { '@type': 'ListItem', position: 2, name: 'Free tools', item: 'https://prewarmed.org/tools/' },
+      { '@type': 'ListItem', position: 3, name: 'Deliverability Agent', item: 'https://prewarmed.org/deliverability-agent/' },
+    ]},
+  ],
+};
+---
+<Base title="Free Deliverability Agent for Cold Email | prewarmed.org"
+      description="A free cold email deliverability expert inside the AI you already use. Connect it to Claude, ChatGPT or Cursor: it runs the checks and tells you the fix."
+      schema={schema}>
+  <section class="section hero">
+    <div class="wrap da">
+      <p class="crumb"><a href="/">Home</a> <span class="muted">›</span> <a href="/tools/">Free tools</a> <span class="muted">›</span> <span class="muted">Deliverability Agent</span></p>
+      <p class="eyebrow">Free · No account · No API key</p>
+      <h1>Deliverability Agent</h1>
+      <p class="sub">Your free cold email expert, inside the AI you already use</p>
+      <p class="lede">Ask it anything about your cold email, in plain English: why replies dropped, why you are landing in spam, how many inboxes you need. It checks your domains, your SPF, DKIM and DMARC records and the blocklists for you, compares what it finds with Warm Inboxes' published deliverability studies, and tells you exactly what to fix, cheapest fix first.</p>
+      <p class="lede">It also finds lead lists in the free database and answers from the guides. And it only tells you to buy new inboxes when the data says your domain is the problem.</p>
+      <ul class="chips">{can.map((c) => <li>{c}</li>)}</ul>
+      <p class="cta"><a class="btn btn-primary btn-lg" href="#connect">Connect it to your AI ↓</a> <WhatsApp label="Ask an advisor instead" /></p>
+      <p class="runs mono">Runs on WarmInboxes Free MCP · {ai.mcp} · no account, no API key</p>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top:0">
+    <div class="wrap da">
+      <DeliverabilityAgent id="connect" tag="" heading="Connect it to your AI" lead="Pick your assistant. Claude and ChatGPT also have their own pages on Warm Inboxes:" guide={false} />
+      <p class="own"><a href={wl('/claude-connector', 'claude-connector')} target="_blank" rel="noopener">Claude connector ↗</a> · <a href={wl('/chatgpt-plugin', 'chatgpt-plugin')} target="_blank" rel="noopener">ChatGPT plugin ↗</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap da">
+      <h2 id="ask">What to ask it</h2>
+      <p class="muted intro">Describe the symptom. It recognises these problems and works each one the same way the Warm Inboxes team does.</p>
+      <div class="sym">
+        {symptoms.map(([anchor, h, b]) => (
+          <a class="card symc" href={wl(`/plugins/playbook#${anchor}`, 'playbook')} target="_blank" rel="noopener">
+            <span class="symh">{h} <span class="ext" aria-hidden="true">↗</span></span>
+            <span class="symb">{b}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap da">
+      <h2 id="how">How it works a problem</h2>
+      <ol class="steps">
+        {steps.map(([h, b], i) => (
+          <li><span class="n mono">{String(i + 1).padStart(2, '0')}</span><div><p class="sh">{h}</p><p class="sb">{b}</p></div></li>
+        ))}
+      </ol>
+      <p class="more">The full method, with the studies behind each step: <a href={wl('/plugins/playbook', 'playbook-all')} target="_blank" rel="noopener">the diagnostic playbook ↗</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap da">
+      <h2 id="questions">Questions to ask it</h2>
+      <p class="muted intro">The questions cold email teams bring most, grouped by problem. Paste one into your AI as it is, or ask in your own words. Each links to how Warm Inboxes answers it.</p>
+      <div class="qgrid">
+        {questions.map(([group, qs]) => (
+          <div class="qg">
+            <p class="qh">{group}</p>
+            <ul>{qs.map(([anchor, q]) => <li><a href={wl(`${Q}#${anchor}`, 'question')} target="_blank" rel="noopener">“{q}”</a></li>)}</ul>
+          </div>
+        ))}
+      </div>
+      <p class="more">Every answer on one page: <a href={wl(Q, 'question-library')} target="_blank" rel="noopener">the operator question library ↗</a></p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap da">
+      <h2 id="limits">What it will not do</h2>
+      <ul class="wont">{wont.map((w) => <li>{w}</li>)}</ul>
+      <p class="more">For an inbox placement test: <a href="https://burnedinbox.com" target="_blank" rel="noopener">burnedinbox.com ↗</a>. For every free tool, browse <a href="/tools/">the tools page</a>.</p>
+      <div class="end card">
+        <p class="endh">Rather ask a person?</p>
+        <p>Warm Inboxes' cold email advisors answer on WhatsApp, 24/7.</p>
+        <p class="cta"><WhatsApp variant="primary" label="Talk to a cold email advisor" /></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .da { max-width: 980px; }
+  .crumb { font-size: 13.5px; color: var(--text-2); margin: 0 0 26px; }
+  h1 { margin: 10px 0 8px; }
+  .sub { font-family: var(--font-display); font-size: clamp(20px, 1rem + 1vw, 26px); font-weight: 600; color: var(--text); margin: 0 0 18px; }
+  .hero .lede { margin: 0 0 14px; max-width: 70ch; }
+  .chips { list-style: none; padding: 0; margin: 22px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips li { font-size: 13.5px; color: var(--text-2); border: 1px solid var(--border-strong); border-radius: 999px; padding: 6px 12px; }
+  .cta { display: flex; flex-wrap: wrap; gap: 10px; margin: 26px 0 10px; }
+  .runs { font-size: 12.5px; color: var(--text-muted); margin: 0; overflow-wrap: anywhere; }
+  .own { text-align: center; margin: 14px 0 0; font-size: 14.5px; }
+  .intro { margin: 8px 0 24px; max-width: 70ch; }
+  .sym { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px; }
+  .symc { display: flex; flex-direction: column; gap: 8px; color: var(--text-2); text-decoration: none; }
+  .symc:hover { border-color: var(--accent); text-decoration: none; }
+  .symh { font-family: var(--font-display); font-weight: 600; font-size: 16.5px; color: var(--text); }
+  .symb { font-size: 14.5px; line-height: 1.55; }
+  .steps { list-style: none; padding: 0; margin: 20px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(420px, 1fr)); gap: 0 28px; }
+  .steps li { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid var(--border); }
+  .steps .n { color: var(--accent); font-size: 15px; padding-top: 2px; flex: none; }
+  .sh { margin: 0 0 6px; font-weight: 600; color: var(--text); }
+  .sb { margin: 0; font-size: 15px; color: var(--text-2); }
+  .more { margin: 22px 0 0; font-size: 15px; color: var(--text-2); }
+  .qgrid { columns: 2 340px; column-gap: 32px; }
+  .qg { break-inside: avoid; margin: 0 0 22px; }
+  .qh { margin: 0 0 8px; font-size: 11.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
+  .qg ul { list-style: none; padding: 0; margin: 0; }
+  .qg li { padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 15px; line-height: 1.45; }
+  .qg a { color: var(--text-2); }
+  .qg a:hover { color: var(--accent); }
+  .wont { margin: 14px 0 0; padding-left: 20px; max-width: 72ch; }
+  .wont li { color: var(--text-2); margin-bottom: 8px; }
+  .end { margin-top: 36px; text-align: center; }
+  .endh { font-family: var(--font-display); font-weight: 600; font-size: 21px; color: var(--text); margin: 0 0 6px; }
+  .end .cta { justify-content: center; margin-bottom: 0; }
+  @media (max-width: 560px) {
+    .steps { grid-template-columns: 1fr; }
+    .cta .btn { width: 100%; }
+  }
+</style>

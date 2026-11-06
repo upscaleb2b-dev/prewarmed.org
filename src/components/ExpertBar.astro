@@ -1,56 +1,64 @@
 ---
 /**
- * Top bar: the support channel, on every page.
+ * Top bar, on every page: two rows, both sticky above the nav.
  *
- * Warm Inboxes publishes 24/7 WhatsApp support from the operators who run
- * the campaigns, and that is a stronger answer to "who do I ask before I
- * spend money on this" than anything further down the page. It sits above
- * the nav rather than floating, so it never covers content and never
- * competes with the consent banner at the bottom.
+ *   1. The free Deliverability Agent, the free cold email AI people connect
+ *      to the assistant they already use.
+ *   2. The support channel: Warm Inboxes' cold email advisors on WhatsApp,
+ *      24/7, which answers "who do I ask before I spend money on this".
  *
- * The whole bar is the link on mobile, where there is no room for a
- * separate target.
+ * One sticky wrapper (.xbar) holds both rows, so the nav's offset, measured
+ * from .xbar in Nav.astro, covers the pair. Each row is its whole link, so on
+ * a phone the target is the full width.
  */
 import { wa } from '../data/site.js';
 ---
-<a class="xbar" href={wa()} target="_blank" rel="noopener">
-  <span class="xdot" aria-hidden="true"></span>
-  <span class="xmsg">Talk to our cold email advisors. On WhatsApp, <b>24/7</b>.</span>
-  <span class="xcta">Message us <span aria-hidden="true">→</span></span>
-</a>
+<div class="xbar">
+  <a class="xrow xai" href="/deliverability-agent/">
+    <span class="xdot xdot-ai" aria-hidden="true"></span>
+    <span class="xmsg"><b>Free Cold Email AI.</b> Connect it to your agent</span>
+    <span class="xcta">Connect <span aria-hidden="true">→</span></span>
+  </a>
+  <a class="xrow xwa" href={wa()} target="_blank" rel="noopener">
+    <span class="xdot" aria-hidden="true"></span>
+    <span class="xmsg">Talk to our cold email advisors. On WhatsApp, <b>24/7</b>.</span>
+    <span class="xcta">Message us <span aria-hidden="true">→</span></span>
+  </a>
+</div>
 
 <style>
   .xbar {
-    /* Sticky above the nav, which sticks beneath it. The nav's own offset is
-       set from this bar's measured height rather than a constant, because the
-       text wraps to two lines on a narrow screen. */
     position: sticky;
     top: 0;
     z-index: 45;
+    /* Opaque, so page content never reads through the bar on scroll. */
+    background: var(--bg);
+    border-bottom: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+  }
+  .xrow {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 10px;
-    min-height: 44px;
-    padding: 9px 24px;
-    /* Opaque. --accent-soft is rgba(...,0.12), so as a sticky background it
-       let page content read straight through the bar on scroll. Same tint,
-       mixed over --bg instead of over whatever happens to be behind it. */
-    background: color-mix(in srgb, var(--accent) 12%, var(--bg));
-    border-bottom: 1px solid color-mix(in srgb, var(--accent) 26%, transparent);
+    min-height: 36px;
+    padding: 6px 24px;
     font-size: 14px;
-    line-height: 1.4;
+    line-height: 1.35;
     color: var(--text-2);
     text-align: center;
   }
-  .xbar:hover { text-decoration: none; background: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
+  .xrow:hover { text-decoration: none; }
+  .xai { background: color-mix(in srgb, var(--accent) 7%, var(--bg)); border-bottom: 1px solid color-mix(in srgb, var(--accent) 16%, transparent); }
+  .xai:hover { background: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+  .xwa { background: color-mix(in srgb, var(--accent) 12%, var(--bg)); }
+  .xwa:hover { background: color-mix(in srgb, var(--accent) 18%, var(--bg)); }
   .xmsg b { color: var(--text); font-weight: 600; }
   .xcta { color: var(--accent); font-weight: 600; white-space: nowrap; }
-  /* Steady dot, not a pulse: an animated bar at the top of every page is a
-     distraction, and prefers-reduced-motion would have to turn it off anyway. */
+  /* Steady dots, not pulses: animation at the top of every page distracts. */
   .xdot { width: 7px; height: 7px; border-radius: 50%; background: #25D366; flex: none; }
+  .xdot-ai { background: var(--accent); }
   @media (max-width: 620px) {
-    .xbar { padding-inline: 16px; gap: 8px; font-size: 13.5px; }
+    .xrow { padding-inline: 14px; gap: 8px; font-size: 13px; min-height: 34px; }
     .xcta { display: none; }
   }
 </style>

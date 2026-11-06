@@ -95,4 +95,4 @@ thead th { background: var(--bg-elev-2); font-family: var(--font-display); font-
 
 /* The header is sticky, so anything scrolled to by anchor or by script lands
    underneath it without this. */
-:target, section[id], h2[id], h3[id], .section { scroll-margin-top: 80px; }
+:target, section[id], h2[id], h3[id], .section { scroll-margin-top: 150px; }
