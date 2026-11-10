@@ -22,6 +22,8 @@ import Handoff from './Handoff.astro';
 import WhatsApp from './WhatsApp.astro';
 
 const P = pricing.products;
+// only={['google','azure']} limits the tabs; every platform shows by default.
+const { only = null } = Astro.props;
 const cfg = {
   readyDays: 21,
   windowDays: 90,
@@ -41,7 +43,7 @@ const cfg = {
     { id: 'azure', label: 'Azure tenant', shape: 'tenant', per: P['azure-tenant'].inboxesPerTenant,
       pre: P['azure-tenant'].perTenant.quarterly,
       fresh: P['azure-fresh'].perTenant.quarterly, slug: 'prewarmed-azure-inboxes' },
-  ],
+  ].filter((p) => !only || only.includes(p.id)),
 };
 ---
 <section class="cc" data-cfg={JSON.stringify(cfg)}>

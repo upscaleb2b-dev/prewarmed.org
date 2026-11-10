@@ -513,6 +513,7 @@ export const products = [
     alt: { lead: 'Need to send this week?', slug: 'prewarmed-google-inboxes', label: 'Prewarmed Google inboxes send the day they arrive' },
     family: 'fresh',
     eyebrow: 'Fresh Google inboxes',
+    card: 'Licensed Google Workspace accounts on your own domain, warmed for you for 14 to 21 days.',
     h1: 'Fresh Google Workspace inboxes on your own domain',
     title: 'Fresh Google Workspace Inboxes for Cold Email',
     description:
@@ -676,6 +677,7 @@ export const products = [
     family: 'fresh',
     alt: { lead: 'Need to send this week?', slug: 'prewarmed-azure-inboxes', label: 'A prewarmed Azure tenant sends the day it arrives' },
     eyebrow: 'Fresh Azure tenants',
+    card: 'Up to 100 mailboxes on your own domain, warmed for you for 14 to 21 days.',
     h1: 'Fresh Azure tenants: up to 100 mailboxes on your domain',
     title: 'Fresh Azure Inboxes: 100-Mailbox Tenants, $50 Flat',
     description:
