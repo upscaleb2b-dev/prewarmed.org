@@ -213,7 +213,7 @@ const leadsM = (leads.totalLeads / 1_000_000).toFixed(0);
      dropped :hover and the menu vanished before it could be reached. This
      bridges the gap with an invisible extension of the panel itself. */
   .menu::before, .mega::before { content: ''; position: absolute; left: 0; right: 0; top: -20px; height: 20px; }
-  .menu, .mega { position: absolute; top: calc(100% + 6px); left: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 10px; display: none; box-shadow: 0 12px 32px rgba(0,0,0,.45); }
+  .menu, .mega { position: absolute; top: calc(100% + 6px); left: 0; background: var(--bg-elev); border: 1px solid var(--border); border-radius: var(--r-card); padding: 10px; display: none; box-shadow: 0 12px 32px rgba(15,17,21,.10); }
   .menu { min-width: 220px; flex-direction: column; }
   .menu a { display: block; padding: 9px 12px; border-radius: 6px; font-size: 15px; color: var(--text-2); }
   .menu a:hover { background: var(--bg-elev-2); color: var(--text); text-decoration: none; }

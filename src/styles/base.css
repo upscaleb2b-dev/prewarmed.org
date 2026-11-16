@@ -86,8 +86,8 @@ thead th { background: var(--bg-elev-2); font-family: var(--font-display); font-
   background:
     linear-gradient(to right, var(--bg-elev) 30%, transparent) left center / 36px 100% no-repeat local,
     linear-gradient(to left, var(--bg-elev) 30%, transparent) right center / 36px 100% no-repeat local,
-    radial-gradient(farthest-side at 0 50%, rgba(0, 0, 0, .45), transparent) left center / 16px 100% no-repeat scroll,
-    radial-gradient(farthest-side at 100% 50%, rgba(0, 0, 0, .45), transparent) right center / 16px 100% no-repeat scroll;
+    radial-gradient(farthest-side at 0 50%, rgba(15, 17, 21, .10), transparent) left center / 16px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(15, 17, 21, .10), transparent) right center / 16px 100% no-repeat scroll;
 }
 .scroll-x table { min-width: 620px; }
 .yes { color: var(--success); } .no { color: var(--text-muted); }
