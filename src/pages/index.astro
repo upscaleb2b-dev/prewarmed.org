@@ -56,8 +56,8 @@ const schema = {
   <section class="hero section">
     <div class="wrap">
       <p class="eyebrow">Prewarmed inboxes and domains for cold email</p>
-      <h1>51 days of reputation.<br />Yours today.</h1>
-      <p class="lede">Gmail and Outlook do not trust a new domain. We age and warm it 51 days so you can send the day your inboxes arrive, on Google Workspace or Azure.</p>
+      <h1>Cold Email Needs<br />Warm Inboxes</h1>
+      <p class="lede">Prewarmed Google/Azure inboxes with <strong>FREE domains</strong>, or buy fresh and warm up for 2X less.</p>
       <div class="cta">
         <a class="btn btn-primary btn-lg" href={order({ page: 'home', placement: 'hero' })} target="_blank" rel="noopener">Get inboxes</a>
         <a class="btn btn-ghost btn-lg" href="/deliverability-agent/">Download deliverability agent</a> <WhatsApp />
@@ -173,6 +173,8 @@ const schema = {
   .pick h3 :global(.pm) { margin-top: 2px; }
   .hero { padding-block: clamp(48px, 7vw, 84px) clamp(40px, 5vw, 64px); }
   .hero h1 { margin: 14px 0 22px; }
+  .hero .lede strong { color: var(--text); }
+  @media (max-width: 560px) { .hero .cta .btn { width: 100%; } }
   .cta { display: flex; gap: 12px; flex-wrap: wrap; margin: 30px 0 0; }
   .tl { margin-top: 46px; max-width: 860px; }
   .tl-title { margin: 0 0 14px; font-size: 12.5px; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; }
