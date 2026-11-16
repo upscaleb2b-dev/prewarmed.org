@@ -28,6 +28,7 @@ const schema = {
   ],
 };
 import WiProof from '../components/WiProof.astro';
+import BuyChoice from '../components/BuyChoice.astro';
 ---
 <Base title="Prewarmed Google Workspace Inboxes: The Complete Guide"
       description="How prewarmed Google Workspace inboxes work, what Gmail checks, how many you need at your volume, and when to buy fresh instead."
@@ -38,7 +39,8 @@ import WiProof from '../components/WiProof.astro';
       <p class="eyebrow">Google Workspace</p>
       <h1>Prewarmed Google Workspace inboxes</h1>
       <p class="lede">Licensed Workspace accounts on domains aged 30 days and warmed 21. From ${pre.perUnit.quarterly} an inbox, domain included, typically delivered the same day.</p>
-      <p class="cta"><a class="btn btn-primary btn-lg" href={order({ page: 'google-hub', placement: 'hero' })} target="_blank" rel="noopener">Get Google inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out how many →</a> <WhatsApp /></p>
+      <div class="cta"><BuyChoice page="google-hub" placement="hero" platform="google" /></div>
+      <p class="bc-more"><a href="/calculator/">Work out how many →</a></p>
       <Handoff />
 
       <h2>Why most cold email starts on Google</h2>
@@ -79,7 +81,7 @@ import WiProof from '../components/WiProof.astro';
       <NextSteps page="google-hub" />
 
       <Testimonials inset={false} page="google-hub" limit={8} platform="google" heading="Operators sending from this infrastructure" />
-      <p class="cta end"><a class="btn btn-primary btn-lg" href={order({ page: 'google-hub', placement: 'footer-cta' })} target="_blank" rel="noopener">Get Google inboxes at Warm Inboxes</a> <WhatsApp /></p>
+      <div class="cta end"><BuyChoice page="google-hub" placement="footer-cta" platform="google" /></div>
     </div>
   </section>
 </Base>

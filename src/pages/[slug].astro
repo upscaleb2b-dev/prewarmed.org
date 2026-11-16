@@ -46,6 +46,8 @@ const termed = !!(price?.perUnit || price?.perTenant || price?.perUnitRange);
 /** No published figure means the primary CTA has to start a conversation.
  *  The pricing section still carries a tracked Warm Inboxes link. */
 const askFirst = price?.contact === 'whatsapp';
+/** The prewarmed-or-fresh choice names this page's platform, and leads with its own family. */
+const choicePlatform = p.pricingKey?.startsWith('google') ? 'google' : p.pricingKey?.startsWith('azure') ? 'azure' : p.pricingKey?.startsWith('microsoft') ? 'microsoft' : null;
 /** Azure and Entra tenants, prewarmed or fresh, carry the price and deliverability match. */
 const azure = p.pricingKey === 'azure-tenant' || p.pricingKey === 'azure-fresh';
 
@@ -108,6 +110,7 @@ const schema = {
   ],
 };
 import WiProof from '../components/WiProof.astro';
+import BuyChoice from '../components/BuyChoice.astro';
 ---
 <Base title={p.title} description={p.description} schema={schema}>
   <section class="hero section">
@@ -121,9 +124,9 @@ import WiProof from '../components/WiProof.astro';
           <div class="cta">
             {askFirst
               ? <a class="btn btn-primary btn-lg" href={wa()}>Ask for a price on WhatsApp</a>
-              : <a class="btn btn-primary btn-lg" href={order({ page: p.slug, placement: 'hero' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <WhatsApp />}
-            <a class="btn btn-ghost btn-lg" href="/pricing/">See pricing</a>
+              : <BuyChoice page={p.slug} placement="hero" platform={choicePlatform} lead={p.family} />}
           </div>
+          <p class="micro"><a href="/pricing/">See all pricing →</a></p>
           <p class="disclosure micro">{site.disclosure}</p>
         </div>
         <aside class="order card">
@@ -138,7 +141,7 @@ import WiProof from '../components/WiProof.astro';
           )}
           {askFirst
             ? <a class="btn btn-primary full" href={wa()}>Ask for a price →</a>
-            : <a class="btn btn-primary full" href={order({ page: p.slug, placement: 'order-panel' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp />}
+            : <BuyChoice page={p.slug} placement="order-panel" platform={choicePlatform} lead={p.family} full />}
           <p class="micro muted">{p.family === 'prewarmed' ? pricing.policy.deliveryPrewarmed : pricing.policy.delivery}.</p>
         </aside>
       </div>
@@ -149,7 +152,7 @@ import WiProof from '../components/WiProof.astro';
 
   <section class="section">
     <div class="wrap">
-      <SpecStrip specs={p.specs} slug={p.slug} askFirst={askFirst} />
+      <SpecStrip specs={p.specs} slug={p.slug} askFirst={askFirst} platform={choicePlatform} lead={p.family} />
     </div>
   </section>
 
@@ -172,8 +175,7 @@ import WiProof from '../components/WiProof.astro';
         <p class="band-h">{band.h}</p>
         <p class="band-p">{band.p}</p>
         <div class="band-cta">
-          <a class="btn btn-primary btn-lg" href={order({ page: p.slug, placement: 'mid-band' })} target="_blank" rel="noopener">Get inboxes →</a>
-          <WhatsApp label="Ask a question first" />
+          <BuyChoice page={p.slug} placement="mid-band" platform={choicePlatform} lead={p.family} />
         </div>
         <Handoff />
       </div>
@@ -227,7 +229,7 @@ import WiProof from '../components/WiProof.astro';
               <p class="fnote">{p.family === 'prewarmed' ? pricing.policy.deliveryPrewarmed : pricing.policy.delivery}. {pricing.policy.refunds.split('.')[0]}.</p>
             </div>
           )}
-          <a class="btn btn-primary" href={order({ page: p.slug, placement: 'pricing' })} target="_blank" rel="noopener">Order at Warm Inboxes →</a> <WhatsApp />
+          <BuyChoice page={p.slug} placement="pricing" platform={choicePlatform} lead={p.family} />
         </>
       )}
     </div>

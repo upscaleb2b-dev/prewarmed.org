@@ -14,6 +14,7 @@ const faqs = [
   ['What if I do not need them for three weeks?', 'Then fresh inboxes are worth a look. They are built on your own domain and warmed for you for 14 to 21 days before they send, at a lower price per inbox. They are the wrong buy the moment a start date is fixed and close.'],
 ];
 import WiProof from '../../components/WiProof.astro';
+import BuyChoice from '../../components/BuyChoice.astro';
 ---
 <Base schema={{ '@type': 'CollectionPage', name: 'Prewarmed inboxes for cold email', url: 'https://prewarmed.org/prewarmed-inboxes/',
     mainEntity: { '@type': 'ItemList', itemListElement: inbox.map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.eyebrow, url: `https://prewarmed.org/${p.slug}/` })) } }}
@@ -24,7 +25,8 @@ import WiProof from '../../components/WiProof.astro';
       <p class="eyebrow">Prewarmed inboxes</p>
       <h1>Every prewarmed inbox we sell, in one place</h1>
       <p class="lede">Every one ships on a domain aged 30 days and warmed 21, with the email records set up. What differs is the platform and the cost per inbox.</p>
-      <div class="cta"><a class="btn btn-primary btn-lg" href={order({ page: 'inbox-hub', placement: 'hero' })} target="_blank" rel="noopener">Get inboxes</a><a class="btn btn-ghost btn-lg" href="/pricing/">Compare pricing</a> <WhatsApp /></div>
+      <div class="cta"><BuyChoice page="inbox-hub" placement="hero" /></div>
+      <p class="bc-more"><a href="/pricing/">Compare pricing →</a></p>
       <Handoff />
     </div>
   </section>

@@ -6,6 +6,7 @@ import tools from '../data/tools.json';
 import pricing from '../data/pricing.json';
 import WhatsApp from '../components/WhatsApp.astro';
 import VolumeTable from '../components/VolumeTable.astro';
+import BuyChoice from '../components/BuyChoice.astro';
 ---
 <Simple
   schema={{ '@type': 'HowTo', name: 'How a domain is aged and warmed before cold email',
@@ -142,7 +143,7 @@ import VolumeTable from '../components/VolumeTable.astro';
 
   <h2 id="start">Ready to start?</h2>
   <p>Create an account, pick a package, and send from inboxes that are already configured.</p>
-  <p style="margin-top:20px"><a class="btn btn-primary btn-lg" href={order({ page: 'how-it-works', placement: 'body' })} target="_blank" rel="noopener">Get inboxes</a> <WhatsApp /></p>
+  <div style="margin-top:20px"><BuyChoice page="how-it-works" placement="body" /></div>
 </Simple>
 
 <style>

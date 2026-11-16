@@ -45,6 +45,8 @@ a:focus-visible, button:focus-visible, input:focus-visible, summary:focus-visibl
 .btn-ghost { border-color: var(--border-strong); color: var(--text); background: transparent; }
 .btn-ghost:hover { border-color: var(--accent); color: var(--accent); text-decoration: none; }
 .btn-lg { font-size: 17px; padding: 15px 28px; }
+/* The quieter next step under a prewarmed-or-fresh choice. */
+.bc-more { margin: 12px 0 0; font-size: 15px; }
 
 /* CTA pairs. Almost every orange button has the WhatsApp button next to it,
    and the two should read as equal choices, not a button and an

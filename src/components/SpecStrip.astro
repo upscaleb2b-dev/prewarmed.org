@@ -17,7 +17,8 @@
  */
 import { wi, wa, order } from '../data/site.js';
 import WhatsApp from './WhatsApp.astro';
-const { specs, slug, cta = 'Order at Warm Inboxes', askFirst = false } = Astro.props;
+const { specs, slug, askFirst = false, platform = null, lead = 'prewarmed' } = Astro.props;
+import BuyChoice from './BuyChoice.astro';
 ---
 <div class="specs">
   <dl>
@@ -31,9 +32,8 @@ const { specs, slug, cta = 'Order at Warm Inboxes', askFirst = false } = Astro.p
   {slug && (
     <div class="spec-cta">
       {askFirst
-        ? <a class="btn btn-primary" href={wa()} target="_blank" rel="noopener">Ask for a price</a>
-        : <a class="btn btn-primary" href={order({ page: slug, placement: 'spec-sheet' })} target="_blank" rel="noopener">{cta} →</a>}
-      <WhatsApp />
+        ? <><a class="btn btn-primary" href={wa()} target="_blank" rel="noopener">Ask for a price</a> <WhatsApp /></>
+        : <BuyChoice page={slug} placement="spec-sheet" platform={platform} lead={lead} />}
     </div>
   )}
 </div>

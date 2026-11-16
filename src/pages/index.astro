@@ -47,6 +47,7 @@ const schema = {
     { '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) },
   ],
 };
+import BuyChoice from '../components/BuyChoice.astro';
 ---
 <Base
   title="Prewarmed Inboxes & Domains for Cold Email | prewarmed.org"
@@ -58,9 +59,9 @@ const schema = {
       <p class="eyebrow">Prewarmed inboxes and domains for cold email</p>
       <h1>Cold Email Needs<br />Warm Inboxes</h1>
       <p class="lede">Prewarmed Google/Azure inboxes with <strong>FREE domains</strong>, or buy fresh and warm up for 2X less.</p>
+      <div class="cta-choice"><BuyChoice page="home" placement="hero" help={false} /></div>
       <div class="cta">
-        <a class="btn btn-primary btn-lg" href={order({ page: 'home', placement: 'hero' })} target="_blank" rel="noopener">Get inboxes</a>
-        <a class="btn btn-ghost btn-lg" href="/deliverability-agent/">Download deliverability agent</a> <WhatsApp />
+        <a class="btn btn-ghost btn-lg" href="/deliverability-agent/">Download deliverability agent</a> <WhatsApp label="Help me choose" />
       </div>
       <Handoff />
 
@@ -82,9 +83,7 @@ const schema = {
         <div class="card"><h3>Skip the 21-day warmup wait</h3><p class="muted">The aging and warming already happened on our clock. You typically get the logins the same day and send the day they arrive.</p></div>
       </div>
       <div class="means-cta">
-        <a class="btn btn-primary btn-lg" href={order({ page: 'home', placement: 'what-prewarmed-means' })} target="_blank" rel="noopener">Get prewarmed inboxes</a>
-        <a class="btn btn-ghost btn-lg" href={order({ page: 'home', placement: 'warm-up-yourself' })} target="_blank" rel="noopener">Warm up yourself</a>
-        <WhatsApp />
+        <BuyChoice page="home" placement="what-prewarmed-means" />
         <Handoff />
       </div>
     </div>
@@ -98,6 +97,7 @@ const schema = {
           <div class={`lane lane-${l.key}`}>
             <p class="lane-tag">{l.tag}</p>
             <p class="lane-h">{l.h}</p>
+            <a class="btn btn-primary lane-buy" href={order({ page: 'home', placement: `lane-${l.key === 'pre' ? 'prewarmed' : 'fresh'}` })} target="_blank" rel="noopener">{l.key === 'pre' ? 'Get prewarmed inboxes' : 'Get fresh inboxes'}</a>
             <div class="lane-cards">
               {l.items.map((p) => (
                 <a class="card pick" href={`/${p.slug}/`}>
@@ -158,18 +158,19 @@ const schema = {
 
   <section class="section final">
     <div class="wrap">
-      <h2>Your next campaign can start today.</h2>
-      <a class="btn btn-primary btn-lg cta-gap" href={order({ page: 'home', placement: 'footer-cta' })} target="_blank" rel="noopener">Get inboxes</a> <WhatsApp />
+      <h2>Prewarmed or fresh, both ready when you are.</h2>
+      <div class="cta-gap"><BuyChoice page="home" placement="footer-cta" align="center" /></div>
       <Handoff align="center" />
     </div>
   </section>
 </Base>
 
 <style>
-  .means-cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .means-cta :global(.wa) { margin-top: 0; }
-  .means-cta :global(.handoff) { flex-basis: 100%; margin-top: 0; }
-  @media (max-width: 560px) { .means-cta .btn, .means-cta :global(.wa) { width: 100%; } }
+  .means-cta { margin-top: 30px; }
+  .cta-choice { margin-top: 30px; }
+  .cta-choice + .cta { margin-top: 12px; }
+  .lane-buy { align-self: flex-start; margin: 0 0 16px; }
+  @media (max-width: 560px) { .lane-buy { align-self: stretch; } }
   /* Row headers for the comparison table: semantics without the column-head look. */
   tbody th[scope="row"] { text-align: left; font-weight: 400; color: var(--text-2); text-transform: none; letter-spacing: normal; font-size: inherit; }
   /* flex-start, not center: the Microsoft title wraps to two lines and the

@@ -18,6 +18,7 @@ const schema = {
   ],
 };
 import WiProof from '../components/WiProof.astro';
+import BuyChoice from '../components/BuyChoice.astro';
 ---
 <Base title="Best Prewarmed Inboxes: How to Choose, and When Not to Buy"
       description="The criteria that separate a real prewarmed inbox from a repackaged aged domain, the questions to ask any seller, and when not to buy."
@@ -69,7 +70,8 @@ import WiProof from '../components/WiProof.astro';
       <section class="ours">
         <h2>What we ship, for comparison</h2>
         <p>So you can run the questions on us: domains aged 30 days before first send, then 21 days of real sending and receiving; the domain included at no cost; Google Workspace, Microsoft 365 and Azure tenants; typically delivered the same day. On replacement: we do not repair damaged domains or swap them, because repair takes weeks and rarely restores the reputation. A new batch can be ordered instead, and typically arrives the same day.</p>
-        <p class="cta"><a class="btn btn-primary btn-lg" href={order({ page: 'best-prewarmed-inboxes', placement: 'body' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Work out what you need →</a> <WhatsApp /></p>
+        <div class="cta"><BuyChoice page="best-prewarmed-inboxes" placement="body" /></div>
+        <p class="bc-more"><a href="/calculator/">Work out what you need →</a></p>
       </section>
 
       <WiProof kind="placement" page="best-prewarmed-inboxes" />

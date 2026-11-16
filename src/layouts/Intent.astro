@@ -33,13 +33,11 @@ const schema = {
   ],
 };
 import WiProof from '../components/WiProof.astro';
+import BuyChoice from '../components/BuyChoice.astro';
 ---
 <Simple title={p.title} description={p.description} eyebrow={p.eyebrow} h1={p.h1} lede={p.lede} schema={schema}>
-  <div class="ip-cta">
-    <a class="btn btn-primary btn-lg" href={order({ page: slug, placement: 'hero' })} target="_blank" rel="noopener">Get inboxes</a>
-    <WhatsApp />
-    <a class="btn btn-ghost" href={wiUrl(p.wi.url, { page: slug, placement: 'hero' })} target="_blank" rel="noopener">{p.wi.label} ↗</a>
-  </div>
+  <BuyChoice page={slug} placement="hero" />
+  <p class="ip-more"><a href={wiUrl(p.wi.url, { page: slug, placement: 'hero' })} target="_blank" rel="noopener">{p.wi.label} on warminboxes.com ↗</a></p>
   <Handoff />
 
   <slot />
@@ -57,11 +55,8 @@ import WiProof from '../components/WiProof.astro';
 
   <div class="ip-end">
     <p class="ip-end-h">Ready when you are</p>
-    <p>Pick the platform and the quantity in the app. If you are not sure which, send us the volume and the market on WhatsApp and we will size it with you.</p>
-    <div class="ip-cta">
-      <a class="btn btn-primary btn-lg" href={order({ page: slug, placement: 'footer-cta' })} target="_blank" rel="noopener">Get inboxes</a>
-      <WhatsApp label="Help me choose" />
-    </div>
+    <p>Prewarmed to send the day it arrives, or fresh on your own domain for less. Pick either in the app; if you are not sure which, send us the volume and the market on WhatsApp and we will size it with you.</p>
+    <div class="ip-choice"><BuyChoice page={slug} placement="footer-cta" /></div>
     <p class="ip-more">More detail on warminboxes.com: <a href={wiUrl(p.wi.url, { page: slug, placement: 'footer-cta' })} target="_blank" rel="noopener">{p.wi.label} ↗</a></p>
   </div>
 </Simple>
@@ -71,6 +66,7 @@ import WiProof from '../components/WiProof.astro';
   .ip-cta .btn { min-height: 44px; display: inline-flex; align-items: center; }
   @media (max-width: 560px) { .ip-cta .btn { flex: 1 1 100%; justify-content: center; } }
   .ip-faq { margin-top: 56px; }
+  .ip-choice { margin-top: 18px; }
   .ip-rel { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--border); }
   .ip-rel ul { list-style: none; padding: 0; margin: 10px 0 0; display: flex; flex-wrap: wrap; gap: 8px 18px; }
   .ip-rel li { margin: 0; font-size: 15px; }

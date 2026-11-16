@@ -13,6 +13,7 @@ const schema = {
     about: criteria.map(([h]) => ({ '@type': 'Thing', name: h })),
   }],
 };
+import BuyChoice from '../../components/BuyChoice.astro';
 ---
 <Base title="Prewarmed Inbox Providers: Directory and Criteria"
       description="Who sells prewarmed inboxes, judged on domain aging, warming, included domains, how fast a fresh batch ships and platforms."
@@ -72,7 +73,8 @@ const schema = {
       </ol>
       <p class="narrow">A provider that answers all four plainly is worth considering. One that talks around any of them has told you something.</p>
 
-      <p class="cta"><a class="btn btn-primary btn-lg" href={order({ page: 'providers', placement: 'body' })} target="_blank" rel="noopener">See what Warm Inboxes ships</a> <a class="btn btn-ghost btn-lg" href="/best-prewarmed-inboxes/">How to choose →</a> <WhatsApp /></p>
+      <div class="cta"><BuyChoice page="providers" placement="body" /></div>
+      <p class="bc-more"><a href="/best-prewarmed-inboxes/">How to choose a provider →</a></p>
     </div>
   </section>
 </Base>

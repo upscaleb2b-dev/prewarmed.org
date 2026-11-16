@@ -22,6 +22,12 @@ const cfg = {
   // Prewarmed typically lands the same day; fresh lands in 48 to 72 hours,
   // then warms for up to 21 days.
   preDays: 1,
+  // Each result column carries its own buy button, so the result reads as
+  // "which of these", not "whether".
+  buy: {
+    prewarmed: order({ page: 'calculator', placement: 'option-prewarmed' }),
+    fresh: order({ page: 'calculator', placement: 'option-fresh' }),
+  },
   freshDays: 24,
   platforms: {
     google: {
@@ -63,6 +69,7 @@ const schema = {
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   }],
 };
+import BuyChoice from '../components/BuyChoice.astro';
 ---
 <Base title="Prewarmed vs Fresh Inbox Calculator"
       description="Put in your daily send target and launch date. Get the inboxes and domains you need on each platform, priced prewarmed against fresh."
@@ -96,8 +103,8 @@ const schema = {
         <div class="plats" id="plats"></div>
 
         <div class="endcap">
-          <p>Whichever way it came out, the order happens at Warm Inboxes.</p>
-          <a class="btn btn-primary btn-lg" href={order({ page: 'calculator', placement: 'result' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes →</a> <WhatsApp />
+          <p>Whichever way it came out, both are ordered in the same place.</p>
+          <BuyChoice page="calculator" placement="result" align="center" />
         </div>
       </div>
 
@@ -168,10 +175,12 @@ const schema = {
             <p class="big mono">${money(pre)}<span class="mo">/mo</span></p>
             <p class="sub">domain included</p>
             <p class="sub when">Sends on arrival, typically the same day</p>
+            <a class="btn btn-primary opt-buy" href="${C.buy.prewarmed}" target="_blank" rel="noopener">Get prewarmed</a>
           </div>
           <div class="opt ${freshFits ? '' : 'out'}">
             <p class="tag">Fresh${freshFits ? '' : ' (too late)'}</p>
             ${freshBlock}
+            <a class="btn btn-primary opt-buy" href="${C.buy.fresh}" target="_blank" rel="noopener">Get fresh</a>
           </div>
         </div>
       </div>`;
@@ -215,6 +224,9 @@ const schema = {
   .plats :global(.opt) { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 16px 18px; }
   .plats :global(.opt.win) { border-color: var(--accent); }
   .plats :global(.opt.out) { opacity: .5; }
+  .plats :global(.opt-buy) { margin-top: 14px; width: 100%; }
+  /* When fresh cannot reach the date, it stays visible for the price but is not offered. */
+  .plats :global(.opt.out .opt-buy) { display: none; }
   .plats :global(.tag) { font-size: 11.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--text-muted); margin: 0 0 10px; }
   .plats :global(.big) { font-size: 26px; color: var(--text); font-weight: 500; margin: 0 0 6px; letter-spacing: -.02em; }
   .plats :global(.mo) { font-size: 14px; color: var(--text-muted); font-weight: 400; }

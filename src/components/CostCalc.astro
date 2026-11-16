@@ -45,6 +45,7 @@ const cfg = {
       fresh: P['azure-fresh'].perTenant.quarterly, slug: 'prewarmed-azure-inboxes' },
   ].filter((p) => !only || only.includes(p.id)),
 };
+import BuyChoice from './BuyChoice.astro';
 ---
 <section class="cc" data-cfg={JSON.stringify(cfg)}>
   <div class="wrap">
@@ -80,8 +81,8 @@ const cfg = {
       <p class="say" id="cc-say">…</p>
 
       <div class="cta">
-        <a class="btn btn-primary btn-lg" id="cc-cta" href={order({ page: 'cost-calculator', placement: 'result' })} target="_blank" rel="noopener">Get prewarmed inboxes</a>
-        <a class="btn btn-ghost btn-lg" id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a> <WhatsApp />
+        <BuyChoice page="cost-calculator" placement="result" align="center" />
+        <p class="bc-more"><a id="cc-more" href="/prewarmed-google-inboxes/">See what ships →</a></p>
       </div>
       <Handoff />
       <p class="foot" id="cc-foot">…</p>

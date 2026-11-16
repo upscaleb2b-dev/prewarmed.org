@@ -19,6 +19,7 @@ const schema = {
   '@context': 'https://schema.org',
   '@graph': [{ '@type': 'FAQPage', mainEntity: faqs.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })) }],
 };
+import BuyChoice from '../components/BuyChoice.astro';
 ---
 <Base title="Prewarmed vs Fresh Inboxes: Which to Buy, and When"
       description="The same mailbox sold at two points in its life. What the price gap actually buys, when fresh is the better purchase, and the arithmetic that decides it."
@@ -70,7 +71,8 @@ const schema = {
 
       <Faq faqs={faqs} />
 
-      <p class="cta end"><a class="btn btn-primary btn-lg" href={order({ page: 'prewarmed-vs-fresh', placement: 'footer-cta' })} target="_blank" rel="noopener">Get inboxes at Warm Inboxes</a> <a class="btn btn-ghost btn-lg" href="/calculator/">Run the numbers →</a> <WhatsApp /></p>
+      <div class="cta end"><BuyChoice page="prewarmed-vs-fresh" placement="footer-cta" /></div>
+      <p class="bc-more"><a href="/calculator/">Not sure? Run the numbers →</a></p>
     </div>
   </section>
 </Base>
