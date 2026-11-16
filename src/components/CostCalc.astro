@@ -3,10 +3,10 @@
  * Home-page cost calculator.
  *
  * Fresh inboxes cost less a month; prewarmed ones send from the day they
- * arrive. Prewarmed typically lands the same day, fresh within 48 to 72
- * hours, and both are warmed by Warm Inboxes, so the only real difference
- * over a first quarter is the 14 to 21 days a fresh fleet spends warming
- * before it can send. This measures cost
+ * arrive. Prewarmed typically lands the same day, already warmed; fresh
+ * lands within 48 to 72 hours and needs the buyer's own warmup tool, so the
+ * difference over a first quarter is that tool plus the 14 to 21 days a
+ * fresh fleet spends warming before it can send. This measures cost
  * per thousand cold emails ACTUALLY SENT over 90 days, on Warm Inboxes'
  * published prices, and reports whichever side wins. At volume fresh often
  * does, and the copy says so rather than hiding it.
@@ -28,6 +28,7 @@ const cfg = {
   readyDays: 21,
   windowDays: 90,
   domain: P['domain-fresh'].price,
+  warmupTool: P['warmup-tool'].price,
   // Mailboxes per tenant -> cold sends per mailbox per day. A lighter tenant
   // sends more per address for the same flat price.
   tenantRate: { 25: rate('azure-25'), 49: rate('azure-50'), 100: rate('azure-100') },
@@ -117,14 +118,14 @@ import BuyChoice from './BuyChoice.astro';
     if (tenant) {
       const tenants = Math.ceil(n / density);
       preCost = tenants * active.pre * months;
-      freshCost = tenants * active.fresh * months + tenants * C.domain;
-      freshNote = `${tenants} ${tenants === 1 ? 'tenant' : 'tenants'} at ${money(active.fresh)} plus ${money(C.domain)} a domain`;
+      freshCost = tenants * active.fresh * months + tenants * C.domain + C.warmupTool * months;
+      freshNote = `${tenants} ${tenants === 1 ? 'tenant' : 'tenants'} at ${money(active.fresh)} plus ${money(C.domain)} a domain and a ${money(C.warmupTool)}/mo warmup tool`;
     } else {
       const tier = active.freshTiers.filter((t) => n >= t.min).pop();
       const domains = Math.ceil(n / 3);
       preCost = n * active.pre * months;
-      freshCost = n * tier.price * months + domains * C.domain;
-      freshNote = `${money(tier.price)} an inbox plus ${domains} ${domains === 1 ? 'domain' : 'domains'} at ${money(C.domain)}`;
+      freshCost = n * tier.price * months + domains * C.domain + C.warmupTool * months;
+      freshNote = `${money(tier.price)} an inbox plus ${domains} ${domains === 1 ? 'domain' : 'domains'} at ${money(C.domain)}, plus a ${money(C.warmupTool)}/mo warmup tool`;
     }
     const preK = (preCost / preEmails) * 1000;
     const freshK = (freshCost / freshEmails) * 1000;
@@ -151,7 +152,7 @@ import BuyChoice from './BuyChoice.astro';
         : preWins ? 'Prewarmed is the cheaper way to send here as well as the faster one.'
         : 'Fresh is the cheaper way to send here. Prewarmed is the price of starting three weeks sooner, which is worth it when a campaign has a date.');
     $('cc-foot').textContent =
-      `Assumes ${perDay} cold emails per ${tenant ? 'mailbox' : 'inbox'} per day${tenant ? ` at ${density} mailboxes to a tenant` : ' and three inboxes to a domain'}, quarterly billing on both sides, and the full 21 days of fresh warmup (at 14 days fresh comes out a little cheaper). Fresh domains are ${money(C.domain)} one off, or free if you bring your own. Prewarmed typically arrives the same day, fresh within 48 to 72 hours, and neither needs a warmup tool.`;
+      `Assumes ${perDay} cold emails per ${tenant ? 'mailbox' : 'inbox'} per day${tenant ? ` at ${density} mailboxes to a tenant` : ' and three inboxes to a domain'}, quarterly billing on both sides, and the full 21 days of fresh warmup (at 14 days fresh comes out a little cheaper). Fresh domains are ${money(C.domain)} one off, or free if you bring your own. Prewarmed typically arrives the same day, fresh within 48 to 72 hours. Fresh includes a warmup tool every month, because we do not run warmup on fresh inboxes.`;
     $('cc-more').href = '/' + active.slug + '/';
   }
 

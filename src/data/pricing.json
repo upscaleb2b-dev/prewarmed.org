@@ -120,7 +120,7 @@
           }
         }
       ],
-      "note": "Built on your own domain, then warmed by Warm Inboxes for 14 to 21 days before you send."
+      "note": "Built on your own domain. You warm them up for 14 to 21 days on your own warmup tool before you send."
     },
     "microsoft-fresh": {
       "label": "Fresh Microsoft 365",
@@ -133,7 +133,7 @@
         "quarterly": 2.5,
         "yearly": 2
       },
-      "note": "Built on your own domain, then warmed by Warm Inboxes for 14 to 21 days before you send."
+      "note": "Built on your own domain. You warm them up for 14 to 21 days on your own warmup tool before you send."
     },
     "azure-fresh": {
       "label": "Fresh Azure tenant",
@@ -167,7 +167,7 @@
         "quarterly": 0.5,
         "yearly": 0.5
       },
-      "note": "One flat price per tenant on every billing cycle, 25 to 100 inboxes on one domain. Built on your own domain, then warmed by Warm Inboxes for 14 to 21 days before you send."
+      "note": "One flat price per tenant on every billing cycle, 25 to 100 inboxes on one domain. Built on your own domain. You warm it up for 14 to 21 days on your own warmup tool before you send."
     },
     "domain-fresh": {
       "label": "Fresh .com domain",

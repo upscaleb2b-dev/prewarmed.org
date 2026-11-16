@@ -6,7 +6,7 @@
 export const products = [
   {
     slug: 'prewarmed-google-inboxes',
-    alt: { lead: 'Not needed until later in the quarter?', slug: 'fresh-google-inboxes', label: 'Fresh Google inboxes cost less and are warmed for you before they send' },
+    alt: { lead: 'Not needed until later in the quarter?', slug: 'fresh-google-inboxes', label: 'Fresh Google inboxes cost less per inbox, and you warm them up before they send' },
     family: 'prewarmed',
     eyebrow: 'Prewarmed Google inboxes',
     h1: 'Prewarmed Google inboxes, ready to send on arrival',
@@ -83,13 +83,14 @@ export const products = [
       {
         h: 'When prewarmed is the wrong buy',
         p: [
-          'If your campaign is not starting for six weeks, you are paying a premium for time you are not going to use. Fresh inboxes cost about a third as much at volume, and their 14 to 21 days of warmup, which Warm Inboxes runs for you, fit inside the window you were going to wait through anyway.',
+          'If your campaign is not starting for six weeks, you are paying a premium for time you are not going to use. Fresh inboxes cost about a third as much at volume, and their 14 to 21 days of warmup, on your own warmup tool, fit inside the window you were going to wait through anyway.',
           'If your list is mostly Microsoft-hosted, the premium is going to the wrong platform. Check before you order rather than after.',
           'And if the last three campaigns failed on copy or targeting, infrastructure is not the constraint. Better inboxes deliver a message nobody wanted to read, faster. We would rather say that now than sell you the wrong thing twice.',
         ],
       },
     ],
     faqs: [
+      ['Can warmup keep running after delivery?', 'If you send through an AI agent rather than a sequencer, yes. We can keep prewarmed inboxes warming in our own pool. Tell the team when you order.'],
       ['Are these real Google Workspace accounts?', 'Yes. Licensed Google Workspace accounts on a domain we age and warm, not SMTP relays and not shared seats.'],
       ['How many inboxes per domain?', 'Three. More is cheaper per inbox and concentrates risk: when the domain goes, everything on it goes with it.'],
       ['Can I connect these to Smartlead or Instantly?', 'Yes, over OAuth or app password. Set the per-inbox daily cap to your ramp figure rather than the platform default before the first send.'],
@@ -100,7 +101,7 @@ export const products = [
   },
   {
     slug: 'prewarmed-microsoft-365-inboxes',
-    alt: { lead: 'Building capacity rather than launching?', slug: 'fresh-microsoft-365-inboxes', label: 'Fresh Microsoft 365 inboxes cost less and are warmed for you before they send' },
+    alt: { lead: 'Building capacity rather than launching?', slug: 'fresh-microsoft-365-inboxes', label: 'Fresh Microsoft 365 inboxes cost less per inbox, and you warm them up before they send' },
     family: 'prewarmed',
     eyebrow: 'Prewarmed Microsoft 365 inboxes',
     h1: 'Prewarmed Microsoft 365 inboxes for Outlook-heavy lists',
@@ -189,6 +190,7 @@ export const products = [
       },
     ],
     faqs: [
+      ['Can warmup keep running after delivery?', 'If you send through an AI agent rather than a sequencer, yes. We can keep prewarmed inboxes warming in our own pool. Tell the team when you order.'],
       ['Is this the same as the Azure tenant product?', 'No. These are individual paid mailboxes sold in packs. An Azure tenant is one account holding 100 mailboxes at a much lower cost per inbox, but all 100 share one reputation. See the comparison.'],
       ['Will these work with my sequencer?', 'Yes. Use OAuth where available. Set per-inbox daily caps to your ramp figure, not the platform default.'],
       ['Why send from Microsoft at all?', 'Because a meaningful share of B2B recipients are on Microsoft, and placement into those mailboxes is better from Microsoft infrastructure.'],
@@ -198,7 +200,7 @@ export const products = [
   },
   {
     slug: 'prewarmed-outlook-inboxes',
-    alt: { lead: 'Start date three weeks or more out?', slug: 'fresh-microsoft-365-inboxes', label: 'Fresh Microsoft 365 inboxes cost less and are warmed for you before they send' },
+    alt: { lead: 'Start date three weeks or more out?', slug: 'fresh-microsoft-365-inboxes', label: 'Fresh Microsoft 365 inboxes cost less per inbox, and you warm them up before they send' },
     family: 'prewarmed',
     eyebrow: 'Prewarmed Outlook inboxes',
     h1: 'Prewarmed Outlook inboxes for cold email',
@@ -248,6 +250,7 @@ export const products = [
       },
     ],
     faqs: [
+      ['Can warmup keep running after delivery?', 'If you send through an AI agent rather than a sequencer, yes. We can keep prewarmed inboxes warming in our own pool. Tell the team when you order.'],
       ['Are these Outlook.com accounts?', 'No. Licensed Microsoft 365 mailboxes with Exchange Online, on a domain you control.'],
       ['What is the difference from your Microsoft 365 page?', 'None. Same product, different vocabulary. Buyers search both.'],
       ['Can I use these with any sequencer?', 'Yes. Prefer OAuth over basic authentication where supported.'],
@@ -258,7 +261,7 @@ export const products = [
   {
     slug: 'prewarmed-azure-inboxes',
     family: 'prewarmed',
-    alt: { lead: 'Start date three weeks or more out?', slug: 'fresh-azure-inboxes', label: 'A fresh Azure tenant costs less and is warmed for you before it sends' },
+    alt: { lead: 'Start date three weeks or more out?', slug: 'fresh-azure-inboxes', label: 'A fresh Azure tenant is built on your own domain, and you warm it up before it sends' },
     eyebrow: 'Prewarmed Azure tenants',
     h1: 'Prewarmed Azure inboxes: 100 mailboxes per tenant',
     title: 'Prewarmed Azure Inboxes: 100-Mailbox Tenants',
@@ -352,6 +355,7 @@ export const products = [
       },
     ],
     faqs: [
+      ['Can warmup keep running after delivery?', 'If you send through an AI agent rather than a sequencer, yes. We can keep prewarmed inboxes warming in our own pool. Tell the team when you order.'],
       ['What is an Azure tenant for cold email?', 'Your own Microsoft cloud directory containing 100 Exchange Online mailboxes, delivered prewarmed with DNS configured.'],
       ['How is this different from Microsoft 365 packs?', 'A pack is three mailboxes and a problem stays on that domain. A tenant is one flat price holding a hundred mailboxes that share a reputation: $0.50 an inbox on a quarterly commit, with all of the risk in one place.'],
       ['Can I bring my own domains into the tenant?', 'Yes, though a domain you add yourself starts at zero reputation and needs its own aging and warming.'],
@@ -417,6 +421,7 @@ export const products = [
       },
     ],
     faqs: [
+      ['Can warmup keep running after delivery?', 'If you send through an AI agent rather than a sequencer, yes. We can keep prewarmed inboxes warming in our own pool. Tell the team when you order.'],
       ['Is Entra ID different from Azure AD?', 'Only in name and interface. Same directory, same licensing, no deliverability difference.'],
       ['Should I buy the Entra page or the Azure page?', 'Same product. Buy whichever page you understood better.'],
       ['Will conditional access block my sequencer?', 'Not as delivered. Tenants arrive configured for sequencer authentication. If you alter the policy, expect to re-test the connection.'],
@@ -426,7 +431,7 @@ export const products = [
   },
   {
     slug: 'prewarmed-domains',
-    alt: { lead: 'Stocking up for a date further out?', slug: 'fresh-domains', label: 'Fresh .com domains are $12 one off, and inboxes on them are warmed for you' },
+    alt: { lead: 'Stocking up for a date further out?', slug: 'fresh-domains', label: 'Fresh .com domains are $12 one off, for inboxes you warm up yourself' },
     family: 'prewarmed',
     eyebrow: 'Prewarmed domains',
     h1: 'Prewarmed domains with sending history, not just age',
@@ -440,7 +445,7 @@ export const products = [
       { k: 'domain-prewarmed', h: 'Prewarmed .com', price: 'Free with any inbox pack',
         b: 'Aged 30 days, warmed 21, authenticated and placement tested. This is the one the rest of this page is about.' },
       { k: 'domain-fresh', h: 'Fresh .com', price: '$12 per domain, one off',
-        b: 'Registered clean and handed over with your order. No history yet, so fresh inboxes built on it are warmed by Warm Inboxes for 14 to 21 days before they send. Lists at $20.',
+        b: 'Registered clean and handed over with your order. No history yet, so fresh inboxes built on it need 14 to 21 days on your own warmup tool before they send. Lists at $20.',
         to: '/fresh-domains/', toLabel: 'See fresh domains →' },
       { k: 'domain-aged', h: 'Aged .com', price: 'Custom, per domain',
         b: 'Sourced individually against your requirement, with registration and drop history checked before anything is handed over. Priced per domain because every one is different.',
@@ -485,7 +490,7 @@ export const products = [
         h: 'Three kinds of domain, three different prices',
         p: [
           'A prewarmed .com is included free with every inbox pack. Registration costs about twelve dollars; the fifty-one days of aging, authentication, engagement and testing is where the cost actually sits, and that work lives in the mailboxes rather than in the registration. So we do not charge for the domain on top.',
-          'A fresh .com is twelve dollars, one off, against a list price of twenty, registered clean and handed over with your order. It has no history yet, so the fresh inboxes built on it are warmed by Warm Inboxes for 14 to 21 days before they send. Buy these when you want inboxes on your own brand and can wait three weeks for them.',
+          'A fresh .com is twelve dollars, one off, against a list price of twenty, registered clean and handed over with your order. It has no history yet, so the fresh inboxes built on it need 14 to 21 days on your own warmup tool before they send. Buy these when you want inboxes on your own brand and can wait three weeks for them.',
           'An aged .com is priced per domain, because every one is different. Age, prior use, drop history and blocklist exposure all vary, and a sensible price depends on what the specific domain turns out to be. Those are sourced against your requirement rather than sold off a shelf, which is why the conversation happens before the price.',
         ],
       },
@@ -513,20 +518,20 @@ export const products = [
     alt: { lead: 'Need to send this week?', slug: 'prewarmed-google-inboxes', label: 'Prewarmed Google inboxes send the day they arrive' },
     family: 'fresh',
     eyebrow: 'Fresh Google inboxes',
-    card: 'Licensed Google Workspace accounts on your own domain, warmed for you for 14 to 21 days.',
+    card: 'Licensed Google Workspace accounts on your own domain, for you to warm up for 14 to 21 days.',
     h1: 'Fresh Google Workspace inboxes on your own domain',
     title: 'Fresh Google Workspace Inboxes for Cold Email',
     description:
-      'Fresh Google Workspace inboxes on your own domain, with SPF, DKIM and DMARC set and 14 to 21 days of warmup done for you. From $3.50 an inbox.',
+      'Fresh Google Workspace inboxes on your own domain, with SPF, DKIM and DMARC set, ready for 14 to 21 days on your own warmup tool. From $3.50 an inbox.',
     keyword: 'fresh google inboxes',
     subhead:
-      'Licensed Workspace accounts built on your own branded domain, records set, then warmed for you for 14 to 21 days. Your brand on every email, at about a third of the prewarmed price at volume.',
+      'Licensed Workspace accounts built on your own branded domain with the records set. You warm them up for 14 to 21 days on your own warmup tool. Your brand on every email, at about a third of the prewarmed price per inbox at volume.',
     pricingKey: 'google-fresh',
     inlineTool: 'esp-segmenter',
     ships: [
       'Licensed Google Workspace accounts on **your own domain**',
       'SPF, DKIM, DMARC and MX published for you',
-      'Warmed by Warm Inboxes for **14 to 21 days** before you send',
+      'Warm up for **14 to 21 days** on your own warmup tool before you send',
       'Delivered within **48 to 72 hours** of payment',
     ],
     specs: [
@@ -554,16 +559,16 @@ export const products = [
       {
         h: 'What fresh means here',
         p: [
-          'Fresh means a real, licensed Google Workspace mailbox built by technicians on your own branded domain, with SPF, DKIM, DMARC and MX published correctly the first time. It has no sending history yet, so before it carries cold email it is warmed by Warm Inboxes for 14 to 21 days.',
+          'Fresh means a real, licensed Google Workspace mailbox built by technicians on your own branded domain, with SPF, DKIM, DMARC and MX published correctly the first time. It has no sending history yet, so before it carries cold email it needs 14 to 21 days on a warmup tool, which you run.',
           'The difference from prewarmed is where the domain comes from and when you can send. Prewarmed inboxes arrive on a domain that has already done its weeks and send on arrival. Fresh inboxes carry your brand and send once their warmup is done.',
         ],
       },
       {
         h: 'The 14 to 21 days, and what to do with them',
         p: [
-          'The inboxes arrive within 48 to 72 hours of payment and warmup starts on them straight away. You do not need a warmup tool: Warm Inboxes runs it, and keeps running it at 30 emails per inbox per day underneath your campaigns afterwards.',
+          'The inboxes arrive within 48 to 72 hours of payment. Connect them to your warmup tool straight away: we do not run warmup on fresh inboxes, so you need one, from about $97 a month. Keep it running underneath your campaigns afterwards.',
           'Use the weeks for the parts only you can do. Set a display name, signature and profile photo on every inbox, point the domain at your real website, connect the inboxes to your sequencer with campaigns paused, and verify your list. When warmup finishes, everything is ready to switch on.',
-          'Leave your sequencer\'s own warmup off. It sends from the same mailbox against the same daily budget, so running both spends it twice.',
+          'Run one warmup, not two. Each one sends from the same mailbox against the same daily budget, so count warmup sends inside the daily limit rather than on top of it.',
         ],
       },
       {
@@ -582,10 +587,10 @@ export const products = [
       },
     ],
     faqs: [
-      ['Are these real Google Workspace accounts?', 'Yes, licensed Google Workspace accounts on your own domain. The difference from prewarmed inboxes is that these start with no sending history and are warmed for you before you send.'],
+      ['Are these real Google Workspace accounts?', 'Yes, licensed Google Workspace accounts on your own domain. The difference from prewarmed inboxes is that these start with no sending history, so you warm them up before you send.'],
       ['When can I send cold email from them?', 'Once warmup is done: 14 to 21 days after they are delivered, and delivery is within 48 to 72 hours of payment.'],
       ['Is a domain included?', 'No. Use a domain you already own, at no domain charge, or buy a .com with the order. Domains list at $20 and are currently $12, one off. The free prewarmed domain comes with prewarmed inboxes.'],
-      ['Do I need my own warmup tool?', 'No. Warm Inboxes warms them for 14 to 21 days before you send, then keeps warmup running at 30 emails per inbox per day underneath your campaigns.'],
+      ['Do I need my own warmup tool?', 'Yes. We do not run warmup on fresh inboxes, so you need a warmup tool, from about $97 a month: 14 to 21 days of it before you send, and kept running underneath your campaigns after. If you would rather skip that, prewarmed inboxes arrive already warmed.'],
       ['Are there volume discounts?', 'Yes. The price drops at 30 inboxes and again at 100, and quarterly and yearly billing are cheaper than monthly. The table above has every figure.'],
     ],
     related: ['prewarmed-google-inboxes', 'fresh-microsoft-365-inboxes', 'fresh-domains'],
@@ -598,16 +603,16 @@ export const products = [
     h1: 'Fresh Microsoft 365 inboxes on your own domain',
     title: 'Fresh Microsoft 365 Inboxes for Cold Email',
     description:
-      'Fresh Microsoft 365 mailboxes on your own domain, authenticated and warmed for you for 14 to 21 days before you send. From $3.00 an inbox, $2.00 yearly.',
+      'Fresh Microsoft 365 mailboxes on your own domain, authenticated and ready for you to warm up for 14 to 21 days. From $3.00 an inbox, $2.00 yearly.',
     keyword: 'fresh microsoft 365 inboxes',
     subhead:
-      'Paid Microsoft 365 mailboxes built on your own branded domain, records set, then warmed for you for 14 to 21 days. The cheapest way to reach Outlook-hosted prospects under your own name.',
+      'Paid Microsoft 365 mailboxes built on your own branded domain with the records set, for you to warm up for 14 to 21 days on your own warmup tool. The cheapest way per inbox to reach Outlook-hosted prospects under your own name.',
     pricingKey: 'microsoft-fresh',
     inlineTool: 'inbox-planner',
     ships: [
       'Licensed Microsoft 365 mailboxes on **your own domain**',
       'SPF, DKIM, DMARC and MX published for you',
-      'Warmed by Warm Inboxes for **14 to 21 days** before you send',
+      'Warm up for **14 to 21 days** on your own warmup tool before you send',
       'Delivered within **48 to 72 hours** of payment',
     ],
     specs: [
@@ -651,7 +656,7 @@ export const products = [
         h: 'Connecting to your sequencer',
         p: [
           'Connect over OAuth by provider where your tool offers it. If you connect over IMAP and SMTP instead, authenticated SMTP is off by default on recent Microsoft tenants, at the tenant and again per mailbox, and it fails looking exactly like a wrong password. Enable it for the mailbox, or use OAuth and skip the question.',
-          'Set the daily cap per inbox before the first send rather than leaving the platform default, and leave the sequencer\'s own warmup off: Warm Inboxes keeps warmup running at 30 a day underneath your campaigns.',
+          'Set the daily cap per inbox before the first send rather than leaving the platform default, and run one warmup tool, not two, and count its sends inside that cap.',
         ],
       },
       {
@@ -677,21 +682,21 @@ export const products = [
     family: 'fresh',
     alt: { lead: 'Need to send this week?', slug: 'prewarmed-azure-inboxes', label: 'A prewarmed Azure tenant sends the day it arrives' },
     eyebrow: 'Fresh Azure tenants',
-    card: 'Up to 100 mailboxes on your own domain, warmed for you for 14 to 21 days.',
+    card: 'Up to 100 mailboxes on your own domain, for you to warm up for 14 to 21 days.',
     h1: 'Fresh Azure tenants: up to 100 mailboxes on your domain',
     title: 'Fresh Azure Inboxes: 100-Mailbox Tenants, $50 Flat',
     description:
-      'A dedicated Azure tenant with up to 100 Exchange Online mailboxes on your own domain, warmed for you for 14 to 21 days. $50 per tenant on every billing cycle.',
+      'A dedicated Azure tenant with up to 100 Exchange Online mailboxes on your own domain, ready for you to warm up for 14 to 21 days. $50 per tenant on every billing cycle.',
     keyword: 'fresh azure inboxes',
     subhead:
-      'Your own Azure tenant with 25 to 100 mailboxes on your branded domain, records set, then warmed for you for 14 to 21 days. One flat price whatever the billing cycle.',
+      'Your own Azure tenant with 25 to 100 mailboxes on your branded domain with the records set, for you to warm up for 14 to 21 days on your own warmup tool. One flat price whatever the billing cycle.',
     pricingKey: 'azure-fresh',
     inlineTool: 'inbox-rotation-planner',
     ships: [
       'A dedicated Azure tenant, **up to 100 mailboxes**',
       'Tenant ID and the full mailbox list',
       'SPF, DKIM, DMARC and MX published for you',
-      'Warmed by Warm Inboxes for **14 to 21 days** before you send',
+      'Warm up for **14 to 21 days** on your own warmup tool before you send',
       'Delivered within **48 to 72 hours** of payment',
     ],
     specs: [
@@ -721,7 +726,7 @@ export const products = [
         h: 'What a fresh tenant is',
         p: [
           'A tenant is your own Microsoft organisation holding 25 to 100 Exchange Online mailboxes on one domain. Buying the tenant rather than mailboxes three at a time is what drops the cost per inbox, to $0.50 at full capacity.',
-          'Fresh means it is built on your own branded domain and starts with no sending history, so every mailbox in it is warmed by Warm Inboxes for 14 to 21 days before it carries cold email. You do not need a warmup tool, and warmup keeps running at 30 a day per mailbox underneath your campaigns afterwards.',
+          'Fresh means it is built on your own branded domain and starts with no sending history, so every mailbox in it needs 14 to 21 days on a warmup tool before it carries cold email. We do not run warmup on fresh tenants: you need your own tool, from about $97 a month, kept running underneath your campaigns afterwards.',
         ],
       },
       {
@@ -752,7 +757,7 @@ export const products = [
       ['What is an Azure tenant for cold email?', 'Your own Microsoft organisation holding 25 to 100 Exchange Online mailboxes on one domain. Buying a tenant rather than mailboxes three at a time is what drops the cost per inbox.'],
       ['When can I send cold email from it?', 'Once warmup is done: 14 to 21 days after delivery, and delivery is within 48 to 72 hours of payment.'],
       ['Is a domain included?', 'No. Use your own at no domain charge, or buy a .com with the order: $20 list, currently $12, one off. The free prewarmed domain comes with prewarmed tenants.'],
-      ['Do I need a warmup tool for a hundred mailboxes?', 'No. Warm Inboxes warms every mailbox in the tenant for 14 to 21 days before you send, then keeps warmup running underneath your campaigns.'],
+      ['Do I need a warmup tool for a hundred mailboxes?', 'Yes. We do not run warmup on fresh tenants, so every mailbox needs 14 to 21 days on your own warmup tool before you send, and warmup kept running after. A flat subscription from about $97 a month covers a full tenant. A prewarmed tenant arrives already warmed.'],
       ['Should I buy this if I have never run a tenant?', 'Start with the prewarmed tenant, learn how it behaves, and add fresh ones once you know what the first weeks take.'],
       ['How is it priced?', '$50 per tenant, flat, on every billing cycle and whatever density you choose. A prewarmed tenant is $69 monthly or $50 on a quarterly commit.'],
     ],
@@ -769,7 +774,7 @@ export const products = [
       'Fresh .com domains registered clean with your order: no prior use, no blocklist history. $20 list, currently $12, one off. Or bring your own at no charge.',
     keyword: 'fresh domains for cold email',
     subhead:
-      'A .com registered new, with nothing behind it. No previous owner and no old spam. Fresh inboxes are built on it and warmed for you before they send.',
+      'A .com registered new, with nothing behind it. No previous owner and no old spam. Fresh inboxes are built on it, and you warm them up before they send.',
     pricingKey: 'domain-fresh',
     inlineTool: 'record-generator',
     ships: [
@@ -804,8 +809,8 @@ export const products = [
       {
         h: 'What happens after you buy one',
         p: [
-          'Fresh inboxes are built on it by technicians, with SPF, DKIM, DMARC and MX published, and the domain forwarded to your real website so a prospect who types it in lands somewhere. Then the inboxes are warmed by Warm Inboxes for 14 to 21 days before they carry cold email.',
-          'You do not need to run a warmup tool or leave the domain sitting idle on your own schedule. When the warmup finishes, the inboxes are ready to connect and send.',
+          'Fresh inboxes are built on it by technicians, with SPF, DKIM, DMARC and MX published, and the domain forwarded to your real website so a prospect who types it in lands somewhere. Then you warm the inboxes up for 14 to 21 days on your own warmup tool before they carry cold email.',
+          'We do not run warmup on fresh inboxes, so budget for a warmup tool, from about $97 a month. When the warmup finishes, the inboxes are ready to send.',
         ],
       },
       {
@@ -826,7 +831,7 @@ export const products = [
     ],
     faqs: [
       ['Do I own the domain?', 'Yes. Registrar access and nameserver control are transferred to you. Ask this of any vendor: a domain sitting on their nameservers is theirs.'],
-      ['When can I send cold email from it?', 'Once the inboxes built on it have finished their 14 to 21 days of warmup, which Warm Inboxes runs for you.'],
+      ['When can I send cold email from it?', 'Once the inboxes built on it have finished 14 to 21 days on your own warmup tool. We do not run warmup on fresh inboxes.'],
       ['Why is this $12 when the prewarmed domain is free?', 'The prewarmed one is free because the fifty-one days of work lives in the mailboxes you buy with it. A fresh domain is the registration: $20 list, currently $12, one off.'],
       ['Can I use my own registrar instead?', 'Yes, and it is the same domain. Bring your own and there is no domain charge. Buy it here only if you want it to arrive with the inboxes in one order.'],
       ['Are non-.com domains available?', 'Yes, via support. TLD carries real reputation differences, so ask before assuming a cheaper one is equivalent.'],

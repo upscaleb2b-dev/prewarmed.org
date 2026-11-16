@@ -12,7 +12,7 @@ const faqs = [
   ['Google or Microsoft?', 'Match the list. If most of your prospects use Gmail or Google Workspace, Google inboxes are the most forgiving route to them. If they sit on Outlook and Microsoft 365, which is common in finance, insurance and manufacturing, Microsoft inboxes reach them better. At volume most senders run both.'],
   ['Do they come with a domain?', 'Prewarmed inboxes come in packs of three on a free prewarmed .com or .co domain. Fresh inboxes go on your own branded domains, either ones you already own or ones you buy with the order.'],
   ['Who has the admin?', 'You do. Every inbox is a real mailbox on a licensed tenant with you as admin, so you can rotate a password or revoke a token without asking anyone.'],
-  ['Do I need to run warmup myself?', `No. Warmup keeps running at ${volume.warmupPerDay} emails per inbox per day underneath your campaigns for as long as you hold the inboxes. Leave your sequencer's own warmup off, or count it inside the daily limit.`],
+  ['Do I need to run warmup myself?', `On fresh inboxes, yes: a warmup tool, from about $97 a month, for 14 to 21 days before cold sends and kept running after, counted inside the daily limit. Prewarmed inboxes arrive with that done. Sending through an AI agent rather than a sequencer? We can keep prewarmed inboxes warming in our own pool.`],
 ];
 ---
 <Intent slug="cold-email-inboxes" faqs={faqs} related={[['/prewarmed-inboxes/', 'All prewarmed inboxes'], ['/calculator/', 'Calculator'], ['/how-it-works/', 'How it works']]}>
@@ -39,7 +39,7 @@ const faqs = [
     <li>A real mailbox on a licensed Google Workspace, Microsoft 365 or Azure tenant, not a relay or an alias, with you as admin.</li>
     <li>Each domain in its own isolated workspace, so one bad campaign cannot reach the rest of your infrastructure. No shared tenants.</li>
     <li>SPF, DKIM and DMARC published, and the domain forwarded to your main site, before you log in.</li>
-    <li>Warmup that keeps running at {volume.warmupPerDay} emails per inbox per day underneath your campaigns.</li>
+    <li>Prewarmed inboxes that arrive already warmed, and can keep warming in our own pool when you send through an AI agent.</li>
     <li>A dashboard, plus an API and MCP server if you would rather order and manage the fleet from code or an AI agent.</li>
   </ul>
 

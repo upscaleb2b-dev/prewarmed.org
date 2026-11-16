@@ -30,7 +30,8 @@ export function GET() {
 Key definitions used throughout this site:
 
 - **Prewarmed**: a domain that has been aged AND then used to send and receive real mail under published authentication. 51 days total.
-- **Fresh**: a licensed mailbox built on the buyer's own domain with no sending history, warmed by Warm Inboxes for 14 to 21 days before it sends.
+- **Fresh**: a licensed mailbox built on the buyer's own domain with no sending history. The buyer warms it up for 14 to 21 days on their own warmup tool (from about $97 a month) before it sends; Warm Inboxes does not run warmup on fresh inboxes.
+- **Warmup pool**: prewarmed inboxes sent through an AI agent rather than a sequencer can keep warming in Warm Inboxes' own pool.
 - **Aged**: registered long ago. Says nothing about whether it ever sent mail, and is not the same as prewarmed.
 
 Current pricing (confirmed ${pricing._confirmedAt}, ${pricing.currency}):

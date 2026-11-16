@@ -19,9 +19,9 @@ export const intents = [
     label: 'Cold email inboxes',
     eyebrow: 'Cold email inboxes',
     title: 'Cold Email Inboxes on Google, Microsoft and Azure | prewarmed.org',
-    description: 'Cold email inboxes on Google Workspace, Microsoft 365 and Azure, on their own domains with DNS set and warmup running. How many you need and what they cost.',
+    description: 'Cold email inboxes on Google Workspace, Microsoft 365 and Azure, on their own domains with DNS set, prewarmed or fresh. How many you need and what they cost.',
     h1: 'Cold email inboxes, ready to send',
-    lede: 'Real Google Workspace, Microsoft 365 and Azure mailboxes on separate sending domains, authenticated before you log in, with warmup already running underneath.',
+    lede: 'Real Google Workspace, Microsoft 365 and Azure mailboxes on separate sending domains, authenticated before you log in. Prewarmed ones arrive warmed; fresh ones you warm up yourself.',
     wi: { url: 'https://warminboxes.com/offer', label: 'See the full offer' },
   },
   {

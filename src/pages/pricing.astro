@@ -23,10 +23,10 @@ import BuyChoice from '../components/BuyChoice.astro';
       <PricingTable productKey="azure-tenant" />
       <AzureMatch />
       <h2 style="margin-top:44px">Fresh inboxes</h2>
-      <p class="muted">Built on your own domain, then warmed by Warm Inboxes for 14 to 21 days before you send. Billed monthly, quarterly or yearly, and cheaper on longer cycles. See <a href="/fresh-google-inboxes/">fresh Google inboxes</a> and <a href="/fresh-microsoft-365-inboxes/">fresh Microsoft 365 inboxes</a>.</p>
+      <p class="muted">Built on your own domain. You warm them up for 14 to 21 days on your own warmup tool, from about ${pricing.products['warmup-tool'].price} a month, before you send. Billed monthly, quarterly or yearly, and cheaper on longer cycles. See <a href="/fresh-google-inboxes/">fresh Google inboxes</a> and <a href="/fresh-microsoft-365-inboxes/">fresh Microsoft 365 inboxes</a>.</p>
       <PricingTable productKey="google-fresh" />
       <PricingTable productKey="microsoft-fresh" />
-      <p class="muted"><strong>Fresh Azure tenants</strong> are ${pricing.products['azure-fresh'].perTenant.monthly} per tenant, flat, on every billing cycle, built on your own domain and warmed for you before you send. See <a href="/fresh-azure-inboxes/">fresh Azure tenants</a>. Worth noting before you pick: a prewarmed tenant is ${pricing.products['azure-tenant'].perTenant.monthly} a month or ${pricing.products['azure-tenant'].perTenant.quarterly} on a three-month commit, so at a quarterly commit the warmed one costs the same as the fresh one.</p>
+      <p class="muted"><strong>Fresh Azure tenants</strong> are ${pricing.products['azure-fresh'].perTenant.monthly} per tenant, flat, on every billing cycle, built on your own domain, for you to warm up before you send. See <a href="/fresh-azure-inboxes/">fresh Azure tenants</a>. Worth noting before you pick: a prewarmed tenant is ${pricing.products['azure-tenant'].perTenant.monthly} a month or ${pricing.products['azure-tenant'].perTenant.quarterly} on a three-month commit, so at a quarterly commit the warmed one costs the same as the fresh one.</p>
 
       <div class="pmatch">
         <p class="pm-h"><strong>Price match.</strong> {pricing.policy.priceMatch}</p>

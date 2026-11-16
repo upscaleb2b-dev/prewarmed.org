@@ -29,8 +29,8 @@ const noun = {
 }[platform] ?? ['prewarmed inboxes', 'fresh inboxes'];
 
 const freshSub = platform === 'azure'
-  ? `Warm up first · $${pricing.products['azure-fresh'].perTenant.monthly} on any billing cycle`
-  : 'Warm up first · up to 2X less';
+  ? `Warm up yourself · $${pricing.products['azure-fresh'].perTenant.monthly} on any billing cycle`
+  : 'Warm up yourself · up to 2X less';
 
 const options = {
   prewarmed: { key: 'prewarmed', title: `Get ${noun[0]}`, sub: 'Send the day they arrive · FREE domain' },

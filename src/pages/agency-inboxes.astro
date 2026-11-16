@@ -44,7 +44,7 @@ const faqs = [
     <li><strong>One tracking domain per client, or none.</strong> A shared tracking domain re-joins everything you separated.</li>
     <li><strong>Their suppression list plus yours.</strong> Their opt-outs are theirs; your global list applies to every client. The <a href={tool('suppression-checker', page)} target="_blank" rel="noopener">suppression checker</a> runs a list against both.</li>
     <li><strong>Every list verified before upload.</strong> The <a href={tool('email-verifier', page)} target="_blank" rel="noopener">email verifier</a> and <a href={tool('csv-cleaner', page)} target="_blank" rel="noopener">CSV cleaner</a> are free.</li>
-    <li><strong>Sequencer warmup off.</strong> Warmup already runs at {volume.warmupPerDay} per inbox per day underneath the campaigns. A second warmup spends the same daily budget twice.</li>
+    <li><strong>One warmup per inbox.</strong> Fresh inboxes need your own warmup tool, from about $97 a month, for 14 to 21 days before cold sends. Run one warmup, not two, and count it inside the daily limit.</li>
   </ul>
 
   <h2>Built for running many clients</h2>

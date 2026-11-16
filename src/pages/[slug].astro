@@ -66,7 +66,7 @@ const ships = p.ships ?? [
 const band = p.slug === 'fresh-domains'
   ? { h: `${p.eyebrow} arrive with the order, within 48 to 72 hours.`, p: 'Registered clean and handed over alongside the inboxes, with the records prepared to match.' }
   : p.family === 'fresh'
-  ? { h: `${p.eyebrow} arrive within 48 to 72 hours of payment.`, p: 'Built on your own domain with SPF, DKIM and DMARC set, then warmed by Warm Inboxes for 14 to 21 days before your first campaign.' }
+  ? { h: `${p.eyebrow} arrive within 48 to 72 hours of payment.`, p: 'Built on your own domain with SPF, DKIM and DMARC set. Connect them to your warmup tool for 14 to 21 days before your first campaign.' }
   : { h: `${p.eyebrow} typically arrive the same day, ready to send.`, p: 'The 51 days of aging and warming already happened. You get the logins, the records are set, and the first campaign can go out the day they land.' };
 const parts = (t) => t.split('**').map((chunk, i) => ({ chunk, bold: i % 2 === 1 }));
 const crumb = p.slug === 'fresh-domains'

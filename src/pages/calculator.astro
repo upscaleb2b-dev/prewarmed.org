@@ -19,6 +19,7 @@ const P = pricing.products;
 const cfg = {
   verified: pricing._verified,
   domainFresh: P['domain-fresh'].price,
+  warmupTool: P['warmup-tool'].price,
   // Prewarmed typically lands the same day; fresh lands in 48 to 72 hours,
   // then warms for up to 21 days.
   preDays: 1,
@@ -111,8 +112,8 @@ import BuyChoice from '../components/BuyChoice.astro';
       <h2>How it decides</h2>
       <p>Two things move the answer, and only one of them is money.</p>
       <p><strong>Volume</strong> sets how many inboxes you need: your daily target divided by the safe pace for each platform (15 a day on Google, 8 on Microsoft 365, 2 per mailbox on a full Azure tenant), plus the spare capacity you hold back, then three inboxes to a domain. That part is the same whichever way you buy.</p>
-      <p><strong>Your start date</strong> sets whether fresh is available to you at all. Prewarmed inboxes typically arrive the same day and send on arrival; fresh ones arrive within 48 to 72 hours of payment and are then warmed by Warm Inboxes for 14 to 21 days before they send. If your launch is inside that window, the cheaper line item is not an option, it is a missed few weeks.</p>
-      <p>When both are available, the calculator prices them against each other on quarterly billing, at the fresh order-size tier you qualify for, plus the domains you would buy. The prewarmed price includes the domain; fresh domains are $12 one off, or free if you bring your own. Neither needs a warmup tool.</p>
+      <p><strong>Your start date</strong> sets whether fresh is available to you at all. Prewarmed inboxes typically arrive the same day and send on arrival; fresh ones arrive within 48 to 72 hours of payment and then need 14 to 21 days on your own warmup tool before they send. If your launch is inside that window, the cheaper line item is not an option, it is a missed few weeks.</p>
+      <p>When both are available, the calculator prices them against each other on quarterly billing, at the fresh order-size tier you qualify for, plus the domains you would buy. The prewarmed price includes the domain; fresh domains are $12 one off, or free if you bring your own. Fresh also carries a warmup tool at ${P['warmup-tool'].price} a month, because we do not run warmup on fresh inboxes.</p>
 
       <h2>What it does not do</h2>
       <p>This tool answers one question: prewarmed or fresh, at your volume, on your timeline. For pure sizing, meaning how many inboxes and domains for a target with a ramp plan, Warm Inboxes already has <a href={wi('/calculator', { page: 'calculator', placement: 'handoff' })} target="_blank" rel="noopener">a calculator</a> and we have not rebuilt it. The arithmetic behind both is written out on <a href="/tools/stack-calculator/">the sizing page</a>.</p>
@@ -154,15 +155,15 @@ import BuyChoice from '../components/BuyChoice.astro';
 
       let freshBlock;
       if (p.freshPerTenant) {
-        const fc = units * p.fresh;
+        const fc = units * p.fresh + C.warmupTool;
         freshBlock = `<p class="big mono">${money(fc)}<span class="mo">/mo</span></p>
-          <p class="sub">${units} tenant${units === 1 ? '' : 's'} at ${money(p.fresh)}, plus ${money(units * C.domainFresh)} once for domains, or bring your own</p>
+          <p class="sub">${units} tenant${units === 1 ? '' : 's'} at ${money(p.fresh)}, a warmup tool at ${money(C.warmupTool)}, plus ${money(units * C.domainFresh)} once for domains, or bring your own</p>
           <p class="sub when">Sends after 14 to 21 days of warmup</p>`;
       } else {
         const tier = p.freshTiers.filter((t) => inboxes >= t.min).pop();
-        const fc = inboxes * tier.price;
+        const fc = inboxes * tier.price + C.warmupTool;
         freshBlock = `<p class="big mono">${money(fc)}<span class="mo">/mo</span></p>
-          <p class="sub">$${tier.price.toFixed(2)} an inbox, plus ${money(domains * C.domainFresh)} once for ${domains} domain${domains === 1 ? '' : 's'}, or bring your own</p>
+          <p class="sub">$${tier.price.toFixed(2)} an inbox, a warmup tool at ${money(C.warmupTool)}, plus ${money(domains * C.domainFresh)} once for ${domains} domain${domains === 1 ? '' : 's'}, or bring your own</p>
           <p class="sub when">Sends after 14 to 21 days of warmup</p>`;
       }
 

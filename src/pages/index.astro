@@ -43,21 +43,21 @@ const lanes = [
 const steps = [
   ['Choose', 'Prewarmed or fresh, Google Workspace or Azure, and how many. All in one app.'],
   ['We build it', 'Domains, mailboxes, SPF, DKIM, DMARC and forwarding, on infrastructure isolated to you.'],
-  ['Connect and send', 'Plug into Instantly, Smartlead or any sequencer. Warmup keeps running underneath.'],
+  ['Connect and send', 'Prewarmed sends on arrival. Fresh goes on your warmup tool for 14 to 21 days first.'],
 ];
 
 const included = [
   ['Real accounts, your admin', 'Licensed Google Workspace and Azure mailboxes, not relays or shared seats.'],
   ['Isolated by design', 'Every domain in its own workspace, so nobody else’s sending touches yours.'],
   ['Authenticated on arrival', 'SPF, DKIM, DMARC and forwarding set and checked before you log in.'],
-  ['Warmup that keeps going', 'Warming continues underneath your campaigns, with no extra tool to pay for.'],
+  ['Works with any sender', 'Instantly, Smartlead, Email Bison or an AI agent. Sending through an agent? We keep prewarmed inboxes warming in our own pool.'],
   ['Advisors on WhatsApp', 'Cold email operators answer 24/7, before you buy and after.'],
   ['Free tools and AI agent', `${tools.total} free deliverability tools, and an agent that runs them inside your own AI.`],
 ];
 
 const faqs = [
-  ['What is the difference between prewarmed and fresh?', 'Prewarmed inboxes arrive on a free domain that has already been aged 30 days and warmed 21, so they send the day they land. Fresh inboxes are built on your own branded domain and warm up for 14 to 21 days first, for up to half the price per inbox.'],
-  ['How fast do I get them?', 'Prewarmed orders typically arrive the same day, and within 72 hours at the latest. Fresh orders arrive within 48 to 72 hours, then warm up before they send.'],
+  ['What is the difference between prewarmed and fresh?', 'Prewarmed inboxes arrive on a free domain that has already been aged 30 days and warmed 21, so they send the day they land. Fresh inboxes are built on your own branded domain, for up to half the price per inbox, and you warm them up on your own warmup tool (from about $97 a month) for 14 to 21 days first.'],
+  ['How fast do I get them?', 'Prewarmed orders typically arrive the same day, and within 72 hours at the latest. Fresh orders arrive within 48 to 72 hours, then go on your warmup tool before they send.'],
   ['Who owns the accounts?', 'You do. They are licensed Google Workspace and Azure mailboxes with you as admin, so you can rotate passwords and revoke access yourself.'],
   ['How many emails a day can I send?', 'We suggest 15 per Google inbox with three inboxes on each domain, and 2 per mailbox on a full Azure tenant of 100. Cautious on purpose, and the setup that keeps working month after month.'],
   ['Which sending tools do they work with?', 'Any of them. Instantly, Smartlead, Email Bison, ManyReach and the rest all connect the same way.'],
@@ -166,7 +166,7 @@ const check = '<svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true
             <tr><th scope="row">Ready to send</th><td class="yes" data-l="Prewarmed">On arrival</td><td data-l="Fresh">After 14 to 21 days</td><td data-l="Do it yourself">After about 51 days</td></tr>
             <tr><th scope="row">Domain</th><td class="yes" data-l="Prewarmed">FREE, already aged</td><td data-l="Fresh">Your own brand, or $12</td><td data-l="Do it yourself">You register it</td></tr>
             <tr><th scope="row">Mailbox price</th><td data-l="Prewarmed">Reseller rate</td><td class="yes" data-l="Fresh">Lowest per inbox</td><td data-l="Do it yourself">Retail list price</td></tr>
-            <tr><th scope="row">Warmup tool</th><td class="yes" data-l="Prewarmed">Not needed</td><td class="yes" data-l="Fresh">Not needed</td><td data-l="Do it yourself">From ${P['warmup-tool'].price} a month</td></tr>
+            <tr><th scope="row">Warmup tool</th><td class="yes" data-l="Prewarmed">Done before delivery</td><td data-l="Fresh">Yours, from ${P['warmup-tool'].price} a month</td><td data-l="Do it yourself">Yours, from ${P['warmup-tool'].price} a month</td></tr>
             <tr><th scope="row">SPF, DKIM, DMARC</th><td class="yes" data-l="Prewarmed">Set for you</td><td class="yes" data-l="Fresh">Set for you</td><td data-l="Do it yourself">You</td></tr>
           </tbody>
         </table>
