@@ -82,7 +82,9 @@ const schema = {
         <div class="card"><h3>Skip the 21-day warmup wait</h3><p class="muted">The aging and warming already happened on our clock. You typically get the logins the same day and send the day they arrive.</p></div>
       </div>
       <div class="means-cta">
-        <a class="btn btn-primary btn-lg" href={order({ page: 'home', placement: 'what-prewarmed-means' })} target="_blank" rel="noopener">Get prewarmed inboxes</a> <WhatsApp />
+        <a class="btn btn-primary btn-lg" href={order({ page: 'home', placement: 'what-prewarmed-means' })} target="_blank" rel="noopener">Get prewarmed inboxes</a>
+        <a class="btn btn-ghost btn-lg" href={order({ page: 'home', placement: 'warm-up-yourself' })} target="_blank" rel="noopener">Warm up yourself</a>
+        <WhatsApp />
         <Handoff />
       </div>
     </div>
@@ -164,7 +166,10 @@ const schema = {
 </Base>
 
 <style>
-  .means-cta { margin-top: 30px; }
+  .means-cta { margin-top: 30px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .means-cta :global(.wa) { margin-top: 0; }
+  .means-cta :global(.handoff) { flex-basis: 100%; margin-top: 0; }
+  @media (max-width: 560px) { .means-cta .btn, .means-cta :global(.wa) { width: 100%; } }
   /* Row headers for the comparison table: semantics without the column-head look. */
   tbody th[scope="row"] { text-align: left; font-weight: 400; color: var(--text-2); text-transform: none; letter-spacing: normal; font-size: inherit; }
   /* flex-start, not center: the Microsoft title wraps to two lines and the
